@@ -1,0 +1,364 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Button from '../../components/Button.astro';
+const base = import.meta.env.BASE_URL;
+---
+
+<BaseLayout title="Become a Magnalia Patron — Gregory the Great Institute" description="Join the Patrons sustaining Catholic intellectual life in Canada.">
+
+  <section class="section patron-hero">
+    <div class="container patron-hero__inner">
+      <div class="patron-hero__text">
+        <p class="label text-gold">An Invitation</p>
+        <h1>Become a Magnalia Patron</h1>
+        <p class="patron-hero__lead">
+          You're not buying a journal. You're funding the next issue.
+        </p>
+        <p class="patron-hero__body">
+          Magnalia exists because a small number of people believe that Catholic intellectual life
+          in Canada is worth sustaining. Patrons are the backbone of this work — the men and women
+          whose generosity makes it possible to commission essays, pay contributors, print 60 pages
+          of the best Catholic writing in Canada, and send it to every bishop and seminary rector
+          in the country.
+        </p>
+        <div class="patron-hero__cta">
+          <div class="patron-hero__price-block">
+            <span class="patron-hero__price">$50/month</span>
+            <span class="patron-hero__price-annual">($600/year)</span>
+          </div>
+          <Button href={`${base}contact/`} variant="primary">Become a Patron</Button>
+        </div>
+      </div>
+      <div class="patron-hero__cover">
+        <img src={`${base}images/branding/Magnalia_Cover.jpg`} alt="Magnalia Journal" class="patron-hero__img" />
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--linen">
+    <div class="container patron-impact">
+      <h2 class="patron-impact__title">What Your Patronage Builds</h2>
+      <div class="patron-impact__grid">
+        <div class="patron-impact__card">
+          <span class="patron-impact__number">1</span>
+          <p>Your $600 funds <strong>one full article</strong> in Magnalia — from commissioning to print.</p>
+        </div>
+        <div class="patron-impact__card">
+          <span class="patron-impact__number">15</span>
+          <p>Each Patron funds <strong>15 student subscriptions</strong>, putting Magnalia in the hands of the next generation.</p>
+        </div>
+        <div class="patron-impact__card">
+          <span class="patron-impact__number">60</span>
+          <p>You sustain <strong>60 pages</strong> of original Catholic scholarship, art, and cultural commentary each issue.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container patron-benefits">
+      <h2>What You Receive</h2>
+      <div class="patron-benefits__list">
+        <div class="patron-benefit">
+          <svg class="patron-benefit__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
+          <h3>Magnalia Subscription</h3>
+          <p>Two issues per year, delivered to your door — included with your patronage.</p>
+        </div>
+        <div class="patron-benefit">
+          <svg class="patron-benefit__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/></svg>
+          <h3>Named Recognition</h3>
+          <p>Your name printed in the Patrons' Roll of every issue published during your patronage.</p>
+        </div>
+        <div class="patron-benefit">
+          <svg class="patron-benefit__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          <h3>Quarterly Patron Conversation</h3>
+          <p>A private small-group conversation with Dr. Topping — recorded for those who can't attend live.</p>
+        </div>
+        <div class="patron-benefit">
+          <svg class="patron-benefit__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          <h3>Conference Priority</h3>
+          <p>Early-bird registration and 10% discount on the annual Renewing Culture Conference.</p>
+        </div>
+        <div class="patron-benefit">
+          <svg class="patron-benefit__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          <h3>Signed Welcome Gift</h3>
+          <p>A signed copy of Dr. Topping's <em>Renewing Catholic Schools</em> — sent to you when you join.</p>
+        </div>
+        <div class="patron-benefit">
+          <svg class="patron-benefit__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          <h3>Annual Personal Conversation</h3>
+          <p>A 30-minute one-on-one with Dr. Topping — virtual or in-person. Your questions, his full attention.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--dark patron-cta-section">
+    <div class="container patron-cta">
+      <h2 class="patron-cta__heading">Ready to Join?</h2>
+      <p class="patron-cta__proof">
+        Catholic intellectual life in Canada doesn't sustain itself. It takes people
+        who see the vision and act on it. If that's you, we'd be honoured to welcome you.
+      </p>
+      <div class="patron-cta__price">
+        <span class="patron-cta__amount">$50</span>
+        <span class="patron-cta__period">/month</span>
+        <span class="patron-cta__annual">($600/year)</span>
+      </div>
+      <Button href={`${base}contact/`} variant="primary">Become a Patron</Button>
+      <p class="patron-cta__note">
+        Prefer to talk first? <a href={`${base}contact/`}>Reach out</a> — we'd love to hear from you.
+      </p>
+    </div>
+  </section>
+
+  <section class="section--footnote">
+    <div class="container" style="text-align: center;">
+      <a href={`${base}magnalia/subscribe/`} class="back-link">← Back to All Subscription Options</a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .patron-hero__inner {
+    display: flex;
+    gap: 40px;
+    align-items: center;
+  }
+
+  .patron-hero__text {
+    flex: 1;
+  }
+
+  .patron-hero__text h1 {
+    font-size: 2.4rem;
+    color: var(--color-navy);
+    margin: 8px 0 20px;
+    line-height: 1.15;
+  }
+
+  .patron-hero__lead {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    font-style: italic;
+    color: var(--color-crimson);
+    margin-bottom: 16px;
+    line-height: 1.4;
+  }
+
+  .patron-hero__body {
+    font-family: var(--font-body);
+    font-size: 1.05rem;
+    color: var(--color-gray);
+    line-height: 1.8;
+  }
+
+  .patron-hero__cta {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-top: 20px;
+  }
+
+  .patron-hero__price-block {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .patron-hero__price {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--color-navy);
+    line-height: 1.2;
+  }
+
+  .patron-hero__price-annual {
+    font-family: var(--font-ui);
+    font-size: 0.8rem;
+    color: var(--color-gray);
+  }
+
+  .patron-hero__cover {
+    flex-shrink: 0;
+  }
+
+  .patron-hero__img {
+    width: 200px;
+    border-radius: 3px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+    transform: rotate(-2deg);
+  }
+
+  /* Impact */
+  .patron-impact {
+    text-align: center;
+  }
+
+  .patron-impact__title {
+    margin-bottom: 32px;
+  }
+
+  .patron-impact__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  .patron-impact__card {
+    padding: 24px;
+    background-color: white;
+    border-radius: 3px;
+    border-top: 3px solid var(--color-gold);
+  }
+
+  .patron-impact__number {
+    font-family: var(--font-display);
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--color-gold);
+    display: block;
+    line-height: 1;
+    margin-bottom: 12px;
+  }
+
+  .patron-impact__card p {
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    color: var(--color-gray);
+    line-height: 1.6;
+  }
+
+  /* Benefits */
+  .patron-benefits {
+    max-width: 720px;
+    margin-inline: auto;
+  }
+
+  .patron-benefits h2 {
+    text-align: center;
+    margin-bottom: 32px;
+  }
+
+  .patron-benefits__list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  .patron-benefit {
+    background-color: white;
+    border: 1px solid rgba(90, 90, 110, 0.1);
+    border-radius: 3px;
+    padding: 24px;
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+  }
+
+  .patron-benefit:hover {
+    border-color: var(--color-gold);
+    box-shadow: 0 4px 16px rgba(14, 51, 82, 0.06);
+  }
+
+  .patron-benefit__icon {
+    width: 28px;
+    height: 28px;
+    color: var(--color-crimson);
+    margin-bottom: 12px;
+    flex-shrink: 0;
+  }
+
+  .patron-benefit h3 {
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    color: var(--color-navy);
+    margin-bottom: 6px;
+  }
+
+  .patron-benefit p {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    color: var(--color-gray);
+    line-height: 1.6;
+  }
+
+  /* CTA */
+  .patron-cta {
+    text-align: center;
+    max-width: 500px;
+    margin-inline: auto;
+  }
+
+  .patron-cta__heading {
+    font-family: var(--font-display);
+    font-size: 1.8rem;
+    color: var(--color-text-on-dark);
+    margin-bottom: 12px;
+  }
+
+  .patron-cta__proof {
+    font-family: var(--font-body);
+    font-size: 1.1rem;
+    color: rgba(245, 239, 229, 0.85);
+    margin-bottom: 20px;
+    line-height: 1.6;
+  }
+
+  .patron-cta__price {
+    margin-bottom: 24px;
+  }
+
+  .patron-cta__amount {
+    font-family: var(--font-display);
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--color-text-on-dark);
+  }
+
+  .patron-cta__period {
+    font-family: var(--font-ui);
+    font-size: 1rem;
+    color: rgba(245, 239, 229, 0.6);
+  }
+
+  .patron-cta__annual {
+    display: block;
+    font-family: var(--font-ui);
+    font-size: 0.85rem;
+    color: rgba(245, 239, 229, 0.5);
+    margin-top: 4px;
+  }
+
+  .patron-cta__note {
+    font-family: var(--font-ui);
+    font-size: 0.85rem;
+    color: rgba(245, 239, 229, 0.5);
+    margin-top: 16px;
+  }
+
+  .patron-cta__note a {
+    color: var(--color-gold);
+    text-decoration: none;
+  }
+
+  .back-link {
+    font-family: var(--font-ui);
+    font-size: 0.9rem;
+    color: var(--color-gold);
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  .back-link:hover { color: var(--color-crimson); }
+
+  @media (max-width: 640px) {
+    .patron-hero__inner {
+      flex-direction: column;
+      text-align: center;
+    }
+    .patron-hero__text h1 { font-size: 1.8rem; }
+    .patron-hero__cta { justify-content: center; }
+    .patron-hero__img { width: 160px; }
+    .patron-impact__grid { grid-template-columns: 1fr; }
+    .patron-benefits__list { grid-template-columns: 1fr; }
+  }
+</style>

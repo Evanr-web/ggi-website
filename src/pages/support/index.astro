@@ -34,11 +34,12 @@ import SectionDivider from '../../components/SectionDivider.astro';
           benefits={[
             "Monthly prayer inclusion",
             "Magnalia Letter (free newsletter)",
+            "Magnalia digital edition (PDF)",
             "Early event registration",
             "Named recognition on the website"
           ]}
           ctaText="Become a Friend"
-          ctaHref="/support/donate"
+          ctaHref={`${import.meta.env.BASE_URL}support/donate/`}
         />
         <GivingTier
           name="Patron"
@@ -48,13 +49,15 @@ import SectionDivider from '../../components/SectionDivider.astro';
           benefits={[
             "Everything in Friend, plus:",
             "Magnalia print subscription included",
-            "Quarterly Q&A with Dr. Topping",
+            "Quarterly Patron Conversation with Dr. Topping",
             "Named recognition in Magnalia",
-            "Invitation to annual Patron dinner"
+            "Signed copy of Renewing Catholic Schools",
+            "Annual personal conversation with Dr. Topping",
+            "Conference early-bird + 10% discount"
           ]}
           featured={true}
           ctaText="Become a Patron"
-          ctaHref="/support/donate"
+          ctaHref={`${import.meta.env.BASE_URL}magnalia/patron/`}
         />
         <GivingTier
           name="Underwriter"
@@ -69,7 +72,7 @@ import SectionDivider from '../../components/SectionDivider.astro';
             "Personal briefing on Institute direction"
           ]}
           ctaText="Become an Underwriter"
-          ctaHref="/support/donate"
+          ctaHref={`${import.meta.env.BASE_URL}support/donate/`}
         />
         <GivingTier
           name="Leadership Circle"
@@ -84,7 +87,7 @@ import SectionDivider from '../../components/SectionDivider.astro';
             "Quarterly strategic briefings"
           ]}
           ctaText="Join the Leadership Circle"
-          ctaHref="/contact"
+          ctaHref={`${import.meta.env.BASE_URL}contact/`}
         />
       </div>
 
@@ -165,12 +168,12 @@ import SectionDivider from '../../components/SectionDivider.astro';
   <section class="section">
     <div class="container institutional-section">
       <div class="institutional-card">
-        <h2>For Clergy & Institutions</h2>
+        <h2>For Parishes, Seminaries & Institutions</h2>
         <p>
-          Order Magnalia for your parish, seminary, or library. Institutional subscriptions are $150/year.
+          Put Magnalia in the hands of your community. Bulk orders of 10+ copies at $30 each — ideal for narthex distribution, seminary libraries, and reading groups.
         </p>
         <div class="institutional-ctas">
-          <Button href={`${import.meta.env.BASE_URL}magnalia/subscribe/`} variant="secondary" size="small">Order Institutional Subscription</Button>
+          <Button href={`${import.meta.env.BASE_URL}magnalia/subscribe/`} variant="secondary" size="small">Place a Bulk Order</Button>
           <Button href={`${import.meta.env.BASE_URL}contact/`} variant="tertiary" size="small">Invite Dr. Topping to Speak →</Button>
         </div>
       </div>

@@ -135,6 +135,11 @@ img {
   display: block;
 }
 
+/* Optional warm classical filter — apply with class="art-filter" */
+.art-filter {
+  filter: sepia(0.08) saturate(0.9) brightness(0.98);
+}
+
 /* --- Container --- */
 .container {
   width: 100%;
@@ -176,7 +181,7 @@ img {
   border: none;
   height: 1px;
   background-color: var(--color-gold);
-  margin-block: 16px;
+  margin-block: 8px;
 }
 
 .gold-rule--thick {

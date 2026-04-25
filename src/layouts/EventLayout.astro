@@ -13,9 +13,10 @@ interface Props {
   past?: boolean;
   ctaText?: string;
   ctaHref?: string;
+  artFilter?: boolean;
 }
 
-const { title, date, endDate, location, image, imageAlt = '', tag, past = false, ctaText, ctaHref } = Astro.props;
+const { title, date, endDate, location, image, imageAlt = '', tag, past = false, ctaText, ctaHref, artFilter = false } = Astro.props;
 const base = import.meta.env.BASE_URL;
 
 const formatDate = (d: string) => {
@@ -27,7 +28,7 @@ const formatDate = (d: string) => {
 <BaseLayout title={`${title} — Gregory the Great Institute`}>
   {image && (
     <div class="event-hero">
-      <img src={image.startsWith('/') ? `${base}${image.slice(1)}` : image} alt={imageAlt} class="event-hero__img" />
+      <img src={image.startsWith('/') ? `${base}${image.slice(1)}` : image} alt={imageAlt} class={`event-hero__img${artFilter ? ' art-filter' : ''}`} />
     </div>
   )}
 

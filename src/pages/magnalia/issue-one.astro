@@ -28,52 +28,80 @@ const base = import.meta.env.BASE_URL;
       <h2>Table of Contents</h2>
 
       <div class="toc-section">
-        <h3 class="toc-section__label">Essays</h3>
+        <h3 class="toc-section__label">Features</h3>
         <div class="toc-entry">
-          <span class="toc-entry__title">The Recovery of Sunday</span>
-          <span class="toc-entry__author">Dr. Ryan N.S. Topping</span>
-          <p class="toc-entry__desc">What would it mean for Canadian Catholic culture if we recovered the ancient practice of the Lord's Day?</p>
+          <span class="toc-entry__page">4</span>
+          <span class="toc-entry__title">Editor's Welcome</span>
         </div>
         <div class="toc-entry">
-          <span class="toc-entry__title">Classical Education and the Canadian Imagination</span>
-          <span class="toc-entry__author">Dr. Celene Sidloski</span>
-          <p class="toc-entry__desc">How the Great Books tradition can reshape Catholic intellectual life in Canada.</p>
+          <span class="toc-entry__page">5</span>
+          <span class="toc-entry__title">Letters to the Editor</span>
         </div>
         <div class="toc-entry">
-          <span class="toc-entry__title">When Medicine Forgets Its Vocation</span>
-          <span class="toc-entry__author">Dr. Joseph Woodard</span>
-          <p class="toc-entry__desc">Bioethics, conscience, and the erosion of the healing profession's soul.</p>
-        </div>
-      </div>
-
-      <div class="toc-section">
-        <h3 class="toc-section__label">Letters</h3>
-        <div class="toc-entry">
-          <span class="toc-entry__title">From the Western Front</span>
-          <span class="toc-entry__author">Victor Carpay</span>
-          <p class="toc-entry__desc">Catholic life in Alberta — dispatches from the field on what's working and what's needed.</p>
+          <span class="toc-entry__page">10</span>
+          <span class="toc-entry__title">Opinions</span>
         </div>
         <div class="toc-entry">
-          <span class="toc-entry__title">A Fine Gathering in Ottawa</span>
-          <span class="toc-entry__author">Mark Ingham</span>
-          <p class="toc-entry__desc">Reflections on Catholic community and cultural renewal in the capital.</p>
+          <span class="toc-entry__page">21</span>
+          <span class="toc-entry__title">Interview</span>
         </div>
       </div>
 
       <div class="toc-section">
-        <h3 class="toc-section__label">Interviews</h3>
+        <h3 class="toc-section__label">Articles</h3>
         <div class="toc-entry">
-          <span class="toc-entry__title">On Building Culture in Times of Upheaval</span>
-          <span class="toc-entry__author">Fr. Michael Bombak</span>
-          <p class="toc-entry__desc">A conversation on faith, institution-building, and the long view.</p>
+          <span class="toc-entry__page">24</span>
+          <div>
+            <span class="toc-entry__title">C.S. Lewis and the Fathers</span>
+            <span class="toc-entry__author">Ryan Scruggs</span>
+            <p class="toc-entry__desc">What the Inklings' most famous convert learned from the Church Fathers — and what modern readers can still discover there.</p>
+          </div>
         </div>
-      </div>
-
-      <div class="toc-section">
-        <h3 class="toc-section__label">Reviews & Art</h3>
         <div class="toc-entry">
-          <span class="toc-entry__title">Visual art, book reviews, and cultural commentary</span>
-          <span class="toc-entry__author">Various contributors</span>
+          <span class="toc-entry__page">32</span>
+          <div>
+            <span class="toc-entry__title">Heart Speaks to Heart</span>
+            <span class="toc-entry__author">Thomas Cardinal Collins</span>
+            <p class="toc-entry__desc">The Archbishop Emeritus of Toronto on Newman's motto, the life of the mind, and the renewal of Catholic culture in Canada.</p>
+          </div>
+        </div>
+        <div class="toc-entry">
+          <span class="toc-entry__page">40</span>
+          <div>
+            <span class="toc-entry__title">Irrigating the New Deserts</span>
+            <span class="toc-entry__author">Dr. Ryan N.S. Topping</span>
+            <p class="toc-entry__desc">The case for Catholic institution-building in an age of cultural drought — and a roadmap for how to begin.</p>
+          </div>
+        </div>
+        <div class="toc-entry">
+          <span class="toc-entry__page">46</span>
+          <div>
+            <span class="toc-entry__title">The Nursery Rhyme Metaphysic</span>
+            <span class="toc-entry__author">Dr. Celene Sidloski</span>
+            <p class="toc-entry__desc">How the imaginative world of childhood verse encodes deep truths about reality — and why it matters for classical education.</p>
+          </div>
+        </div>
+        <div class="toc-entry">
+          <span class="toc-entry__page">51</span>
+          <div>
+            <span class="toc-entry__title">AI and the Future of Humanity</span>
+            <span class="toc-entry__author">Dr. Gerard McLarney</span>
+            <p class="toc-entry__desc">A Catholic philosopher confronts the promises and perils of artificial intelligence for human dignity and the common good.</p>
+          </div>
+        </div>
+        <div class="toc-entry">
+          <span class="toc-entry__page">57</span>
+          <div>
+            <span class="toc-entry__title">The Great Tradition</span>
+            <p class="toc-entry__desc">A curated reading list and guide to the texts that shaped Western Christian civilization.</p>
+          </div>
+        </div>
+        <div class="toc-entry">
+          <span class="toc-entry__page">59</span>
+          <div>
+            <span class="toc-entry__title">Northern Lights</span>
+            <p class="toc-entry__desc">Dispatches, reviews, and cultural commentary from across Canada.</p>
+          </div>
         </div>
       </div>
 
@@ -142,8 +170,20 @@ const base = import.meta.env.BASE_URL;
   }
 
   .toc-entry {
-    padding: 12px 0;
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    padding: 10px 0;
     border-bottom: 1px solid rgba(90, 90, 110, 0.06);
+  }
+
+  .toc-entry__page {
+    font-family: var(--font-ui);
+    font-size: 0.85rem;
+    color: var(--color-gray);
+    min-width: 24px;
+    text-align: right;
+    flex-shrink: 0;
   }
 
   .toc-entry__title {
@@ -152,7 +192,6 @@ const base = import.meta.env.BASE_URL;
     font-weight: 600;
     color: var(--color-navy);
     display: block;
-    margin-bottom: 2px;
   }
 
   .toc-entry__author {
@@ -160,14 +199,16 @@ const base = import.meta.env.BASE_URL;
     font-size: 0.85rem;
     color: var(--color-gold);
     font-weight: 500;
+    display: block;
+    margin-top: 2px;
   }
 
   .toc-entry__desc {
     font-family: var(--font-body);
-    font-size: 0.9rem;
+    font-size: 0.88rem;
     color: var(--color-gray);
-    margin-top: 6px;
     line-height: 1.5;
+    margin-top: 4px;
   }
 
   .toc-cta {

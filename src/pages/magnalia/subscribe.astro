@@ -7,15 +7,18 @@ const base = import.meta.env.BASE_URL;
 
 <BaseLayout title="Subscribe to Magnalia — Gregory the Great Institute" description="Subscribe to Magnalia, the journal of Catholic cultural renewal in Canada.">
 
-  <section class="section">
+  <section class="section" style="padding-bottom: 24px;">
     <div class="container subscribe-page">
       <div class="subscribe-page__header">
-        <p class="label text-gold">Subscribe</p>
-        <h1>Read Magnalia</h1>
-        <p class="subscribe-page__intro">
-          60 pages of the best Catholic writing in Canada, delivered to your door twice yearly.
-          Essays, letters, interviews, reviews, and art from leading Catholic thinkers.
-        </p>
+        <img src={`${base}images/branding/Magnalia_Cover.jpg`} alt="Magnalia Journal cover" class="subscribe-page__cover" />
+        <div>
+          <p class="label text-gold">Subscribe</p>
+          <h1>Read Magnalia</h1>
+          <p class="subscribe-page__intro">
+            60 pages of the best Catholic writing in Canada, delivered to your door twice yearly.
+            Essays, letters, interviews, reviews, and art from leading Catholic thinkers.
+          </p>
+        </div>
       </div>
 
       <div class="subscribe-tiers">
@@ -36,37 +39,40 @@ const base = import.meta.env.BASE_URL;
 
         <div class="subscribe-tier">
           <h3>Magnalia Patron</h3>
-          <p class="subscribe-tier__price">$500<span class="subscribe-tier__period">/year</span></p>
-          <p class="subscribe-tier__desc">Subscription + named recognition in the journal + quarterly Q&A with the editor.</p>
-          <Button href={`${base}contact/`} variant="secondary" size="small">Become a Patron</Button>
+          <p class="subscribe-tier__price">$600<span class="subscribe-tier__period">/year</span></p>
+          <p class="subscribe-tier__desc">Subscription + named recognition + Patron Conversations + signed book + annual one-on-one with Dr. Topping.</p>
+          <Button href={`${base}magnalia/patron/`} variant="secondary" size="small">Learn More</Button>
         </div>
       </div>
 
       <div class="subscribe-special">
-        <p><strong>Student & seminarian rate:</strong> $30/year</p>
-        <p><strong>Family rate:</strong> $50/year</p>
+        <p><strong>Students & Seminarians: 50% off</strong> any subscription. Select "Student/Seminarian" at checkout.</p>
       </div>
     </div>
   </section>
 
-  <SectionDivider />
+  <div style="padding-inline: var(--space-component);">
+    <SectionDivider />
+  </div>
 
-  <section class="section section--linen" id="institutional">
+  <section class="section" id="institutional" style="padding-top: 24px;">
     <div class="container subscribe-page">
-      <h2>For Clergy & Institutions</h2>
-      <p class="subscribe-page__intro">
-        Order Magnalia for your parish, seminary, school, or library. Institutional subscriptions
-        ensure that the best Catholic writing reaches the people who need it most.
-      </p>
-      <div class="institutional-details">
-        <p><strong>Institutional subscription:</strong> $150/year (2 issues)</p>
-        <p><strong>Bulk orders:</strong> 10+ copies at $30 each — ideal for parish distribution</p>
+      <div class="institutional-box">
+        <img src={`${base}images/branding/magnalia-stack.png`} alt="Stack of Magnalia journals" class="institutional-stack" />
+        <div class="institutional-text">
+          <h2>For Parishes, Seminaries & Institutions</h2>
+          <p>
+            Put Magnalia in the hands of your community. Single copies are available at the standard rate.
+            Ordering for a parish, seminary, or library? Bulk pricing makes it easy to distribute widely.
+          </p>
+          <p class="institutional-pricing"><strong>Single copy:</strong> $45 &nbsp;·&nbsp; <strong>Bulk (10+):</strong> $30/copy</p>
+          <Button href={`${base}contact/`} variant="primary">Place a Bulk Order</Button>
+        </div>
       </div>
-      <Button href={`${base}contact/`} variant="primary">Request an Institutional Subscription</Button>
     </div>
   </section>
 
-  <section class="section" style="text-align: center;">
+  <section class="section" style="text-align: center; padding-top: 24px;">
     <div class="container" style="max-width: 500px;">
       <h2 style="margin-bottom: 12px;">Not Ready to Subscribe?</h2>
       <p style="font-family: var(--font-body); color: var(--color-gray); margin-bottom: 20px; line-height: 1.6;">
@@ -90,8 +96,18 @@ const base = import.meta.env.BASE_URL;
   }
 
   .subscribe-page__header {
-    text-align: center;
+    display: flex;
+    gap: 32px;
+    align-items: center;
     margin-bottom: 40px;
+  }
+
+  .subscribe-page__cover {
+    width: 180px;
+    border-radius: 3px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+    transform: rotate(-2deg);
+    flex-shrink: 0;
   }
 
   .subscribe-page__header h1 {
@@ -105,8 +121,19 @@ const base = import.meta.env.BASE_URL;
     font-size: 1.05rem;
     color: var(--color-gray);
     line-height: 1.7;
-    max-width: 600px;
-    margin-inline: auto;
+  }
+
+  @media (max-width: 640px) {
+    .subscribe-page__header {
+      flex-direction: column;
+      text-align: center;
+    }
+    .subscribe-page__cover {
+      width: 140px;
+    }
+    .subscribe-page__header h1 {
+      font-size: 1.8rem;
+    }
   }
 
   .subscribe-tiers {
@@ -183,12 +210,55 @@ const base = import.meta.env.BASE_URL;
     margin-bottom: 4px;
   }
 
-  .institutional-details {
+  .institutional-stack {
+    width: 220px;
+    margin-bottom: 20px;
+  }
+
+  .institutional-box {
+    background-color: white;
+    border: 1px solid rgba(90, 90, 110, 0.1);
+    border-radius: 3px;
+    padding: 40px;
+    display: flex;
+    gap: 32px;
+    align-items: center;
+  }
+
+  .institutional-box > :not(.institutional-stack) {
+    text-align: left;
+  }
+
+  @media (max-width: 640px) {
+    .institutional-box {
+      flex-direction: column;
+      text-align: center;
+    }
+    .institutional-box > :not(.institutional-stack) {
+      text-align: center;
+    }
+    .institutional-stack {
+      width: 160px;
+    }
+  }
+
+  .institutional-box h2 {
+    margin-bottom: 12px;
+  }
+
+  .institutional-box > p {
     font-family: var(--font-body);
     font-size: 1rem;
+    color: var(--color-gray);
+    line-height: 1.6;
+  }
+
+  .institutional-pricing {
+    font-family: var(--font-body);
+    font-size: 1.05rem;
     color: var(--color-ink);
     margin: 20px 0 24px;
-    line-height: 1.7;
+    text-align: center;
   }
 
   .back-link {
