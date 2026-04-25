@@ -1,0 +1,35 @@
+---
+interface Props {
+  heading?: string;
+  subheading?: string;
+}
+
+const { heading, subheading } = Astro.props;
+---
+
+<section class="section section--dark">
+  <div class="container text-center">
+    {heading && <h2 class="dark-section__heading">{heading}</h2>}
+    {subheading && <p class="dark-section__sub">{subheading}</p>}
+    <slot />
+  </div>
+</section>
+
+<style>
+  .dark-section__heading {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    color: var(--color-text-on-dark);
+    margin-bottom: 16px;
+  }
+
+  .dark-section__sub {
+    font-family: var(--font-body);
+    font-size: 1.05rem;
+    color: rgba(245, 239, 229, 0.8);
+    max-width: 600px;
+    margin-inline: auto;
+    margin-bottom: 32px;
+    line-height: 1.7;
+  }
+</style>

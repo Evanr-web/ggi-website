@@ -1,0 +1,72 @@
+---
+interface Props {
+  href: string;
+  variant?: 'primary' | 'secondary' | 'tertiary';
+  size?: 'default' | 'small';
+}
+
+const { href, variant = 'primary', size = 'default' } = Astro.props;
+---
+
+<a href={href} class:list={['btn', `btn--${variant}`, size === 'small' && 'btn--small']}>
+  <slot />
+</a>
+
+<style>
+  .btn {
+    display: inline-block;
+    font-family: var(--font-display);
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 3px;
+    transition: all var(--transition-fast);
+    cursor: pointer;
+    white-space: nowrap;
+  }
+
+  .btn--primary {
+    font-size: 1rem;
+    color: var(--color-parchment);
+    background-color: var(--color-crimson);
+    padding: 14px 32px;
+  }
+
+  .btn--primary:hover {
+    background-color: #6b2124;
+    color: var(--color-parchment);
+  }
+
+  .btn--secondary {
+    font-size: 1rem;
+    color: var(--color-gold);
+    background: transparent;
+    border: 1.5px solid var(--color-gold);
+    padding: 12px 30px;
+  }
+
+  .btn--secondary:hover {
+    background-color: var(--color-gold);
+    color: var(--color-navy);
+  }
+
+  .btn--tertiary {
+    font-size: 0.95rem;
+    color: var(--color-gold);
+    background: transparent;
+    padding: 8px 4px;
+    border-bottom: 1px solid transparent;
+  }
+
+  .btn--tertiary:hover {
+    border-bottom-color: var(--color-gold);
+  }
+
+  .btn--small {
+    font-size: 0.875rem;
+    padding: 10px 24px;
+  }
+
+  .btn--small.btn--secondary {
+    padding: 8px 22px;
+  }
+</style>

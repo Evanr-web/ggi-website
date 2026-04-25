@@ -1,0 +1,206 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import Card from '../components/Card.astro';
+import Button from '../components/Button.astro';
+import QuoteBlock from '../components/QuoteBlock.astro';
+import SectionDivider from '../components/SectionDivider.astro';
+import DarkSection from '../components/DarkSection.astro';
+---
+
+<BaseLayout title="Inspiring Canadian Catholic Culture">
+
+  <!-- Hero -->
+  <Hero
+    tagline="Fides • Ratio • Cultura"
+    headline="Inspiring Canadian Catholic Culture"
+    subtitle="Forming leaders, teaching the tradition, publishing research — equipping Christians to renew culture in the light of faith and reason."
+    ctaText="Explore Our Work"
+    ctaHref="/programs"
+    variant="navy"
+  />
+
+  <!-- Endorsement -->
+  <section class="section">
+    <div class="container">
+      <QuoteBlock
+        quote="A faith that does not become culture is not fully accepted, not entirely thought out, not faithfully lived."
+        attribution="Pope St. John Paul II"
+      />
+    </div>
+  </section>
+
+  <SectionDivider />
+
+  <!-- What We Do -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <p class="label text-gold">What We Do</p>
+        <h2>Formation, Courses, Publications</h2>
+        <p class="section-header__sub">
+          Through courses, formation programs, and publications, the Gregory the Great Institute
+          helps believers transform contemporary culture in the light of faith and reason.
+        </p>
+      </div>
+
+      <div class="card-grid">
+        <Card
+          title="Renewing Culture Conference"
+          description="Join Christians from across Western Canada as renowned speakers explore cutting-edge topics through the lens of the great tradition."
+          meta="Oct 2–3, 2026"
+          href="/events"
+        />
+        <Card
+          title="Magnalia Journal"
+          description="A 60-page journal of letters, essays, and art meant to build up Canadian Catholic culture. The journal of Catholic cultural renewal in Canada."
+          meta="Print Journal"
+          href="/magnalia"
+        />
+        <Card
+          title="Book Studies"
+          description="Free reading groups across Canada exploring treasures of culture — from Fr. Jacques Philippe to Josef Pieper — building up communities."
+          meta="Nationwide"
+          href="/events"
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- Dark CTA Section -->
+  <DarkSection
+    heading="Support Catholic Cultural Renewal"
+    subheading="Your patronage funds the best Catholic writing, formation, and events in Canada. Join a growing community of Christians committed to renewing culture."
+  >
+    <div class="cta-row">
+      <Button href="/give" variant="primary">Become a Patron</Button>
+      <Button href="/magnalia" variant="secondary">Subscribe to Magnalia</Button>
+    </div>
+  </DarkSection>
+
+  <!-- Second Quote -->
+  <section class="section">
+    <div class="container">
+      <QuoteBlock
+        quote="I have appreciated Dr. Ryan Topping's work for several years. I support the mission of the Gregory the Great Institute and look forward to seeing the good it will bring to the Church in Canada."
+        attribution="Michael D. O'Brien"
+        title="Canadian author and painter"
+      />
+    </div>
+  </section>
+
+  <SectionDivider />
+
+  <!-- Upcoming Events -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <p class="label text-gold">Upcoming</p>
+        <h2>Events & Programs</h2>
+      </div>
+
+      <div class="card-grid">
+        <Card
+          title="Bringing Back Sunday"
+          description="2nd Annual Renewing Culture Conference. Reflections on Josef Pieper's Leisure: The Basis of Culture."
+          meta="Oct 2–3, 2026 · Mt Carmel Spirituality Centre"
+          href="/events"
+        />
+        <Card
+          title="St. Gregory's Music & Leadership Camp"
+          description="Four nights of fiddle, penny whistle, voice, games, prayer, and leadership for youth ages 12–18."
+          meta="Jul 12–16, 2026 · Solara Water's Edge"
+          href="/events"
+        />
+        <Card
+          title="Personal Finances 101"
+          description="Master your money, serve your vocation. Financial literacy as stewardship and Catholic formation."
+          meta="Apr 25, 2026 · Concordia University"
+          href="/events"
+        />
+      </div>
+
+      <div class="section-footer">
+        <Button href="/events" variant="tertiary">View All Events →</Button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Newsletter CTA -->
+  <DarkSection
+    heading="Stay Connected"
+    subheading="Receive news, insights, and invitations from the Institute. Join the Magnalia Letter."
+  >
+    <div class="newsletter-placeholder">
+      <p class="newsletter-note">Newsletter signup form will be connected to ActiveCampaign</p>
+    </div>
+  </DarkSection>
+
+</BaseLayout>
+
+<style>
+  .section-header {
+    text-align: center;
+    margin-bottom: var(--space-component);
+    max-width: 640px;
+    margin-inline: auto;
+  }
+
+  .section-header h2 {
+    margin-top: 8px;
+    margin-bottom: 16px;
+  }
+
+  .section-header__sub {
+    font-family: var(--font-body);
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: var(--color-gray);
+  }
+
+  .card-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  @media (min-width: 640px) {
+    .card-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .card-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .section-footer {
+    text-align: center;
+    margin-top: var(--space-component);
+  }
+
+  .cta-row {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .newsletter-placeholder {
+    background: rgba(245, 239, 229, 0.06);
+    border: 1px dashed rgba(245, 239, 229, 0.2);
+    border-radius: 3px;
+    padding: 32px;
+    max-width: 480px;
+    margin-inline: auto;
+  }
+
+  .newsletter-note {
+    font-family: var(--font-ui);
+    font-size: 0.85rem;
+    color: rgba(245, 239, 229, 0.4);
+    text-align: center;
+  }
+</style>

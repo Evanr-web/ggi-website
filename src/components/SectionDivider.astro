@@ -1,0 +1,16 @@
+---
+interface Props {
+  thick?: boolean;
+  contained?: boolean;
+}
+
+const { thick = false, contained = true } = Astro.props;
+---
+
+{contained ? (
+  <div class="container">
+    <hr class:list={['gold-rule', thick && 'gold-rule--thick']} />
+  </div>
+) : (
+  <hr class:list={['gold-rule', thick && 'gold-rule--thick']} />
+)}

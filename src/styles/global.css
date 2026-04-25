@@ -1,0 +1,206 @@
+/* ============================================
+   GGI Global Styles — Gregory the Great Institute
+   ============================================ */
+
+/* --- Google Fonts --- */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@400;500;600&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap');
+
+/* --- Design Tokens --- */
+:root {
+  /* Primary */
+  --color-navy: #0e3352;
+  --color-gold: #b89a47;
+  --color-crimson: #84292d;
+
+  /* Secondary */
+  --color-parchment: #f8ebd9;
+  --color-ivory: #e2e1cb;
+  --color-linen: #faf6f0;
+
+  /* Functional */
+  --color-ink: #1a1a2e;
+  --color-gray: #5a5a6e;
+  --color-text-on-dark: #f5efe5;
+  --color-success: #2d6a4f;
+  --color-error: #9b2c2c;
+
+  /* Typography */
+  --font-display: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
+  --font-body: 'Source Serif 4', 'Lora', Georgia, serif;
+  --font-ui: 'Inter', system-ui, -apple-system, sans-serif;
+
+  /* Spacing */
+  --space-section: 80px;
+  --space-component: 40px;
+  --space-element: 16px;
+  --max-content-width: 1200px;
+  --max-prose-width: 680px;
+
+  /* Transitions */
+  --transition-fast: 150ms ease;
+  --transition-base: 250ms ease;
+}
+
+/* --- Reset & Base --- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--color-ink);
+  background-color: var(--color-parchment);
+}
+
+/* --- Typography --- */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--color-navy);
+}
+
+.display {
+  font-size: 3.052rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+h1 { font-size: 2.441rem; }
+h2 { font-size: 1.953rem; }
+h3 { font-size: 1.563rem; }
+h4 { font-size: 1.25rem; }
+
+.small {
+  font-size: 0.875rem;
+}
+
+.caption {
+  font-size: 0.75rem;
+}
+
+/* Body emphasis: italic, not bold */
+em, .emphasis {
+  font-style: italic;
+}
+
+/* All-caps labels */
+.label, .overline {
+  font-family: var(--font-ui);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* Prose container */
+.prose {
+  max-width: var(--max-prose-width);
+  font-family: var(--font-body);
+  line-height: 1.7;
+}
+
+.prose p + p {
+  margin-top: 1.25em;
+}
+
+/* --- Links --- */
+a {
+  color: var(--color-gold);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+a:hover {
+  color: var(--color-crimson);
+}
+
+/* --- Images --- */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* --- Container --- */
+.container {
+  width: 100%;
+  max-width: var(--max-content-width);
+  margin-inline: auto;
+  padding-inline: var(--space-element);
+}
+
+@media (min-width: 640px) {
+  .container {
+    padding-inline: var(--space-component);
+  }
+}
+
+/* --- Section spacing --- */
+.section {
+  padding-block: var(--space-section);
+}
+
+/* --- Dark section (navy bg) --- */
+.section--dark {
+  background-color: var(--color-navy);
+  color: var(--color-text-on-dark);
+}
+
+.section--dark h1,
+.section--dark h2,
+.section--dark h3,
+.section--dark h4 {
+  color: var(--color-text-on-dark);
+}
+
+.section--dark a {
+  color: var(--color-gold);
+}
+
+/* --- Gold rule divider --- */
+.gold-rule {
+  border: none;
+  height: 1px;
+  background-color: var(--color-gold);
+  margin-block: var(--space-component);
+}
+
+.gold-rule--thick {
+  height: 2px;
+}
+
+/* --- Utility --- */
+.text-center { text-align: center; }
+.text-gold { color: var(--color-gold); }
+.text-cream { color: var(--color-text-on-dark); }
+.text-navy { color: var(--color-navy); }
+.text-crimson { color: var(--color-crimson); }
+.font-display { font-family: var(--font-display); }
+.font-body { font-family: var(--font-body); }
+.font-ui { font-family: var(--font-ui); }
+
+/* --- Responsive type scale --- */
+@media (max-width: 640px) {
+  .display { font-size: 2.2rem; }
+  h1 { font-size: 1.8rem; }
+  h2 { font-size: 1.5rem; }
+  h3 { font-size: 1.25rem; }
+  :root {
+    --space-section: 48px;
+    --space-component: 24px;
+  }
+}

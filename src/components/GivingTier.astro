@@ -1,0 +1,161 @@
+---
+interface Props {
+  name: string;
+  monthlyPrice: string;
+  annualPrice: string;
+  description: string;
+  benefits: string[];
+  featured?: boolean;
+  ctaText?: string;
+  ctaHref?: string;
+}
+
+const {
+  name,
+  monthlyPrice,
+  annualPrice,
+  description,
+  benefits,
+  featured = false,
+  ctaText = 'Become a ' + name,
+  ctaHref = '/give',
+} = Astro.props;
+---
+
+<article class:list={['tier', featured && 'tier--featured']}>
+  <div class="tier__header">
+    <h3 class="tier__name">{name}</h3>
+    <p class="tier__price">
+      <span class="tier__amount">{monthlyPrice}</span>
+      <span class="tier__period">/month</span>
+    </p>
+    <p class="tier__annual">({annualPrice}/year)</p>
+  </div>
+
+  <p class="tier__desc">{description}</p>
+
+  <ul class="tier__benefits">
+    {benefits.map(benefit => (
+      <li class="tier__benefit">{benefit}</li>
+    ))}
+  </ul>
+
+  <a href={ctaHref} class:list={['tier__cta', featured && 'tier__cta--featured']}>
+    {ctaText}
+  </a>
+</article>
+
+<style>
+  .tier {
+    background-color: var(--color-linen);
+    border: 1px solid rgba(90, 90, 110, 0.12);
+    border-radius: 3px;
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .tier--featured {
+    border: 2px solid var(--color-gold);
+    position: relative;
+  }
+
+  .tier__header {
+    margin-bottom: 20px;
+  }
+
+  .tier__name {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--color-navy);
+    margin-bottom: 8px;
+  }
+
+  .tier__amount {
+    font-family: var(--font-display);
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--color-navy);
+  }
+
+  .tier__period {
+    font-family: var(--font-ui);
+    font-size: 0.85rem;
+    color: var(--color-gray);
+  }
+
+  .tier__annual {
+    font-family: var(--font-ui);
+    font-size: 0.8rem;
+    color: var(--color-gray);
+    margin-top: 2px;
+  }
+
+  .tier__desc {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--color-gray);
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(90, 90, 110, 0.1);
+  }
+
+  .tier__benefits {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 28px;
+    flex-grow: 1;
+  }
+
+  .tier__benefit {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: var(--color-ink);
+    padding-left: 20px;
+    position: relative;
+  }
+
+  .tier__benefit::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: var(--color-gold);
+    font-weight: 700;
+  }
+
+  .tier__cta {
+    display: block;
+    text-align: center;
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 600;
+    padding: 14px 24px;
+    border-radius: 3px;
+    text-decoration: none;
+    transition: all var(--transition-fast);
+    color: var(--color-gold);
+    border: 1.5px solid var(--color-gold);
+    background: transparent;
+  }
+
+  .tier__cta:hover {
+    background-color: var(--color-gold);
+    color: var(--color-navy);
+  }
+
+  .tier__cta--featured {
+    background-color: var(--color-crimson);
+    color: var(--color-parchment);
+    border-color: var(--color-crimson);
+  }
+
+  .tier__cta--featured:hover {
+    background-color: #6b2124;
+    color: var(--color-parchment);
+  }
+</style>

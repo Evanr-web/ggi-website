@@ -1,0 +1,204 @@
+---
+const navItems = [
+  { label: 'About', href: '/about' },
+  { label: 'Programs', href: '/programs' },
+  { label: 'Magnalia', href: '/magnalia' },
+  { label: 'Events', href: '/events' },
+  { label: 'Writing', href: '/writing' },
+  { label: 'Contact', href: '/contact' },
+];
+---
+
+<header class="nav">
+  <div class="nav__inner container">
+    <a href="/" class="nav__logo" aria-label="Gregory the Great Institute — Home">
+      <img src="/images/branding/ggi-seal.png" alt="GGI Seal" class="nav__logo-img" />
+      <span class="nav__wordmark">Gregory the Great Institute</span>
+    </a>
+
+    <nav class="nav__links" aria-label="Main navigation">
+      {navItems.map(item => (
+        <a href={item.href} class="nav__link">{item.label}</a>
+      ))}
+    </nav>
+
+    <a href="/give" class="nav__cta">Give</a>
+
+    <button class="nav__hamburger" aria-label="Toggle menu" aria-expanded="false">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+
+  <!-- Mobile menu -->
+  <div class="nav__mobile" aria-hidden="true">
+    <nav>
+      {navItems.map(item => (
+        <a href={item.href} class="nav__mobile-link">{item.label}</a>
+      ))}
+      <a href="/give" class="nav__mobile-link nav__mobile-link--cta">Give</a>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background-color: var(--color-navy);
+    border-bottom: 1px solid rgba(184, 154, 71, 0.2);
+  }
+
+  .nav__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 72px;
+    gap: 24px;
+  }
+
+  .nav__logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    flex-shrink: 0;
+  }
+
+  .nav__logo-img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+  }
+
+  .nav__wordmark {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--color-text-on-dark);
+    letter-spacing: 0.01em;
+  }
+
+  .nav__links {
+    display: none;
+    align-items: center;
+    gap: 28px;
+  }
+
+  .nav__link {
+    font-family: var(--font-ui);
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--color-text-on-dark);
+    text-decoration: none;
+    letter-spacing: 0.03em;
+    transition: color var(--transition-fast);
+    white-space: nowrap;
+  }
+
+  .nav__link:hover {
+    color: var(--color-gold);
+  }
+
+  .nav__cta {
+    display: none;
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--color-parchment);
+    background-color: var(--color-crimson);
+    padding: 8px 24px;
+    border-radius: 3px;
+    text-decoration: none;
+    transition: background-color var(--transition-fast);
+    white-space: nowrap;
+  }
+
+  .nav__cta:hover {
+    background-color: #6b2124;
+    color: var(--color-parchment);
+  }
+
+  /* Hamburger */
+  .nav__hamburger {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+  }
+
+  .nav__hamburger span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background-color: var(--color-text-on-dark);
+    transition: transform var(--transition-base), opacity var(--transition-base);
+  }
+
+  /* Mobile menu */
+  .nav__mobile {
+    display: none;
+    background-color: var(--color-navy);
+    padding: 16px 0 24px;
+    border-top: 1px solid rgba(184, 154, 71, 0.15);
+  }
+
+  .nav__mobile nav {
+    display: flex;
+    flex-direction: column;
+    padding-inline: var(--space-element);
+  }
+
+  .nav__mobile-link {
+    font-family: var(--font-ui);
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--color-text-on-dark);
+    text-decoration: none;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(245, 239, 229, 0.08);
+    transition: color var(--transition-fast);
+  }
+
+  .nav__mobile-link:hover {
+    color: var(--color-gold);
+  }
+
+  .nav__mobile-link--cta {
+    color: var(--color-gold);
+    font-weight: 600;
+    border-bottom: none;
+    margin-top: 8px;
+  }
+
+  /* Desktop */
+  @media (min-width: 1024px) {
+    .nav__links { display: flex; }
+    .nav__cta { display: inline-block; }
+    .nav__hamburger { display: none; }
+    .nav__wordmark { font-size: 1.2rem; }
+  }
+
+  /* Tablet — hide wordmark */
+  @media (max-width: 1023px) and (min-width: 640px) {
+    .nav__wordmark { display: none; }
+  }
+</style>
+
+<script>
+  const hamburger = document.querySelector('.nav__hamburger');
+  const mobileMenu = document.querySelector('.nav__mobile');
+
+  hamburger?.addEventListener('click', () => {
+    const isOpen = mobileMenu?.style.display === 'block';
+    if (mobileMenu) mobileMenu.style.display = isOpen ? 'none' : 'block';
+    hamburger.setAttribute('aria-expanded', String(!isOpen));
+    if (mobileMenu) mobileMenu.setAttribute('aria-hidden', String(isOpen));
+  });
+</script>

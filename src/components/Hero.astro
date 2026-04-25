@@ -1,0 +1,123 @@
+---
+interface Props {
+  headline: string;
+  subtitle?: string;
+  tagline?: string;
+  ctaText?: string;
+  ctaHref?: string;
+  backgroundImage?: string;
+  variant?: 'navy' | 'image';
+}
+
+const {
+  headline,
+  subtitle,
+  tagline,
+  ctaText,
+  ctaHref,
+  backgroundImage,
+  variant = 'navy',
+} = Astro.props;
+---
+
+<section
+  class:list={['hero', `hero--${variant}`]}
+  style={backgroundImage ? `background-image: url('${backgroundImage}')` : undefined}
+>
+  {variant === 'image' && <div class="hero__overlay"></div>}
+  <div class="hero__content container">
+    {tagline && <p class="hero__tagline label">{tagline}</p>}
+    <h1 class="hero__headline display">{headline}</h1>
+    {subtitle && <p class="hero__subtitle">{subtitle}</p>}
+    {ctaText && ctaHref && (
+      <a href={ctaHref} class="hero__cta">{ctaText}</a>
+    )}
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    min-height: 520px;
+    padding-block: var(--space-section);
+    overflow: hidden;
+  }
+
+  .hero--navy {
+    background-color: var(--color-navy);
+  }
+
+  .hero--image {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  .hero__overlay {
+    position: absolute;
+    inset: 0;
+    background-color: rgba(14, 51, 82, 0.72);
+    z-index: 1;
+  }
+
+  .hero__content {
+    position: relative;
+    z-index: 2;
+    max-width: 800px;
+  }
+
+  .hero__tagline {
+    color: var(--color-gold);
+    margin-bottom: 16px;
+  }
+
+  .hero__headline {
+    color: var(--color-text-on-dark);
+    margin-bottom: 20px;
+  }
+
+  .hero__subtitle {
+    font-family: var(--font-body);
+    font-size: 1.15rem;
+    line-height: 1.7;
+    color: rgba(245, 239, 229, 0.85);
+    max-width: 600px;
+    margin-inline: auto;
+    margin-bottom: 32px;
+  }
+
+  .hero__cta {
+    display: inline-block;
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--color-parchment);
+    background-color: var(--color-crimson);
+    padding: 14px 36px;
+    border-radius: 3px;
+    text-decoration: none;
+    transition: background-color var(--transition-fast);
+  }
+
+  .hero__cta:hover {
+    background-color: #6b2124;
+    color: var(--color-parchment);
+  }
+
+  @media (min-width: 1024px) {
+    .hero {
+      min-height: 600px;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .hero {
+      min-height: 400px;
+      padding-block: 48px;
+    }
+  }
+</style>
