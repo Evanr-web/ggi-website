@@ -1,0 +1,150 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import EventCard from '../../components/EventCard.astro';
+import Button from '../../components/Button.astro';
+---
+
+<BaseLayout title="Events" description="Upcoming conferences, courses, book studies, and community gatherings across Canada.">
+
+  <!-- Hero -->
+  <section class="hero-compact section--dark">
+    <div class="container" style="text-align: center; padding-block: 60px;">
+      <h1 class="display" style="color: var(--color-text-on-dark);">Upcoming Events</h1>
+      <p style="font-family: var(--font-body); font-size: 1.05rem; color: rgba(245,239,229,0.8); max-width: 600px; margin-inline: auto; margin-top: 12px; line-height: 1.7;">
+        Join us across Canada for conferences, courses, book studies, and community gatherings.
+      </p>
+    </div>
+  </section>
+
+  <!-- Upcoming Events -->
+  <section class="section">
+    <div class="container">
+      <div class="events-list">
+        <EventCard
+          title="Personal Finances 101"
+          month="Apr"
+          day="25"
+          date="2026-04-25"
+          location="Concordia University of Edmonton"
+          description="Master your money, serve your vocation. Financial literacy as stewardship and Catholic formation. Led by Jesse Underwood."
+          href="/events/finances-101"
+          programTag="Masterclass"
+        />
+        <EventCard
+          title="2026 Book Study — Searching for and Maintaining Peace"
+          month="Feb"
+          day="1"
+          date="2026-02-01"
+          location="Locations across Canada"
+          description="Fr. Jacques Philippe's beloved guide to interior peace. Join a local reading group or follow along online."
+          href="/events/book-study-feb-2026"
+          programTag="Book Study"
+        />
+        <EventCard
+          title="2026 Book Study — Animal Farm"
+          month="May"
+          day="1"
+          date="2026-05-01"
+          location="Locations across Canada"
+          description="George Orwell's classic political fable, read through the lens of Catholic social teaching."
+          href="/events/book-study-may-2026"
+          programTag="Book Study"
+        />
+        <EventCard
+          title="St. Gregory's Music & Leadership Camp"
+          month="Jul"
+          day="12"
+          date="2026-07-12"
+          location="Solara Water's Edge, Parkland County, AB"
+          description="Four nights of fiddle, penny whistle, voice, games, prayer, and leadership for youth ages 12–18. $350/child, family discounts available."
+          href="/events/music-camp-2026"
+          programTag="Camp"
+        />
+        <EventCard
+          title="2026 Book Study — Leisure: The Basis of Culture"
+          month="Sep"
+          day="1"
+          date="2026-09-01"
+          location="Locations across Canada"
+          description="Josef Pieper's masterwork on why contemplation — not productivity — is the foundation of civilization."
+          href="/events/book-study-sep-2026"
+          programTag="Book Study"
+        />
+        <EventCard
+          title="Bringing Back Sunday — Renewing Culture Conference"
+          month="Oct"
+          day="2"
+          date="2026-10-02"
+          location="Mt Carmel Spirituality Centre"
+          description="2nd Annual Renewing Culture Conference. Two days of speakers, seminars, prayer, and fellowship reflecting on Pieper's Leisure."
+          href="/events/conference-2026"
+          programTag="Conference"
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- Past Events -->
+  <section class="section section--linen">
+    <div class="container">
+      <h2 style="margin-bottom: 24px;">Past Events</h2>
+      <div class="events-list events-list--past">
+        <EventCard
+          title="GGI at Provincial Prayer Breakfast"
+          month="Mar"
+          day="18"
+          date="2026-03-18"
+          location="Edmonton, AB"
+          description="The GGI team attended the annual Premier's Prayer Breakfast in Alberta."
+          href="/events/prayer-breakfast-2026"
+          programTag="Community"
+        />
+        <EventCard
+          title="1st Annual Renewing Culture Conference"
+          month="Oct"
+          day="4"
+          date="2025-10-04"
+          location="Edmonton, AB"
+          description="The inaugural Renewing Culture Conference — GGI's first major public gathering."
+          href="/events/conference-2025"
+          programTag="Conference"
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- Newsletter -->
+  <section class="section" style="text-align: center;">
+    <div class="container" style="max-width: 500px;">
+      <p style="font-family: var(--font-body); font-size: 1rem; color: var(--color-gray); font-style: italic; margin-bottom: 16px;">
+        No upcoming events right now? Subscribe to the Magnalia Letter to be the first to know.
+      </p>
+      <Button href="/magnalia/letter" variant="secondary" size="small">Subscribe Free</Button>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  .hero-compact {
+    background-color: var(--color-navy);
+  }
+
+  .events-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .events-list--past :global(.event-card) {
+    opacity: 0.65;
+  }
+
+  .events-list--past :global(.event-card:hover) {
+    opacity: 0.85;
+  }
+
+  .section--linen {
+    background-color: var(--color-linen);
+  }
+</style>

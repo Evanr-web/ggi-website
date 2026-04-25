@@ -1,0 +1,245 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Card from '../../components/Card.astro';
+import Button from '../../components/Button.astro';
+
+const placeholderEssays = [
+  { title: "The Recovery of Sunday", author: "Dr. Ryan N.S. Topping", category: "Essay", date: "Apr 2026", image: "/images/art/St-Gregory-Great-painting-dove.jpg", excerpt: "In the West, we have largely forgotten what Sunday means. Not merely as a day of rest — though it is that — but as the day that gives meaning to all the other days." },
+  { title: "Medicine Forgets Its Vocation: Alberta Places Guardrails", author: "Dr. Joseph Woodard", category: "Essay", date: "Mar 2026", image: "/images/art/vanitas-still-life-painting.jpg", excerpt: "When hospital chaplains find themselves counselling traumatized healthcare professionals, something has gone badly wrong with the practice of medicine." },
+  { title: "Classical Education and the Canadian Imagination", author: "Dr. Celene Sidloski", category: "Essay", date: "Mar 2026", image: "/images/art/Bodleian-Library-Oxford.jpg", excerpt: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. What would it mean for Canadian schools to recover the tradition of classical education?" },
+  { title: "Reasonable Passions: On Beauty and the Good", author: "Dr. Ryan N.S. Topping", category: "Video", date: "Feb 2026", image: "/images/art/St-Gregory-Great-painting-dove.jpg", excerpt: "A lecture exploring how beauty serves as a gateway to truth and goodness in the Catholic intellectual tradition." },
+  { title: "Vocations and the Canadian Church: A Statistical Portrait", author: "Mark Ingham", category: "Essay", date: "Feb 2026", image: "/images/art/vanitas-still-life-painting.jpg", excerpt: "Lorem ipsum dolor sit amet. An original research study examining ordination trends, seminary enrollment, and the demographic future of Catholicism in Canada." },
+  { title: "5 Ways to Celebrate Easter as a Family", author: "Catherine Renneberg", category: "Resource", date: "Jan 2026", image: "/images/art/Bodleian-Library-Oxford.jpg", excerpt: "Practical ideas for families looking to deepen their celebration of the Paschal season at home." },
+  { title: "FINE Gathering in Ottawa and National Prayer Breakfast", author: "Victor Carpay", category: "Essay", date: "Apr 2026", image: "/images/art/St-Gregory-Great-painting-dove.jpg", excerpt: "Dr. Topping and Victor invited to FINE Gathering coordinated by CCO and the National Prayer Breakfast." },
+  { title: "Reading Pieper in a Distracted Age", author: "Dr. Joseph Woodard", category: "Essay", date: "Jan 2026", image: "/images/art/vanitas-still-life-painting.jpg", excerpt: "Lorem ipsum dolor sit amet. Why Josef Pieper's Leisure: The Basis of Culture is more relevant now than when it was written in 1948." },
+  { title: "The Abolition of Man Study Guide", author: "Gregory the Great Institute", category: "Resource", date: "Dec 2025", image: "/images/art/Bodleian-Library-Oxford.jpg", excerpt: "A downloadable study guide for C.S. Lewis's The Abolition of Man, designed for use in reading groups and classrooms." },
+  { title: "Why Catholic Men Need a Trade School", author: "Dr. Ryan N.S. Topping", category: "Essay", date: "Nov 2025", image: "/images/art/St-Gregory-Great-painting-dove.jpg", excerpt: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. The case for building institutions that form the hands as well as the mind." },
+  { title: "Christmas Book Recommendations 2025", author: "Gregory the Great Institute", category: "Resource", date: "Dec 2025", image: "/images/art/vanitas-still-life-painting.jpg", excerpt: "Our annual curated list of books worth giving — and reading — this Christmas season." },
+  { title: "On Building Culture in Times of Upheaval", author: "Fr. Michael Bombak", category: "Video", date: "Oct 2025", image: "/images/art/Bodleian-Library-Oxford.jpg", excerpt: "A conversation between Fr. Bombak and Dr. Topping on the parallels between Gregory the Great's era and our own." },
+];
+---
+
+<BaseLayout title="Library" description="Essays, videos, and resources for the renewal of Catholic culture in Canada.">
+
+  <!-- Hero -->
+  <section class="section--dark" style="padding: 60px 0; text-align: center;">
+    <div class="container">
+      <h1 class="display" style="color: var(--color-text-on-dark);">Library</h1>
+      <p style="font-family: var(--font-body); font-size: 1.05rem; color: rgba(245,239,229,0.8); max-width: 600px; margin-inline: auto; margin-top: 12px; line-height: 1.7;">
+        Essays, videos, and resources for the renewal of Catholic culture in Canada.
+      </p>
+    </div>
+  </section>
+
+  <!-- Featured -->
+  <section class="section">
+    <div class="container">
+      <div class="featured-essay">
+        <div class="featured-essay__image">
+          <img src="/images/art/St-Gregory-Great-painting-dove.jpg" alt="" />
+        </div>
+        <div class="featured-essay__body">
+          <span class="label text-gold">Featured Essay</span>
+          <h2>{placeholderEssays[0].title}</h2>
+          <p class="featured-essay__meta">By {placeholderEssays[0].author} · {placeholderEssays[0].date}</p>
+          <p class="featured-essay__excerpt">{placeholderEssays[0].excerpt}</p>
+          <Button href="/library/recovery-of-sunday" variant="tertiary">Read →</Button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Filter Bar -->
+  <section class="filter-section">
+    <div class="container">
+      <div class="filter-bar">
+        <button class="filter-btn filter-btn--active">All</button>
+        <button class="filter-btn">Essays</button>
+        <button class="filter-btn">Videos</button>
+        <button class="filter-btn">Resources</button>
+        <a href="#" class="filter-substack">Follow us on Substack →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Content Grid -->
+  <section class="section">
+    <div class="container">
+      <div class="library-grid">
+        {placeholderEssays.slice(1).map((essay) => (
+          <Card
+            title={essay.title}
+            description={essay.excerpt}
+            meta={`${essay.category} · ${essay.date}`}
+            href="/library/placeholder"
+            image={essay.image}
+            imageAlt=""
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Newsletter -->
+  <section class="section section--linen" style="text-align: center;">
+    <div class="container" style="max-width: 520px;">
+      <h2 style="margin-bottom: 8px;">Get essays like these in your inbox</h2>
+      <p style="font-family: var(--font-body); font-size: 0.95rem; color: var(--color-gray); margin-bottom: 20px;">Subscribe to the Magnalia Letter — free monthly essays, event invitations, and reading recommendations.</p>
+      <form class="newsletter-inline" action="#" method="POST">
+        <input type="email" name="email" placeholder="Email address" required />
+        <button type="submit">Subscribe</button>
+      </form>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  /* Featured Essay */
+  .featured-essay {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-component);
+    align-items: center;
+  }
+
+  .featured-essay__image img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 3px;
+  }
+
+  .featured-essay__body h2 {
+    margin: 8px 0 8px;
+  }
+
+  .featured-essay__meta {
+    font-family: var(--font-ui);
+    font-size: 0.82rem;
+    color: var(--color-gray);
+    margin-bottom: 12px;
+  }
+
+  .featured-essay__excerpt {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--color-gray);
+    margin-bottom: 16px;
+  }
+
+  @media (min-width: 768px) {
+    .featured-essay {
+      grid-template-columns: 1fr 1.2fr;
+    }
+  }
+
+  /* Filter Bar */
+  .filter-section {
+    border-bottom: 1px solid rgba(90, 90, 110, 0.1);
+    padding: 16px 0;
+  }
+
+  .filter-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .filter-btn {
+    font-family: var(--font-ui);
+    font-size: 0.82rem;
+    font-weight: 500;
+    padding: 6px 16px;
+    border: 1px solid rgba(90, 90, 110, 0.15);
+    border-radius: 3px;
+    background: transparent;
+    color: var(--color-gray);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+  }
+
+  .filter-btn:hover {
+    border-color: var(--color-gold);
+    color: var(--color-gold);
+  }
+
+  .filter-btn--active {
+    background-color: var(--color-navy);
+    color: var(--color-text-on-dark);
+    border-color: var(--color-navy);
+  }
+
+  .filter-substack {
+    margin-left: auto;
+    font-family: var(--font-ui);
+    font-size: 0.78rem;
+    color: var(--color-gray);
+    text-decoration: none;
+  }
+
+  .filter-substack:hover {
+    color: var(--color-gold);
+  }
+
+  /* Library Grid */
+  .library-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  @media (min-width: 640px) {
+    .library-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .library-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  /* Newsletter inline */
+  .newsletter-inline {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .newsletter-inline input {
+    font-family: var(--font-ui);
+    font-size: 0.88rem;
+    padding: 12px 16px;
+    border: 1px solid rgba(90, 90, 110, 0.2);
+    border-radius: 3px;
+    background-color: var(--color-parchment);
+    color: var(--color-ink);
+    outline: none;
+    min-width: 220px;
+  }
+
+  .newsletter-inline input:focus {
+    border-color: var(--color-gold);
+  }
+
+  .newsletter-inline button {
+    font-family: var(--font-display);
+    font-size: 0.9rem;
+    font-weight: 600;
+    padding: 12px 24px;
+    background-color: var(--color-gold);
+    color: var(--color-navy);
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+
+  .section--linen {
+    background-color: var(--color-linen);
+  }
+</style>

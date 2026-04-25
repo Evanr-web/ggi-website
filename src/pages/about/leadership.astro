@@ -1,0 +1,403 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SectionDivider from '../../components/SectionDivider.astro';
+---
+
+<BaseLayout title="Leadership" description="Board of directors, staff, fellows, and advisory board of the Gregory the Great Institute.">
+
+  <!-- Hero -->
+  <section class="section--dark" style="padding: 60px 0; text-align: center;">
+    <div class="container">
+      <h1 class="display" style="color: var(--color-text-on-dark);">Leadership</h1>
+      <p style="font-family: var(--font-body); font-size: 1.05rem; color: rgba(245,239,229,0.8); margin-top: 8px;">The people building the Institute</p>
+    </div>
+  </section>
+
+  <!-- Patron -->
+  <section class="section">
+    <div class="container">
+      <div class="patron-featured">
+        <img src="/images/people/thomas-collins.jpg" alt="Cardinal Thomas Collins" class="patron-featured__photo" />
+        <div>
+          <p class="label text-gold">Patron</p>
+          <h2>His Eminence Thomas Cardinal Collins</h2>
+          <p class="patron-featured__bio">
+            Cardinal Collins serves as Patron of the Gregory the Great Institute, lending his support and
+            encouragement to the mission of Catholic cultural renewal in Canada.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <SectionDivider />
+
+  <!-- Staff -->
+  <section class="section">
+    <div class="container">
+      <h2 style="margin-bottom: 24px;">Staff</h2>
+      <div class="people-grid people-grid--large">
+        <div class="person-card person-card--large">
+          <img src="/images/people/Ryan-Topping-headshot.jpg" alt="Dr. Ryan Topping" class="person-card__photo" />
+          <h3>Dr. Ryan N.S. Topping</h3>
+          <p class="person-card__role">Executive Director</p>
+          <p class="person-card__bio">DPhil (Oxford), author of 11 books on Catholic culture and education. Former VP and Academic Dean at Newman Theological College. Queen Elizabeth II Platinum Jubilee Medal recipient.</p>
+          <a href="mailto:rtopping@gregorythegreat.ca" class="person-card__email">rtopping@gregorythegreat.ca</a>
+          <a href="/about/founding-director" class="person-card__link">View full profile →</a>
+        </div>
+        <div class="person-card person-card--large">
+          <img src="/images/people/Catherine-Renneberg-headshot.jpg" alt="Catherine Renneberg" class="person-card__photo" />
+          <h3>Catherine Renneberg</h3>
+          <p class="person-card__role">Director of Programs</p>
+          <p class="person-card__bio">M.Div. from Newman Theological College. Serves on the Board of St. Therese Institute (Saskatchewan). Experience in church ministry across Western Canada.</p>
+          <a href="mailto:crenneberg@gregorythegreat.ca" class="person-card__email">crenneberg@gregorythegreat.ca</a>
+        </div>
+        <div class="person-card person-card--large">
+          <div class="person-card__photo person-card__photo--placeholder"></div>
+          <h3>Victor Carpay</h3>
+          <p class="person-card__role">Communications & Development</p>
+          <p class="person-card__bio">Lifelong Albertan passionate about renewing culture through faith and reason. BA in Catholic Studies from Newman Theological College. Experience in sales, business, and political activism.</p>
+          <a href="mailto:vcarpay@gregorythegreat.ca" class="person-card__email">vcarpay@gregorythegreat.ca</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <SectionDivider />
+
+  <!-- Board -->
+  <section class="section section--linen">
+    <div class="container">
+      <h2 style="margin-bottom: 24px;">Board of Directors</h2>
+      <div class="people-grid">
+        <div class="person-card">
+          <div class="person-card__photo person-card__photo--placeholder"></div>
+          <h3>Dr. Ryan N.S. Topping</h3>
+          <p class="person-card__role">Chair</p>
+        </div>
+        <div class="person-card">
+          <div class="person-card__photo person-card__photo--placeholder"></div>
+          <h3>Brian Holdsworth</h3>
+          <p class="person-card__role">Director</p>
+        </div>
+        <div class="person-card">
+          <div class="person-card__photo person-card__photo--placeholder"></div>
+          <h3>Dr. Celene Sidloski</h3>
+          <p class="person-card__role">Director</p>
+        </div>
+        <div class="person-card">
+          <div class="person-card__photo person-card__photo--placeholder"></div>
+          <h3>Catherine Renneberg</h3>
+          <p class="person-card__role">Director</p>
+        </div>
+        <div class="person-card">
+          <div class="person-card__photo person-card__photo--placeholder"></div>
+          <h3>Caleb Ropp</h3>
+          <p class="person-card__role">Director</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Fellows -->
+  <section class="section">
+    <div class="container">
+      <h2 style="margin-bottom: 24px;">Fellows</h2>
+      <div class="people-grid people-grid--large">
+        <div class="person-card person-card--large">
+          <div class="person-card__photo person-card__photo--placeholder"></div>
+          <h3>Dr. Joe Woodard</h3>
+          <p class="person-card__role">Fellow · Calgary</p>
+          <p class="person-card__bio">Ethics, bioethics, and Catholic social thought.</p>
+        </div>
+        <div class="person-card person-card--large">
+          <div class="person-card__photo person-card__photo--placeholder"></div>
+          <h3>Dr. Celene Sidloski</h3>
+          <p class="person-card__role">Fellow · Saskatoon</p>
+          <p class="person-card__bio">Classical education and Canadian Catholic intellectual life.</p>
+        </div>
+        <div class="person-card person-card--large">
+          <div class="person-card__photo person-card__photo--placeholder"></div>
+          <h3>Mark Ingham, PhD Cand.</h3>
+          <p class="person-card__role">Fellow · Barry's Bay</p>
+          <p class="person-card__bio">Vocations research and Canadian Catholic demographics.</p>
+        </div>
+        <div class="person-card person-card--large">
+          <div class="person-card__photo person-card__photo--placeholder"></div>
+          <h3>Fr. Michael Bombak</h3>
+          <p class="person-card__role">Fellow · Toronto</p>
+          <p class="person-card__bio">Theology, priesthood, and cultural renewal.</p>
+        </div>
+      </div>
+      <p style="text-align: center; margin-top: 24px;">
+        <a href="/magnalia/contributors" style="font-family: var(--font-ui); font-size: 0.85rem; color: var(--color-gold); text-decoration: none;">Our Fellows also contribute to Magnalia →</a>
+      </p>
+    </div>
+  </section>
+
+  <SectionDivider />
+
+  <!-- Advisory Board -->
+  <section class="section section--linen">
+    <div class="container">
+      <h2 style="margin-bottom: 24px;">Advisory Board</h2>
+      <div class="advisory-list">
+        <div class="advisory-item">
+          <h3>Jeff Lockert</h3>
+          <p>President, CCO Canada</p>
+        </div>
+        <div class="advisory-item">
+          <h3>Fr Dcn Andrew Bennett</h3>
+          <p>Cardus · Formerly Canadian Ambassador for Religious Freedom</p>
+        </div>
+        <div class="advisory-item">
+          <h3>Dr. Keith Cassidy</h3>
+          <p>Past President and Chair of the Board, Seat of Wisdom College</p>
+        </div>
+        <div class="advisory-item">
+          <h3>Alane Boudreau</h3>
+          <p>Founding Board Member, St John Choir Schola, Calgary</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Subcommittees -->
+  <section class="section">
+    <div class="container">
+      <h2 style="margin-bottom: 24px;">Board Subcommittees</h2>
+      <div class="committees">
+        <div class="committee">
+          <h3>Fundraising Committee</h3>
+          <ul>
+            <li><strong>Chair:</strong> Caleb Ropp</li>
+            <li><strong>Vice-Chair:</strong> Evan Ropp</li>
+            <li><strong>Secretary:</strong> Jesse Underwood</li>
+            <li>Kyle King, Annie Engler, Thierry Karikurubu</li>
+          </ul>
+        </div>
+        <div class="committee">
+          <h3>Programs Committee</h3>
+          <ul>
+            <li><strong>Chair:</strong> Dr. Celene Sidloski</li>
+            <li><strong>Vice-Chair:</strong> Ian Mahood</li>
+            <li><strong>Secretary:</strong> Nicholas Kunysz</li>
+            <li>Patrick Schiller, Peter Csillag</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  /* People Grid */
+  .people-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  .people-grid--large {
+    grid-template-columns: 1fr;
+  }
+
+  .person-card {
+    text-align: center;
+    padding: 20px 12px;
+  }
+
+  .person-card--large {
+    text-align: left;
+    padding: 24px;
+    background-color: var(--color-linen);
+    border: 1px solid rgba(90, 90, 110, 0.08);
+    border-radius: 3px;
+  }
+
+  .person-card__photo {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 12px;
+  }
+
+  .person-card--large .person-card__photo {
+    width: 80px;
+    height: 80px;
+  }
+
+  .person-card:not(.person-card--large) .person-card__photo {
+    margin-inline: auto;
+  }
+
+  .person-card__photo--placeholder {
+    background-color: var(--color-ivory);
+    display: block;
+  }
+
+  .person-card:not(.person-card--large) .person-card__photo--placeholder {
+    margin-inline: auto;
+  }
+
+  .person-card h3 {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--color-navy);
+    margin-bottom: 2px;
+  }
+
+  .person-card__role {
+    font-family: var(--font-ui);
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--color-gold);
+    margin-bottom: 8px;
+  }
+
+  .person-card__bio {
+    font-family: var(--font-body);
+    font-size: 0.88rem;
+    color: var(--color-gray);
+    line-height: 1.5;
+    margin-bottom: 8px;
+  }
+
+  .person-card__email {
+    font-family: var(--font-ui);
+    font-size: 0.78rem;
+    color: var(--color-gold);
+    text-decoration: none;
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .person-card__link {
+    font-family: var(--font-ui);
+    font-size: 0.78rem;
+    color: var(--color-gold);
+    text-decoration: none;
+    display: block;
+  }
+
+  @media (min-width: 640px) {
+    .people-grid--large {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 768px) {
+    .people-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+    .people-grid--large {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .people-grid {
+      grid-template-columns: repeat(5, 1fr);
+    }
+  }
+
+  /* Patron Featured */
+  .patron-featured {
+    display: flex;
+    gap: 24px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .patron-featured__photo {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+  }
+
+  .patron-featured h2 {
+    margin: 4px 0 8px;
+  }
+
+  .patron-featured__bio {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: var(--color-gray);
+    line-height: 1.6;
+  }
+
+  /* Advisory */
+  .advisory-list {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .advisory-item {
+    padding: 16px 0;
+    border-bottom: 1px solid rgba(90, 90, 110, 0.08);
+  }
+
+  .advisory-item h3 {
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--color-navy);
+    margin-bottom: 2px;
+  }
+
+  .advisory-item p {
+    font-family: var(--font-body);
+    font-size: 0.88rem;
+    color: var(--color-gray);
+  }
+
+  @media (min-width: 640px) {
+    .advisory-list {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px 32px;
+    }
+  }
+
+  /* Committees */
+  .committees {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .committee h3 {
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    color: var(--color-navy);
+    margin-bottom: 12px;
+  }
+
+  .committee ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .committee li {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    color: var(--color-gray);
+  }
+
+  @media (min-width: 640px) {
+    .committees {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .section--linen {
+    background-color: var(--color-linen);
+  }
+</style>

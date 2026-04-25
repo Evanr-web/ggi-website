@@ -1,0 +1,292 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Button from '../../components/Button.astro';
+import SectionDivider from '../../components/SectionDivider.astro';
+---
+
+<BaseLayout title="Programs" description="Formation programs, courses, and community offerings from the Gregory the Great Institute.">
+
+  <!-- Hero -->
+  <section class="hero-compact section--dark">
+    <div class="hero-compact__bg" style="background-image: url('/images/art/Bodleian-Library-Oxford.jpg');"></div>
+    <div class="hero-compact__overlay"></div>
+    <div class="hero-compact__content container">
+      <h1 class="display">Formation, Courses & Community</h1>
+      <p class="hero-compact__subtitle"><em>"Be who God meant you to be and you will set the world on fire."</em></p>
+      <p class="hero-compact__attr">— St. Catherine of Siena</p>
+    </div>
+  </section>
+
+  <!-- Program Cards -->
+  <section class="section">
+    <div class="container">
+
+      <!-- Conference -->
+      <div class="program-card">
+        <div class="program-card__image">
+          <img src="/images/events/2026-renewing-culture-conference-poster.jpeg" alt="Renewing Culture Conference" />
+        </div>
+        <div class="program-card__body">
+          <p class="label text-gold">Annual Flagship Gathering</p>
+          <h2>Renewing Culture Conference</h2>
+          <p class="program-card__desc">
+            Join Christians from across Western Canada as renowned speakers explore cutting-edge topics
+            through the lens of a great tradition text. The 2026 conference — <em>Bringing Back Sunday</em> —
+            takes up Josef Pieper's <em>Leisure: The Basis of Culture</em>.
+          </p>
+          <dl class="program-card__details">
+            <dt>Audience</dt><dd>All welcome</dd>
+            <dt>Format</dt><dd>2-day conference</dd>
+            <dt>Frequency</dt><dd>Annual — October</dd>
+            <dt>Next</dt><dd>October 2–3, 2026 · Mt Carmel Spirituality Centre</dd>
+          </dl>
+          <Button href="/events/conference-2026" variant="primary" size="small">Learn More</Button>
+        </div>
+      </div>
+
+      <SectionDivider />
+
+      <!-- Music Camp -->
+      <div class="program-card program-card--reverse">
+        <div class="program-card__image">
+          <img src="/images/events/music-camp-hero-outdoor.jpeg" alt="St. Gregory's Music Camp" />
+        </div>
+        <div class="program-card__body">
+          <p class="label text-gold">Youth Formation</p>
+          <h2>St. Gregory's Music & Leadership Camp</h2>
+          <p class="program-card__desc">
+            A four-night residential camp for youth ages 12–18. Instruction in fiddle, penny whistle,
+            and voice, exploring sacred and folk music traditions. Daily prayer, leadership sessions,
+            games, and community. Inspired by the von Trapp family singers' camp.
+          </p>
+          <dl class="program-card__details">
+            <dt>Audience</dt><dd>Ages 12–18 (Leader-in-Training stream for 16–18)</dd>
+            <dt>Format</dt><dd>4-night residential camp</dd>
+            <dt>Frequency</dt><dd>Annual — July</dd>
+            <dt>Cost</dt><dd>$350/child (family discounts available)</dd>
+          </dl>
+          <Button href="/events/music-camp-2026" variant="primary" size="small">Register</Button>
+        </div>
+      </div>
+
+      <SectionDivider />
+
+      <!-- Book Studies -->
+      <div class="program-card">
+        <div class="program-card__image">
+          <img src="/images/events/2026-book-studies-reading-list.jpg" alt="2026 Book Studies" />
+        </div>
+        <div class="program-card__body">
+          <p class="label text-gold">Free · Year-Round · Nationwide</p>
+          <h2>Book Studies — Inklings Clubs</h2>
+          <p class="program-card__desc">
+            Free small-group reading clubs across Canada. Study guides, webinars, and discounts for
+            participants. Dive into the treasures of culture while building community in your city.
+            2026 reads: Fr. Jacques Philippe, George Orwell, and Josef Pieper.
+          </p>
+          <dl class="program-card__details">
+            <dt>Audience</dt><dd>All welcome</dd>
+            <dt>Format</dt><dd>Small group reading clubs</dd>
+            <dt>Frequency</dt><dd>Three studies per year (Feb, May, Sep)</dd>
+            <dt>Cost</dt><dd>Free</dd>
+          </dl>
+          <Button href="/programs/book-studies" variant="primary" size="small">Join a Book Study</Button>
+        </div>
+      </div>
+
+      <SectionDivider />
+
+      <!-- Faith & Reason -->
+      <div class="program-card program-card--reverse">
+        <div class="program-card__image">
+          <img src="/images/art/vanitas-still-life-painting.jpg" alt="Faith and Reason Seminar" />
+        </div>
+        <div class="program-card__body">
+          <p class="label text-gold">Intensive Formation</p>
+          <h2>Faith & Reason Seminar</h2>
+          <p class="program-card__desc">
+            An intensive 3-day Great Books immersion for Catholic leaders. Socratic seminars, cultural
+            formation, prayer, and renewal. Unique in Western Canada — designed for those ready to go deeper
+            into the intellectual and spiritual tradition.
+          </p>
+          <dl class="program-card__details">
+            <dt>Audience</dt><dd>Catholic leaders and serious seekers</dd>
+            <dt>Format</dt><dd>3-day residential intensive</dd>
+            <dt>Frequency</dt><dd>Annual</dd>
+          </dl>
+          <Button href="/programs/faith-and-reason" variant="secondary" size="small">Learn More</Button>
+        </div>
+      </div>
+
+      <SectionDivider />
+
+      <!-- Masterclasses -->
+      <div class="program-card">
+        <div class="program-card__image">
+          <img src="/images/art/St-Gregory-Great-painting-dove.jpg" alt="Masterclasses" />
+        </div>
+        <div class="program-card__body">
+          <p class="label text-gold">Short Courses</p>
+          <h2>Masterclasses</h2>
+          <p class="program-card__desc">
+            Short courses on the great themes of Catholic intellectual life: Philosophy of Aquinas,
+            Virtuous Leadership, Christian Beauty and Art, Classical Education for Teachers.
+            Available online and in-person.
+          </p>
+          <dl class="program-card__details">
+            <dt>Audience</dt><dd>All welcome</dd>
+            <dt>Format</dt><dd>Short course (1 day or multi-session)</dd>
+            <dt>Frequency</dt><dd>Ongoing</dd>
+          </dl>
+          <Button href="/programs/masterclasses" variant="secondary" size="small">Browse Courses</Button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Made Possible By -->
+  <section class="made-possible">
+    <div class="container" style="text-align: center;">
+      <p class="made-possible__text">
+        Every program is made possible by the faithful support of our Friends and Patrons.
+        <a href="/support">Join them →</a>
+      </p>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  .hero-compact {
+    position: relative;
+    min-height: 360px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  .hero-compact__bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+  }
+
+  .hero-compact__overlay {
+    position: absolute;
+    inset: 0;
+    background-color: rgba(14, 51, 82, 0.72);
+  }
+
+  .hero-compact__content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    max-width: 700px;
+    margin-inline: auto;
+    padding-block: 60px;
+  }
+
+  .hero-compact__content h1 {
+    color: var(--color-text-on-dark);
+    margin-bottom: 16px;
+  }
+
+  .hero-compact__subtitle {
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    color: rgba(245, 239, 229, 0.85);
+  }
+
+  .hero-compact__attr {
+    font-family: var(--font-ui);
+    font-size: 0.8rem;
+    color: var(--color-gold);
+    margin-top: 4px;
+  }
+
+  /* Program Cards */
+  .program-card {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-component);
+    align-items: center;
+  }
+
+  .program-card__image img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 3px;
+  }
+
+  .program-card__body h2 {
+    margin: 8px 0 12px;
+  }
+
+  .program-card__desc {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--color-gray);
+    margin-bottom: 20px;
+  }
+
+  .program-card__details {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 6px 16px;
+    margin-bottom: 24px;
+  }
+
+  .program-card__details dt {
+    font-family: var(--font-ui);
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--color-navy);
+  }
+
+  .program-card__details dd {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    color: var(--color-gray);
+  }
+
+  @media (min-width: 768px) {
+    .program-card {
+      grid-template-columns: 1fr 1.2fr;
+    }
+    .program-card--reverse {
+      grid-template-columns: 1.2fr 1fr;
+    }
+    .program-card--reverse .program-card__image {
+      order: 2;
+    }
+  }
+
+  /* Made Possible */
+  .made-possible {
+    background-color: var(--color-linen);
+    padding: 32px 0;
+    border-top: 1px solid rgba(90, 90, 110, 0.08);
+  }
+
+  .made-possible__text {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    font-style: italic;
+    color: var(--color-gray);
+  }
+
+  .made-possible__text a {
+    color: var(--color-gold);
+    text-decoration: none;
+    font-style: normal;
+    font-weight: 500;
+  }
+
+  .made-possible__text a:hover {
+    color: var(--color-crimson);
+  }
+</style>

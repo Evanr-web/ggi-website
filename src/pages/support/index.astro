@@ -1,0 +1,327 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import GivingTier from '../../components/GivingTier.astro';
+import Button from '../../components/Button.astro';
+import SectionDivider from '../../components/SectionDivider.astro';
+---
+
+<BaseLayout title="Support the Institute" description="Your patronage builds Catholic intellectual life in Canada. Join as a Friend, Patron, or Underwriter.">
+
+  <!-- Hero -->
+  <section class="hero-compact section--dark">
+    <div class="hero-compact__bg" style="background-image: url('/images/art/Bodleian-Library-Oxford.jpg');"></div>
+    <div class="hero-compact__overlay"></div>
+    <div class="hero-compact__content container">
+      <h1 class="display">Support the Institute</h1>
+      <p class="hero-compact__subtitle">Your patronage builds Catholic intellectual life in Canada.</p>
+    </div>
+  </section>
+
+  <!-- Case for Support -->
+  <section class="section">
+    <div class="container prose-section">
+      <div class="prose">
+        <p>
+          In its first year, the Institute published Magnalia to every Catholic bishop and seminary rector
+          in Canada, ran formation programs in four provinces, and built a community of 1,500 people hungry
+          for cultural renewal. We did this on a lean budget with a small team.
+        </p>
+        <p>
+          Here's what we can do with your help: expand our formation programs to reach more cities, publish
+          Magnalia twice yearly with contributions from the best Catholic writers in the country, launch the
+          Faith and Reason Seminar for emerging leaders, and build toward our 2027 vision — a Catholic trade
+          school, leadership certificate programs, and a Canadian Catholic think-tank.
+        </p>
+        <p>
+          This is not charity. This is an investment in the intellectual and cultural life of the Catholic
+          Church in Canada. Every dollar builds something that lasts.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <SectionDivider />
+
+  <!-- Giving Tiers -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <h2>Join the Mission</h2>
+      </div>
+
+      <div class="tiers-grid">
+        <GivingTier
+          name="Friend of the Institute"
+          monthlyPrice="$10–49"
+          annualPrice="$120–588"
+          description="The accessible entry point for anyone who believes in Catholic cultural renewal."
+          benefits={[
+            "Monthly prayer inclusion",
+            "Magnalia Letter (free newsletter)",
+            "Early event registration",
+            "Named recognition on the website"
+          ]}
+          ctaText="Become a Friend"
+          ctaHref="/support/donate"
+        />
+        <GivingTier
+          name="Patron"
+          monthlyPrice="$50"
+          annualPrice="$600"
+          description="The backbone of the Institute. Patrons make everything possible."
+          benefits={[
+            "Everything in Friend, plus:",
+            "Magnalia print subscription included",
+            "Quarterly Q&A with Dr. Topping",
+            "Named recognition in Magnalia",
+            "Invitation to annual Patron dinner"
+          ]}
+          featured={true}
+          ctaText="Become a Patron"
+          ctaHref="/support/donate"
+        />
+        <GivingTier
+          name="Underwriter"
+          monthlyPrice="$208"
+          annualPrice="$2,500"
+          description="Named underwriter of a Magnalia issue or flagship program."
+          benefits={[
+            "Everything in Patron, plus:",
+            "Named issue underwriting in Magnalia",
+            "Inner circle dinner with Dr. Topping",
+            "Early access to research and publications",
+            "Personal briefing on Institute direction"
+          ]}
+          ctaText="Become an Underwriter"
+          ctaHref="/support/donate"
+        />
+        <GivingTier
+          name="Leadership Circle"
+          monthlyPrice="—"
+          annualPrice="$5,000+"
+          description="Strategic partners shaping the future of Catholic culture in Canada."
+          benefits={[
+            "Everything in Underwriter, plus:",
+            "Seat on the Patron Advisory Council",
+            "Co-naming of a major program",
+            "Annual retreat with the leadership team",
+            "Quarterly strategic briefings"
+          ]}
+          ctaText="Join the Leadership Circle"
+          ctaHref="/contact"
+        />
+      </div>
+
+      <div class="founding-fellow">
+        <p class="label text-gold">For Visionary Partners</p>
+        <h3>Founding Fellow — $25,000+/year</h3>
+        <p>
+          For visionary partners building the 2027 Launch — the Catholic trade school, certificate programs,
+          and think-tank. Co-naming of a major program, advisory council role, annual retreat with Dr. Topping.
+        </p>
+        <Button href="/contact" variant="secondary" size="small">Request a Conversation</Button>
+      </div>
+    </div>
+  </section>
+
+  <SectionDivider />
+
+  <!-- One-Time Giving -->
+  <section class="section section--linen">
+    <div class="container" style="text-align: center; max-width: 600px; margin-inline: auto;">
+      <h2 style="margin-bottom: 12px;">One-Time Gift</h2>
+      <p style="font-family: var(--font-body); font-size: 1rem; color: var(--color-gray); margin-bottom: 24px; line-height: 1.7;">
+        Prefer to make a one-time gift? Every contribution builds Catholic culture in Canada.
+      </p>
+      <Button href="/support/donate" variant="primary">Make a Gift</Button>
+    </div>
+  </section>
+
+  <!-- For Clergy & Institutions -->
+  <section class="section">
+    <div class="container institutional-section">
+      <div class="institutional-card">
+        <h2>For Clergy & Institutions</h2>
+        <p>
+          Order Magnalia for your parish, seminary, or library. Institutional subscriptions are $150/year.
+        </p>
+        <div class="institutional-ctas">
+          <Button href="/magnalia/subscribe" variant="secondary" size="small">Order Institutional Subscription</Button>
+          <Button href="/contact" variant="tertiary" size="small">Invite Dr. Topping to Speak →</Button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Charitable Registration -->
+  <section class="section--footnote">
+    <div class="container">
+      <p class="charitable-note">
+        Tax-deductible donations are processed through Catholic Voices Canada. Please specify "New Cultural Institute"
+        on your donation form. Charitable registration pending. For questions about giving, contact
+        <a href="mailto:info@gregorythegreat.ca">info@gregorythegreat.ca</a>.
+      </p>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  .hero-compact {
+    position: relative;
+    min-height: 360px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  .hero-compact__bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+  }
+
+  .hero-compact__overlay {
+    position: absolute;
+    inset: 0;
+    background-color: rgba(14, 51, 82, 0.72);
+  }
+
+  .hero-compact__content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    max-width: 700px;
+    margin-inline: auto;
+    padding-block: 60px;
+  }
+
+  .hero-compact__content h1 {
+    color: var(--color-text-on-dark);
+    margin-bottom: 12px;
+  }
+
+  .hero-compact__subtitle {
+    font-family: var(--font-body);
+    font-size: 1.15rem;
+    color: rgba(245, 239, 229, 0.85);
+  }
+
+  .prose-section {
+    max-width: var(--max-prose-width);
+    margin-inline: auto;
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: var(--space-component);
+  }
+
+  .section-header h2 {
+    margin-top: 8px;
+  }
+
+  /* Tiers Grid */
+  .tiers-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  @media (min-width: 640px) {
+    .tiers-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .tiers-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  /* Founding Fellow */
+  .founding-fellow {
+    margin-top: var(--space-component);
+    padding: 28px;
+    border: 1px solid rgba(184, 154, 71, 0.3);
+    border-radius: 3px;
+    background-color: var(--color-linen);
+    text-align: center;
+    max-width: 700px;
+    margin-inline: auto;
+  }
+
+  .founding-fellow h3 {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    color: var(--color-navy);
+    margin: 8px 0 12px;
+  }
+
+  .founding-fellow p {
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    color: var(--color-gray);
+    line-height: 1.6;
+    margin-bottom: 20px;
+  }
+
+  /* Institutional */
+  .institutional-section {
+    max-width: 700px;
+    margin-inline: auto;
+  }
+
+  .institutional-card {
+    padding: 32px;
+    border: 2px solid var(--color-gold);
+    border-radius: 3px;
+    text-align: center;
+  }
+
+  .institutional-card h2 {
+    margin-bottom: 12px;
+  }
+
+  .institutional-card p {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: var(--color-gray);
+    margin-bottom: 20px;
+    line-height: 1.6;
+  }
+
+  .institutional-ctas {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  /* Footnote */
+  .section--footnote {
+    padding: 24px 0;
+    border-top: 1px solid rgba(90, 90, 110, 0.08);
+  }
+
+  .charitable-note {
+    font-family: var(--font-ui);
+    font-size: 0.75rem;
+    color: var(--color-gray);
+    text-align: center;
+    max-width: 600px;
+    margin-inline: auto;
+    line-height: 1.6;
+  }
+
+  .charitable-note a {
+    color: var(--color-gold);
+    text-decoration: none;
+  }
+
+  .section--linen {
+    background-color: var(--color-linen);
+  }
+</style>

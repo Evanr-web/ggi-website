@@ -1,0 +1,281 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Button from '../../components/Button.astro';
+import SectionDivider from '../../components/SectionDivider.astro';
+---
+
+<BaseLayout title="Contact" description="Get in touch with the Gregory the Great Institute. General inquiries, speaker booking, and more.">
+
+  <!-- Hero -->
+  <section class="section--dark" style="padding: 60px 0; text-align: center;">
+    <div class="container">
+      <h1 class="display" style="color: var(--color-text-on-dark);">Get in Touch</h1>
+    </div>
+  </section>
+
+  <!-- Contact Form + Info -->
+  <section class="section">
+    <div class="container contact-grid">
+      <!-- Form -->
+      <div class="contact-form">
+        <form action="#" method="POST">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="firstName">First Name *</label>
+              <input type="text" id="firstName" name="firstName" required />
+            </div>
+            <div class="form-group">
+              <label for="lastName">Last Name *</label>
+              <input type="text" id="lastName" name="lastName" required />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="email">Email *</label>
+            <input type="email" id="email" name="email" required />
+          </div>
+          <div class="form-group">
+            <label for="subject">Subject</label>
+            <select id="subject" name="subject">
+              <option value="">Select a topic...</option>
+              <option value="general">General Inquiry</option>
+              <option value="speaker">Speaker Booking</option>
+              <option value="magnalia">Magnalia</option>
+              <option value="programs">Programs</option>
+              <option value="support">Support & Giving</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="message">Message *</label>
+            <textarea id="message" name="message" rows="6" required></textarea>
+          </div>
+          <button type="submit" class="form-submit">Send Message</button>
+        </form>
+      </div>
+
+      <!-- Contact Info -->
+      <div class="contact-info">
+        <div class="contact-info__section">
+          <h3>Email</h3>
+          <a href="mailto:info@gregorythegreat.ca">info@gregorythegreat.ca</a>
+        </div>
+
+        <div class="contact-info__section">
+          <h3>Social</h3>
+          <a href="https://www.youtube.com/@gregorythegreatinstitute" target="_blank" rel="noopener">YouTube</a>
+          <a href="https://www.instagram.com/gregorythegreatinstitute/" target="_blank" rel="noopener">Instagram</a>
+        </div>
+
+        <div class="contact-info__section">
+          <h3>Staff</h3>
+          <div class="staff-contact">
+            <p class="staff-contact__name">Dr. Ryan N.S. Topping</p>
+            <p class="staff-contact__role">Executive Director</p>
+            <a href="mailto:rtopping@gregorythegreat.ca">rtopping@gregorythegreat.ca</a>
+          </div>
+          <div class="staff-contact">
+            <p class="staff-contact__name">Catherine Renneberg</p>
+            <p class="staff-contact__role">Director of Programs</p>
+            <a href="mailto:crenneberg@gregorythegreat.ca">crenneberg@gregorythegreat.ca</a>
+          </div>
+          <div class="staff-contact">
+            <p class="staff-contact__name">Victor Carpay</p>
+            <p class="staff-contact__role">Communications & Development</p>
+            <a href="mailto:vcarpay@gregorythegreat.ca">vcarpay@gregorythegreat.ca</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <SectionDivider />
+
+  <!-- Speaker Booking -->
+  <section class="section section--linen">
+    <div class="container speaker-section">
+      <div class="speaker-section__inner">
+        <h2>Invite Dr. Topping to Speak</h2>
+        <p>
+          Dr. Ryan Topping is available for speaking engagements at conferences, parishes, dioceses,
+          and institutions. Topics include Catholic education, cultural renewal, the intellectual tradition,
+          the state of the Canadian Church, and classical formation.
+        </p>
+        <p>
+          Use the contact form above with "Speaker Booking" selected, or email
+          <a href="mailto:rtopping@gregorythegreat.ca">rtopping@gregorythegreat.ca</a> directly.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Newsletter -->
+  <section class="section" style="text-align: center;">
+    <div class="container" style="max-width: 520px;">
+      <h2 style="margin-bottom: 8px;">Stay Connected</h2>
+      <p style="font-family: var(--font-body); font-size: 0.95rem; color: var(--color-gray); margin-bottom: 20px;">
+        Subscribe to the Magnalia Letter for free monthly essays and Institute news.
+      </p>
+      <Button href="/magnalia/letter" variant="secondary" size="small">Subscribe Free</Button>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-component);
+  }
+
+  @media (min-width: 768px) {
+    .contact-grid {
+      grid-template-columns: 1.5fr 1fr;
+    }
+  }
+
+  /* Form */
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .form-group {
+    margin-bottom: 16px;
+  }
+
+  .form-group label {
+    display: block;
+    font-family: var(--font-ui);
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--color-navy);
+    margin-bottom: 6px;
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    width: 100%;
+    font-family: var(--font-ui);
+    font-size: 0.9rem;
+    padding: 10px 14px;
+    border: 1px solid rgba(90, 90, 110, 0.2);
+    border-radius: 3px;
+    background-color: var(--color-linen);
+    color: var(--color-ink);
+    outline: none;
+    transition: border-color var(--transition-fast);
+  }
+
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    border-color: var(--color-gold);
+  }
+
+  .form-group textarea {
+    resize: vertical;
+    min-height: 120px;
+  }
+
+  .form-submit {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 600;
+    padding: 14px 32px;
+    background-color: var(--color-crimson);
+    color: var(--color-parchment);
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color var(--transition-fast);
+  }
+
+  .form-submit:hover {
+    background-color: #6b2124;
+  }
+
+  /* Contact Info */
+  .contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .contact-info__section h3 {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-navy);
+    margin-bottom: 8px;
+  }
+
+  .contact-info__section a {
+    display: block;
+    font-family: var(--font-ui);
+    font-size: 0.88rem;
+    color: var(--color-gold);
+    text-decoration: none;
+    margin-bottom: 4px;
+  }
+
+  .contact-info__section a:hover {
+    text-decoration: underline;
+  }
+
+  .staff-contact {
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(90, 90, 110, 0.06);
+  }
+
+  .staff-contact:last-child {
+    border-bottom: none;
+  }
+
+  .staff-contact__name {
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--color-navy);
+  }
+
+  .staff-contact__role {
+    font-family: var(--font-ui);
+    font-size: 0.78rem;
+    color: var(--color-gray);
+    margin-bottom: 2px;
+  }
+
+  .staff-contact a {
+    font-size: 0.8rem;
+  }
+
+  /* Speaker Section */
+  .speaker-section__inner {
+    max-width: var(--max-prose-width);
+    margin-inline: auto;
+  }
+
+  .speaker-section__inner h2 {
+    margin-bottom: 16px;
+  }
+
+  .speaker-section__inner p {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--color-gray);
+    margin-bottom: 12px;
+  }
+
+  .speaker-section__inner a {
+    color: var(--color-gold);
+    text-decoration: none;
+  }
+
+  .section--linen {
+    background-color: var(--color-linen);
+  }
+</style>

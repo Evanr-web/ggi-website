@@ -1,0 +1,88 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Privacy Policy" description="Privacy policy for the Gregory the Great Institute website.">
+
+  <section class="section">
+    <div class="container prose-section">
+      <h1>Privacy Policy</h1>
+      <p class="last-updated">Last updated: April 2026</p>
+
+      <div class="prose">
+        <h2>Information We Collect</h2>
+        <p>
+          The Gregory the Great Institute collects the following types of information from users of our
+          website and services: names, contact details (email, phone, address), event registration
+          information, donation and payment details, website usage data through cookies and analytics,
+          volunteer and staff records, and newsletter subscription preferences.
+        </p>
+
+        <h2>How We Collect Information</h2>
+        <p>
+          We collect information through: online forms (contact, registration, newsletter signup),
+          donation and subscription forms, email and phone correspondence, cookies and website analytics
+          (Cloudflare Web Analytics), and in-person event signups.
+        </p>
+
+        <h2>How We Use Your Information</h2>
+        <p>
+          Your information is used for: sending newsletters and communications (via ActiveCampaign),
+          processing donations and issuing tax receipts, administering programs and events, managing
+          volunteers and staff, and improving our website and services.
+        </p>
+
+        <h2>Data Storage & Security</h2>
+        <p>
+          We store data in password-protected systems with encryption where applicable. Physical records
+          are kept in locked files. Access is limited to authorized staff and contractors on a need-to-know
+          basis. We conduct periodic security reviews and train staff on data handling procedures.
+        </p>
+
+        <h2>Third-Party Services</h2>
+        <p>
+          We use the following services which may process your data: Sanity (content management), Cloudflare
+          (hosting and analytics), ActiveCampaign (email marketing), Stripe (payment processing), and Zeffy
+          (donation processing via Catholic Voices Canada). We do not sell or rent your personal information.
+        </p>
+
+        <h2>Your Rights</h2>
+        <p>
+          You have the right to: access the personal information we hold about you, request corrections to
+          inaccurate information, withdraw consent for communications at any time, and request deletion of
+          your data where applicable.
+        </p>
+
+        <h2>Contact</h2>
+        <p>
+          For questions about this privacy policy or to exercise your rights, contact us at
+          <a href="mailto:info@gregorythegreat.ca">info@gregorythegreat.ca</a>.
+        </p>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  .prose-section {
+    max-width: var(--max-prose-width);
+    margin-inline: auto;
+  }
+
+  .prose-section h1 {
+    margin-bottom: 8px;
+  }
+
+  .last-updated {
+    font-family: var(--font-ui);
+    font-size: 0.82rem;
+    color: var(--color-gray);
+    margin-bottom: 32px;
+  }
+
+  .prose h2 {
+    margin-top: 32px;
+    margin-bottom: 12px;
+  }
+</style>

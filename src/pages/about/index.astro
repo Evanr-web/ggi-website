@@ -1,0 +1,315 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Button from '../../components/Button.astro';
+import QuoteBlock from '../../components/QuoteBlock.astro';
+import SectionDivider from '../../components/SectionDivider.astro';
+---
+
+<BaseLayout title="Mission & Vision" description="The Gregory the Great Institute equips Christians to renew culture in the light of faith and reason.">
+
+  <!-- Hero -->
+  <section class="hero-compact section--dark">
+    <div class="hero-compact__bg" style="background-image: url('/images/art/St-Gregory-Great-painting-dove.jpg');"></div>
+    <div class="hero-compact__overlay"></div>
+    <div class="hero-compact__content container">
+      <h1 class="display">Our Mission</h1>
+      <p class="hero-compact__subtitle">To equip Christians to renew culture in the light of faith and reason.</p>
+    </div>
+  </section>
+
+  <!-- Mission & Vision -->
+  <section class="section">
+    <div class="container prose-section">
+      <div class="prose">
+        <h2>Mission</h2>
+        <p>
+          The mission is simple: to equip Christians to renew culture. Through courses, formation programs,
+          and publications, the Gregory the Great Institute helps believers transform contemporary culture
+          in the light of faith and reason.
+        </p>
+
+        <h2>Vision</h2>
+        <p>
+          The Gregory the Great Institute is a lay-led non-profit that equips Christians to renew culture
+          in the light of faith and reason through formation programs, short courses, and research that
+          focuses on Catholic life in Canada.
+        </p>
+
+        <h2>Our Strategy</h2>
+        <p>
+          We began with a vision. In January 2025, we cast that vision, sought seed funding, and gathered
+          a team of committed Catholics who shared our conviction that culture can be renewed.
+        </p>
+        <p>
+          Since July 2025, we've been in our proof-of-concept phase — launching formation programs, courses,
+          and publications to test traction and build community. Magnalia went to every Catholic bishop and
+          seminary rector in Canada. The Renewing Culture Conference brought speakers and seekers together
+          from across Western Canada. Book studies sprouted in cities from coast to coast.
+        </p>
+        <p>
+          From July 2027, we enter our major launch phase: establishing a trade school for Catholic men,
+          certificate and diploma programs in Christian leadership, and a Canadian Catholic think-tank.
+          The seeds planted now are growing into institutions that will serve the Church in Canada for
+          generations.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <SectionDivider />
+
+  <!-- Patron Saint -->
+  <section class="section">
+    <div class="container patron-section">
+      <div class="patron-section__image">
+        <img src="/images/art/St-Gregory-Great-painting-dove.jpg" alt="St. Gregory the Great" />
+      </div>
+      <div class="patron-section__text">
+        <p class="label text-gold">Our Patron</p>
+        <h2>St. Gregory the Great</h2>
+        <p>
+          St. Gregory the Great (d. 604) serves as our patron because he taught the West how to love God
+          during times of upheaval. A pope, doctor of the Church, and father of the medieval papacy, Gregory
+          reformed the liturgy, sent missionaries to England, wrote extensively on pastoral care, and laid
+          the foundations of Christendom from the ruins of the Roman Empire.
+        </p>
+        <p>
+          Gregory is the model builder of Catholic culture. At the Gregory the Great Institute we too hope
+          to be builders of culture in Canada; we too hope to help strengthen islands of holiness where
+          prayer, friendship, study, beauty and economic vitality can breathe together.
+        </p>
+
+        <h3 style="margin-top: 24px;">Our Crest</h3>
+        <div class="crest-section">
+          <img src="/images/branding/ggi-seal.png" alt="GGI Crest" class="crest-section__img" />
+          <ul class="crest-section__list">
+            <li><strong>Dove</strong> — Vivifying power of God's Holy Spirit</li>
+            <li><strong>Cross</strong> — Centrality of sacrifice by Christ and for Christ</li>
+            <li><strong>IOIC</strong> — "To restore all things in Christ" (Ephesians 1:10)</li>
+            <li><strong>Red Shield</strong> — Christendom's warriors and scholars</li>
+            <li><strong>Book of Chant</strong> — Authentic culture as fruit of revealed worship</li>
+            <li><strong>Wheat Sheaves</strong> — Eucharist, dignity of work, mission in Western Canada</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <SectionDivider />
+
+  <!-- Sub-page Navigation -->
+  <section class="section section--linen">
+    <div class="container">
+      <div class="about-nav">
+        <a href="/about/story" class="about-nav__card">
+          <h3>Our Story</h3>
+          <p>The founding narrative — from Saskatchewan to Oxford to the Institute.</p>
+          <span class="about-nav__arrow">→</span>
+        </a>
+        <a href="/about/leadership" class="about-nav__card">
+          <h3>Leadership</h3>
+          <p>Board, staff, fellows, and advisory board.</p>
+          <span class="about-nav__arrow">→</span>
+        </a>
+        <a href="/about/founding-director" class="about-nav__card">
+          <h3>Founding Director</h3>
+          <p>Dr. Ryan N.S. Topping — biography, publications, and media.</p>
+          <span class="about-nav__arrow">→</span>
+        </a>
+        <a href="/about/impact" class="about-nav__card">
+          <h3>Impact Report</h3>
+          <p>Key achievements and financial stewardship.</p>
+          <span class="about-nav__arrow">→</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  .hero-compact {
+    position: relative;
+    min-height: 360px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  .hero-compact__bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+  }
+
+  .hero-compact__overlay {
+    position: absolute;
+    inset: 0;
+    background-color: rgba(14, 51, 82, 0.72);
+  }
+
+  .hero-compact__content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    max-width: 700px;
+    margin-inline: auto;
+    padding-block: 60px;
+  }
+
+  .hero-compact__content h1 {
+    color: var(--color-text-on-dark);
+    margin-bottom: 12px;
+  }
+
+  .hero-compact__subtitle {
+    font-family: var(--font-body);
+    font-size: 1.15rem;
+    color: rgba(245, 239, 229, 0.85);
+    line-height: 1.6;
+  }
+
+  /* Prose */
+  .prose-section {
+    max-width: var(--max-prose-width);
+    margin-inline: auto;
+  }
+
+  .prose h2 {
+    margin-top: 32px;
+    margin-bottom: 12px;
+  }
+
+  .prose h2:first-child {
+    margin-top: 0;
+  }
+
+  /* Patron */
+  .patron-section {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-component);
+    align-items: start;
+  }
+
+  .patron-section__image img {
+    width: 100%;
+    max-width: 400px;
+    border-radius: 3px;
+  }
+
+  .patron-section__text h2 {
+    margin: 8px 0 12px;
+  }
+
+  .patron-section__text p {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--color-gray);
+    margin-bottom: 12px;
+  }
+
+  .crest-section {
+    display: flex;
+    gap: 20px;
+    align-items: start;
+    margin-top: 12px;
+  }
+
+  .crest-section__img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .crest-section__list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .crest-section__list li {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    color: var(--color-gray);
+    line-height: 1.4;
+  }
+
+  @media (min-width: 768px) {
+    .patron-section {
+      grid-template-columns: 1fr 1.5fr;
+    }
+  }
+
+  /* About Nav */
+  .about-nav {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .about-nav__card {
+    display: block;
+    background-color: var(--color-parchment);
+    border: 1px solid rgba(90, 90, 110, 0.1);
+    border-radius: 3px;
+    padding: 24px;
+    text-decoration: none;
+    transition: box-shadow var(--transition-base);
+    position: relative;
+  }
+
+  .about-nav__card:hover {
+    box-shadow: 0 4px 16px rgba(14, 51, 82, 0.08);
+  }
+
+  .about-nav__card h3 {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--color-navy);
+    margin-bottom: 4px;
+  }
+
+  .about-nav__card p {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    color: var(--color-gray);
+    line-height: 1.5;
+  }
+
+  .about-nav__arrow {
+    position: absolute;
+    right: 24px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.2rem;
+    color: var(--color-gold);
+  }
+
+  @media (min-width: 640px) {
+    .about-nav {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .about-nav {
+      grid-template-columns: repeat(4, 1fr);
+    }
+    .about-nav__arrow {
+      position: static;
+      display: block;
+      margin-top: 8px;
+      transform: none;
+    }
+  }
+
+  .section--linen {
+    background-color: var(--color-linen);
+  }
+</style>
