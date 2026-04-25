@@ -1,0 +1,131 @@
+---
+interface Props {
+  title: string;
+  date: string;
+  month: string;
+  day: string;
+  location: string;
+  description: string;
+  href: string;
+  programTag?: string;
+}
+
+const { title, date, month, day, location, description, href, programTag } = Astro.props;
+---
+
+<article class="event-card">
+  <div class="event-card__date-badge">
+    <span class="event-card__month">{month}</span>
+    <span class="event-card__day">{day}</span>
+  </div>
+  <div class="event-card__body">
+    {programTag && <span class="event-card__tag label">{programTag}</span>}
+    <h3 class="event-card__title">
+      <a href={href}>{title}</a>
+    </h3>
+    <p class="event-card__location">{location}</p>
+    <p class="event-card__desc">{description}</p>
+    <a href={href} class="event-card__link">Learn More →</a>
+  </div>
+</article>
+
+<style>
+  .event-card {
+    display: flex;
+    gap: 20px;
+    padding: 24px;
+    background-color: var(--color-linen);
+    border: 1px solid rgba(90, 90, 110, 0.1);
+    border-radius: 3px;
+    transition: box-shadow var(--transition-base);
+  }
+
+  .event-card:hover {
+    box-shadow: 0 4px 20px rgba(14, 51, 82, 0.07);
+  }
+
+  .event-card__date-badge {
+    flex-shrink: 0;
+    width: 56px;
+    height: 56px;
+    background-color: var(--color-navy);
+    border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1px;
+  }
+
+  .event-card__month {
+    font-family: var(--font-ui);
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-gold);
+  }
+
+  .event-card__day {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--color-text-on-dark);
+    line-height: 1;
+  }
+
+  .event-card__body {
+    flex: 1;
+  }
+
+  .event-card__tag {
+    color: var(--color-gold);
+    margin-bottom: 4px;
+    display: inline-block;
+  }
+
+  .event-card__title {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    font-weight: 600;
+    line-height: 1.3;
+    margin-bottom: 4px;
+  }
+
+  .event-card__title a {
+    color: var(--color-navy);
+    text-decoration: none;
+  }
+
+  .event-card__title a:hover {
+    color: var(--color-gold);
+  }
+
+  .event-card__location {
+    font-family: var(--font-ui);
+    font-size: 0.8rem;
+    color: var(--color-gray);
+    margin-bottom: 8px;
+  }
+
+  .event-card__desc {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: var(--color-gray);
+    margin-bottom: 12px;
+  }
+
+  .event-card__link {
+    font-family: var(--font-ui);
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--color-gold);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+  }
+
+  .event-card__link:hover {
+    color: var(--color-crimson);
+  }
+</style>

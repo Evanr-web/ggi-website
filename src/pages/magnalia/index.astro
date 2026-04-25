@@ -1,0 +1,621 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Button from '../../components/Button.astro';
+import QuoteBlock from '../../components/QuoteBlock.astro';
+import SectionDivider from '../../components/SectionDivider.astro';
+---
+
+<BaseLayout title="Magnalia" description="The journal of Catholic cultural renewal in Canada. Essays, art, and letters from leading Catholic thinkers.">
+
+  <!-- Section 1: Hero -->
+  <section class="section section--dark magnalia-hero">
+    <div class="container magnalia-hero__inner">
+      <div class="magnalia-hero__text">
+        <p class="label text-gold">The Journal of Catholic Cultural Renewal in Canada</p>
+        <h1 class="magnalia-hero__title display">Magnalia</h1>
+        <p class="magnalia-hero__subtitle"><em>Great and wonderful things</em></p>
+        <p class="magnalia-hero__body">
+          Magnalia brings together the finest Catholic writing, scholarship, and art in Canada. Each
+          60-page issue features original essays from leading Catholic thinkers, letters from the field,
+          and beautiful visual art. Published twice yearly by the Gregory the Great Institute.
+        </p>
+        <div class="magnalia-hero__ctas">
+          <Button href="/magnalia/subscribe" variant="secondary">Subscribe to Magnalia</Button>
+          <a href="#sample" class="magnalia-hero__link">Read a Sample →</a>
+        </div>
+      </div>
+      <div class="magnalia-hero__cover">
+        <img src="/images/branding/Magnalia_Cover.jpg" alt="Magnalia Journal — Issue One" />
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 2: What's Inside -->
+  <section class="section">
+    <div class="container inside-section">
+      <div class="inside-section__main">
+        <h2>Inside Issue One</h2>
+        <div class="toc">
+          <div class="toc__item">
+            <span class="toc__type label">Essay</span>
+            <p class="toc__title">The Recovery of Sunday</p>
+            <p class="toc__author">Dr. Ryan N.S. Topping</p>
+          </div>
+          <div class="toc__item">
+            <span class="toc__type label">Letter</span>
+            <p class="toc__title">From the Western Front: Catholic Life in Alberta</p>
+            <p class="toc__author">Victor Carpay</p>
+          </div>
+          <div class="toc__item">
+            <span class="toc__type label">Essay</span>
+            <p class="toc__title">Classical Education and the Canadian Imagination</p>
+            <p class="toc__author">Dr. Celene Sidloski</p>
+          </div>
+          <div class="toc__item">
+            <span class="toc__type label">Review</span>
+            <p class="toc__title">Reading Pieper in a Distracted Age</p>
+            <p class="toc__author">Dr. Joseph Woodard</p>
+          </div>
+          <div class="toc__item">
+            <span class="toc__type label">Essay</span>
+            <p class="toc__title">Vocations and the Canadian Church: A Statistical Portrait</p>
+            <p class="toc__author">Mark Ingham</p>
+          </div>
+          <div class="toc__item">
+            <span class="toc__type label">Interview</span>
+            <p class="toc__title">On Building Culture in Times of Upheaval</p>
+            <p class="toc__author">Fr. Michael Bombak with Ryan Topping</p>
+          </div>
+        </div>
+
+        <QuoteBlock
+          quote="The renewal of Catholic culture in Canada will not come from institutions alone. It will come from the lived encounter between faith, beauty, and the daily work of forming souls."
+          attribution="From the Editor"
+          title="Dr. Ryan N.S. Topping"
+          variant="light"
+        />
+      </div>
+      <aside class="inside-section__sidebar">
+        <div class="issue-meta">
+          <p class="issue-meta__label label text-gold">Issue One</p>
+          <dl class="issue-meta__list">
+            <dt>Pages</dt>
+            <dd>60</dd>
+            <dt>Published</dt>
+            <dd>Winter 2026</dd>
+            <dt>Contributors</dt>
+            <dd>8</dd>
+            <dt>Format</dt>
+            <dd>Print (60 pages)</dd>
+          </dl>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <SectionDivider />
+
+  <!-- Section 3: Sample Content -->
+  <section class="section" id="sample">
+    <div class="container">
+      <div class="sample-article">
+        <p class="label text-gold">Sample from Issue One</p>
+        <h2 class="sample-article__title">The Recovery of Sunday</h2>
+        <p class="sample-article__byline">By <strong>Dr. Ryan N.S. Topping</strong> · 12 min read</p>
+
+        <div class="prose">
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt
+            ut labore et dolore magna aliqua. In the West, we have largely forgotten what Sunday means.
+            Not merely as a day of rest — though it is that — but as the day that gives meaning to all
+            the other days. Josef Pieper understood this when he wrote that leisure is the basis of culture.
+          </p>
+          <p>
+            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+            commodo consequat. The Christian Sunday is not the weekend. It is the Lord's Day — the day
+            when creation is renewed, when the Eucharist is celebrated, when the community gathers not
+            for productivity but for worship. Duis aute irure dolor in reprehenderit in voluptate velit
+            esse cillum dolore eu fugiat nulla pariatur.
+          </p>
+          <blockquote class="sample-article__pullquote">
+            <p>"To celebrate Sunday means to celebrate the world's birthday — to stand before creation and say: it is very good."</p>
+          </blockquote>
+          <p>
+            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit
+            anim id est laborum. What would it mean for Canadian Catholic culture if we recovered this
+            ancient practice? If Sunday became, once again, the day that formed our weeks, our families,
+            our communities? Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium
+            doloremque laudantium, totam rem aperiam.
+          </p>
+          <p>
+            Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia
+            consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. The recovery of Sunday
+            is not nostalgia. It is a prophetic act — a refusal to reduce human life to the logic of
+            production and consumption. It is the claim that we are made for more than work...
+          </p>
+        </div>
+
+        <div class="sample-article__cta">
+          <p class="sample-article__cta-text">Subscribe to read the full issue and future editions.</p>
+          <Button href="/magnalia/subscribe" variant="primary">Subscribe to Magnalia</Button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 4: Contributors -->
+  <section class="section section--linen">
+    <div class="container">
+      <div class="section-header">
+        <p class="label text-gold">Who Writes Magnalia</p>
+        <h2>Our Contributors</h2>
+      </div>
+
+      <div class="contributors-grid">
+        <div class="contributor-card">
+          <img src="/images/people/Ryan-Topping-headshot.jpg" alt="Dr. Ryan Topping" class="contributor-card__photo" />
+          <h3 class="contributor-card__name">Dr. Ryan N.S. Topping</h3>
+          <p class="contributor-card__credentials">DPhil (Oxford) · 11 books</p>
+          <p class="contributor-card__bio">Executive Director. Catholic education and cultural philosophy.</p>
+        </div>
+        <div class="contributor-card">
+          <img src="/images/people/Catherine-Renneberg-headshot.jpg" alt="Catherine Renneberg" class="contributor-card__photo" />
+          <h3 class="contributor-card__name">Dr. Celene Sidloski</h3>
+          <p class="contributor-card__credentials">Fellow · Saskatoon</p>
+          <p class="contributor-card__bio">Classical education and Canadian Catholic intellectual life.</p>
+        </div>
+        <div class="contributor-card">
+          <div class="contributor-card__photo contributor-card__photo--placeholder"></div>
+          <h3 class="contributor-card__name">Dr. Joseph Woodard</h3>
+          <p class="contributor-card__credentials">Fellow · Calgary</p>
+          <p class="contributor-card__bio">Ethics, bioethics, and Catholic social thought.</p>
+        </div>
+        <div class="contributor-card">
+          <div class="contributor-card__photo contributor-card__photo--placeholder"></div>
+          <h3 class="contributor-card__name">Mark Ingham</h3>
+          <p class="contributor-card__credentials">Fellow · Barry's Bay · PhD Cand.</p>
+          <p class="contributor-card__bio">Vocations research and Canadian Catholic demographics.</p>
+        </div>
+      </div>
+
+      <div class="section-footer">
+        <Button href="/magnalia/contributors" variant="tertiary">Meet All Contributors →</Button>
+      </div>
+    </div>
+  </section>
+
+  <SectionDivider />
+
+  <!-- Section 5: Subscription Options Preview -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <h2>Read Magnalia</h2>
+      </div>
+
+      <div class="sub-tiers">
+        <div class="sub-tier">
+          <h3 class="sub-tier__name">Single Copy</h3>
+          <p class="sub-tier__price">$45</p>
+          <p class="sub-tier__desc">Try a single issue of Magnalia.</p>
+          <Button href="/magnalia/subscribe" variant="secondary" size="small">Order a Copy</Button>
+        </div>
+        <div class="sub-tier sub-tier--featured">
+          <p class="sub-tier__badge label">Most Popular</p>
+          <h3 class="sub-tier__name">Annual Subscription</h3>
+          <p class="sub-tier__price">$80<span class="sub-tier__period">/year</span></p>
+          <p class="sub-tier__desc">Two issues per year. The standard for Friends of Magnalia.</p>
+          <Button href="/magnalia/subscribe" variant="primary" size="small">Subscribe</Button>
+        </div>
+        <div class="sub-tier">
+          <h3 class="sub-tier__name">Magnalia Patron</h3>
+          <p class="sub-tier__price">$500<span class="sub-tier__period">/year</span></p>
+          <p class="sub-tier__desc">Subscription + named recognition + quarterly Q&A with the editor.</p>
+          <Button href="/magnalia/subscribe" variant="secondary" size="small">Become a Patron</Button>
+        </div>
+      </div>
+      <p class="sub-student-note">Student & seminarian rate: $30/year · Family rate: $50/year · <a href="/magnalia/subscribe">View all options →</a></p>
+    </div>
+  </section>
+
+  <!-- Section 6: Magnalia Letter Cross-sell -->
+  <section class="section section--dark">
+    <div class="container" style="text-align: center; max-width: 600px;">
+      <h2 style="color: var(--color-text-on-dark); margin-bottom: 12px;">Between Issues</h2>
+      <p style="font-family: var(--font-body); font-size: 1rem; color: rgba(245,239,229,0.8); margin-bottom: 24px; line-height: 1.7;">
+        Stay connected with the Magnalia Letter — a free monthly essay from the Institute, plus event invitations
+        and reading recommendations.
+      </p>
+      <form class="newsletter-section__form" action="#" method="POST" style="justify-content: center;">
+        <input type="email" name="email" placeholder="Email address" class="newsletter-inline-input" required />
+        <button type="submit" class="newsletter-inline-btn">Subscribe Free</button>
+      </form>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  /* Hero */
+  .magnalia-hero__inner {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-component);
+    align-items: center;
+  }
+
+  .magnalia-hero__title {
+    color: var(--color-text-on-dark);
+    margin: 8px 0 4px;
+  }
+
+  .magnalia-hero__subtitle {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    color: rgba(245, 239, 229, 0.75);
+    margin-bottom: 16px;
+  }
+
+  .magnalia-hero__body {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    line-height: 1.7;
+    color: rgba(245, 239, 229, 0.8);
+    margin-bottom: 28px;
+  }
+
+  .magnalia-hero__ctas {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .magnalia-hero__link {
+    font-family: var(--font-ui);
+    font-size: 0.9rem;
+    color: rgba(245, 239, 229, 0.6);
+    text-decoration: none;
+  }
+
+  .magnalia-hero__link:hover {
+    color: var(--color-gold);
+  }
+
+  .magnalia-hero__cover img {
+    max-width: 360px;
+    width: 100%;
+    margin: 0 auto;
+    display: block;
+    transform: rotate(-2deg);
+    box-shadow: 0 16px 50px rgba(0, 0, 0, 0.4);
+    border-radius: 3px;
+  }
+
+  @media (min-width: 768px) {
+    .magnalia-hero__inner {
+      grid-template-columns: 1.2fr 1fr;
+    }
+  }
+
+  /* Inside Section */
+  .inside-section {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-component);
+  }
+
+  .inside-section h2 {
+    margin-bottom: 24px;
+  }
+
+  .toc {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin-bottom: var(--space-component);
+  }
+
+  .toc__item {
+    padding: 16px 0;
+    border-bottom: 1px solid rgba(90, 90, 110, 0.1);
+  }
+
+  .toc__type {
+    color: var(--color-gold);
+    margin-bottom: 2px;
+  }
+
+  .toc__title {
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--color-navy);
+    line-height: 1.3;
+  }
+
+  .toc__author {
+    font-family: var(--font-ui);
+    font-size: 0.82rem;
+    color: var(--color-gray);
+    margin-top: 2px;
+  }
+
+  .issue-meta {
+    background-color: var(--color-linen);
+    padding: 24px;
+    border: 1px solid rgba(90, 90, 110, 0.08);
+    border-radius: 3px;
+  }
+
+  .issue-meta__label {
+    margin-bottom: 16px;
+  }
+
+  .issue-meta__list {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 8px 16px;
+  }
+
+  .issue-meta__list dt {
+    font-family: var(--font-ui);
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--color-gray);
+  }
+
+  .issue-meta__list dd {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    color: var(--color-navy);
+  }
+
+  @media (min-width: 768px) {
+    .inside-section {
+      grid-template-columns: 2fr 1fr;
+    }
+  }
+
+  /* Sample Article */
+  .sample-article {
+    max-width: var(--max-prose-width);
+    margin-inline: auto;
+  }
+
+  .sample-article__title {
+    font-size: 2rem;
+    margin: 8px 0 12px;
+  }
+
+  .sample-article__byline {
+    font-family: var(--font-ui);
+    font-size: 0.85rem;
+    color: var(--color-gray);
+    margin-bottom: 32px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid rgba(90, 90, 110, 0.1);
+  }
+
+  .sample-article__pullquote {
+    border-left: 3px solid var(--color-gold);
+    padding-left: 24px;
+    margin: 32px 0;
+  }
+
+  .sample-article__pullquote p {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-style: italic;
+    color: var(--color-navy);
+    line-height: 1.5;
+  }
+
+  .sample-article__cta {
+    margin-top: 40px;
+    padding-top: 32px;
+    border-top: 2px solid var(--color-gold);
+    text-align: center;
+  }
+
+  .sample-article__cta-text {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: var(--color-gray);
+    font-style: italic;
+    margin-bottom: 16px;
+  }
+
+  /* Contributors */
+  .contributors-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+
+  .contributor-card {
+    text-align: center;
+    padding: 24px 16px;
+  }
+
+  .contributor-card__photo {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 12px;
+  }
+
+  .contributor-card__photo--placeholder {
+    background-color: var(--color-ivory);
+    display: inline-block;
+  }
+
+  .contributor-card__name {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--color-navy);
+    margin-bottom: 2px;
+  }
+
+  .contributor-card__credentials {
+    font-family: var(--font-ui);
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--color-gold);
+    letter-spacing: 0.03em;
+    margin-bottom: 6px;
+  }
+
+  .contributor-card__bio {
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    color: var(--color-gray);
+    line-height: 1.5;
+  }
+
+  @media (min-width: 768px) {
+    .contributors-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  /* Subscription Tiers */
+  .sub-tiers {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    max-width: 900px;
+    margin-inline: auto;
+  }
+
+  .sub-tier {
+    background-color: var(--color-linen);
+    border: 1px solid rgba(90, 90, 110, 0.1);
+    border-radius: 3px;
+    padding: 28px;
+    text-align: center;
+  }
+
+  .sub-tier--featured {
+    border: 2px solid var(--color-gold);
+  }
+
+  .sub-tier__badge {
+    color: var(--color-gold);
+    margin-bottom: 8px;
+  }
+
+  .sub-tier__name {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--color-navy);
+    margin-bottom: 4px;
+  }
+
+  .sub-tier__price {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--color-navy);
+    margin-bottom: 8px;
+  }
+
+  .sub-tier__period {
+    font-family: var(--font-ui);
+    font-size: 0.85rem;
+    font-weight: 400;
+    color: var(--color-gray);
+  }
+
+  .sub-tier__desc {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    color: var(--color-gray);
+    line-height: 1.5;
+    margin-bottom: 16px;
+  }
+
+  @media (min-width: 640px) {
+    .sub-tiers {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .sub-student-note {
+    text-align: center;
+    font-family: var(--font-ui);
+    font-size: 0.82rem;
+    color: var(--color-gray);
+    margin-top: 16px;
+  }
+
+  .sub-student-note a {
+    color: var(--color-gold);
+    text-decoration: none;
+  }
+
+  .sub-student-note a:hover {
+    text-decoration: underline;
+  }
+
+  /* Inline newsletter in dark section */
+  .newsletter-inline-input {
+    font-family: var(--font-ui);
+    font-size: 0.88rem;
+    padding: 12px 16px;
+    background: rgba(245, 239, 229, 0.06);
+    border: 1px solid rgba(245, 239, 229, 0.2);
+    border-radius: 3px;
+    color: var(--color-text-on-dark);
+    outline: none;
+    min-width: 240px;
+    transition: border-color var(--transition-fast);
+  }
+
+  .newsletter-inline-input:focus {
+    border-color: var(--color-gold);
+  }
+
+  .newsletter-inline-input::placeholder {
+    color: rgba(245, 239, 229, 0.35);
+  }
+
+  .newsletter-inline-btn {
+    font-family: var(--font-display);
+    font-size: 0.9rem;
+    font-weight: 600;
+    padding: 12px 24px;
+    background-color: var(--color-gold);
+    color: var(--color-navy);
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color var(--transition-fast);
+  }
+
+  .newsletter-inline-btn:hover {
+    background-color: #a08638;
+  }
+
+  /* Shared */
+  .section--linen {
+    background-color: var(--color-linen);
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: var(--space-component);
+  }
+
+  .section-header h2 {
+    margin-top: 8px;
+  }
+
+  .section-footer {
+    text-align: center;
+    margin-top: var(--space-component);
+  }
+</style>

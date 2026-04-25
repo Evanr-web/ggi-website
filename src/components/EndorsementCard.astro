@@ -1,0 +1,79 @@
+---
+interface Props {
+  quote: string;
+  name: string;
+  title: string;
+  image?: string;
+}
+
+const { quote, name, title, image } = Astro.props;
+---
+
+<div class="endorsement">
+  <span class="endorsement__mark">&ldquo;</span>
+  <p class="endorsement__quote">{quote}</p>
+  <div class="endorsement__footer">
+    {image && <img src={image} alt={name} class="endorsement__photo" />}
+    <div>
+      <p class="endorsement__name">{name}</p>
+      <p class="endorsement__title">{title}</p>
+    </div>
+  </div>
+</div>
+
+<style>
+  .endorsement {
+    background-color: var(--color-linen);
+    border: 1px solid rgba(90, 90, 110, 0.08);
+    border-radius: 3px;
+    padding: 32px;
+    position: relative;
+  }
+
+  .endorsement__mark {
+    font-family: var(--font-display);
+    font-size: 3rem;
+    line-height: 1;
+    color: var(--color-gold);
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .endorsement__quote {
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    font-style: italic;
+    font-weight: 400;
+    line-height: 1.5;
+    color: var(--color-navy);
+    margin-bottom: 20px;
+  }
+
+  .endorsement__footer {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .endorsement__photo {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  .endorsement__name {
+    font-family: var(--font-ui);
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--color-navy);
+    letter-spacing: 0.03em;
+  }
+
+  .endorsement__title {
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    color: var(--color-gray);
+    font-style: italic;
+  }
+</style>

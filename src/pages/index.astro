@@ -6,33 +6,51 @@ import Button from '../components/Button.astro';
 import QuoteBlock from '../components/QuoteBlock.astro';
 import SectionDivider from '../components/SectionDivider.astro';
 import DarkSection from '../components/DarkSection.astro';
+import EventCard from '../components/EventCard.astro';
+import GivingTier from '../components/GivingTier.astro';
+import EndorsementCard from '../components/EndorsementCard.astro';
 ---
 
 <BaseLayout title="Inspiring Canadian Catholic Culture">
 
-  <!-- Hero -->
-  <Hero
-    tagline="Fides • Ratio • Cultura"
-    headline="Inspiring Canadian Catholic Culture"
-    subtitle="Forming leaders, teaching the tradition, publishing research — equipping Christians to renew culture in the light of faith and reason."
-    ctaText="Explore Our Work"
-    ctaHref="/programs"
-    variant="navy"
-  />
+  <!-- ============================================
+       Section 1: HERO
+       ============================================ -->
+  <section class="hero hero--home">
+    <video class="hero__video" autoplay muted loop playsinline poster="/images/art/St-Gregory-Great-painting-dove.jpg">
+      <source src="/video/hero-loop.mp4" type="video/mp4" />
+    </video>
+    <div class="hero__overlay"></div>
+    <div class="hero__content container">
+      <img src="/images/branding/ggi-seal.png" alt="GGI Seal" class="hero__seal" />
+      <h1 class="hero__headline display">Inspiring Canadian Catholic Culture</h1>
+      <p class="hero__tagline">Fides&ensp;•&ensp;Ratio&ensp;•&ensp;Cultura</p>
+      <p class="hero__subtitle">Forming leaders. Teaching the tradition. Publishing research.</p>
+      <div class="hero__ctas">
+        <a href="/magnalia/letter" class="btn btn--primary">Subscribe to the Magnalia Letter</a>
+        <a href="/programs" class="btn btn--ghost">Explore Our Programs</a>
+      </div>
+    </div>
+  </section>
 
-  <!-- Endorsement -->
+  <!-- ============================================
+       Section 2: CARDINAL ENDORSEMENT
+       ============================================ -->
   <section class="section">
     <div class="container">
       <QuoteBlock
         quote="A faith that does not become culture is not fully accepted, not entirely thought out, not faithfully lived."
         attribution="Pope St. John Paul II"
+        variant="light"
       />
     </div>
   </section>
 
   <SectionDivider />
 
-  <!-- What We Do -->
+  <!-- ============================================
+       Section 3: THREE PILLARS
+       ============================================ -->
   <section class="section">
     <div class="container">
       <div class="section-header">
@@ -44,54 +62,57 @@ import DarkSection from '../components/DarkSection.astro';
         </p>
       </div>
 
-      <div class="card-grid">
-        <Card
-          title="Renewing Culture Conference"
-          description="Join Christians from across Western Canada as renowned speakers explore cutting-edge topics through the lens of the great tradition."
-          meta="Oct 2–3, 2026"
-          href="/events"
-        />
-        <Card
-          title="Magnalia Journal"
-          description="A 60-page journal of letters, essays, and art meant to build up Canadian Catholic culture. The journal of Catholic cultural renewal in Canada."
-          meta="Print Journal"
-          href="/magnalia"
-        />
-        <Card
-          title="Book Studies"
-          description="Free reading groups across Canada exploring treasures of culture — from Fr. Jacques Philippe to Josef Pieper — building up communities."
-          meta="Nationwide"
-          href="/events"
-        />
+      <div class="pillars">
+        <a href="/programs" class="pillar">
+          <img src="/images/art/Bodleian-Library-Oxford.jpg" alt="Classical library" class="pillar__img" />
+          <h3 class="pillar__title">Formation</h3>
+          <p class="pillar__desc">Intensive Great Books seminars, music and leadership camps, and reading groups that form the whole person — mind, soul, and community.</p>
+          <span class="pillar__link">View Programs →</span>
+        </a>
+        <a href="/programs/masterclasses" class="pillar">
+          <img src="/images/art/vanitas-still-life-painting.jpg" alt="Classical still life" class="pillar__img" />
+          <h3 class="pillar__title">Courses</h3>
+          <p class="pillar__desc">Short courses in the Philosophy of Aquinas, Virtuous Leadership, Christian Beauty and Art, and Classical Education for Teachers.</p>
+          <span class="pillar__link">Browse Courses →</span>
+        </a>
+        <a href="/magnalia" class="pillar">
+          <img src="/images/branding/Magnalia_Cover.jpg" alt="Magnalia journal cover" class="pillar__img" />
+          <h3 class="pillar__title">Publications</h3>
+          <p class="pillar__desc">Magnalia — the journal of Catholic cultural renewal in Canada. 60 pages of letters, essays, and art in every issue.</p>
+          <span class="pillar__link">Read Magnalia →</span>
+        </a>
       </div>
     </div>
   </section>
 
-  <!-- Dark CTA Section -->
-  <DarkSection
-    heading="Support Catholic Cultural Renewal"
-    subheading="Your patronage funds the best Catholic writing, formation, and events in Canada. Join a growing community of Christians committed to renewing culture."
-  >
-    <div class="cta-row">
-      <Button href="/give" variant="primary">Become a Patron</Button>
-      <Button href="/magnalia" variant="secondary">Subscribe to Magnalia</Button>
-    </div>
-  </DarkSection>
-
-  <!-- Second Quote -->
-  <section class="section">
-    <div class="container">
-      <QuoteBlock
-        quote="I have appreciated Dr. Ryan Topping's work for several years. I support the mission of the Gregory the Great Institute and look forward to seeing the good it will bring to the Church in Canada."
-        attribution="Michael D. O'Brien"
-        title="Canadian author and painter"
-      />
+  <!-- ============================================
+       Section 4: MAGNALIA FEATURE
+       ============================================ -->
+  <section class="section section--dark magnalia-feature">
+    <div class="container magnalia-feature__inner">
+      <div class="magnalia-feature__cover">
+        <img src="/images/branding/Magnalia_Cover.jpg" alt="Magnalia Journal — Issue One" class="magnalia-feature__img" />
+      </div>
+      <div class="magnalia-feature__text">
+        <p class="label text-gold">Our Flagship Journal</p>
+        <h2 class="magnalia-feature__title">Magnalia</h2>
+        <p class="magnalia-feature__subtitle">The journal of Catholic cultural renewal in Canada</p>
+        <p class="magnalia-feature__body">
+          <em>Magnalia</em> — meaning <em>great and wonderful things</em> — brings together the best Catholic
+          writing, scholarship, and art in Canada. Each 60-page issue features essays from leading Catholic
+          thinkers, letters from the field, and beautiful visual art. Published twice yearly.
+        </p>
+        <div class="magnalia-feature__ctas">
+          <Button href="/magnalia/subscribe" variant="secondary">Subscribe to Magnalia</Button>
+          <a href="/magnalia" class="magnalia-feature__sample">Read a Sample →</a>
+        </div>
+      </div>
     </div>
   </section>
 
-  <SectionDivider />
-
-  <!-- Upcoming Events -->
+  <!-- ============================================
+       Section 5: UPCOMING EVENTS
+       ============================================ -->
   <section class="section">
     <div class="container">
       <div class="section-header">
@@ -99,24 +120,36 @@ import DarkSection from '../components/DarkSection.astro';
         <h2>Events & Programs</h2>
       </div>
 
-      <div class="card-grid">
-        <Card
-          title="Bringing Back Sunday"
+      <div class="events-grid">
+        <EventCard
+          title="Bringing Back Sunday — Renewing Culture Conference"
+          month="Oct"
+          day="2"
+          date="2026-10-02"
+          location="Mt Carmel Spirituality Centre"
           description="2nd Annual Renewing Culture Conference. Reflections on Josef Pieper's Leisure: The Basis of Culture."
-          meta="Oct 2–3, 2026 · Mt Carmel Spirituality Centre"
-          href="/events"
+          href="/events/conference-2026"
+          programTag="Conference"
         />
-        <Card
+        <EventCard
           title="St. Gregory's Music & Leadership Camp"
+          month="Jul"
+          day="12"
+          date="2026-07-12"
+          location="Solara Water's Edge, Parkland County, AB"
           description="Four nights of fiddle, penny whistle, voice, games, prayer, and leadership for youth ages 12–18."
-          meta="Jul 12–16, 2026 · Solara Water's Edge"
-          href="/events"
+          href="/events/music-camp-2026"
+          programTag="Camp"
         />
-        <Card
+        <EventCard
           title="Personal Finances 101"
+          month="Apr"
+          day="25"
+          date="2026-04-25"
+          location="Concordia University of Edmonton"
           description="Master your money, serve your vocation. Financial literacy as stewardship and Catholic formation."
-          meta="Apr 25, 2026 · Concordia University"
-          href="/events"
+          href="/events/finances-101"
+          programTag="Masterclass"
         />
       </div>
 
@@ -126,19 +159,244 @@ import DarkSection from '../components/DarkSection.astro';
     </div>
   </section>
 
-  <!-- Newsletter CTA -->
-  <DarkSection
-    heading="Stay Connected"
-    subheading="Receive news, insights, and invitations from the Institute. Join the Magnalia Letter."
-  >
-    <div class="newsletter-placeholder">
-      <p class="newsletter-note">Newsletter signup form will be connected to ActiveCampaign</p>
+  <SectionDivider />
+
+  <!-- ============================================
+       Section 6: ENDORSEMENTS
+       ============================================ -->
+  <section class="section">
+    <div class="container">
+      <div class="endorsements-grid">
+        <EndorsementCard
+          quote="I have appreciated Dr. Ryan Topping's work for several years. I support the mission of the Gregory the Great Institute and look forward to seeing the good it will bring to the Church in Canada."
+          name="Michael D. O'Brien"
+          title="Canadian author and painter"
+        />
+        <EndorsementCard
+          quote="It is creative minorities who determine the future, and in this regard the Catholic Church must understand that she is a creative minority that has a heritage of values that are not things of the past, but a very living and relevant reality."
+          name="Pope Benedict XVI"
+          title=""
+        />
+        <EndorsementCard
+          quote="Religion without orthodoxy, without dogma, is as the heat of a corpse, true for a time but sure to fail."
+          name="St. John Henry Newman"
+          title="Doctor of the Church"
+        />
+      </div>
     </div>
-  </DarkSection>
+  </section>
+
+  <!-- ============================================
+       Section 7: LATEST FROM THE LIBRARY
+       ============================================ -->
+  <section class="section section--linen">
+    <div class="container">
+      <div class="section-header">
+        <p class="label text-gold">From the Library</p>
+        <h2>The Latest</h2>
+      </div>
+
+      <div class="card-grid">
+        <Card
+          title="FINE Gathering in Ottawa and National Prayer Breakfast"
+          description="Dr. Topping and Victor invited to FINE Gathering and National Prayer Breakfast by MP Shuv Majumbar."
+          meta="Article · Apr 14, 2026"
+          href="/library/fine-gathering-ottawa"
+          image="/images/art/Bodleian-Library-Oxford.jpg"
+          imageAlt="Library interior"
+        />
+        <Card
+          title="Medicine Forgets Its Vocation: Alberta Places Guardrails"
+          description="On MAID and hospital chaplains counselling traumatized healthcare professionals."
+          meta="Essay · Mar 20, 2026"
+          href="/library/medicine-forgets-vocation"
+          image="/images/art/vanitas-still-life-painting.jpg"
+          imageAlt="Vanitas still life"
+        />
+        <Card
+          title="Master Your Money, Serve Your Vocation"
+          description="64% of Canadians never learned money management. Financial literacy as stewardship."
+          meta="Article · Apr 9, 2026"
+          href="/library/personal-finances"
+          image="/images/art/St-Gregory-Great-painting-dove.jpg"
+          imageAlt="St. Gregory the Great"
+        />
+      </div>
+
+      <div class="section-footer">
+        <Button href="/library" variant="tertiary">View All Library →</Button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================
+       Section 8: SUPPORT THE MISSION
+       ============================================ -->
+  <section class="section section--dark support-preview">
+    <div class="container support-preview__inner">
+      <div class="support-preview__text">
+        <p class="label text-gold">Support the Mission</p>
+        <h2>Build Catholic Intellectual Life in Canada</h2>
+        <p class="support-preview__body">
+          In its first year, the Institute published Magnalia to every Catholic bishop and seminary
+          rector in Canada, ran formation programs in four provinces, and built a community of 1,500
+          people hungry for cultural renewal. We did this on a lean budget with a small team.
+          Here's what we can do with your help.
+        </p>
+        <Button href="/support" variant="primary">Become a Friend</Button>
+      </div>
+      <div class="support-preview__tiers">
+        <div class="tier-preview">
+          <p class="tier-preview__name">Friend of the Institute</p>
+          <p class="tier-preview__price"><span class="tier-preview__amount">$10–49</span><span class="tier-preview__period">/month</span></p>
+          <ul class="tier-preview__list">
+            <li>Monthly prayer inclusion</li>
+            <li>Magnalia Letter</li>
+            <li>Early event registration</li>
+          </ul>
+        </div>
+        <div class="tier-preview tier-preview--featured">
+          <p class="tier-preview__badge">Recommended</p>
+          <p class="tier-preview__name">Patron</p>
+          <p class="tier-preview__price"><span class="tier-preview__amount">$50</span><span class="tier-preview__period">/month</span></p>
+          <ul class="tier-preview__list">
+            <li>Everything in Friend, plus:</li>
+            <li>Magnalia subscription included</li>
+            <li>Quarterly Q&A with Dr. Topping</li>
+            <li>Named recognition</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="container" style="text-align: center; margin-top: 24px;">
+      <Button href="/support" variant="tertiary">See All Giving Options →</Button>
+    </div>
+  </section>
+
+  <!-- ============================================
+       Section 9: NEWSLETTER SIGNUP
+       ============================================ -->
+  <section class="newsletter-section">
+    <div class="container newsletter-section__inner">
+      <h2 class="newsletter-section__title">Join the Magnalia Letter</h2>
+      <p class="newsletter-section__desc">Free monthly essays, event invitations, and reading recommendations from the Institute.</p>
+      <form class="newsletter-section__form" action="#" method="POST">
+        <input type="text" name="firstName" placeholder="First name" class="newsletter-section__input" required />
+        <input type="email" name="email" placeholder="Email address" class="newsletter-section__input" required />
+        <button type="submit" class="newsletter-section__btn">Subscribe</button>
+      </form>
+    </div>
+  </section>
 
 </BaseLayout>
 
 <style>
+  /* ---- Hero ---- */
+  .hero--home {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background-color: var(--color-navy);
+  }
+
+  .hero__video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+  }
+
+  .hero__overlay {
+    position: absolute;
+    inset: 0;
+    background-color: rgba(14, 51, 82, 0.65);
+    z-index: 2;
+  }
+
+  .hero__content {
+    position: relative;
+    z-index: 3;
+    text-align: center;
+    max-width: 800px;
+    padding-block: 80px;
+  }
+
+  .hero__seal {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    margin-bottom: 24px;
+    opacity: 0.9;
+  }
+
+  .hero__headline {
+    color: var(--color-text-on-dark);
+    margin-bottom: 12px;
+  }
+
+  .hero__tagline {
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    font-style: italic;
+    color: var(--color-gold);
+    margin-bottom: 16px;
+    letter-spacing: 0.05em;
+  }
+
+  .hero__subtitle {
+    font-family: var(--font-body);
+    font-size: 1.1rem;
+    color: rgba(245, 239, 229, 0.8);
+    margin-bottom: 36px;
+    line-height: 1.6;
+  }
+
+  .hero__ctas {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .btn--ghost {
+    display: inline-block;
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-text-on-dark);
+    background: transparent;
+    padding: 14px 32px;
+    border: 1.5px solid rgba(245, 239, 229, 0.3);
+    border-radius: 3px;
+    text-decoration: none;
+    transition: all var(--transition-fast);
+  }
+
+  .btn--ghost:hover {
+    border-color: var(--color-gold);
+    color: var(--color-gold);
+  }
+
+  @media (max-width: 640px) {
+    .hero--home {
+      min-height: 85vh;
+    }
+    .hero__seal {
+      width: 56px;
+      height: 56px;
+    }
+    .hero__ctas {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+
+  /* ---- Section Shared ---- */
   .section-header {
     text-align: center;
     margin-bottom: var(--space-component);
@@ -158,6 +416,174 @@ import DarkSection from '../components/DarkSection.astro';
     color: var(--color-gray);
   }
 
+  .section-footer {
+    text-align: center;
+    margin-top: var(--space-component);
+  }
+
+  .section--linen {
+    background-color: var(--color-linen);
+  }
+
+  /* ---- Pillars ---- */
+  .pillars {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .pillar {
+    display: block;
+    text-decoration: none;
+    background-color: var(--color-linen);
+    border: 1px solid rgba(90, 90, 110, 0.1);
+    border-radius: 3px;
+    overflow: hidden;
+    transition: box-shadow var(--transition-base);
+  }
+
+  .pillar:hover {
+    box-shadow: 0 4px 20px rgba(14, 51, 82, 0.08);
+  }
+
+  .pillar__img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+  }
+
+  .pillar__title {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--color-navy);
+    padding: 20px 24px 0;
+  }
+
+  .pillar__desc {
+    font-family: var(--font-body);
+    font-size: 0.92rem;
+    line-height: 1.6;
+    color: var(--color-gray);
+    padding: 8px 24px 0;
+  }
+
+  .pillar__link {
+    display: block;
+    font-family: var(--font-ui);
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--color-gold);
+    padding: 16px 24px 24px;
+  }
+
+  @media (min-width: 640px) {
+    .pillars {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  /* ---- Magnalia Feature ---- */
+  .magnalia-feature {
+    overflow: hidden;
+  }
+
+  .magnalia-feature__inner {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-component);
+    align-items: center;
+  }
+
+  .magnalia-feature__cover {
+    text-align: center;
+  }
+
+  .magnalia-feature__img {
+    max-width: 320px;
+    width: 100%;
+    transform: rotate(-3deg);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+    border-radius: 3px;
+  }
+
+  .magnalia-feature__title {
+    font-family: var(--font-display);
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--color-text-on-dark);
+    margin: 8px 0 8px;
+  }
+
+  .magnalia-feature__subtitle {
+    font-family: var(--font-body);
+    font-size: 1.1rem;
+    font-style: italic;
+    color: rgba(245, 239, 229, 0.8);
+    margin-bottom: 16px;
+  }
+
+  .magnalia-feature__body {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    line-height: 1.7;
+    color: rgba(245, 239, 229, 0.75);
+    margin-bottom: 28px;
+  }
+
+  .magnalia-feature__ctas {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .magnalia-feature__sample {
+    font-family: var(--font-ui);
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: rgba(245, 239, 229, 0.7);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+  }
+
+  .magnalia-feature__sample:hover {
+    color: var(--color-gold);
+  }
+
+  @media (min-width: 768px) {
+    .magnalia-feature__inner {
+      grid-template-columns: 1fr 1.3fr;
+    }
+  }
+
+  /* ---- Events Grid ---- */
+  .events-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  @media (min-width: 768px) {
+    .events-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  /* ---- Endorsements ---- */
+  .endorsements-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  @media (min-width: 768px) {
+    .endorsements-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  /* ---- Card Grid ---- */
   .card-grid {
     display: grid;
     grid-template-columns: 1fr;
@@ -176,31 +602,184 @@ import DarkSection from '../components/DarkSection.astro';
     }
   }
 
-  .section-footer {
-    text-align: center;
-    margin-top: var(--space-component);
+  /* ---- Support Preview ---- */
+  .support-preview__inner {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-component);
+    align-items: start;
   }
 
-  .cta-row {
+  .support-preview__text h2 {
+    color: var(--color-text-on-dark);
+    margin-top: 8px;
+    margin-bottom: 16px;
+  }
+
+  .support-preview__body {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    line-height: 1.7;
+    color: rgba(245, 239, 229, 0.8);
+    margin-bottom: 24px;
+  }
+
+  .support-preview__tiers {
     display: flex;
     gap: 16px;
-    justify-content: center;
     flex-wrap: wrap;
   }
 
-  .newsletter-placeholder {
-    background: rgba(245, 239, 229, 0.06);
-    border: 1px dashed rgba(245, 239, 229, 0.2);
+  .tier-preview {
+    flex: 1;
+    min-width: 200px;
+    background: rgba(245, 239, 229, 0.04);
+    border: 1px solid rgba(245, 239, 229, 0.1);
     border-radius: 3px;
-    padding: 32px;
-    max-width: 480px;
-    margin-inline: auto;
+    padding: 24px;
   }
 
-  .newsletter-note {
+  .tier-preview--featured {
+    border-color: var(--color-gold);
+    position: relative;
+  }
+
+  .tier-preview__badge {
     font-family: var(--font-ui);
-    font-size: 0.85rem;
-    color: rgba(245, 239, 229, 0.4);
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-navy);
+    background-color: var(--color-gold);
+    padding: 3px 10px;
+    border-radius: 2px;
+    display: inline-block;
+    margin-bottom: 12px;
+  }
+
+  .tier-preview__name {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--color-text-on-dark);
+    margin-bottom: 6px;
+  }
+
+  .tier-preview__amount {
+    font-family: var(--font-display);
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--color-gold);
+  }
+
+  .tier-preview__period {
+    font-family: var(--font-ui);
+    font-size: 0.82rem;
+    color: rgba(245, 239, 229, 0.5);
+  }
+
+  .tier-preview__list {
+    list-style: none;
+    margin-top: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .tier-preview__list li {
+    font-family: var(--font-ui);
+    font-size: 0.8rem;
+    color: rgba(245, 239, 229, 0.6);
+    padding-left: 14px;
+    position: relative;
+  }
+
+  .tier-preview__list li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: var(--color-gold);
+  }
+
+  @media (min-width: 768px) {
+    .support-preview__inner {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  /* ---- Newsletter Section ---- */
+  .newsletter-section {
+    background-color: var(--color-parchment);
+    padding: 48px 0;
+    border-top: 1px solid rgba(184, 154, 71, 0.2);
+  }
+
+  .newsletter-section__inner {
     text-align: center;
+    max-width: 520px;
+  }
+
+  .newsletter-section__title {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: var(--color-navy);
+    margin-bottom: 8px;
+  }
+
+  .newsletter-section__desc {
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    color: var(--color-gray);
+    line-height: 1.6;
+    margin-bottom: 24px;
+  }
+
+  .newsletter-section__form {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .newsletter-section__input {
+    font-family: var(--font-ui);
+    font-size: 0.88rem;
+    padding: 12px 16px;
+    border: 1px solid rgba(90, 90, 110, 0.2);
+    border-radius: 3px;
+    background-color: var(--color-linen);
+    color: var(--color-ink);
+    outline: none;
+    flex: 1;
+    min-width: 160px;
+    transition: border-color var(--transition-fast);
+  }
+
+  .newsletter-section__input:focus {
+    border-color: var(--color-gold);
+  }
+
+  .newsletter-section__input::placeholder {
+    color: var(--color-gray);
+  }
+
+  .newsletter-section__btn {
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    font-weight: 600;
+    padding: 12px 28px;
+    background-color: var(--color-gold);
+    color: var(--color-navy);
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color var(--transition-fast);
+    white-space: nowrap;
+  }
+
+  .newsletter-section__btn:hover {
+    background-color: #a08638;
   }
 </style>
