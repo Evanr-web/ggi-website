@@ -176,7 +176,7 @@ img {
   border: none;
   height: 1px;
   background-color: var(--color-gold);
-  margin-block: var(--space-component);
+  margin-block: 16px;
 }
 
 .gold-rule--thick {

@@ -9,7 +9,7 @@ import SectionDivider from '../../components/SectionDivider.astro';
 
   <!-- Hero -->
   <section class="hero-compact section--dark">
-    <div class="hero-compact__bg" style="background-image: url('/images/art/St-Gregory-Great-painting-dove.jpg');"></div>
+    <div class="hero-compact__bg" style="background-image: url('/images/art/notre-dame-montreal.jpg');"></div>
     <div class="hero-compact__overlay"></div>
     <div class="hero-compact__content container">
       <h1 class="display">Our Mission</h1>
@@ -17,41 +17,98 @@ import SectionDivider from '../../components/SectionDivider.astro';
     </div>
   </section>
 
-  <!-- Mission & Vision -->
+  <!-- Mission & Vision — Icon Cards -->
   <section class="section">
-    <div class="container prose-section">
-      <div class="prose">
-        <h2>Mission</h2>
-        <p>
-          The mission is simple: to equip Christians to renew culture. Through courses, formation programs,
-          and publications, the Gregory the Great Institute helps believers transform contemporary culture
-          in the light of faith and reason.
-        </p>
+    <div class="container">
+      <div class="mv-cards">
+        <div class="mv-card">
+          <img src="/icons/torch.svg" alt="" class="mv-card__icon-img" />
+          <h2 class="mv-card__title">Our Mission</h2>
+          <p class="mv-card__tagline">To equip Christians to renew culture.</p>
+          <p class="mv-card__body">
+            Through courses, formation programs, and publications, the Gregory the Great Institute helps
+            believers transform contemporary culture in the light of faith and reason.
+          </p>
+        </div>
+        <div class="mv-card">
+          <img src="/icons/cathedral.svg" alt="" class="mv-card__icon-img" />
+          <h2 class="mv-card__title">Our Vision</h2>
+          <p class="mv-card__tagline">A Catholic intellectual renaissance in Canada.</p>
+          <p class="mv-card__body">
+            A lay-led movement of formation, scholarship, and beauty — building institutions that serve
+            the Church in Canada for generations.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-        <h2>Vision</h2>
-        <p>
-          The Gregory the Great Institute is a lay-led non-profit that equips Christians to renew culture
-          in the light of faith and reason through formation programs, short courses, and research that
-          focuses on Catholic life in Canada.
-        </p>
+  <!-- Stats Strip -->
+  <section class="stats-strip">
+    <div class="container stats-strip__inner">
+      <div class="stat">
+        <span class="stat__number">1,500+</span>
+        <span class="stat__label">Community Members</span>
+      </div>
+      <div class="stat">
+        <span class="stat__number">Every</span>
+        <span class="stat__label">Catholic Bishop in Canada Received Magnalia</span>
+      </div>
+      <div class="stat">
+        <span class="stat__number">4</span>
+        <span class="stat__label">Provinces with Programs</span>
+      </div>
+      <div class="stat">
+        <span class="stat__number">60</span>
+        <span class="stat__label">Pages per Issue of Magnalia</span>
+      </div>
+    </div>
+  </section>
 
+  <!-- Strategy Timeline -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <p class="label text-gold">Where We've Been & Where We're Going</p>
         <h2>Our Strategy</h2>
-        <p>
-          We began with a vision. In January 2025, we cast that vision, sought seed funding, and gathered
-          a team of committed Catholics who shared our conviction that culture can be renewed.
-        </p>
-        <p>
-          Since July 2025, we've been in our proof-of-concept phase — launching formation programs, courses,
-          and publications to test traction and build community. Magnalia went to every Catholic bishop and
-          seminary rector in Canada. The Renewing Culture Conference brought speakers and seekers together
-          from across Western Canada. Book studies sprouted in cities from coast to coast.
-        </p>
-        <p>
-          From July 2027, we enter our major launch phase: establishing a trade school for Catholic men,
-          certificate and diploma programs in Christian leadership, and a Canadian Catholic think-tank.
-          The seeds planted now are growing into institutions that will serve the Church in Canada for
-          generations.
-        </p>
+      </div>
+
+      <div class="timeline">
+        <div class="timeline__item">
+          <div class="timeline__marker"></div>
+          <div class="timeline__date">
+            <span class="timeline__year">Jan 2025</span>
+            <span class="timeline__phase label text-gold">Foundation</span>
+          </div>
+          <div class="timeline__content">
+            <h3>Vision Cast</h3>
+            <p>Gathered a team of committed Catholics, sought seed funding, and laid the groundwork for a new institution dedicated to cultural renewal.</p>
+          </div>
+        </div>
+
+        <div class="timeline__item timeline__item--active">
+          <div class="timeline__marker timeline__marker--active"></div>
+          <div class="timeline__date">
+            <span class="timeline__year">Jul 2025</span>
+            <span class="timeline__phase label text-gold">Proof of Concept</span>
+          </div>
+          <div class="timeline__content">
+            <h3>Building & Testing</h3>
+            <p>Launched formation programs, courses, and publications. Magnalia reached every Catholic bishop and seminary rector in Canada. The Renewing Culture Conference brought speakers and seekers from across Western Canada. Book studies sprouted coast to coast.</p>
+          </div>
+        </div>
+
+        <div class="timeline__item">
+          <div class="timeline__marker"></div>
+          <div class="timeline__date">
+            <span class="timeline__year">Jul 2027</span>
+            <span class="timeline__phase label text-gold">Major Launch</span>
+          </div>
+          <div class="timeline__content">
+            <h3>Institutions for the Long Run</h3>
+            <p>A trade school for Catholic men. Certificate and diploma programs in Christian leadership. A Canadian Catholic think-tank. The seeds planted now growing into institutions that will serve the Church for generations.</p>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -170,19 +227,189 @@ import SectionDivider from '../../components/SectionDivider.astro';
     line-height: 1.6;
   }
 
-  /* Prose */
-  .prose-section {
-    max-width: var(--max-prose-width);
+  /* Mission/Vision Icon Cards */
+  .mv-cards {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+    max-width: 900px;
     margin-inline: auto;
   }
 
-  .prose h2 {
-    margin-top: 32px;
+  .mv-card {
+    text-align: center;
+    padding: 32px 28px;
+    background-color: var(--color-linen);
+    border: 1px solid rgba(90, 90, 110, 0.08);
+    border-radius: 3px;
+  }
+
+  .mv-card__icon-img {
+    width: 56px;
+    height: 56px;
+    margin-bottom: 16px;
+    display: block;
+    margin-inline: auto;
+  }
+
+  .mv-card__title {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--color-navy);
+    margin-bottom: 6px;
+  }
+
+  .mv-card__tagline {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-style: italic;
+    color: var(--color-gold);
     margin-bottom: 12px;
   }
 
-  .prose h2:first-child {
-    margin-top: 0;
+  .mv-card__body {
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: var(--color-gray);
+    max-width: 480px;
+    margin-inline: auto;
+  }
+
+  @media (min-width: 640px) {
+    .mv-cards {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  /* Stats Strip */
+  .stats-strip {
+    background-color: var(--color-navy);
+    padding: 40px 0;
+  }
+
+  .stats-strip__inner {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    text-align: center;
+  }
+
+  .stat__number {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--color-gold);
+    line-height: 1.2;
+  }
+
+  .stat__label {
+    display: block;
+    font-family: var(--font-ui);
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: rgba(245, 239, 229, 0.7);
+    margin-top: 4px;
+    letter-spacing: 0.02em;
+  }
+
+  @media (min-width: 640px) {
+    .stats-strip__inner {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  /* Strategy Timeline */
+  .timeline {
+    position: relative;
+    max-width: 720px;
+    margin-inline: auto;
+    padding-left: 32px;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 7px;
+    top: 8px;
+    bottom: 8px;
+    width: 2px;
+    background-color: rgba(198, 160, 50, 0.3);
+  }
+
+  .timeline__item {
+    position: relative;
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 16px;
+    padding-bottom: 36px;
+  }
+
+  .timeline__item:last-child {
+    padding-bottom: 0;
+  }
+
+  .timeline__marker {
+    position: absolute;
+    left: -32px;
+    top: 4px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background-color: var(--color-linen);
+    border: 2px solid var(--color-gold);
+    z-index: 1;
+  }
+
+  .timeline__marker--active {
+    background-color: var(--color-gold);
+    box-shadow: 0 0 0 4px rgba(198, 160, 50, 0.2);
+  }
+
+  .timeline__date {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .timeline__year {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--color-navy);
+  }
+
+  .timeline__content h3 {
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--color-navy);
+    margin-bottom: 6px;
+  }
+
+  .timeline__content p {
+    font-family: var(--font-body);
+    font-size: 0.92rem;
+    line-height: 1.6;
+    color: var(--color-gray);
+  }
+
+  @media (max-width: 640px) {
+    .timeline__item {
+      grid-template-columns: 1fr;
+      gap: 4px;
+    }
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: var(--space-component);
+  }
+
+  .section-header h2 {
+    margin-top: 8px;
   }
 
   /* Patron */
@@ -219,8 +446,8 @@ import SectionDivider from '../../components/SectionDivider.astro';
   }
 
   .crest-section__img {
-    width: 80px;
-    height: 80px;
+    width: 160px;
+    height: 160px;
     border-radius: 50%;
     flex-shrink: 0;
   }

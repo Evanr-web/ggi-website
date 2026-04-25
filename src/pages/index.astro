@@ -16,14 +16,14 @@ import EndorsementCard from '../components/EndorsementCard.astro';
   <!-- ============================================
        Section 1: HERO
        ============================================ -->
-  <section class="hero hero--home" style="background-image: url('/images/art/St-Gregory-Great-painting-dove.jpg');">
+  <section class="hero hero--home" style="background-image: url('/images/art/school-of-athens.jpg');">
     <div class="hero__overlay"></div>
     <div class="hero__content container">
       <h1 class="hero__headline display">Inspiring Canadian Catholic Culture</h1>
       <p class="hero__tagline">Fides&ensp;•&ensp;Ratio&ensp;•&ensp;Cultura</p>
       <p class="hero__subtitle">Forming leaders. Teaching the tradition. Publishing research.</p>
       <div class="hero__ctas">
-        <a href="/magnalia/letter" class="btn btn--primary">Subscribe to the Magnalia Letter</a>
+        <a href="/magnalia/letter" class="btn btn--subscribe">Subscribe to the Magnalia Letter</a>
         <a href="/programs" class="btn btn--ghost">Explore Our Programs</a>
       </div>
     </div>
@@ -32,7 +32,7 @@ import EndorsementCard from '../components/EndorsementCard.astro';
   <!-- ============================================
        Section 2: CARDINAL ENDORSEMENT
        ============================================ -->
-  <section class="section">
+  <section class="section section--tight">
     <div class="container">
       <QuoteBlock
         quote="A faith that does not become culture is not fully accepted, not entirely thought out, not faithfully lived."
@@ -82,9 +82,31 @@ import EndorsementCard from '../components/EndorsementCard.astro';
   </section>
 
   <!-- ============================================
+       Section 3b: VIDEO INTRO
+       ============================================ -->
+  <section class="section section--dark video-section">
+    <div class="container">
+      <div class="section-header">
+        <p class="label text-gold">Watch</p>
+        <h2 style="color: var(--color-text-on-dark);">Why Catholic Culture Matters</h2>
+      </div>
+      <div class="video-embed">
+        <iframe
+          src="https://www.youtube.com/embed/Lhzqr8tMYsI"
+          title="Why Catholic Culture Matters — Gregory the Great Institute"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+          loading="lazy"
+        ></iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================
        Section 4: MAGNALIA FEATURE
        ============================================ -->
-  <section class="section section--dark magnalia-feature">
+  <section class="section section--linen magnalia-feature">
     <div class="container magnalia-feature__inner">
       <div class="magnalia-feature__cover">
         <img src="/images/branding/Magnalia_Cover.jpg" alt="Magnalia Journal — Issue One" class="magnalia-feature__img" />
@@ -149,7 +171,7 @@ import EndorsementCard from '../components/EndorsementCard.astro';
         />
       </div>
 
-      <div class="section-footer">
+      <div class="section-footer" style="margin-bottom: -24px;">
         <Button href="/events" variant="tertiary">View All Events →</Button>
       </div>
     </div>
@@ -160,7 +182,7 @@ import EndorsementCard from '../components/EndorsementCard.astro';
   <!-- ============================================
        Section 6: ENDORSEMENTS
        ============================================ -->
-  <section class="section">
+  <section class="section" style="padding-top: 40px;">
     <div class="container">
       <div class="endorsements-grid">
         <EndorsementCard
@@ -307,7 +329,12 @@ import EndorsementCard from '../components/EndorsementCard.astro';
   .hero__overlay {
     position: absolute;
     inset: 0;
-    background-color: rgba(14, 51, 82, 0.65);
+    background: linear-gradient(
+      to bottom,
+      rgba(14, 51, 82, 0.75) 0%,
+      rgba(14, 51, 82, 0.6) 40%,
+      rgba(14, 51, 82, 0.8) 100%
+    );
     z-index: 2;
   }
 
@@ -326,11 +353,14 @@ import EndorsementCard from '../components/EndorsementCard.astro';
 
   .hero__tagline {
     font-family: var(--font-display);
-    font-size: 1.15rem;
-    font-style: italic;
+    font-size: 1.5rem;
+    font-style: normal;
+    font-weight: 600;
     color: var(--color-gold);
     margin-bottom: 16px;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.7), 0 4px 16px rgba(0, 0, 0, 0.4);
   }
 
   .hero__subtitle {
@@ -346,6 +376,28 @@ import EndorsementCard from '../components/EndorsementCard.astro';
     gap: 16px;
     justify-content: center;
     flex-wrap: wrap;
+  }
+
+  .btn--subscribe {
+    display: inline-block;
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--color-navy);
+    background-color: var(--color-gold);
+    padding: 16px 40px;
+    border: none;
+    border-radius: 3px;
+    text-decoration: none;
+    letter-spacing: 0.02em;
+    box-shadow: 0 4px 20px rgba(198, 160, 50, 0.35);
+    transition: all var(--transition-fast);
+  }
+
+  .btn--subscribe:hover {
+    background-color: #d4ad3a;
+    box-shadow: 0 6px 28px rgba(198, 160, 50, 0.5);
+    transform: translateY(-1px);
   }
 
   .btn--ghost {
@@ -379,6 +431,30 @@ import EndorsementCard from '../components/EndorsementCard.astro';
       flex-direction: column;
       align-items: center;
     }
+  }
+
+  /* ---- Video Section ---- */
+  .video-embed {
+    position: relative;
+    width: 100%;
+    max-width: 800px;
+    margin-inline: auto;
+    aspect-ratio: 16 / 9;
+    border-radius: 3px;
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  }
+
+  .video-embed iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  /* ---- Tight section (reduced whitespace) ---- */
+  .section--tight {
+    padding-block: 32px;
   }
 
   /* ---- Section Shared ---- */
@@ -433,8 +509,9 @@ import EndorsementCard from '../components/EndorsementCard.astro';
 
   .pillar__img {
     width: 100%;
-    height: 180px;
+    height: 240px;
     object-fit: cover;
+    object-position: top center;
   }
 
   .pillar__title {
@@ -487,6 +564,7 @@ import EndorsementCard from '../components/EndorsementCard.astro';
   .magnalia-feature__img {
     max-width: 320px;
     width: 100%;
+    display: block;
     transform: rotate(-3deg);
     box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
     border-radius: 3px;
@@ -496,7 +574,7 @@ import EndorsementCard from '../components/EndorsementCard.astro';
     font-family: var(--font-display);
     font-size: 2.5rem;
     font-weight: 700;
-    color: var(--color-text-on-dark);
+    color: var(--color-navy);
     margin: 8px 0 8px;
   }
 
@@ -504,7 +582,7 @@ import EndorsementCard from '../components/EndorsementCard.astro';
     font-family: var(--font-body);
     font-size: 1.1rem;
     font-style: italic;
-    color: rgba(245, 239, 229, 0.8);
+    color: var(--color-gray);
     margin-bottom: 16px;
   }
 
@@ -512,7 +590,7 @@ import EndorsementCard from '../components/EndorsementCard.astro';
     font-family: var(--font-body);
     font-size: 1rem;
     line-height: 1.7;
-    color: rgba(245, 239, 229, 0.75);
+    color: var(--color-gray);
     margin-bottom: 28px;
   }
 
@@ -527,7 +605,7 @@ import EndorsementCard from '../components/EndorsementCard.astro';
     font-family: var(--font-ui);
     font-size: 0.9rem;
     font-weight: 500;
-    color: rgba(245, 239, 229, 0.7);
+    color: var(--color-gray);
     text-decoration: none;
     transition: color var(--transition-fast);
   }

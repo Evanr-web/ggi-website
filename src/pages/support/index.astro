@@ -17,36 +17,12 @@ import SectionDivider from '../../components/SectionDivider.astro';
     </div>
   </section>
 
-  <!-- Case for Support -->
-  <section class="section">
-    <div class="container prose-section">
-      <div class="prose">
-        <p>
-          In its first year, the Institute published Magnalia to every Catholic bishop and seminary rector
-          in Canada, ran formation programs in four provinces, and built a community of 1,500 people hungry
-          for cultural renewal. We did this on a lean budget with a small team.
-        </p>
-        <p>
-          Here's what we can do with your help: expand our formation programs to reach more cities, publish
-          Magnalia twice yearly with contributions from the best Catholic writers in the country, launch the
-          Faith and Reason Seminar for emerging leaders, and build toward our 2027 vision — a Catholic trade
-          school, leadership certificate programs, and a Canadian Catholic think-tank.
-        </p>
-        <p>
-          This is not charity. This is an investment in the intellectual and cultural life of the Catholic
-          Church in Canada. Every dollar builds something that lasts.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <SectionDivider />
-
-  <!-- Giving Tiers -->
+  <!-- Hook + Giving Tiers -->
   <section class="section">
     <div class="container">
       <div class="section-header">
-        <h2>Join the Mission</h2>
+        <p class="support-hook">1,500 people. Every bishop in Canada. Four provinces. One year.</p>
+        <h2>Now imagine year two.</h2>
       </div>
 
       <div class="tiers-grid">
@@ -124,7 +100,55 @@ import SectionDivider from '../../components/SectionDivider.astro';
     </div>
   </section>
 
-  <SectionDivider />
+  <!-- Social Proof — Scrolling Endorsements -->
+  <section class="section" style="padding-block: 48px;">
+    <div class="container">
+      <div class="endorsement-carousel" id="endorsement-carousel">
+        <div class="endorsement-track">
+          <blockquote class="endorsement-slide">
+            <p>"I have known Dr. Ryan Topping and appreciated his work for a long time. I am delighted to see this important work that he is doing to continue building up the Catholic community and advancing the common good in Canada."</p>
+            <footer>
+              <img src="/images/people/Garnett-Genuis-headshot.jpg" alt="Garnett Genuis" class="endorsement-photo" />
+              <div>
+                <cite>Garnett Genuis, M.P.</cite>
+              </div>
+            </footer>
+          </blockquote>
+          <blockquote class="endorsement-slide">
+            <p>"The Gregory the Great Institute shows great promise in its commitment to forming Canadian Catholic leaders in all walks of life. Dr Ryan Topping has established a reputation as one our country's most prolific and insightful Catholic scholars. Dr Topping is well placed to play a major role in the revival of Catholic culture and its active influence in Canadian public life."</p>
+            <footer>
+              <img src="/images/people/Robert-Berard-headshot.jpg" alt="Robert Nicholas Berard" class="endorsement-photo" />
+              <div>
+                <cite>Robert Nicholas Berard, Ph.D.</cite>
+                <span>President, Fellowship of Catholic Scholars (Canada)</span>
+              </div>
+            </footer>
+          </blockquote>
+          <blockquote class="endorsement-slide">
+            <p>"I have appreciated Dr. Ryan Topping's work for several years. I support the mission of the Gregory the Great Institute and look forward to seeing the good it will bring to the Church in Canada."</p>
+            <footer>
+              <img src="/images/people/Michael-OBrien-headshot.jpg" alt="Michael D. O'Brien" class="endorsement-photo" />
+              <div>
+                <cite>Michael D. O'Brien</cite>
+                <span>Canadian author and painter</span>
+              </div>
+            </footer>
+          </blockquote>
+          <blockquote class="endorsement-slide">
+            <p>"Dr. Ryan Topping is among Canada's most important philosopher-theologians. His work on renewing Catholic culture over the years stands in the tradition of Cardinal Newman and G.K. Chesterton. I anticipate good things from the Gregory the Great Institute."</p>
+            <footer>
+              <img src="/images/people/Aidan-Nichols-headshot.jpg" alt="Fr. Aidan Nichols" class="endorsement-photo" />
+              <div>
+                <cite>Fr. Aidan Nichols, O.P.</cite>
+                <span>Theologian and author of over 40 books</span>
+              </div>
+            </footer>
+          </blockquote>
+        </div>
+        <div class="endorsement-dots" id="endorsement-dots"></div>
+      </div>
+    </div>
+  </section>
 
   <!-- One-Time Giving -->
   <section class="section section--linen">
@@ -208,9 +232,105 @@ import SectionDivider from '../../components/SectionDivider.astro';
     color: rgba(245, 239, 229, 0.85);
   }
 
-  .prose-section {
-    max-width: var(--max-prose-width);
+  .support-hook {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    font-weight: 400;
+    color: var(--color-gold);
+    letter-spacing: 0.03em;
+    margin-bottom: 4px;
+  }
+
+  /* Endorsement Carousel */
+  .endorsement-carousel {
+    max-width: 640px;
     margin-inline: auto;
+    text-align: center;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .endorsement-track {
+    display: flex;
+    transition: transform 0.5s ease;
+  }
+
+  .endorsement-slide {
+    min-width: 100%;
+    padding: 0 20px;
+    box-sizing: border-box;
+    margin: 0;
+  }
+
+  .endorsement-slide p {
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    font-style: italic;
+    line-height: 1.6;
+    color: var(--color-navy);
+    margin-bottom: 16px;
+  }
+
+  .endorsement-slide footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+  }
+
+  .endorsement-slide footer div {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    text-align: left;
+  }
+
+  .endorsement-photo {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center top;
+    flex-shrink: 0;
+  }
+
+  .endorsement-slide cite {
+    font-family: var(--font-ui);
+    font-size: 0.8rem;
+    font-weight: 600;
+    font-style: normal;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-gold);
+  }
+
+  .endorsement-slide footer span {
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    color: var(--color-gray);
+    font-style: italic;
+  }
+
+  .endorsement-dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 20px;
+  }
+
+  :global(.endorsement-dot) {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: rgba(27, 42, 74, 0.2);
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    transition: background-color 0.3s;
+  }
+
+  :global(.endorsement-dot--active) {
+    background-color: var(--color-crimson);
   }
 
   .section-header {
@@ -325,3 +445,34 @@ import SectionDivider from '../../components/SectionDivider.astro';
     background-color: var(--color-linen);
   }
 </style>
+
+<script>
+  const track = document.querySelector('.endorsement-track');
+  const slides = document.querySelectorAll('.endorsement-slide');
+  const dotsContainer = document.getElementById('endorsement-dots');
+  let current = 0;
+
+  // Create dots
+  slides.forEach((_, i) => {
+    const dot = document.createElement('button');
+    dot.className = `endorsement-dot${i === 0 ? ' endorsement-dot--active' : ''}`;
+    dot.setAttribute('aria-label', `Endorsement ${i + 1}`);
+    dot.addEventListener('click', () => goTo(i));
+    dotsContainer?.appendChild(dot);
+  });
+
+  function goTo(index: number) {
+    current = index;
+    if (track instanceof HTMLElement) {
+      track.style.transform = `translateX(-${current * 100}%)`;
+    }
+    document.querySelectorAll('.endorsement-dot').forEach((d, i) => {
+      d.classList.toggle('endorsement-dot--active', i === current);
+    });
+  }
+
+  // Auto-advance every 6 seconds
+  setInterval(() => {
+    goTo((current + 1) % slides.length);
+  }, 6000);
+</script>

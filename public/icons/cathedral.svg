@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="#8B2500" stroke="none">
+  <!-- Central spire -->
+  <polygon points="32,4 28,24 36,24"/>
+  <!-- Cross on top -->
+  <rect x="31" y="2" width="2" height="8"/>
+  <rect x="29" y="4" width="6" height="2"/>
+  <!-- Main tower body -->
+  <rect x="26" y="24" width="12" height="20"/>
+  <!-- Rose window -->
+  <circle cx="32" cy="32" r="3" fill="#FAF8F0"/>
+  <circle cx="32" cy="32" r="3" fill="none" stroke="#8B2500" stroke-width="1"/>
+  <!-- Door -->
+  <path d="M29 44h6v-4a3 3 0 0 0-6 0z" fill="#FAF8F0"/>
+  <!-- Side towers -->
+  <rect x="14" y="30" width="12" height="14"/>
+  <polygon points="20,22 14,30 26,30"/>
+  <rect x="38" y="30" width="12" height="14"/>
+  <polygon points="44,22 38,30 50,30"/>
+  <!-- Side tower windows -->
+  <rect x="18" y="34" width="3" height="5" rx="1.5" fill="#FAF8F0"/>
+  <rect x="43" y="34" width="3" height="5" rx="1.5" fill="#FAF8F0"/>
+  <!-- Base/steps -->
+  <rect x="10" y="44" width="44" height="3"/>
+  <rect x="6" y="47" width="52" height="3" rx="1"/>
+</svg>

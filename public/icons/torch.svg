@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="#8B2500">
+  <!-- Flame outer -->
+  <path d="M32 4c-3 4-10 12-10 20a10 10 0 0 0 20 0c0-8-7-16-10-20z"/>
+  <!-- Flame inner highlight -->
+  <path d="M32 10c-2 3-5 7-5 12a5 5 0 0 0 10 0c0-5-3-9-5-12z" fill="#C6A032"/>
+  <!-- Flame core -->
+  <path d="M32 16c-1 2-2.5 4-2.5 6a2.5 2.5 0 0 0 5 0c0-2-1.5-4-2.5-6z" fill="#FAF8F0"/>
+  <!-- Cup/bracket -->
+  <path d="M24 26c0 2 1 3 3 3h10c2 0 3-1 3-3l-1-2H25z"/>
+  <!-- Shaft with taper -->
+  <path d="M28 29h8l-1 27h-6z"/>
+  <!-- Ornamental ring -->
+  <rect x="27" y="38" width="10" height="2.5" rx="1"/>
+  <!-- Base knob -->
+  <ellipse cx="32" cy="58" rx="5" ry="3"/>
+</svg>

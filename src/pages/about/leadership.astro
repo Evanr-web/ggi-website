@@ -16,16 +16,14 @@ import SectionDivider from '../../components/SectionDivider.astro';
   <!-- Patron -->
   <section class="section">
     <div class="container">
-      <div class="patron-featured">
-        <img src="/images/people/thomas-collins.jpg" alt="Cardinal Thomas Collins" class="patron-featured__photo" />
-        <div>
-          <p class="label text-gold">Patron</p>
-          <h2>His Eminence Thomas Cardinal Collins</h2>
-          <p class="patron-featured__bio">
-            Cardinal Collins serves as Patron of the Gregory the Great Institute, lending his support and
-            encouragement to the mission of Catholic cultural renewal in Canada.
-          </p>
-        </div>
+      <div class="patron-featured patron-featured--centered">
+        <img src="/images/people/thomas-collins.jpg" alt="Cardinal Thomas Collins" class="patron-featured__photo patron-featured__photo--large" />
+        <p class="label text-gold">Patron</p>
+        <h2>His Eminence Thomas Cardinal Collins</h2>
+        <p class="patron-featured__bio">
+          Cardinal Collins serves as Patron of the Gregory the Great Institute, lending his support and
+          encouragement to the mission of Catholic cultural renewal in Canada.
+        </p>
       </div>
     </div>
   </section>
@@ -36,12 +34,23 @@ import SectionDivider from '../../components/SectionDivider.astro';
   <section class="section">
     <div class="container">
       <h2 style="margin-bottom: 24px;">Staff</h2>
-      <div class="people-grid people-grid--large">
+      <div class="people-grid people-grid--staff">
         <div class="person-card person-card--large">
           <img src="/images/people/Ryan-Topping-headshot.jpg" alt="Dr. Ryan Topping" class="person-card__photo" />
           <h3>Dr. Ryan N.S. Topping</h3>
-          <p class="person-card__role">Executive Director</p>
-          <p class="person-card__bio">DPhil (Oxford), author of 11 books on Catholic culture and education. Former VP and Academic Dean at Newman Theological College. Queen Elizabeth II Platinum Jubilee Medal recipient.</p>
+          <p class="person-card__role">Founding Executive Director</p>
+          <div class="person-card__bio-expandable">
+            <p class="person-card__bio">
+              Dr. Topping is the founding Executive Director of the Gregory the Great Institute, a non-profit organization devoted to promoting cultural renewal in Canada. He is the author of over 10 books on Catholic education and culture. He holds a doctorate from the University of Oxford and is a recipient of the Queen Elizabeth II Platinum Jubilee Medal.
+            </p>
+            <input type="checkbox" id="topping-expand" class="expand-toggle" />
+            <div class="expand-content">
+              <p class="person-card__bio">
+                In his professorial career he taught in the US and helped establish or lead three Catholic Studies programs in Canada, including while serving as Academic Dean. He has worked as a consultant to both provincial and federal elected officials. Dr. Topping and his wife have 10 children and are a founding family of Campion Classical Academy in Alberta. His most recent book is <em>Thinking as Though God Exists: Newman on Evangelizing the 'Nones'.</em> His YouTube Series launches during Easter 2026.
+              </p>
+            </div>
+            <label for="topping-expand" class="expand-btn">Read more ↓</label>
+          </div>
           <a href="mailto:rtopping@gregorythegreat.ca" class="person-card__email">rtopping@gregorythegreat.ca</a>
           <a href="/about/founding-director" class="person-card__link">View full profile →</a>
         </div>
@@ -53,7 +62,7 @@ import SectionDivider from '../../components/SectionDivider.astro';
           <a href="mailto:crenneberg@gregorythegreat.ca" class="person-card__email">crenneberg@gregorythegreat.ca</a>
         </div>
         <div class="person-card person-card--large">
-          <div class="person-card__photo person-card__photo--placeholder"></div>
+          <img src="/images/people/Victor-Carpay-headshot.jpg" alt="Victor Carpay" class="person-card__photo" />
           <h3>Victor Carpay</h3>
           <p class="person-card__role">Communications & Development</p>
           <p class="person-card__bio">Lifelong Albertan passionate about renewing culture through faith and reason. BA in Catholic Studies from Newman Theological College. Experience in sales, business, and political activism.</p>
@@ -71,27 +80,27 @@ import SectionDivider from '../../components/SectionDivider.astro';
       <h2 style="margin-bottom: 24px;">Board of Directors</h2>
       <div class="people-grid">
         <div class="person-card">
-          <div class="person-card__photo person-card__photo--placeholder"></div>
+          <img src="/images/people/Ryan-Topping-headshot.jpg" alt="Dr. Ryan Topping" class="person-card__photo" />
           <h3>Dr. Ryan N.S. Topping</h3>
           <p class="person-card__role">Chair</p>
         </div>
         <div class="person-card">
-          <div class="person-card__photo person-card__photo--placeholder"></div>
+          <img src="/images/people/Brian-Holdsworth-headshot.jpg" alt="Brian Holdsworth" class="person-card__photo" />
           <h3>Brian Holdsworth</h3>
           <p class="person-card__role">Director</p>
         </div>
         <div class="person-card">
-          <div class="person-card__photo person-card__photo--placeholder"></div>
+          <img src="/images/people/Celene-Sidloski-headshot.jpg" alt="Dr. Celene Sidloski" class="person-card__photo" />
           <h3>Dr. Celene Sidloski</h3>
           <p class="person-card__role">Director</p>
         </div>
         <div class="person-card">
-          <div class="person-card__photo person-card__photo--placeholder"></div>
+          <img src="/images/people/Catherine-Renneberg-headshot.jpg" alt="Catherine Renneberg" class="person-card__photo" />
           <h3>Catherine Renneberg</h3>
           <p class="person-card__role">Director</p>
         </div>
         <div class="person-card">
-          <div class="person-card__photo person-card__photo--placeholder"></div>
+          <img src="/images/people/Caleb-Ropp-headshot.jpg" alt="Caleb Ropp" class="person-card__photo" style="object-position: center center;" />
           <h3>Caleb Ropp</h3>
           <p class="person-card__role">Director</p>
         </div>
@@ -105,25 +114,25 @@ import SectionDivider from '../../components/SectionDivider.astro';
       <h2 style="margin-bottom: 24px;">Fellows</h2>
       <div class="people-grid people-grid--large">
         <div class="person-card person-card--large">
-          <div class="person-card__photo person-card__photo--placeholder"></div>
+          <img src="/images/people/Joe-Woodard-headshot.jpg" alt="Dr. Joe Woodard" class="person-card__photo" />
           <h3>Dr. Joe Woodard</h3>
           <p class="person-card__role">Fellow · Calgary</p>
           <p class="person-card__bio">Ethics, bioethics, and Catholic social thought.</p>
         </div>
         <div class="person-card person-card--large">
-          <div class="person-card__photo person-card__photo--placeholder"></div>
+          <img src="/images/people/Celene-Sidloski-headshot.jpg" alt="Dr. Celene Sidloski" class="person-card__photo" />
           <h3>Dr. Celene Sidloski</h3>
           <p class="person-card__role">Fellow · Saskatoon</p>
           <p class="person-card__bio">Classical education and Canadian Catholic intellectual life.</p>
         </div>
         <div class="person-card person-card--large">
-          <div class="person-card__photo person-card__photo--placeholder"></div>
+          <img src="/images/people/Mark-Ingham-headshot.jpg" alt="Mark Ingham" class="person-card__photo" />
           <h3>Mark Ingham, PhD Cand.</h3>
           <p class="person-card__role">Fellow · Barry's Bay</p>
           <p class="person-card__bio">Vocations research and Canadian Catholic demographics.</p>
         </div>
         <div class="person-card person-card--large">
-          <div class="person-card__photo person-card__photo--placeholder"></div>
+          <img src="/images/people/Fr-Michael-Bombak-headshot.jpg" alt="Fr. Michael Bombak" class="person-card__photo" />
           <h3>Fr. Michael Bombak</h3>
           <p class="person-card__role">Fellow · Toronto</p>
           <p class="person-card__bio">Theology, priesthood, and cultural renewal.</p>
@@ -143,20 +152,32 @@ import SectionDivider from '../../components/SectionDivider.astro';
       <h2 style="margin-bottom: 24px;">Advisory Board</h2>
       <div class="advisory-list">
         <div class="advisory-item">
-          <h3>Jeff Lockert</h3>
-          <p>President, CCO Canada</p>
+          <img src="/images/people/Jeff-Lockert-headshot.jpg" alt="Jeff Lockert" class="advisory-item__photo" />
+          <div>
+            <h3>Jeff Lockert</h3>
+            <p>President, CCO Canada</p>
+          </div>
         </div>
         <div class="advisory-item">
-          <h3>Fr Dcn Andrew Bennett</h3>
-          <p>Cardus · Formerly Canadian Ambassador for Religious Freedom</p>
+          <img src="/images/people/Andrew-Bennett-headshot.jpg" alt="Fr Dcn Andrew Bennett" class="advisory-item__photo" />
+          <div>
+            <h3>Fr Dcn Andrew Bennett</h3>
+            <p>Cardus · Formerly Canadian Ambassador for Religious Freedom</p>
+          </div>
         </div>
         <div class="advisory-item">
-          <h3>Dr. Keith Cassidy</h3>
-          <p>Past President and Chair of the Board, Seat of Wisdom College</p>
+          <img src="/images/people/Keith-Cassidy-headshot.jpg" alt="Dr. Keith Cassidy" class="advisory-item__photo" />
+          <div>
+            <h3>Dr. Keith Cassidy</h3>
+            <p>Past President and Chair of the Board, Seat of Wisdom College</p>
+          </div>
         </div>
         <div class="advisory-item">
-          <h3>Alane Boudreau</h3>
-          <p>Founding Board Member, St John Choir Schola, Calgary</p>
+          <img src="/images/people/Alane-Boudreau-headshot.jpg" alt="Alane Boudreau" class="advisory-item__photo" />
+          <div>
+            <h3>Alane Boudreau</h3>
+            <p>Founding Board Member, St John Choir Schola, Calgary</p>
+          </div>
         </div>
       </div>
     </div>
@@ -199,7 +220,7 @@ import SectionDivider from '../../components/SectionDivider.astro';
     gap: 20px;
   }
 
-  .people-grid--large {
+  .people-grid.people-grid--staff {
     grid-template-columns: 1fr;
   }
 
@@ -209,8 +230,8 @@ import SectionDivider from '../../components/SectionDivider.astro';
   }
 
   .person-card--large {
-    text-align: left;
-    padding: 24px;
+    text-align: center;
+    padding: 28px;
     background-color: var(--color-linen);
     border: 1px solid rgba(90, 90, 110, 0.08);
     border-radius: 3px;
@@ -221,24 +242,20 @@ import SectionDivider from '../../components/SectionDivider.astro';
     height: 72px;
     border-radius: 50%;
     object-fit: cover;
+    object-position: center top;
     margin-bottom: 12px;
+    display: block;
+    margin-inline: auto;
   }
 
   .person-card--large .person-card__photo {
-    width: 80px;
-    height: 80px;
-  }
-
-  .person-card:not(.person-card--large) .person-card__photo {
-    margin-inline: auto;
+    width: 96px;
+    height: 96px;
   }
 
   .person-card__photo--placeholder {
     background-color: var(--color-ivory);
     display: block;
-  }
-
-  .person-card:not(.person-card--large) .person-card__photo--placeholder {
     margin-inline: auto;
   }
 
@@ -266,6 +283,44 @@ import SectionDivider from '../../components/SectionDivider.astro';
     margin-bottom: 8px;
   }
 
+  /* Expandable bio */
+  .person-card__bio-expandable {
+    margin-bottom: 8px;
+  }
+
+  .expand-toggle {
+    display: none;
+  }
+
+  .expand-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+
+  .expand-toggle:checked ~ .expand-content {
+    max-height: 500px;
+  }
+
+  .expand-toggle:checked ~ .expand-btn {
+    display: none;
+  }
+
+  .expand-btn {
+    display: inline-block;
+    font-family: var(--font-ui);
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--color-gold);
+    cursor: pointer;
+    margin-top: 4px;
+    transition: color var(--transition-fast);
+  }
+
+  .expand-btn:hover {
+    color: var(--color-crimson);
+  }
+
   .person-card__email {
     font-family: var(--font-ui);
     font-size: 0.78rem;
@@ -284,13 +339,7 @@ import SectionDivider from '../../components/SectionDivider.astro';
   }
 
   @media (min-width: 640px) {
-    .people-grid--large {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-
-  @media (min-width: 768px) {
-    .people-grid {
+    .people-grid.people-grid--staff {
       grid-template-columns: repeat(3, 1fr);
     }
     .people-grid--large {
@@ -298,9 +347,15 @@ import SectionDivider from '../../components/SectionDivider.astro';
     }
   }
 
-  @media (min-width: 1024px) {
+  @media (min-width: 768px) {
     .people-grid {
       grid-template-columns: repeat(5, 1fr);
+    }
+    .people-grid.people-grid--staff {
+      grid-template-columns: repeat(3, 1fr);
+    }
+    .people-grid--large {
+      grid-template-columns: repeat(4, 1fr);
     }
   }
 
@@ -312,12 +367,27 @@ import SectionDivider from '../../components/SectionDivider.astro';
     flex-wrap: wrap;
   }
 
+  .patron-featured--centered {
+    flex-direction: column;
+    text-align: center;
+    max-width: 560px;
+    margin-inline: auto;
+    gap: 4px;
+  }
+
   .patron-featured__photo {
     width: 100px;
     height: 100px;
     border-radius: 50%;
     object-fit: cover;
     flex-shrink: 0;
+  }
+
+  .patron-featured__photo--large {
+    width: 160px;
+    height: 160px;
+    margin-bottom: 12px;
+    box-shadow: 0 4px 20px rgba(14, 51, 82, 0.12);
   }
 
   .patron-featured h2 {
@@ -339,8 +409,20 @@ import SectionDivider from '../../components/SectionDivider.astro';
   }
 
   .advisory-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
     padding: 16px 0;
     border-bottom: 1px solid rgba(90, 90, 110, 0.08);
+  }
+
+  .advisory-item__photo {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center top;
+    flex-shrink: 0;
   }
 
   .advisory-item h3 {

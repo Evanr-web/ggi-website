@@ -30,66 +30,42 @@ import SectionDivider from '../../components/SectionDivider.astro';
     </div>
   </section>
 
-  <!-- Section 2: What's Inside -->
-  <section class="section">
-    <div class="container inside-section">
-      <div class="inside-section__main">
-        <h2>Inside Issue One</h2>
-        <div class="toc">
-          <div class="toc__item">
-            <span class="toc__type label">Essay</span>
-            <p class="toc__title">The Recovery of Sunday</p>
-            <p class="toc__author">Dr. Ryan N.S. Topping</p>
-          </div>
-          <div class="toc__item">
-            <span class="toc__type label">Letter</span>
-            <p class="toc__title">From the Western Front: Catholic Life in Alberta</p>
-            <p class="toc__author">Victor Carpay</p>
-          </div>
-          <div class="toc__item">
-            <span class="toc__type label">Essay</span>
-            <p class="toc__title">Classical Education and the Canadian Imagination</p>
-            <p class="toc__author">Dr. Celene Sidloski</p>
-          </div>
-          <div class="toc__item">
-            <span class="toc__type label">Review</span>
-            <p class="toc__title">Reading Pieper in a Distracted Age</p>
-            <p class="toc__author">Dr. Joseph Woodard</p>
-          </div>
-          <div class="toc__item">
-            <span class="toc__type label">Essay</span>
-            <p class="toc__title">Vocations and the Canadian Church: A Statistical Portrait</p>
-            <p class="toc__author">Mark Ingham</p>
-          </div>
-          <div class="toc__item">
-            <span class="toc__type label">Interview</span>
-            <p class="toc__title">On Building Culture in Times of Upheaval</p>
-            <p class="toc__author">Fr. Michael Bombak with Ryan Topping</p>
-          </div>
-        </div>
-
-        <QuoteBlock
-          quote="The renewal of Catholic culture in Canada will not come from institutions alone. It will come from the lived encounter between faith, beauty, and the daily work of forming souls."
-          attribution="From the Editor"
-          title="Dr. Ryan N.S. Topping"
-          variant="light"
-        />
+  <!-- Section 2: Inside Issue One — Highlight Strip -->
+  <section class="section section--tight">
+    <div class="container">
+      <div class="section-header">
+        <p class="label text-gold">Inside Issue One · Winter 2026 · 60 Pages</p>
+        <h2>What You'll Find</h2>
       </div>
-      <aside class="inside-section__sidebar">
-        <div class="issue-meta">
-          <p class="issue-meta__label label text-gold">Issue One</p>
-          <dl class="issue-meta__list">
-            <dt>Pages</dt>
-            <dd>60</dd>
-            <dt>Published</dt>
-            <dd>Winter 2026</dd>
-            <dt>Contributors</dt>
-            <dd>8</dd>
-            <dt>Format</dt>
-            <dd>Print (60 pages)</dd>
-          </dl>
+
+      <div class="highlights-strip">
+        <div class="highlight-card">
+          <span class="highlight-card__type label text-gold">Essay</span>
+          <h3 class="highlight-card__title">The Recovery of Sunday</h3>
+          <p class="highlight-card__author">Dr. Ryan N.S. Topping</p>
+          <p class="highlight-card__desc">What would it mean for Canadian Catholic culture if we recovered the ancient practice of the Lord's Day?</p>
         </div>
-      </aside>
+        <div class="highlight-card">
+          <span class="highlight-card__type label text-gold">Letter</span>
+          <h3 class="highlight-card__title">From the Western Front</h3>
+          <p class="highlight-card__author">Victor Carpay</p>
+          <p class="highlight-card__desc">Catholic life in Alberta — dispatches from the field on what's working and what's needed.</p>
+        </div>
+        <div class="highlight-card">
+          <span class="highlight-card__type label text-gold">Essay</span>
+          <h3 class="highlight-card__title">Classical Education and the Canadian Imagination</h3>
+          <p class="highlight-card__author">Dr. Celene Sidloski</p>
+          <p class="highlight-card__desc">How the Great Books tradition can reshape Catholic intellectual life in Canada.</p>
+        </div>
+        <div class="highlight-card">
+          <span class="highlight-card__type label text-gold">Interview</span>
+          <h3 class="highlight-card__title">On Building Culture in Times of Upheaval</h3>
+          <p class="highlight-card__author">Fr. Michael Bombak</p>
+          <p class="highlight-card__desc">A conversation on faith, institution-building, and the long view.</p>
+        </div>
+      </div>
+
+      <p class="highlights-more">Plus essays, reviews, art, and more. <a href="/magnalia/issue-one">See full table of contents →</a></p>
     </div>
   </section>
 
@@ -165,13 +141,13 @@ import SectionDivider from '../../components/SectionDivider.astro';
           <p class="contributor-card__bio">Classical education and Canadian Catholic intellectual life.</p>
         </div>
         <div class="contributor-card">
-          <div class="contributor-card__photo contributor-card__photo--placeholder"></div>
+          <img src="/images/people/Joe-Woodard-headshot.jpg" alt="Dr. Joseph Woodard" class="contributor-card__photo" />
           <h3 class="contributor-card__name">Dr. Joseph Woodard</h3>
           <p class="contributor-card__credentials">Fellow · Calgary</p>
           <p class="contributor-card__bio">Ethics, bioethics, and Catholic social thought.</p>
         </div>
         <div class="contributor-card">
-          <div class="contributor-card__photo contributor-card__photo--placeholder"></div>
+          <img src="/images/people/Mark-Ingham-headshot.jpg" alt="Mark Ingham" class="contributor-card__photo" />
           <h3 class="contributor-card__name">Mark Ingham</h3>
           <p class="contributor-card__credentials">Fellow · Barry's Bay · PhD Cand.</p>
           <p class="contributor-card__bio">Vocations research and Canadian Catholic demographics.</p>
@@ -298,82 +274,79 @@ import SectionDivider from '../../components/SectionDivider.astro';
     }
   }
 
-  /* Inside Section */
-  .inside-section {
+  /* Highlight Strip */
+  .section--tight {
+    padding-block: 40px;
+  }
+
+  .highlights-strip {
     display: grid;
     grid-template-columns: 1fr;
-    gap: var(--space-component);
+    gap: 16px;
   }
 
-  .inside-section h2 {
-    margin-bottom: 24px;
+  .highlight-card {
+    background-color: var(--color-linen);
+    border: 1px solid rgba(90, 90, 110, 0.08);
+    border-radius: 3px;
+    padding: 20px 24px;
   }
 
-  .toc {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-    margin-bottom: var(--space-component);
+  .highlight-card__type {
+    margin-bottom: 4px;
   }
 
-  .toc__item {
-    padding: 16px 0;
-    border-bottom: 1px solid rgba(90, 90, 110, 0.1);
-  }
-
-  .toc__type {
-    color: var(--color-gold);
-    margin-bottom: 2px;
-  }
-
-  .toc__title {
+  .highlight-card__title {
     font-family: var(--font-display);
-    font-size: 1.15rem;
+    font-size: 1.1rem;
     font-weight: 600;
     color: var(--color-navy);
     line-height: 1.3;
+    margin-bottom: 2px;
   }
 
-  .toc__author {
+  .highlight-card__author {
     font-family: var(--font-ui);
-    font-size: 0.82rem;
-    color: var(--color-gray);
-    margin-top: 2px;
-  }
-
-  .issue-meta {
-    background-color: var(--color-linen);
-    padding: 24px;
-    border: 1px solid rgba(90, 90, 110, 0.08);
-    border-radius: 3px;
-  }
-
-  .issue-meta__label {
-    margin-bottom: 16px;
-  }
-
-  .issue-meta__list {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    gap: 8px 16px;
-  }
-
-  .issue-meta__list dt {
-    font-family: var(--font-ui);
-    font-size: 0.8rem;
+    font-size: 0.78rem;
     font-weight: 500;
     color: var(--color-gray);
+    margin-bottom: 6px;
   }
 
-  .issue-meta__list dd {
+  .highlight-card__desc {
     font-family: var(--font-body);
-    font-size: 0.9rem;
-    color: var(--color-navy);
+    font-size: 0.88rem;
+    color: var(--color-gray);
+    line-height: 1.5;
   }
 
-  @media (min-width: 768px) {
-    .inside-section {
-      grid-template-columns: 2fr 1fr;
+  .highlights-more {
+    text-align: center;
+    font-family: var(--font-ui);
+    font-size: 0.88rem;
+    color: var(--color-gray);
+    margin-top: 20px;
+  }
+
+  .highlights-more a {
+    color: var(--color-gold);
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  .highlights-more a:hover {
+    text-decoration: underline;
+  }
+
+  @media (min-width: 640px) {
+    .highlights-strip {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .highlights-strip {
+      grid-template-columns: repeat(4, 1fr);
     }
   }
 
@@ -443,12 +416,9 @@ import SectionDivider from '../../components/SectionDivider.astro';
     height: 80px;
     border-radius: 50%;
     object-fit: cover;
-    margin-bottom: 12px;
-  }
-
-  .contributor-card__photo--placeholder {
-    background-color: var(--color-ivory);
-    display: inline-block;
+    object-position: center top;
+    display: block;
+    margin: 0 auto 12px;
   }
 
   .contributor-card__name {
