@@ -2,8 +2,11 @@
 import { defineConfig } from 'astro/config';
 import sanity from '@sanity/astro';
 
+const isGHPages = process.env.SITE?.includes('github.io');
+
 export default defineConfig({
-  site: 'https://gregorythegreat.ca',
+  site: process.env.SITE || 'https://gregorythegreat.ca',
+  base: isGHPages ? '/ggi-website' : '/',
   output: 'static',
   integrations: [
     sanity({
