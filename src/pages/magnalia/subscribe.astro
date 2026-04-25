@@ -1,8 +1,212 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import ComingSoon from '../../components/ComingSoon.astro';
+import Button from '../../components/Button.astro';
+import SectionDivider from '../../components/SectionDivider.astro';
+const base = import.meta.env.BASE_URL;
 ---
 
-<BaseLayout title="Subscribe to Magnalia — Gregory the Great Institute">
-  <ComingSoon title="Subscribe to Magnalia" parentLabel="Magnalia" parentHref={`${import.meta.env.BASE_URL}magnalia/`} />
+<BaseLayout title="Subscribe to Magnalia — Gregory the Great Institute" description="Subscribe to Magnalia, the journal of Catholic cultural renewal in Canada.">
+
+  <section class="section">
+    <div class="container subscribe-page">
+      <div class="subscribe-page__header">
+        <p class="label text-gold">Subscribe</p>
+        <h1>Read Magnalia</h1>
+        <p class="subscribe-page__intro">
+          60 pages of the best Catholic writing in Canada, delivered to your door twice yearly.
+          Essays, letters, interviews, reviews, and art from leading Catholic thinkers.
+        </p>
+      </div>
+
+      <div class="subscribe-tiers">
+        <div class="subscribe-tier">
+          <h3>Single Copy</h3>
+          <p class="subscribe-tier__price">$45</p>
+          <p class="subscribe-tier__desc">Try a single issue. No commitment.</p>
+          <Button href={`${base}contact/`} variant="secondary" size="small">Order a Copy</Button>
+        </div>
+
+        <div class="subscribe-tier subscribe-tier--featured">
+          <p class="subscribe-tier__badge label">Most Popular</p>
+          <h3>Annual Subscription</h3>
+          <p class="subscribe-tier__price">$80<span class="subscribe-tier__period">/year</span></p>
+          <p class="subscribe-tier__desc">Two issues per year, delivered to your door. The standard for Friends of Magnalia.</p>
+          <Button href={`${base}contact/`} variant="primary" size="small">Subscribe</Button>
+        </div>
+
+        <div class="subscribe-tier">
+          <h3>Magnalia Patron</h3>
+          <p class="subscribe-tier__price">$500<span class="subscribe-tier__period">/year</span></p>
+          <p class="subscribe-tier__desc">Subscription + named recognition in the journal + quarterly Q&A with the editor.</p>
+          <Button href={`${base}contact/`} variant="secondary" size="small">Become a Patron</Button>
+        </div>
+      </div>
+
+      <div class="subscribe-special">
+        <p><strong>Student & seminarian rate:</strong> $30/year</p>
+        <p><strong>Family rate:</strong> $50/year</p>
+      </div>
+    </div>
+  </section>
+
+  <SectionDivider />
+
+  <section class="section section--linen" id="institutional">
+    <div class="container subscribe-page">
+      <h2>For Clergy & Institutions</h2>
+      <p class="subscribe-page__intro">
+        Order Magnalia for your parish, seminary, school, or library. Institutional subscriptions
+        ensure that the best Catholic writing reaches the people who need it most.
+      </p>
+      <div class="institutional-details">
+        <p><strong>Institutional subscription:</strong> $150/year (2 issues)</p>
+        <p><strong>Bulk orders:</strong> 10+ copies at $30 each — ideal for parish distribution</p>
+      </div>
+      <Button href={`${base}contact/`} variant="primary">Request an Institutional Subscription</Button>
+    </div>
+  </section>
+
+  <section class="section" style="text-align: center;">
+    <div class="container" style="max-width: 500px;">
+      <h2 style="margin-bottom: 12px;">Not Ready to Subscribe?</h2>
+      <p style="font-family: var(--font-body); color: var(--color-gray); margin-bottom: 20px; line-height: 1.6;">
+        Sign up for the free Magnalia Letter — monthly essays, event invitations, and reading recommendations.
+      </p>
+      <Button href={`${base}magnalia/letter/`} variant="secondary" size="small">Subscribe to the Free Letter</Button>
+    </div>
+  </section>
+
+  <section class="section--footnote">
+    <div class="container" style="text-align: center;">
+      <a href={`${base}magnalia/`} class="back-link">← Back to Magnalia</a>
+    </div>
+  </section>
 </BaseLayout>
+
+<style>
+  .subscribe-page {
+    max-width: 800px;
+    margin-inline: auto;
+  }
+
+  .subscribe-page__header {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  .subscribe-page__header h1 {
+    font-size: 2.4rem;
+    color: var(--color-navy);
+    margin: 8px 0 16px;
+  }
+
+  .subscribe-page__intro {
+    font-family: var(--font-body);
+    font-size: 1.05rem;
+    color: var(--color-gray);
+    line-height: 1.7;
+    max-width: 600px;
+    margin-inline: auto;
+  }
+
+  .subscribe-tiers {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-bottom: 24px;
+  }
+
+  .subscribe-tier {
+    background-color: var(--color-linen);
+    border: 1px solid rgba(90, 90, 110, 0.1);
+    border-radius: 3px;
+    padding: 28px;
+    text-align: center;
+  }
+
+  .subscribe-tier--featured {
+    border: 2px solid var(--color-gold);
+    position: relative;
+  }
+
+  .subscribe-tier__badge {
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--color-gold);
+    color: var(--color-navy);
+    padding: 3px 12px;
+    border-radius: 2px;
+    font-size: 0.65rem;
+    white-space: nowrap;
+  }
+
+  .subscribe-tier h3 {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    color: var(--color-navy);
+    margin-bottom: 8px;
+  }
+
+  .subscribe-tier__price {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--color-navy);
+    margin-bottom: 8px;
+  }
+
+  .subscribe-tier__period {
+    font-family: var(--font-ui);
+    font-size: 0.85rem;
+    font-weight: 400;
+    color: var(--color-gray);
+  }
+
+  .subscribe-tier__desc {
+    font-family: var(--font-body);
+    font-size: 0.88rem;
+    color: var(--color-gray);
+    line-height: 1.5;
+    margin-bottom: 16px;
+  }
+
+  .subscribe-special {
+    text-align: center;
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    color: var(--color-gray);
+  }
+
+  .subscribe-special p {
+    margin-bottom: 4px;
+  }
+
+  .institutional-details {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: var(--color-ink);
+    margin: 20px 0 24px;
+    line-height: 1.7;
+  }
+
+  .back-link {
+    font-family: var(--font-ui);
+    font-size: 0.9rem;
+    color: var(--color-gold);
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  .back-link:hover { color: var(--color-crimson); }
+
+  @media (max-width: 640px) {
+    .subscribe-tiers {
+      grid-template-columns: 1fr;
+    }
+    .subscribe-page__header h1 {
+      font-size: 1.8rem;
+    }
+  }
+</style>

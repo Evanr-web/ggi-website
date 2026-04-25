@@ -1,8 +1,179 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import ComingSoon from '../../components/ComingSoon.astro';
+import Button from '../../components/Button.astro';
+const base = import.meta.env.BASE_URL;
 ---
 
-<BaseLayout title="The Magnalia Letter — Gregory the Great Institute">
-  <ComingSoon title="The Magnalia Letter" parentLabel="Magnalia" parentHref={`${import.meta.env.BASE_URL}magnalia/`} />
+<BaseLayout title="The Magnalia Letter — Gregory the Great Institute" description="Free monthly essays, event invitations, and reading recommendations from the Institute.">
+
+  <section class="section">
+    <div class="container letter-page">
+      <div class="letter-page__header">
+        <p class="label text-gold">Free · Monthly · No Spam</p>
+        <h1>The Magnalia Letter</h1>
+        <p class="letter-page__intro">
+          A free monthly essay from the Gregory the Great Institute, plus event invitations
+          and reading recommendations. Join over 1,500 readers across Canada.
+        </p>
+      </div>
+
+      <div class="letter-signup">
+        <form class="letter-signup__form" action="#" method="POST">
+          <input type="text" name="firstName" placeholder="First name" required aria-label="First name" />
+          <input type="email" name="email" placeholder="Email address" required aria-label="Email address" />
+          <button type="submit">Subscribe Free</button>
+        </form>
+        <p class="letter-signup__note">Unsubscribe any time. We never share your email.</p>
+      </div>
+
+      <div class="letter-what">
+        <h2>What You'll Receive</h2>
+        <div class="letter-features">
+          <div class="letter-feature">
+            <h3>Monthly Essay</h3>
+            <p>An original essay from one of Canada's leading Catholic thinkers — delivered to your inbox.</p>
+          </div>
+          <div class="letter-feature">
+            <h3>Event Invitations</h3>
+            <p>Be the first to know about conferences, book studies, masterclasses, and music camp.</p>
+          </div>
+          <div class="letter-feature">
+            <h3>Reading Recommendations</h3>
+            <p>Curated books, articles, and resources for Catholic intellectual formation.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="letter-cta">
+        <p>Want more? Subscribe to the print journal for 60 pages of the best Catholic writing in Canada.</p>
+        <Button href={`${base}magnalia/subscribe/`} variant="secondary" size="small">Subscribe to Magnalia</Button>
+      </div>
+
+      <div style="text-align: center; margin-top: 40px;">
+        <a href={`${base}magnalia/`} class="back-link">← Back to Magnalia</a>
+      </div>
+    </div>
+  </section>
 </BaseLayout>
+
+<style>
+  .letter-page {
+    max-width: 600px;
+    margin-inline: auto;
+  }
+
+  .letter-page__header {
+    text-align: center;
+    margin-bottom: 36px;
+  }
+
+  .letter-page__header h1 {
+    font-size: 2.2rem;
+    color: var(--color-navy);
+    margin: 8px 0 16px;
+  }
+
+  .letter-page__intro {
+    font-family: var(--font-body);
+    font-size: 1.05rem;
+    color: var(--color-gray);
+    line-height: 1.7;
+  }
+
+  .letter-signup {
+    background-color: var(--color-linen);
+    border: 1px solid rgba(90, 90, 110, 0.1);
+    border-radius: 3px;
+    padding: 32px;
+    margin-bottom: 40px;
+  }
+
+  .letter-signup__form {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .letter-signup__form input {
+    flex: 1;
+    min-width: 160px;
+    padding: 12px 16px;
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    border: 1px solid rgba(90, 90, 110, 0.2);
+    border-radius: 3px;
+    background-color: white;
+  }
+
+  .letter-signup__form button {
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    font-weight: 600;
+    padding: 12px 28px;
+    background-color: var(--color-crimson);
+    color: var(--color-parchment);
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color var(--transition-fast);
+  }
+
+  .letter-signup__form button:hover {
+    background-color: #6b2124;
+  }
+
+  .letter-signup__note {
+    font-family: var(--font-ui);
+    font-size: 0.78rem;
+    color: var(--color-gray);
+    margin-top: 10px;
+    text-align: center;
+  }
+
+  .letter-what h2 {
+    margin-bottom: 20px;
+  }
+
+  .letter-features {
+    display: grid;
+    gap: 20px;
+  }
+
+  .letter-feature h3 {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    color: var(--color-navy);
+    margin-bottom: 4px;
+  }
+
+  .letter-feature p {
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    color: var(--color-gray);
+    line-height: 1.6;
+  }
+
+  .letter-cta {
+    text-align: center;
+    margin-top: 40px;
+    padding-top: 28px;
+    border-top: 1px solid rgba(90, 90, 110, 0.1);
+  }
+
+  .letter-cta p {
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    color: var(--color-gray);
+    margin-bottom: 14px;
+  }
+
+  .back-link {
+    font-family: var(--font-ui);
+    font-size: 0.9rem;
+    color: var(--color-gold);
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  .back-link:hover { color: var(--color-crimson); }
+</style>

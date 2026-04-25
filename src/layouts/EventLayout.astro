@@ -11,9 +11,11 @@ interface Props {
   imageAlt?: string;
   tag: string;
   past?: boolean;
+  ctaText?: string;
+  ctaHref?: string;
 }
 
-const { title, date, endDate, location, image, imageAlt = '', tag, past = false } = Astro.props;
+const { title, date, endDate, location, image, imageAlt = '', tag, past = false, ctaText, ctaHref } = Astro.props;
 const base = import.meta.env.BASE_URL;
 
 const formatDate = (d: string) => {
@@ -38,14 +40,19 @@ const formatDate = (d: string) => {
       </div>
 
       <div class="event-detail__meta">
-        <div class="event-detail__meta-item">
-          <strong>Date</strong>
-          <span>{formatDate(date)}{endDate ? ` – ${formatDate(endDate)}` : ''}</span>
+        <div class="event-detail__meta-items">
+          <div class="event-detail__meta-item">
+            <strong>Date</strong>
+            <span>{formatDate(date)}{endDate ? ` – ${formatDate(endDate)}` : ''}</span>
+          </div>
+          <div class="event-detail__meta-item">
+            <strong>Location</strong>
+            <span>{location}</span>
+          </div>
         </div>
-        <div class="event-detail__meta-item">
-          <strong>Location</strong>
-          <span>{location}</span>
-        </div>
+        {ctaText && ctaHref && (
+          <a href={ctaHref} class="event-detail__meta-cta">{ctaText}</a>
+        )}
       </div>
 
       <div class="event-detail__body">
@@ -106,12 +113,38 @@ const formatDate = (d: string) => {
 
   .event-detail__meta {
     display: flex;
-    gap: 32px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
     flex-wrap: wrap;
     padding: 20px 0;
     border-top: 1px solid rgba(90, 90, 110, 0.1);
     border-bottom: 1px solid rgba(90, 90, 110, 0.1);
     margin-bottom: 32px;
+  }
+
+  .event-detail__meta-items {
+    display: flex;
+    gap: 32px;
+    flex-wrap: wrap;
+  }
+
+  .event-detail__meta-cta {
+    display: inline-block;
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    font-weight: 600;
+    padding: 12px 28px;
+    background-color: var(--color-crimson);
+    color: var(--color-parchment);
+    border-radius: 3px;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background-color var(--transition-fast);
+  }
+
+  .event-detail__meta-cta:hover {
+    background-color: #6b2124;
   }
 
   .event-detail__meta-item {

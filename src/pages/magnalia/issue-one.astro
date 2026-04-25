@@ -1,8 +1,211 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import ComingSoon from '../../components/ComingSoon.astro';
+import Button from '../../components/Button.astro';
+import SectionDivider from '../../components/SectionDivider.astro';
+const base = import.meta.env.BASE_URL;
 ---
 
-<BaseLayout title="Magnalia — Issue One — Gregory the Great Institute">
-  <ComingSoon title="Magnalia — Issue One" parentLabel="Magnalia" parentHref={`${import.meta.env.BASE_URL}magnalia/`} />
+<BaseLayout title="Issue One — Magnalia" description="Full table of contents for Magnalia Issue One, Winter 2026.">
+
+  <section class="section">
+    <div class="container toc-page">
+      <div class="toc-page__header">
+        <img src={`${base}images/branding/Magnalia_Cover.jpg`} alt="Magnalia Issue One cover" class="toc-page__cover" />
+        <div>
+          <p class="label text-gold">Winter 2026 · 60 Pages</p>
+          <h1>Magnalia — Issue One</h1>
+          <p class="toc-page__subtitle">The inaugural issue of the journal of Catholic cultural renewal in Canada.</p>
+          <Button href={`${base}magnalia/subscribe/`} variant="primary" size="small">Subscribe to Magnalia</Button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <SectionDivider />
+
+  <section class="section section--tight">
+    <div class="container toc-page">
+      <h2>Table of Contents</h2>
+
+      <div class="toc-section">
+        <h3 class="toc-section__label">Essays</h3>
+        <div class="toc-entry">
+          <span class="toc-entry__title">The Recovery of Sunday</span>
+          <span class="toc-entry__author">Dr. Ryan N.S. Topping</span>
+          <p class="toc-entry__desc">What would it mean for Canadian Catholic culture if we recovered the ancient practice of the Lord's Day?</p>
+        </div>
+        <div class="toc-entry">
+          <span class="toc-entry__title">Classical Education and the Canadian Imagination</span>
+          <span class="toc-entry__author">Dr. Celene Sidloski</span>
+          <p class="toc-entry__desc">How the Great Books tradition can reshape Catholic intellectual life in Canada.</p>
+        </div>
+        <div class="toc-entry">
+          <span class="toc-entry__title">When Medicine Forgets Its Vocation</span>
+          <span class="toc-entry__author">Dr. Joseph Woodard</span>
+          <p class="toc-entry__desc">Bioethics, conscience, and the erosion of the healing profession's soul.</p>
+        </div>
+      </div>
+
+      <div class="toc-section">
+        <h3 class="toc-section__label">Letters</h3>
+        <div class="toc-entry">
+          <span class="toc-entry__title">From the Western Front</span>
+          <span class="toc-entry__author">Victor Carpay</span>
+          <p class="toc-entry__desc">Catholic life in Alberta — dispatches from the field on what's working and what's needed.</p>
+        </div>
+        <div class="toc-entry">
+          <span class="toc-entry__title">A Fine Gathering in Ottawa</span>
+          <span class="toc-entry__author">Mark Ingham</span>
+          <p class="toc-entry__desc">Reflections on Catholic community and cultural renewal in the capital.</p>
+        </div>
+      </div>
+
+      <div class="toc-section">
+        <h3 class="toc-section__label">Interviews</h3>
+        <div class="toc-entry">
+          <span class="toc-entry__title">On Building Culture in Times of Upheaval</span>
+          <span class="toc-entry__author">Fr. Michael Bombak</span>
+          <p class="toc-entry__desc">A conversation on faith, institution-building, and the long view.</p>
+        </div>
+      </div>
+
+      <div class="toc-section">
+        <h3 class="toc-section__label">Reviews & Art</h3>
+        <div class="toc-entry">
+          <span class="toc-entry__title">Visual art, book reviews, and cultural commentary</span>
+          <span class="toc-entry__author">Various contributors</span>
+        </div>
+      </div>
+
+      <div class="toc-cta">
+        <p>Magnalia is available by subscription. Each issue is 60 pages of the best Catholic writing in Canada.</p>
+        <Button href={`${base}magnalia/subscribe/`} variant="primary">Subscribe Now</Button>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="text-align: center;">
+    <div class="container">
+      <a href={`${base}magnalia/`} class="back-link">← Back to Magnalia</a>
+    </div>
+  </section>
 </BaseLayout>
+
+<style>
+  .toc-page {
+    max-width: 720px;
+    margin-inline: auto;
+  }
+
+  .toc-page__header {
+    display: flex;
+    gap: 32px;
+    align-items: center;
+  }
+
+  .toc-page__cover {
+    width: 180px;
+    border-radius: 3px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+    transform: rotate(-2deg);
+    flex-shrink: 0;
+  }
+
+  .toc-page__header h1 {
+    font-size: 2rem;
+    color: var(--color-navy);
+    margin: 8px 0 8px;
+  }
+
+  .toc-page__subtitle {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: var(--color-gray);
+    margin-bottom: 16px;
+    line-height: 1.6;
+  }
+
+  .toc-section {
+    margin-top: 32px;
+  }
+
+  .toc-section__label {
+    font-family: var(--font-ui);
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-gold);
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(90, 90, 110, 0.1);
+    margin-bottom: 16px;
+  }
+
+  .toc-entry {
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(90, 90, 110, 0.06);
+  }
+
+  .toc-entry__title {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--color-navy);
+    display: block;
+    margin-bottom: 2px;
+  }
+
+  .toc-entry__author {
+    font-family: var(--font-ui);
+    font-size: 0.85rem;
+    color: var(--color-gold);
+    font-weight: 500;
+  }
+
+  .toc-entry__desc {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    color: var(--color-gray);
+    margin-top: 6px;
+    line-height: 1.5;
+  }
+
+  .toc-cta {
+    text-align: center;
+    margin-top: 40px;
+    padding-top: 32px;
+    border-top: 1px solid rgba(90, 90, 110, 0.1);
+  }
+
+  .toc-cta p {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: var(--color-gray);
+    margin-bottom: 16px;
+  }
+
+  .back-link {
+    font-family: var(--font-ui);
+    font-size: 0.9rem;
+    color: var(--color-gold);
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  .back-link:hover {
+    color: var(--color-crimson);
+  }
+
+  @media (max-width: 640px) {
+    .toc-page__header {
+      flex-direction: column;
+      text-align: center;
+    }
+    .toc-page__cover {
+      width: 140px;
+    }
+    .toc-page__header h1 {
+      font-size: 1.5rem;
+    }
+  }
+</style>
