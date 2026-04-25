@@ -16,13 +16,9 @@ import EndorsementCard from '../components/EndorsementCard.astro';
   <!-- ============================================
        Section 1: HERO
        ============================================ -->
-  <section class="hero hero--home">
-    <video class="hero__video" autoplay muted loop playsinline poster="/images/art/St-Gregory-Great-painting-dove.jpg">
-      <source src="/video/hero-loop.mp4" type="video/mp4" />
-    </video>
+  <section class="hero hero--home" style="background-image: url('/images/art/St-Gregory-Great-painting-dove.jpg');">
     <div class="hero__overlay"></div>
     <div class="hero__content container">
-      <img src="/images/branding/ggi-seal.png" alt="GGI Seal" class="hero__seal" />
       <h1 class="hero__headline display">Inspiring Canadian Catholic Culture</h1>
       <p class="hero__tagline">Fides&ensp;•&ensp;Ratio&ensp;•&ensp;Cultura</p>
       <p class="hero__subtitle">Forming leaders. Teaching the tradition. Publishing research.</p>
@@ -302,13 +298,10 @@ import EndorsementCard from '../components/EndorsementCard.astro';
     background-color: var(--color-navy);
   }
 
-  .hero__video {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    z-index: 1;
+  .hero--home {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
   }
 
   .hero__overlay {
@@ -324,14 +317,6 @@ import EndorsementCard from '../components/EndorsementCard.astro';
     text-align: center;
     max-width: 800px;
     padding-block: 80px;
-  }
-
-  .hero__seal {
-    width: 72px;
-    height: 72px;
-    border-radius: 50%;
-    margin-bottom: 24px;
-    opacity: 0.9;
   }
 
   .hero__headline {
