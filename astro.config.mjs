@@ -8,7 +8,7 @@ export default defineConfig({
   output: 'static',
   integrations: [
     sanity({
-      projectId: 'placeholder', // TODO: Replace with actual Sanity project ID
+      projectId: 'dhzbvx7r',
       dataset: 'production',
       useCdn: true,
       // Enable Studio on /admin route (optional)
