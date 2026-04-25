@@ -1,8 +1,30 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import ComingSoon from '../../components/ComingSoon.astro';
+import EventLayout from '../../layouts/EventLayout.astro';
+const base = import.meta.env.BASE_URL;
 ---
 
-<BaseLayout title="Renewing Culture Conference 2025 — Gregory the Great Institute">
-  <ComingSoon title="Renewing Culture Conference 2025" parentLabel="Events" parentHref={`${import.meta.env.BASE_URL}events/`} />
-</BaseLayout>
+<EventLayout
+  title="1st Annual Renewing Culture Conference"
+  date="2025-10-04"
+  location="Edmonton, AB"
+  image="/images/events/2026-renewing-culture-conference-art.jpg"
+  imageAlt="Adoration of the Mystic Lamb — van Eyck"
+  tag="Conference"
+  past={true}
+>
+  <p>
+    The inaugural <strong>Renewing Culture Conference</strong> — the Gregory the Great Institute's
+    first major public gathering. Christians from across Alberta came together for a day of
+    talks, discussion, prayer, and fellowship focused on the renewal of Catholic culture in Canada.
+  </p>
+
+  <p>
+    This event marked a turning point for the Institute, demonstrating that there is a deep
+    hunger among Canadian Catholics for serious intellectual and cultural formation. The energy
+    and connections forged at this conference directly shaped the Institute's 2026 programming.
+  </p>
+
+  <p>
+    The 2nd Annual conference — <em>Bringing Back Sunday</em> — takes place October 2–3, 2026.
+  </p>
+</EventLayout>

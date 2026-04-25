@@ -1,8 +1,38 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import ComingSoon from '../../components/ComingSoon.astro';
+import EventLayout from '../../layouts/EventLayout.astro';
+import Button from '../../components/Button.astro';
+const base = import.meta.env.BASE_URL;
 ---
 
-<BaseLayout title="Book Study — September 2026 — Gregory the Great Institute">
-  <ComingSoon title="Book Study — September 2026" parentLabel="Events" parentHref={`${import.meta.env.BASE_URL}events/`} />
-</BaseLayout>
+<EventLayout
+  title="Book Study — Leisure: The Basis of Culture"
+  date="2026-09-01"
+  location="Locations across Canada"
+  image="/images/events/book-study-placeholder.jpg"
+  imageAlt="Leather-bound books"
+  tag="Book Study · Inklings Club"
+>
+  <p>
+    Josef Pieper's masterwork on why <strong>contemplation — not productivity — is the foundation
+    of civilization</strong>. This study prepares readers for the October Renewing Culture Conference,
+    which takes up Pieper's vision in depth.
+  </p>
+
+  <h2>How It Works</h2>
+  <ul>
+    <li>Join a local reading group in your city, or follow along online</li>
+    <li>Study guides and discussion questions provided by the Institute</li>
+    <li>Webinar sessions with fellow readers across Canada</li>
+    <li>Discounts on the book for participants</li>
+  </ul>
+
+  <h2>Details</h2>
+  <ul>
+    <li><strong>Book:</strong> <em>Leisure: The Basis of Culture</em> by Josef Pieper</li>
+    <li><strong>When:</strong> September 2026</li>
+    <li><strong>Where:</strong> Local groups across Canada + online</li>
+    <li><strong>Cost:</strong> Free</li>
+  </ul>
+
+  <Button href={`${base}programs/book-studies/`} variant="primary">Learn About Book Studies</Button>
+</EventLayout>

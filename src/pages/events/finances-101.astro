@@ -1,8 +1,40 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import ComingSoon from '../../components/ComingSoon.astro';
+import EventLayout from '../../layouts/EventLayout.astro';
+import Button from '../../components/Button.astro';
+const base = import.meta.env.BASE_URL;
 ---
 
-<BaseLayout title="Personal Finances 101 — Gregory the Great Institute">
-  <ComingSoon title="Personal Finances 101" parentLabel="Events" parentHref={`${import.meta.env.BASE_URL}events/`} />
-</BaseLayout>
+<EventLayout
+  title="Personal Finances 101"
+  date="2026-04-25"
+  location="Concordia University of Edmonton"
+  image="/images/events/finances-placeholder.jpg"
+  imageAlt="Financial stewardship"
+  tag="Masterclass"
+>
+  <p>
+    Master your money, serve your vocation. This masterclass treats <strong>financial literacy
+    as stewardship and Catholic formation</strong> — not just budgeting tips, but a vision
+    of money ordered to the good life.
+  </p>
+
+  <p>Led by <strong>Jesse Underwood</strong>.</p>
+
+  <h2>What You'll Learn</h2>
+  <ul>
+    <li>Catholic principles of stewardship and financial responsibility</li>
+    <li>Practical budgeting and saving strategies</li>
+    <li>Understanding debt, investment, and generosity</li>
+    <li>Ordering your finances to support your vocation</li>
+  </ul>
+
+  <h2>Details</h2>
+  <ul>
+    <li><strong>Who:</strong> All welcome — especially young adults and families</li>
+    <li><strong>When:</strong> April 25, 2026</li>
+    <li><strong>Where:</strong> Concordia University of Edmonton</li>
+    <li><strong>Format:</strong> Half-day masterclass</li>
+  </ul>
+
+  <Button href={`${base}contact/`} variant="primary">Register</Button>
+</EventLayout>

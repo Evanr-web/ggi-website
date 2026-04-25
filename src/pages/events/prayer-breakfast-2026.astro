@@ -1,8 +1,25 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import ComingSoon from '../../components/ComingSoon.astro';
+import EventLayout from '../../layouts/EventLayout.astro';
+const base = import.meta.env.BASE_URL;
 ---
 
-<BaseLayout title="Prayer Breakfast 2026 — Gregory the Great Institute">
-  <ComingSoon title="Prayer Breakfast 2026" parentLabel="Events" parentHref={`${import.meta.env.BASE_URL}events/`} />
-</BaseLayout>
+<EventLayout
+  title="GGI at Provincial Prayer Breakfast"
+  date="2026-03-18"
+  location="Edmonton, AB"
+  image="/images/events/prayer-breakfast-placeholder.jpg"
+  imageAlt="Prayer candles"
+  tag="Community"
+  past={true}
+>
+  <p>
+    The Gregory the Great Institute team attended the annual <strong>Premier's Prayer Breakfast</strong>
+    in Alberta — an opportunity to connect with civic and faith leaders across the province.
+  </p>
+
+  <p>
+    Events like these are part of the Institute's broader mission to build bridges between
+    Catholic intellectual life and the public square. We're grateful for every opportunity
+    to represent the vision of Catholic cultural renewal in these settings.
+  </p>
+</EventLayout>

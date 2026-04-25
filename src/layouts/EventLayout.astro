@@ -1,0 +1,188 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Button from '../components/Button.astro';
+
+interface Props {
+  title: string;
+  date: string;
+  endDate?: string;
+  location: string;
+  image?: string;
+  imageAlt?: string;
+  tag: string;
+  past?: boolean;
+}
+
+const { title, date, endDate, location, image, imageAlt = '', tag, past = false } = Astro.props;
+const base = import.meta.env.BASE_URL;
+
+const formatDate = (d: string) => {
+  const dt = new Date(d + 'T12:00:00');
+  return dt.toLocaleDateString('en-CA', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+};
+---
+
+<BaseLayout title={`${title} — Gregory the Great Institute`}>
+  {image && (
+    <div class="event-hero">
+      <img src={image.startsWith('/') ? `${base}${image.slice(1)}` : image} alt={imageAlt} class="event-hero__img" />
+    </div>
+  )}
+
+  <section class="section">
+    <div class="container event-detail">
+      <div class="event-detail__header">
+        <span class="label text-gold">{tag}</span>
+        {past && <span class="event-detail__past-badge">Past Event</span>}
+        <h1>{title}</h1>
+      </div>
+
+      <div class="event-detail__meta">
+        <div class="event-detail__meta-item">
+          <strong>Date</strong>
+          <span>{formatDate(date)}{endDate ? ` – ${formatDate(endDate)}` : ''}</span>
+        </div>
+        <div class="event-detail__meta-item">
+          <strong>Location</strong>
+          <span>{location}</span>
+        </div>
+      </div>
+
+      <div class="event-detail__body">
+        <slot />
+      </div>
+
+      <div class="event-detail__footer">
+        <a href={`${base}events/`} class="event-detail__back">← Back to All Events</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .event-hero {
+    width: 100%;
+    height: 320px;
+    overflow: hidden;
+  }
+
+  .event-hero__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .event-detail {
+    max-width: 720px;
+    margin-inline: auto;
+  }
+
+  .event-detail__header {
+    margin-bottom: 28px;
+  }
+
+  .event-detail__header h1 {
+    font-family: var(--font-display);
+    font-size: 2.2rem;
+    color: var(--color-navy);
+    margin-top: 8px;
+    line-height: 1.2;
+  }
+
+  .event-detail__past-badge {
+    display: inline-block;
+    font-family: var(--font-ui);
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-gray);
+    background: rgba(90, 90, 110, 0.08);
+    padding: 4px 10px;
+    border-radius: 3px;
+    margin-left: 8px;
+    vertical-align: middle;
+  }
+
+  .event-detail__meta {
+    display: flex;
+    gap: 32px;
+    flex-wrap: wrap;
+    padding: 20px 0;
+    border-top: 1px solid rgba(90, 90, 110, 0.1);
+    border-bottom: 1px solid rgba(90, 90, 110, 0.1);
+    margin-bottom: 32px;
+  }
+
+  .event-detail__meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .event-detail__meta-item strong {
+    font-family: var(--font-ui);
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-gold);
+  }
+
+  .event-detail__meta-item span {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: var(--color-ink);
+  }
+
+  .event-detail__body {
+    font-family: var(--font-body);
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: var(--color-ink);
+  }
+
+  .event-detail__body :global(h2) {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    color: var(--color-navy);
+    margin-top: 32px;
+    margin-bottom: 12px;
+  }
+
+  .event-detail__body :global(ul) {
+    padding-left: 20px;
+    margin-bottom: 20px;
+  }
+
+  .event-detail__body :global(li) {
+    margin-bottom: 6px;
+  }
+
+  .event-detail__body :global(p) {
+    margin-bottom: 16px;
+  }
+
+  .event-detail__footer {
+    margin-top: 48px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(90, 90, 110, 0.1);
+  }
+
+  .event-detail__back {
+    font-family: var(--font-ui);
+    font-size: 0.9rem;
+    color: var(--color-gold);
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  .event-detail__back:hover {
+    color: var(--color-crimson);
+  }
+
+  @media (max-width: 640px) {
+    .event-hero { height: 220px; }
+    .event-detail__header h1 { font-size: 1.6rem; }
+  }
+</style>
