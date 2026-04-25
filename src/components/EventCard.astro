@@ -22,7 +22,7 @@ const { title, date, month, day, location, description, href, programTag, thumbn
   </div>
   {thumbnail && (
     <a href={href} class="event-card__thumb">
-      <img src={thumbnail} alt={thumbnailAlt} />
+      <img src={thumbnail?.startsWith('/') ? `${import.meta.env.BASE_URL}${thumbnail.slice(1)}` : thumbnail} alt={thumbnailAlt} />
     </a>
   )}
   <div class="event-card__body">
