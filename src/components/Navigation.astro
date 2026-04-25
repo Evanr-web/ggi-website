@@ -1,20 +1,21 @@
 ---
+const base = import.meta.env.BASE_URL;
 const navItems = [
-  { label: 'Magnalia', href: '/magnalia' },
-  { label: 'Programs', href: '/programs' },
-  { label: 'Events', href: '/events' },
+  { label: 'Magnalia', href: `${base}magnalia/` },
+  { label: 'Programs', href: `${base}programs/` },
+  { label: 'Events', href: `${base}events/` },
   {
     label: 'About',
-    href: '/about',
+    href: `${base}about/`,
     dropdown: [
-      { label: 'Mission & Vision', href: '/about' },
-      { label: 'Our Story', href: '/about/story' },
-      { label: 'Leadership', href: '/about/leadership' },
-      { label: 'Founding Director', href: '/about/founding-director' },
-      { label: 'Impact Report', href: '/about/impact' },
+      { label: 'Mission & Vision', href: `${base}about/` },
+      { label: 'Our Story', href: `${base}about/story/` },
+      { label: 'Leadership', href: `${base}about/leadership/` },
+      { label: 'Founding Director', href: `${base}about/founding-director/` },
+      { label: 'Impact Report', href: `${base}about/impact/` },
     ],
   },
-  { label: 'Library', href: '/library' },
+  { label: 'Library', href: `${base}library/` },
 ];
 ---
 
@@ -49,7 +50,7 @@ const navItems = [
       ))}
     </nav>
 
-    <a href={`${import.meta.env.BASE_URL}support`} class="nav__cta">Support</a>
+    <a href={`${import.meta.env.BASE_URL}support/`} class="nav__cta">Support</a>
 
     <button class="nav__hamburger" aria-label="Toggle menu" aria-expanded="false">
       <span></span>
@@ -69,7 +70,7 @@ const navItems = [
           ))}
         </>
       ))}
-      <a href={`${import.meta.env.BASE_URL}support`} class="nav__mobile-link nav__mobile-link--cta">Support the Institute</a>
+      <a href={`${import.meta.env.BASE_URL}support/`} class="nav__mobile-link nav__mobile-link--cta">Support the Institute</a>
     </nav>
   </div>
 </header>

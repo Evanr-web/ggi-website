@@ -7,6 +7,7 @@ const isGHPages = process.env.SITE?.includes('github.io');
 export default defineConfig({
   site: process.env.SITE || 'https://gregorythegreat.ca',
   base: isGHPages ? '/ggi-website' : '/',
+  trailingSlash: 'always',
   output: 'static',
   integrations: [
     sanity({

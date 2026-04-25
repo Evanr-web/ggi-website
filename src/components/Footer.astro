@@ -1,17 +1,18 @@
 ---
+const base = import.meta.env.BASE_URL;
 const navLinks = [
-  { label: 'Magnalia', href: '/magnalia' },
-  { label: 'Programs', href: '/programs' },
-  { label: 'Events', href: '/events' },
-  { label: 'About', href: '/about' },
-  { label: 'Library', href: '/library' },
-  { label: 'Support', href: '/support' },
+  { label: 'Magnalia', href: `${base}magnalia/` },
+  { label: 'Programs', href: `${base}programs/` },
+  { label: 'Events', href: `${base}events/` },
+  { label: 'About', href: `${base}about/` },
+  { label: 'Library', href: `${base}library/` },
+  { label: 'Support', href: `${base}support/` },
 ];
 
 const secondaryLinks = [
-  { label: 'Contact & Speaker Booking', href: '/contact' },
-  { label: 'For Clergy & Institutions', href: '/magnalia/subscribe#institutional' },
-  { label: 'Privacy Policy', href: '/privacy' },
+  { label: 'Contact & Speaker Booking', href: `${base}contact/` },
+  { label: 'For Clergy & Institutions', href: `${base}magnalia/subscribe/#institutional` },
+  { label: 'Privacy Policy', href: `${base}privacy/` },
 ];
 
 const currentYear = new Date().getFullYear();
@@ -21,7 +22,7 @@ const currentYear = new Date().getFullYear();
 <div class="footer-cta-strip">
   <div class="container footer-cta-strip__inner">
     <p class="footer-cta-strip__text">Become a Friend of the Institute — from $10/month</p>
-    <a href={`${import.meta.env.BASE_URL}support`} class="footer-cta-strip__btn">Support the Mission</a>
+    <a href={`${import.meta.env.BASE_URL}support/`} class="footer-cta-strip__btn">Support the Mission</a>
   </div>
 </div>
 

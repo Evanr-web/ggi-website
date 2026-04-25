@@ -43,7 +43,7 @@ const placeholderEssays = [
           <h2>{placeholderEssays[0].title}</h2>
           <p class="featured-essay__meta">By {placeholderEssays[0].author} · {placeholderEssays[0].date}</p>
           <p class="featured-essay__excerpt">{placeholderEssays[0].excerpt}</p>
-          <Button href={`${import.meta.env.BASE_URL}library/recovery-of-sunday`} variant="tertiary">Read →</Button>
+          <Button href={`${import.meta.env.BASE_URL}library/recovery-of-sunday/`} variant="tertiary">Read →</Button>
         </div>
       </div>
     </div>
@@ -71,7 +71,7 @@ const placeholderEssays = [
             title={essay.title}
             description={essay.excerpt}
             meta={`${essay.category} · ${essay.date}`}
-            href={`${import.meta.env.BASE_URL}library/placeholder`}
+            href={`${import.meta.env.BASE_URL}library/placeholder/`}
             image={essay.image}
             imageAlt=""
           />
