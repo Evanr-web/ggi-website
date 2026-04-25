@@ -472,7 +472,34 @@ import SectionDivider from '../../components/SectionDivider.astro';
   }
 
   // Auto-advance every 6 seconds
-  setInterval(() => {
+  let autoTimer = setInterval(() => {
     goTo((current + 1) % slides.length);
   }, 6000);
+
+  // Touch swipe support
+  let touchStartX = 0;
+  let touchEndX = 0;
+
+  const carousel = document.getElementById('endorsement-carousel');
+
+  carousel?.addEventListener('touchstart', (e) => {
+    touchStartX = e.changedTouches[0].screenX;
+    clearInterval(autoTimer);
+  }, { passive: true });
+
+  carousel?.addEventListener('touchend', (e) => {
+    touchEndX = e.changedTouches[0].screenX;
+    const diff = touchStartX - touchEndX;
+    if (Math.abs(diff) > 50) {
+      if (diff > 0 && current < slides.length - 1) {
+        goTo(current + 1);
+      } else if (diff < 0 && current > 0) {
+        goTo(current - 1);
+      }
+    }
+    // Restart auto-advance after swipe
+    autoTimer = setInterval(() => {
+      goTo((current + 1) % slides.length);
+    }, 6000);
+  }, { passive: true });
 </script>

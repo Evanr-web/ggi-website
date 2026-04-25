@@ -254,6 +254,12 @@ import SectionDivider from '../../components/SectionDivider.astro';
     color: var(--color-gray);
   }
 
+  @media (max-width: 640px) {
+    .program-card__image img {
+      height: 200px;
+    }
+  }
+
   @media (min-width: 768px) {
     .program-card {
       grid-template-columns: 1fr 1.2fr;

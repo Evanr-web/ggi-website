@@ -22,7 +22,7 @@ const {
 } = Astro.props;
 ---
 
-<article class:list={['tier', featured && 'tier--featured']}>
+<a href={ctaHref} class:list={['tier', featured && 'tier--featured']}>
   <div class="tier__header">
     <h3 class="tier__name">{name}</h3>
     <p class="tier__price">
@@ -40,10 +40,10 @@ const {
     ))}
   </ul>
 
-  <a href={ctaHref} class:list={['tier__cta', featured && 'tier__cta--featured']}>
+  <span class:list={['tier__cta', featured && 'tier__cta--featured']}>
     {ctaText}
-  </a>
-</article>
+  </span>
+</a>
 
 <style>
   .tier {
@@ -53,6 +53,16 @@ const {
     padding: 32px;
     display: flex;
     flex-direction: column;
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+    transition: border-color var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
+  }
+
+  .tier:hover {
+    border-color: var(--color-gold);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 24px rgba(14, 51, 82, 0.1);
   }
 
   .tier--featured {

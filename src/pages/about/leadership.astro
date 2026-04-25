@@ -78,8 +78,13 @@ import SectionDivider from '../../components/SectionDivider.astro';
   <section class="section section--linen">
     <div class="container">
       <h2 style="margin-bottom: 24px;">Board of Directors</h2>
-      <div class="people-grid">
-        <div class="person-card">
+      <div class="board-chair">
+        <img src={`${import.meta.env.BASE_URL}images/people/Ryan-Topping-headshot.jpg`} alt="Dr. Ryan Topping" class="board-chair__photo" />
+        <h3>Dr. Ryan N.S. Topping</h3>
+        <p class="person-card__role">Chair</p>
+      </div>
+      <div class="people-grid people-grid--board">
+        <div class="person-card person-card--chair-desktop">
           <img src={`${import.meta.env.BASE_URL}images/people/Ryan-Topping-headshot.jpg`} alt="Dr. Ryan Topping" class="person-card__photo" />
           <h3>Dr. Ryan N.S. Topping</h3>
           <p class="person-card__role">Chair</p>
@@ -338,6 +343,48 @@ import SectionDivider from '../../components/SectionDivider.astro';
     display: block;
   }
 
+  .board-chair {
+    text-align: center;
+    margin-bottom: 24px;
+    display: none;
+  }
+
+  .board-chair__photo {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin: 0 auto 8px;
+    display: block;
+  }
+
+  .board-chair h3 {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--color-navy);
+    margin-bottom: 2px;
+  }
+
+  .person-card--chair-desktop {
+    display: block;
+  }
+
+  @media (max-width: 639px) {
+    .board-chair {
+      display: block;
+    }
+    .person-card--chair-desktop {
+      display: none;
+    }
+  }
+
+  @media (max-width: 639px) {
+    .people-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
   @media (min-width: 640px) {
     .people-grid.people-grid--staff {
       grid-template-columns: repeat(3, 1fr);
@@ -349,6 +396,9 @@ import SectionDivider from '../../components/SectionDivider.astro';
 
   @media (min-width: 768px) {
     .people-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+    .people-grid--board {
       grid-template-columns: repeat(5, 1fr);
     }
     .people-grid.people-grid--staff {

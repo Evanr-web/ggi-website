@@ -136,9 +136,9 @@ import SectionDivider from '../../components/SectionDivider.astro';
           prayer, friendship, study, beauty and economic vitality can breathe together.
         </p>
 
-        <h3 style="margin-top: 24px;">Our Crest</h3>
         <div class="crest-section">
           <img src={`${import.meta.env.BASE_URL}images/branding/ggi-seal.png`} alt="GGI Crest" class="crest-section__img" />
+          <h3 class="crest-section__title">Our Crest</h3>
           <ul class="crest-section__list">
             <li><strong>Dove</strong> — Vivifying power of God's Holy Spirit</li>
             <li><strong>Cross</strong> — Centrality of sacrifice by Christ and for Christ</li>
@@ -440,9 +440,14 @@ import SectionDivider from '../../components/SectionDivider.astro';
 
   .crest-section {
     display: flex;
-    gap: 20px;
-    align-items: start;
-    margin-top: 12px;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    margin-top: 32px;
+  }
+
+  .crest-section__title {
+    margin: 0;
   }
 
   .crest-section__img {
