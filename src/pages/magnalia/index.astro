@@ -20,12 +20,12 @@ import SectionDivider from '../../components/SectionDivider.astro';
           and beautiful visual art. Published twice yearly by the Gregory the Great Institute.
         </p>
         <div class="magnalia-hero__ctas">
-          <Button href="/magnalia/subscribe" variant="secondary">Subscribe to Magnalia</Button>
+          <Button href={`${import.meta.env.BASE_URL}magnalia/subscribe`} variant="secondary">Subscribe to Magnalia</Button>
           <a href="#sample" class="magnalia-hero__link">Read a Sample →</a>
         </div>
       </div>
       <div class="magnalia-hero__cover">
-        <img src="/images/branding/Magnalia_Cover.jpg" alt="Magnalia Journal — Issue One" />
+        <img src={`${import.meta.env.BASE_URL}images/branding/Magnalia_Cover.jpg`} alt="Magnalia Journal — Issue One" />
       </div>
     </div>
   </section>
@@ -65,7 +65,7 @@ import SectionDivider from '../../components/SectionDivider.astro';
         </div>
       </div>
 
-      <p class="highlights-more">Plus essays, reviews, art, and more. <a href="/magnalia/issue-one">See full table of contents →</a></p>
+      <p class="highlights-more">Plus essays, reviews, art, and more. <a href={`${import.meta.env.BASE_URL}magnalia/issue-one`}>See full table of contents →</a></p>
     </div>
   </section>
 
@@ -113,7 +113,7 @@ import SectionDivider from '../../components/SectionDivider.astro';
 
         <div class="sample-article__cta">
           <p class="sample-article__cta-text">Subscribe to read the full issue and future editions.</p>
-          <Button href="/magnalia/subscribe" variant="primary">Subscribe to Magnalia</Button>
+          <Button href={`${import.meta.env.BASE_URL}magnalia/subscribe`} variant="primary">Subscribe to Magnalia</Button>
         </div>
       </div>
     </div>
@@ -129,25 +129,25 @@ import SectionDivider from '../../components/SectionDivider.astro';
 
       <div class="contributors-grid reveal">
         <div class="contributor-card">
-          <img src="/images/people/Ryan-Topping-headshot.jpg" alt="Dr. Ryan Topping" class="contributor-card__photo" />
+          <img src={`${import.meta.env.BASE_URL}images/people/Ryan-Topping-headshot.jpg`} alt="Dr. Ryan Topping" class="contributor-card__photo" />
           <h3 class="contributor-card__name">Dr. Ryan N.S. Topping</h3>
           <p class="contributor-card__credentials">DPhil (Oxford) · 11 books</p>
           <p class="contributor-card__bio">Executive Director. Catholic education and cultural philosophy.</p>
         </div>
         <div class="contributor-card">
-          <img src="/images/people/Catherine-Renneberg-headshot.jpg" alt="Catherine Renneberg" class="contributor-card__photo" />
+          <img src={`${import.meta.env.BASE_URL}images/people/Catherine-Renneberg-headshot.jpg`} alt="Catherine Renneberg" class="contributor-card__photo" />
           <h3 class="contributor-card__name">Dr. Celene Sidloski</h3>
           <p class="contributor-card__credentials">Fellow · Saskatoon</p>
           <p class="contributor-card__bio">Classical education and Canadian Catholic intellectual life.</p>
         </div>
         <div class="contributor-card">
-          <img src="/images/people/Joe-Woodard-headshot.jpg" alt="Dr. Joseph Woodard" class="contributor-card__photo" />
+          <img src={`${import.meta.env.BASE_URL}images/people/Joe-Woodard-headshot.jpg`} alt="Dr. Joseph Woodard" class="contributor-card__photo" />
           <h3 class="contributor-card__name">Dr. Joseph Woodard</h3>
           <p class="contributor-card__credentials">Fellow · Calgary</p>
           <p class="contributor-card__bio">Ethics, bioethics, and Catholic social thought.</p>
         </div>
         <div class="contributor-card">
-          <img src="/images/people/Mark-Ingham-headshot.jpg" alt="Mark Ingham" class="contributor-card__photo" />
+          <img src={`${import.meta.env.BASE_URL}images/people/Mark-Ingham-headshot.jpg`} alt="Mark Ingham" class="contributor-card__photo" />
           <h3 class="contributor-card__name">Mark Ingham</h3>
           <p class="contributor-card__credentials">Fellow · Barry's Bay · PhD Cand.</p>
           <p class="contributor-card__bio">Vocations research and Canadian Catholic demographics.</p>
@@ -155,7 +155,7 @@ import SectionDivider from '../../components/SectionDivider.astro';
       </div>
 
       <div class="section-footer">
-        <Button href="/magnalia/contributors" variant="tertiary">Meet All Contributors →</Button>
+        <Button href={`${import.meta.env.BASE_URL}magnalia/contributors`} variant="tertiary">Meet All Contributors →</Button>
       </div>
     </div>
   </section>
@@ -174,23 +174,23 @@ import SectionDivider from '../../components/SectionDivider.astro';
           <h3 class="sub-tier__name">Single Copy</h3>
           <p class="sub-tier__price">$45</p>
           <p class="sub-tier__desc">Try a single issue of Magnalia.</p>
-          <Button href="/magnalia/subscribe" variant="secondary" size="small">Order a Copy</Button>
+          <Button href={`${import.meta.env.BASE_URL}magnalia/subscribe`} variant="secondary" size="small">Order a Copy</Button>
         </div>
         <div class="sub-tier sub-tier--featured">
           <p class="sub-tier__badge label">Most Popular</p>
           <h3 class="sub-tier__name">Annual Subscription</h3>
           <p class="sub-tier__price">$80<span class="sub-tier__period">/year</span></p>
           <p class="sub-tier__desc">Two issues per year. The standard for Friends of Magnalia.</p>
-          <Button href="/magnalia/subscribe" variant="primary" size="small">Subscribe</Button>
+          <Button href={`${import.meta.env.BASE_URL}magnalia/subscribe`} variant="primary" size="small">Subscribe</Button>
         </div>
         <div class="sub-tier">
           <h3 class="sub-tier__name">Magnalia Patron</h3>
           <p class="sub-tier__price">$500<span class="sub-tier__period">/year</span></p>
           <p class="sub-tier__desc">Subscription + named recognition + quarterly Q&A with the editor.</p>
-          <Button href="/magnalia/subscribe" variant="secondary" size="small">Become a Patron</Button>
+          <Button href={`${import.meta.env.BASE_URL}magnalia/subscribe`} variant="secondary" size="small">Become a Patron</Button>
         </div>
       </div>
-      <p class="sub-student-note">Student & seminarian rate: $30/year · Family rate: $50/year · <a href="/magnalia/subscribe">View all options →</a></p>
+      <p class="sub-student-note">Student & seminarian rate: $30/year · Family rate: $50/year · <a href={`${import.meta.env.BASE_URL}magnalia/subscribe`}>View all options →</a></p>
     </div>
   </section>
 

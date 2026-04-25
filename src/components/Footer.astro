@@ -21,7 +21,7 @@ const currentYear = new Date().getFullYear();
 <div class="footer-cta-strip">
   <div class="container footer-cta-strip__inner">
     <p class="footer-cta-strip__text">Become a Friend of the Institute — from $10/month</p>
-    <a href="/support" class="footer-cta-strip__btn">Support the Mission</a>
+    <a href={`${import.meta.env.BASE_URL}support`} class="footer-cta-strip__btn">Support the Mission</a>
   </div>
 </div>
 
@@ -30,7 +30,7 @@ const currentYear = new Date().getFullYear();
     <div class="footer__top">
       <!-- Column 1: Brand -->
       <div class="footer__brand">
-        <img src="/images/branding/ggi-seal.png" alt="GGI Seal" class="footer__logo" />
+        <img src={`${import.meta.env.BASE_URL}images/branding/ggi-seal.png`} alt="GGI Seal" class="footer__logo" />
         <p class="footer__tagline">Fides&ensp;•&ensp;Ratio&ensp;•&ensp;Cultura</p>
         <p class="footer__mission">
           Equipping Christians to renew culture in the light of faith and reason.

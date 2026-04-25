@@ -17,7 +17,7 @@ import SectionDivider from '../../components/SectionDivider.astro';
   <section class="section">
     <div class="container">
       <div class="patron-featured patron-featured--centered">
-        <img src="/images/people/thomas-collins.jpg" alt="Cardinal Thomas Collins" class="patron-featured__photo patron-featured__photo--large" />
+        <img src={`${import.meta.env.BASE_URL}images/people/thomas-collins.jpg`} alt="Cardinal Thomas Collins" class="patron-featured__photo patron-featured__photo--large" />
         <p class="label text-gold">Patron</p>
         <h2>His Eminence Thomas Cardinal Collins</h2>
         <p class="patron-featured__bio">
@@ -36,7 +36,7 @@ import SectionDivider from '../../components/SectionDivider.astro';
       <h2 style="margin-bottom: 24px;">Staff</h2>
       <div class="people-grid people-grid--staff">
         <div class="person-card person-card--large">
-          <img src="/images/people/Ryan-Topping-headshot.jpg" alt="Dr. Ryan Topping" class="person-card__photo" />
+          <img src={`${import.meta.env.BASE_URL}images/people/Ryan-Topping-headshot.jpg`} alt="Dr. Ryan Topping" class="person-card__photo" />
           <h3>Dr. Ryan N.S. Topping</h3>
           <p class="person-card__role">Founding Executive Director</p>
           <div class="person-card__bio-expandable">
@@ -52,17 +52,17 @@ import SectionDivider from '../../components/SectionDivider.astro';
             <label for="topping-expand" class="expand-btn">Read more ↓</label>
           </div>
           <a href="mailto:rtopping@gregorythegreat.ca" class="person-card__email">rtopping@gregorythegreat.ca</a>
-          <a href="/about/founding-director" class="person-card__link">View full profile →</a>
+          <a href={`${import.meta.env.BASE_URL}about/founding-director`} class="person-card__link">View full profile →</a>
         </div>
         <div class="person-card person-card--large">
-          <img src="/images/people/Catherine-Renneberg-headshot.jpg" alt="Catherine Renneberg" class="person-card__photo" />
+          <img src={`${import.meta.env.BASE_URL}images/people/Catherine-Renneberg-headshot.jpg`} alt="Catherine Renneberg" class="person-card__photo" />
           <h3>Catherine Renneberg</h3>
           <p class="person-card__role">Director of Programs</p>
           <p class="person-card__bio">M.Div. from Newman Theological College. Serves on the Board of St. Therese Institute (Saskatchewan). Experience in church ministry across Western Canada.</p>
           <a href="mailto:crenneberg@gregorythegreat.ca" class="person-card__email">crenneberg@gregorythegreat.ca</a>
         </div>
         <div class="person-card person-card--large">
-          <img src="/images/people/Victor-Carpay-headshot.jpg" alt="Victor Carpay" class="person-card__photo" />
+          <img src={`${import.meta.env.BASE_URL}images/people/Victor-Carpay-headshot.jpg`} alt="Victor Carpay" class="person-card__photo" />
           <h3>Victor Carpay</h3>
           <p class="person-card__role">Communications & Development</p>
           <p class="person-card__bio">Lifelong Albertan passionate about renewing culture through faith and reason. BA in Catholic Studies from Newman Theological College. Experience in sales, business, and political activism.</p>
@@ -80,27 +80,27 @@ import SectionDivider from '../../components/SectionDivider.astro';
       <h2 style="margin-bottom: 24px;">Board of Directors</h2>
       <div class="people-grid">
         <div class="person-card">
-          <img src="/images/people/Ryan-Topping-headshot.jpg" alt="Dr. Ryan Topping" class="person-card__photo" />
+          <img src={`${import.meta.env.BASE_URL}images/people/Ryan-Topping-headshot.jpg`} alt="Dr. Ryan Topping" class="person-card__photo" />
           <h3>Dr. Ryan N.S. Topping</h3>
           <p class="person-card__role">Chair</p>
         </div>
         <div class="person-card">
-          <img src="/images/people/Brian-Holdsworth-headshot.jpg" alt="Brian Holdsworth" class="person-card__photo" />
+          <img src={`${import.meta.env.BASE_URL}images/people/Brian-Holdsworth-headshot.jpg`} alt="Brian Holdsworth" class="person-card__photo" />
           <h3>Brian Holdsworth</h3>
           <p class="person-card__role">Director</p>
         </div>
         <div class="person-card">
-          <img src="/images/people/Celene-Sidloski-headshot.jpg" alt="Dr. Celene Sidloski" class="person-card__photo" />
+          <img src={`${import.meta.env.BASE_URL}images/people/Celene-Sidloski-headshot.jpg`} alt="Dr. Celene Sidloski" class="person-card__photo" />
           <h3>Dr. Celene Sidloski</h3>
           <p class="person-card__role">Director</p>
         </div>
         <div class="person-card">
-          <img src="/images/people/Catherine-Renneberg-headshot.jpg" alt="Catherine Renneberg" class="person-card__photo" />
+          <img src={`${import.meta.env.BASE_URL}images/people/Catherine-Renneberg-headshot.jpg`} alt="Catherine Renneberg" class="person-card__photo" />
           <h3>Catherine Renneberg</h3>
           <p class="person-card__role">Director</p>
         </div>
         <div class="person-card">
-          <img src="/images/people/Caleb-Ropp-headshot.jpg" alt="Caleb Ropp" class="person-card__photo" style="object-position: center center;" />
+          <img src={`${import.meta.env.BASE_URL}images/people/Caleb-Ropp-headshot.jpg`} alt="Caleb Ropp" class="person-card__photo" style="object-position: center center;" />
           <h3>Caleb Ropp</h3>
           <p class="person-card__role">Director</p>
         </div>
@@ -114,32 +114,32 @@ import SectionDivider from '../../components/SectionDivider.astro';
       <h2 style="margin-bottom: 24px;">Fellows</h2>
       <div class="people-grid people-grid--large">
         <div class="person-card person-card--large">
-          <img src="/images/people/Joe-Woodard-headshot.jpg" alt="Dr. Joe Woodard" class="person-card__photo" />
+          <img src={`${import.meta.env.BASE_URL}images/people/Joe-Woodard-headshot.jpg`} alt="Dr. Joe Woodard" class="person-card__photo" />
           <h3>Dr. Joe Woodard</h3>
           <p class="person-card__role">Fellow · Calgary</p>
           <p class="person-card__bio">Ethics, bioethics, and Catholic social thought.</p>
         </div>
         <div class="person-card person-card--large">
-          <img src="/images/people/Celene-Sidloski-headshot.jpg" alt="Dr. Celene Sidloski" class="person-card__photo" />
+          <img src={`${import.meta.env.BASE_URL}images/people/Celene-Sidloski-headshot.jpg`} alt="Dr. Celene Sidloski" class="person-card__photo" />
           <h3>Dr. Celene Sidloski</h3>
           <p class="person-card__role">Fellow · Saskatoon</p>
           <p class="person-card__bio">Classical education and Canadian Catholic intellectual life.</p>
         </div>
         <div class="person-card person-card--large">
-          <img src="/images/people/Mark-Ingham-headshot.jpg" alt="Mark Ingham" class="person-card__photo" />
+          <img src={`${import.meta.env.BASE_URL}images/people/Mark-Ingham-headshot.jpg`} alt="Mark Ingham" class="person-card__photo" />
           <h3>Mark Ingham, PhD Cand.</h3>
           <p class="person-card__role">Fellow · Barry's Bay</p>
           <p class="person-card__bio">Vocations research and Canadian Catholic demographics.</p>
         </div>
         <div class="person-card person-card--large">
-          <img src="/images/people/Fr-Michael-Bombak-headshot.jpg" alt="Fr. Michael Bombak" class="person-card__photo" />
+          <img src={`${import.meta.env.BASE_URL}images/people/Fr-Michael-Bombak-headshot.jpg`} alt="Fr. Michael Bombak" class="person-card__photo" />
           <h3>Fr. Michael Bombak</h3>
           <p class="person-card__role">Fellow · Toronto</p>
           <p class="person-card__bio">Theology, priesthood, and cultural renewal.</p>
         </div>
       </div>
       <p style="text-align: center; margin-top: 24px;">
-        <a href="/magnalia/contributors" style="font-family: var(--font-ui); font-size: 0.85rem; color: var(--color-gold); text-decoration: none;">Our Fellows also contribute to Magnalia →</a>
+        <a href={`${import.meta.env.BASE_URL}magnalia/contributors`} style="font-family: var(--font-ui); font-size: 0.85rem; color: var(--color-gold); text-decoration: none;">Our Fellows also contribute to Magnalia →</a>
       </p>
     </div>
   </section>
@@ -152,28 +152,28 @@ import SectionDivider from '../../components/SectionDivider.astro';
       <h2 style="margin-bottom: 24px;">Advisory Board</h2>
       <div class="advisory-list">
         <div class="advisory-item">
-          <img src="/images/people/Jeff-Lockert-headshot.jpg" alt="Jeff Lockert" class="advisory-item__photo" />
+          <img src={`${import.meta.env.BASE_URL}images/people/Jeff-Lockert-headshot.jpg`} alt="Jeff Lockert" class="advisory-item__photo" />
           <div>
             <h3>Jeff Lockert</h3>
             <p>President, CCO Canada</p>
           </div>
         </div>
         <div class="advisory-item">
-          <img src="/images/people/Andrew-Bennett-headshot.jpg" alt="Fr Dcn Andrew Bennett" class="advisory-item__photo" />
+          <img src={`${import.meta.env.BASE_URL}images/people/Andrew-Bennett-headshot.jpg`} alt="Fr Dcn Andrew Bennett" class="advisory-item__photo" />
           <div>
             <h3>Fr Dcn Andrew Bennett</h3>
             <p>Cardus · Formerly Canadian Ambassador for Religious Freedom</p>
           </div>
         </div>
         <div class="advisory-item">
-          <img src="/images/people/Keith-Cassidy-headshot.jpg" alt="Dr. Keith Cassidy" class="advisory-item__photo" />
+          <img src={`${import.meta.env.BASE_URL}images/people/Keith-Cassidy-headshot.jpg`} alt="Dr. Keith Cassidy" class="advisory-item__photo" />
           <div>
             <h3>Dr. Keith Cassidy</h3>
             <p>Past President and Chair of the Board, Seat of Wisdom College</p>
           </div>
         </div>
         <div class="advisory-item">
-          <img src="/images/people/Alane-Boudreau-headshot.jpg" alt="Alane Boudreau" class="advisory-item__photo" />
+          <img src={`${import.meta.env.BASE_URL}images/people/Alane-Boudreau-headshot.jpg`} alt="Alane Boudreau" class="advisory-item__photo" />
           <div>
             <h3>Alane Boudreau</h3>
             <p>Founding Board Member, St John Choir Schola, Calgary</p>

@@ -36,14 +36,14 @@ const placeholderEssays = [
     <div class="container">
       <div class="featured-essay">
         <div class="featured-essay__image">
-          <img src="/images/art/St-Gregory-Great-painting-dove.jpg" alt="St. Gregory the Great" />
+          <img src={`${import.meta.env.BASE_URL}images/art/St-Gregory-Great-painting-dove.jpg`} alt="St. Gregory the Great" />
         </div>
         <div class="featured-essay__body">
           <span class="label text-gold">Featured Essay</span>
           <h2>{placeholderEssays[0].title}</h2>
           <p class="featured-essay__meta">By {placeholderEssays[0].author} · {placeholderEssays[0].date}</p>
           <p class="featured-essay__excerpt">{placeholderEssays[0].excerpt}</p>
-          <Button href="/library/recovery-of-sunday" variant="tertiary">Read →</Button>
+          <Button href={`${import.meta.env.BASE_URL}library/recovery-of-sunday`} variant="tertiary">Read →</Button>
         </div>
       </div>
     </div>
@@ -71,7 +71,7 @@ const placeholderEssays = [
             title={essay.title}
             description={essay.excerpt}
             meta={`${essay.category} · ${essay.date}`}
-            href="/library/placeholder"
+            href={`${import.meta.env.BASE_URL}library/placeholder`}
             image={essay.image}
             imageAlt=""
           />

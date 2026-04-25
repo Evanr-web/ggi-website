@@ -9,7 +9,7 @@ import SectionDivider from '../../components/SectionDivider.astro';
 
   <!-- Hero -->
   <section class="hero-compact section--dark">
-    <div class="hero-compact__bg" style="background-image: url('/images/art/Bodleian-Library-Oxford.jpg');"></div>
+    <div class="hero-compact__bg" style={`background-image: url(${import.meta.env.BASE_URL}images/art/Bodleian-Library-Oxford.jpg)`}></div>
     <div class="hero-compact__overlay"></div>
     <div class="hero-compact__content container">
       <h1 class="display">Support the Institute</h1>
@@ -95,7 +95,7 @@ import SectionDivider from '../../components/SectionDivider.astro';
           For visionary partners building the 2027 Launch — the Catholic trade school, certificate programs,
           and think-tank. Co-naming of a major program, advisory council role, annual retreat with Dr. Topping.
         </p>
-        <Button href="/contact" variant="secondary" size="small">Request a Conversation</Button>
+        <Button href={`${import.meta.env.BASE_URL}contact`} variant="secondary" size="small">Request a Conversation</Button>
       </div>
     </div>
   </section>
@@ -108,7 +108,7 @@ import SectionDivider from '../../components/SectionDivider.astro';
           <blockquote class="endorsement-slide">
             <p>"I have known Dr. Ryan Topping and appreciated his work for a long time. I am delighted to see this important work that he is doing to continue building up the Catholic community and advancing the common good in Canada."</p>
             <footer>
-              <img src="/images/people/Garnett-Genuis-headshot.jpg" alt="Garnett Genuis" class="endorsement-photo" />
+              <img src={`${import.meta.env.BASE_URL}images/people/Garnett-Genuis-headshot.jpg`} alt="Garnett Genuis" class="endorsement-photo" />
               <div>
                 <cite>Garnett Genuis, M.P.</cite>
               </div>
@@ -117,7 +117,7 @@ import SectionDivider from '../../components/SectionDivider.astro';
           <blockquote class="endorsement-slide">
             <p>"The Gregory the Great Institute shows great promise in its commitment to forming Canadian Catholic leaders in all walks of life. Dr Ryan Topping has established a reputation as one our country's most prolific and insightful Catholic scholars. Dr Topping is well placed to play a major role in the revival of Catholic culture and its active influence in Canadian public life."</p>
             <footer>
-              <img src="/images/people/Robert-Berard-headshot.jpg" alt="Robert Nicholas Berard" class="endorsement-photo" />
+              <img src={`${import.meta.env.BASE_URL}images/people/Robert-Berard-headshot.jpg`} alt="Robert Nicholas Berard" class="endorsement-photo" />
               <div>
                 <cite>Robert Nicholas Berard, Ph.D.</cite>
                 <span>President, Fellowship of Catholic Scholars (Canada)</span>
@@ -127,7 +127,7 @@ import SectionDivider from '../../components/SectionDivider.astro';
           <blockquote class="endorsement-slide">
             <p>"I have appreciated Dr. Ryan Topping's work for several years. I support the mission of the Gregory the Great Institute and look forward to seeing the good it will bring to the Church in Canada."</p>
             <footer>
-              <img src="/images/people/Michael-OBrien-headshot.jpg" alt="Michael D. O'Brien" class="endorsement-photo" />
+              <img src={`${import.meta.env.BASE_URL}images/people/Michael-OBrien-headshot.jpg`} alt="Michael D. O'Brien" class="endorsement-photo" />
               <div>
                 <cite>Michael D. O'Brien</cite>
                 <span>Canadian author and painter</span>
@@ -137,7 +137,7 @@ import SectionDivider from '../../components/SectionDivider.astro';
           <blockquote class="endorsement-slide">
             <p>"Dr. Ryan Topping is among Canada's most important philosopher-theologians. His work on renewing Catholic culture over the years stands in the tradition of Cardinal Newman and G.K. Chesterton. I anticipate good things from the Gregory the Great Institute."</p>
             <footer>
-              <img src="/images/people/Aidan-Nichols-headshot.jpg" alt="Fr. Aidan Nichols" class="endorsement-photo" />
+              <img src={`${import.meta.env.BASE_URL}images/people/Aidan-Nichols-headshot.jpg`} alt="Fr. Aidan Nichols" class="endorsement-photo" />
               <div>
                 <cite>Fr. Aidan Nichols, O.P.</cite>
                 <span>Theologian and author of over 40 books</span>
@@ -157,7 +157,7 @@ import SectionDivider from '../../components/SectionDivider.astro';
       <p style="font-family: var(--font-body); font-size: 1rem; color: var(--color-gray); margin-bottom: 24px; line-height: 1.7;">
         Prefer to make a one-time gift? Every contribution builds Catholic culture in Canada.
       </p>
-      <Button href="/support/donate" variant="primary">Make a Gift</Button>
+      <Button href={`${import.meta.env.BASE_URL}support/donate`} variant="primary">Make a Gift</Button>
     </div>
   </section>
 
@@ -170,8 +170,8 @@ import SectionDivider from '../../components/SectionDivider.astro';
           Order Magnalia for your parish, seminary, or library. Institutional subscriptions are $150/year.
         </p>
         <div class="institutional-ctas">
-          <Button href="/magnalia/subscribe" variant="secondary" size="small">Order Institutional Subscription</Button>
-          <Button href="/contact" variant="tertiary" size="small">Invite Dr. Topping to Speak →</Button>
+          <Button href={`${import.meta.env.BASE_URL}magnalia/subscribe`} variant="secondary" size="small">Order Institutional Subscription</Button>
+          <Button href={`${import.meta.env.BASE_URL}contact`} variant="tertiary" size="small">Invite Dr. Topping to Speak →</Button>
         </div>
       </div>
     </div>
