@@ -25,7 +25,7 @@ const currentYear = new Date().getFullYear();
   </div>
 </div>
 
-<footer class="footer">
+<footer class="footer" role="contentinfo">
   <div class="container">
     <div class="footer__top">
       <!-- Column 1: Brand -->
@@ -65,8 +65,8 @@ const currentYear = new Date().getFullYear();
         <p class="footer__heading">Magnalia Letter</p>
         <p class="footer__newsletter-desc">Free monthly essays, event invitations, and reading recommendations.</p>
         <form class="footer__form" action="#" method="POST">
-          <input type="text" name="firstName" placeholder="First name" class="footer__input" required />
-          <input type="email" name="email" placeholder="Email address" class="footer__input" required />
+          <input type="text" name="firstName" placeholder="First name" class="footer__input" required aria-label="First name" />
+          <input type="email" name="email" placeholder="Email address" class="footer__input" required aria-label="Email address" />
           <button type="submit" class="footer__submit">Subscribe</button>
         </form>
       </div>

@@ -49,7 +49,7 @@ import EndorsementCard from '../components/EndorsementCard.astro';
        ============================================ -->
   <section class="section">
     <div class="container">
-      <div class="section-header">
+      <div class="section-header reveal">
         <p class="label text-gold">What We Do</p>
         <h2>Formation, Courses, Publications</h2>
         <p class="section-header__sub">
@@ -58,20 +58,20 @@ import EndorsementCard from '../components/EndorsementCard.astro';
         </p>
       </div>
 
-      <div class="pillars">
-        <a href="/programs" class="pillar">
+      <div class="pillars reveal-stagger">
+        <a href="/programs" class="pillar reveal">
           <img src="/images/art/Bodleian-Library-Oxford.jpg" alt="Classical library" class="pillar__img" />
           <h3 class="pillar__title">Formation</h3>
           <p class="pillar__desc">Intensive Great Books seminars, music and leadership camps, and reading groups that form the whole person — mind, soul, and community.</p>
           <span class="pillar__link">View Programs →</span>
         </a>
-        <a href="/programs/masterclasses" class="pillar">
+        <a href="/programs/masterclasses" class="pillar reveal">
           <img src="/images/art/vanitas-still-life-painting.jpg" alt="Classical still life" class="pillar__img" />
           <h3 class="pillar__title">Courses</h3>
           <p class="pillar__desc">Short courses in the Philosophy of Aquinas, Virtuous Leadership, Christian Beauty and Art, and Classical Education for Teachers.</p>
           <span class="pillar__link">Browse Courses →</span>
         </a>
-        <a href="/magnalia" class="pillar">
+        <a href="/magnalia" class="pillar reveal">
           <img src="/images/branding/Magnalia_Cover.jpg" alt="Magnalia journal cover" class="pillar__img" />
           <h3 class="pillar__title">Publications</h3>
           <p class="pillar__desc">Magnalia — the journal of Catholic cultural renewal in Canada. 60 pages of letters, essays, and art in every issue.</p>
@@ -90,7 +90,7 @@ import EndorsementCard from '../components/EndorsementCard.astro';
         <p class="label text-gold">Watch</p>
         <h2 style="color: var(--color-text-on-dark);">Why Catholic Culture Matters</h2>
       </div>
-      <div class="video-embed">
+      <div class="video-embed reveal reveal--scale">
         <iframe
           src="https://www.youtube.com/embed/Lhzqr8tMYsI"
           title="Why Catholic Culture Matters — Gregory the Great Institute"
@@ -108,10 +108,10 @@ import EndorsementCard from '../components/EndorsementCard.astro';
        ============================================ -->
   <section class="section section--linen magnalia-feature">
     <div class="container magnalia-feature__inner">
-      <div class="magnalia-feature__cover">
+      <div class="magnalia-feature__cover reveal reveal--left">
         <img src="/images/branding/Magnalia_Cover.jpg" alt="Magnalia Journal — Issue One" class="magnalia-feature__img" />
       </div>
-      <div class="magnalia-feature__text">
+      <div class="magnalia-feature__text reveal reveal--right">
         <p class="label text-gold">Our Flagship Journal</p>
         <h2 class="magnalia-feature__title">Magnalia</h2>
         <p class="magnalia-feature__subtitle">The journal of Catholic cultural renewal in Canada</p>
@@ -138,7 +138,7 @@ import EndorsementCard from '../components/EndorsementCard.astro';
         <h2>Events & Programs</h2>
       </div>
 
-      <div class="events-grid">
+      <div class="events-grid reveal">
         <EventCard
           title="Bringing Back Sunday — Renewing Culture Conference"
           month="Oct"
@@ -184,7 +184,7 @@ import EndorsementCard from '../components/EndorsementCard.astro';
        ============================================ -->
   <section class="section" style="padding-top: 40px;">
     <div class="container">
-      <div class="endorsements-grid">
+      <div class="endorsements-grid reveal">
         <EndorsementCard
           quote="I have appreciated Dr. Ryan Topping's work for several years. I support the mission of the Gregory the Great Institute and look forward to seeing the good it will bring to the Church in Canada."
           name="Michael D. O'Brien"
@@ -299,8 +299,8 @@ import EndorsementCard from '../components/EndorsementCard.astro';
       <h2 class="newsletter-section__title">Join the Magnalia Letter</h2>
       <p class="newsletter-section__desc">Free monthly essays, event invitations, and reading recommendations from the Institute.</p>
       <form class="newsletter-section__form" action="#" method="POST">
-        <input type="text" name="firstName" placeholder="First name" class="newsletter-section__input" required />
-        <input type="email" name="email" placeholder="Email address" class="newsletter-section__input" required />
+        <input type="text" name="firstName" placeholder="First name" class="newsletter-section__input" required aria-label="First name" />
+        <input type="email" name="email" placeholder="Email address" class="newsletter-section__input" required aria-label="Email address" />
         <button type="submit" class="newsletter-section__btn">Subscribe</button>
       </form>
     </div>
