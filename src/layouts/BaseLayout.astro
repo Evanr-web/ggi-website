@@ -48,27 +48,41 @@ const siteTitle = `${title} | Gregory the Great Institute`;
 
     <!-- Scroll reveal animations -->
     <script>
-      const reveals = document.querySelectorAll('.reveal');
+      // Respect reduced motion preference
+      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-      if (reveals.length > 0) {
+      if (prefersReduced) {
+        document.querySelectorAll('.reveal').forEach(el => el.classList.add('revealed'));
+      } else {
         const observer = new IntersectionObserver((entries) => {
           entries.forEach(entry => {
             if (entry.isIntersecting) {
-              entry.target.classList.add('revealed');
+              // If this is a stagger container, reveal children instead
+              if (entry.target.classList.contains('reveal-stagger')) {
+                const children = entry.target.querySelectorAll('.reveal');
+                children.forEach(child => child.classList.add('revealed'));
+              } else {
+                entry.target.classList.add('revealed');
+              }
               observer.unobserve(entry.target);
             }
           });
         }, {
-          threshold: 0.15,
-          rootMargin: '0px 0px -40px 0px'
+          threshold: 0.08,
+          rootMargin: '0px 0px -60px 0px'
         });
 
-        reveals.forEach(el => observer.observe(el));
-      }
+        // Observe standalone reveals (not children of stagger containers)
+        document.querySelectorAll('.reveal').forEach(el => {
+          if (!el.parentElement?.classList.contains('reveal-stagger')) {
+            observer.observe(el);
+          }
+        });
 
-      // Respect reduced motion preference
-      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        document.querySelectorAll('.reveal').forEach(el => el.classList.add('revealed'));
+        // Observe stagger containers
+        document.querySelectorAll('.reveal-stagger').forEach(el => {
+          observer.observe(el);
+        });
       }
     </script>
   </body>

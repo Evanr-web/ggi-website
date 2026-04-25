@@ -20,7 +20,7 @@ import EndorsementCard from '../components/EndorsementCard.astro';
     <div class="hero__overlay"></div>
     <div class="hero__content container">
       <h1 class="hero__headline display">Inspiring Canadian Catholic Culture</h1>
-      <p class="hero__tagline">Fides&ensp;•&ensp;Ratio&ensp;•&ensp;Cultura</p>
+      <p class="hero__tagline">Fides&ensp;•&ensp;Ratio<span class="hero__tagline-dot">&ensp;•&ensp;</span><br class="hero__tagline-break" />Cultura</p>
       <p class="hero__subtitle">Forming leaders. Teaching the tradition. Publishing research.</p>
       <div class="hero__ctas">
         <a href="/magnalia/letter" class="btn btn--subscribe">Subscribe to the Magnalia Letter</a>
@@ -48,8 +48,8 @@ import EndorsementCard from '../components/EndorsementCard.astro';
        Section 3: THREE PILLARS
        ============================================ -->
   <section class="section">
-    <div class="container">
-      <div class="section-header reveal">
+    <div class="container reveal">
+      <div class="section-header">
         <p class="label text-gold">What We Do</p>
         <h2>Formation, Courses, Publications</h2>
         <p class="section-header__sub">
@@ -58,20 +58,20 @@ import EndorsementCard from '../components/EndorsementCard.astro';
         </p>
       </div>
 
-      <div class="pillars reveal-stagger">
-        <a href="/programs" class="pillar reveal">
+      <div class="pillars">
+        <a href="/programs" class="pillar">
           <img src="/images/art/Bodleian-Library-Oxford.jpg" alt="Classical library" class="pillar__img" />
           <h3 class="pillar__title">Formation</h3>
           <p class="pillar__desc">Intensive Great Books seminars, music and leadership camps, and reading groups that form the whole person — mind, soul, and community.</p>
           <span class="pillar__link">View Programs →</span>
         </a>
-        <a href="/programs/masterclasses" class="pillar reveal">
+        <a href="/programs/masterclasses" class="pillar">
           <img src="/images/art/vanitas-still-life-painting.jpg" alt="Classical still life" class="pillar__img" />
           <h3 class="pillar__title">Courses</h3>
           <p class="pillar__desc">Short courses in the Philosophy of Aquinas, Virtuous Leadership, Christian Beauty and Art, and Classical Education for Teachers.</p>
           <span class="pillar__link">Browse Courses →</span>
         </a>
-        <a href="/magnalia" class="pillar reveal">
+        <a href="/magnalia" class="pillar">
           <img src="/images/branding/Magnalia_Cover.jpg" alt="Magnalia journal cover" class="pillar__img" />
           <h3 class="pillar__title">Publications</h3>
           <p class="pillar__desc">Magnalia — the journal of Catholic cultural renewal in Canada. 60 pages of letters, essays, and art in every issue.</p>
@@ -171,7 +171,7 @@ import EndorsementCard from '../components/EndorsementCard.astro';
         />
       </div>
 
-      <div class="section-footer" style="margin-bottom: -24px;">
+      <div class="section-footer" style="margin-bottom: -32px;">
         <Button href="/events" variant="tertiary">View All Events →</Button>
       </div>
     </div>
@@ -182,7 +182,7 @@ import EndorsementCard from '../components/EndorsementCard.astro';
   <!-- ============================================
        Section 6: ENDORSEMENTS
        ============================================ -->
-  <section class="section" style="padding-top: 40px;">
+  <section class="section" style="padding-top: 24px;">
     <div class="container">
       <div class="endorsements-grid reveal">
         <EndorsementCard
@@ -256,15 +256,15 @@ import EndorsementCard from '../components/EndorsementCard.astro';
         <p class="label text-gold">Support the Mission</p>
         <h2>Build Catholic Intellectual Life in Canada</h2>
         <p class="support-preview__body">
-          In its first year, the Institute published Magnalia to every Catholic bishop and seminary
-          rector in Canada, ran formation programs in four provinces, and built a community of 1,500
-          people hungry for cultural renewal. We did this on a lean budget with a small team.
-          Here's what we can do with your help.
+          In its first year, the Institute published Magnalia and distributed to every Catholic bishop
+          and seminary rector in Canada, ran formation programs in four provinces, hosted the inaugural
+          Renewing Culture Conference, and built a community of over 1,500 people hungry for cultural
+          renewal. We did this on a lean budget with a small team. With your help, we can do so much more.
         </p>
         <Button href="/support" variant="primary">Become a Friend</Button>
       </div>
       <div class="support-preview__tiers">
-        <div class="tier-preview">
+        <a href="/support" class="tier-preview">
           <p class="tier-preview__name">Friend of the Institute</p>
           <p class="tier-preview__price"><span class="tier-preview__amount">$10–49</span><span class="tier-preview__period">/month</span></p>
           <ul class="tier-preview__list">
@@ -272,8 +272,8 @@ import EndorsementCard from '../components/EndorsementCard.astro';
             <li>Magnalia Letter</li>
             <li>Early event registration</li>
           </ul>
-        </div>
-        <div class="tier-preview tier-preview--featured">
+        </a>
+        <a href="/support" class="tier-preview tier-preview--featured">
           <p class="tier-preview__badge">Recommended</p>
           <p class="tier-preview__name">Patron</p>
           <p class="tier-preview__price"><span class="tier-preview__amount">$50</span><span class="tier-preview__period">/month</span></p>
@@ -283,7 +283,7 @@ import EndorsementCard from '../components/EndorsementCard.astro';
             <li>Quarterly Q&A with Dr. Topping</li>
             <li>Named recognition</li>
           </ul>
-        </div>
+        </a>
       </div>
     </div>
     <div class="container" style="text-align: center; margin-top: 24px;">
@@ -349,6 +349,19 @@ import EndorsementCard from '../components/EndorsementCard.astro';
   .hero__headline {
     color: var(--color-text-on-dark);
     margin-bottom: 12px;
+  }
+
+  .hero__tagline-break {
+    display: none;
+  }
+
+  @media (max-width: 480px) {
+    .hero__tagline-dot {
+      display: none;
+    }
+    .hero__tagline-break {
+      display: inline;
+    }
   }
 
   .hero__tagline {
@@ -568,6 +581,16 @@ import EndorsementCard from '../components/EndorsementCard.astro';
     transform: rotate(-3deg);
     box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
     border-radius: 3px;
+    margin-inline: auto;
+  }
+
+  @media (max-width: 640px) {
+    .magnalia-feature__img {
+      max-width: 240px;
+    }
+    .magnalia-feature__text {
+      padding-inline: 8px;
+    }
   }
 
   .magnalia-feature__title {
@@ -700,6 +723,16 @@ import EndorsementCard from '../components/EndorsementCard.astro';
     border: 1px solid rgba(245, 239, 229, 0.1);
     border-radius: 3px;
     padding: 24px;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    transition: border-color var(--transition-fast), transform var(--transition-fast);
+    cursor: pointer;
+  }
+
+  .tier-preview:hover {
+    border-color: var(--color-gold);
+    transform: translateY(-2px);
   }
 
   .tier-preview--featured {

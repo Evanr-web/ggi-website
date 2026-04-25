@@ -217,8 +217,8 @@ img {
 /* --- Scroll reveal animations --- */
 .reveal {
   opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
+  transform: translateY(20px);
+  transition: opacity 0.8s cubic-bezier(0.25, 0.1, 0.25, 1), transform 0.8s cubic-bezier(0.25, 0.1, 0.25, 1);
 }
 
 .reveal--left {
@@ -230,7 +230,7 @@ img {
 }
 
 .reveal--scale {
-  transform: scale(0.95);
+  transform: scale(0.96);
 }
 
 .revealed {
@@ -240,10 +240,10 @@ img {
 
 /* Stagger children */
 .reveal-stagger > .reveal:nth-child(1) { transition-delay: 0s; }
-.reveal-stagger > .reveal:nth-child(2) { transition-delay: 0.1s; }
-.reveal-stagger > .reveal:nth-child(3) { transition-delay: 0.2s; }
-.reveal-stagger > .reveal:nth-child(4) { transition-delay: 0.3s; }
-.reveal-stagger > .reveal:nth-child(5) { transition-delay: 0.4s; }
+.reveal-stagger > .reveal:nth-child(2) { transition-delay: 0.15s; }
+.reveal-stagger > .reveal:nth-child(3) { transition-delay: 0.3s; }
+.reveal-stagger > .reveal:nth-child(4) { transition-delay: 0.45s; }
+.reveal-stagger > .reveal:nth-child(5) { transition-delay: 0.6s; }
 
 /* Respect user preference */
 @media (prefers-reduced-motion: reduce) {

@@ -111,6 +111,7 @@ const navItems = [
     position: relative;
     z-index: 201;
     background-color: var(--color-navy);
+    transition: width 0.3s ease, height 0.3s ease, margin 0.3s ease;
   }
 
   .nav__brand {
@@ -314,16 +315,28 @@ const navItems = [
   @media (max-width: 639px) {
     .nav__wordmark { display: none; }
   }
+
+  .nav--menu-open .nav__logo-img {
+    width: 52px;
+    height: 52px;
+    margin-top: 0;
+    margin-bottom: 0;
+    border-width: 2px;
+    box-shadow: none;
+    transition: all 0.3s ease;
+  }
 </style>
 
 <script>
   const hamburger = document.querySelector('.nav__hamburger');
   const mobileMenu = document.querySelector('.nav__mobile');
+  const nav = document.querySelector('.nav');
 
   hamburger?.addEventListener('click', () => {
     const isOpen = mobileMenu?.style.display === 'block';
     if (mobileMenu) mobileMenu.style.display = isOpen ? 'none' : 'block';
     hamburger.setAttribute('aria-expanded', String(!isOpen));
     if (mobileMenu) mobileMenu.setAttribute('aria-hidden', String(isOpen));
+    nav?.classList.toggle('nav--menu-open', !isOpen);
   });
 </script>
