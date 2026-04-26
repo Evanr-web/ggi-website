@@ -158,11 +158,6 @@ import SectionDivider from '../../components/SectionDivider.astro';
   <section class="section section--linen">
     <div class="container">
       <div class="about-nav">
-        <a href={`${import.meta.env.BASE_URL}about/story/`} class="about-nav__card">
-          <h3>Our Story</h3>
-          <p>The founding narrative — from Saskatchewan to Oxford to the Institute.</p>
-          <span class="about-nav__arrow">→</span>
-        </a>
         <a href={`${import.meta.env.BASE_URL}about/leadership/`} class="about-nav__card">
           <h3>Leadership</h3>
           <p>Board, staff, fellows, and advisory board.</p>
@@ -531,7 +526,7 @@ import SectionDivider from '../../components/SectionDivider.astro';
 
   @media (min-width: 1024px) {
     .about-nav {
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(3, 1fr);
     }
     .about-nav__arrow {
       position: static;
