@@ -24,15 +24,11 @@ const base = import.meta.env.BASE_URL;
         <p class="donate-page__tiers-label label text-gold">Giving Levels</p>
         <div class="donate-page__tier">
           <strong>Friend of the Institute</strong>
-          <span>$10–49/month</span>
+          <span>$15+/month</span>
         </div>
         <div class="donate-page__tier">
           <strong>Patron</strong>
-          <span>$50/month ($600/year)</span>
-        </div>
-        <div class="donate-page__tier">
-          <strong>Underwriter</strong>
-          <span>$208/month ($2,500/year)</span>
+          <span>$50+/month ($600+/year)</span>
         </div>
         <div class="donate-page__tier">
           <strong>Leadership Circle</strong>
@@ -42,6 +38,35 @@ const base = import.meta.env.BASE_URL;
           <strong>One-Time Gift</strong>
           <span>Any amount</span>
         </div>
+      </div>
+
+      <!-- Honor / Memorial -->
+      <div class="donate-page__tribute">
+        <p class="label text-gold">Give in Honor or Memory</p>
+        <p class="tribute-desc">
+          Honor someone who shaped your faith or remember a loved one with a gift to the Institute.
+          We'll send a personal note to the person or family you designate.
+        </p>
+        <p class="tribute-desc">
+          When you contact us to give, let us know:
+        </p>
+        <div class="tribute-fields">
+          <div class="tribute-field">
+            <span class="tribute-field__label">Type</span>
+            <span class="tribute-field__value">In Honor of / In Memory of</span>
+          </div>
+          <div class="tribute-field">
+            <span class="tribute-field__label">Honoree name</span>
+            <span class="tribute-field__value">The person you're honoring or remembering</span>
+          </div>
+          <div class="tribute-field">
+            <span class="tribute-field__label">Notify</span>
+            <span class="tribute-field__value">Name and email of someone to notify (optional)</span>
+          </div>
+        </div>
+        <p class="tribute-note">
+          When online giving is live, these fields will be part of the donation form.
+        </p>
       </div>
 
       <a href={`${base}support/`} class="back-link">← Back to Support</a>
@@ -116,6 +141,62 @@ const base = import.meta.env.BASE_URL;
 
   .donate-page__tier span {
     color: var(--color-gray);
+  }
+
+  /* Tribute / Honor-Memorial */
+  .donate-page__tribute {
+    margin-top: 40px;
+    padding-top: 32px;
+    border-top: 1px solid rgba(90, 90, 110, 0.1);
+    text-align: left;
+  }
+
+  .tribute-desc {
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    color: var(--color-gray);
+    line-height: 1.6;
+    margin-bottom: 12px;
+  }
+
+  .tribute-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin: 16px 0;
+    padding: 16px;
+    background-color: var(--color-linen);
+    border-radius: 3px;
+  }
+
+  .tribute-field {
+    display: flex;
+    gap: 12px;
+    align-items: baseline;
+  }
+
+  .tribute-field__label {
+    font-family: var(--font-ui);
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--color-navy);
+    min-width: 100px;
+    flex-shrink: 0;
+  }
+
+  .tribute-field__value {
+    font-family: var(--font-body);
+    font-size: 0.88rem;
+    color: var(--color-gray);
+    font-style: italic;
+  }
+
+  .tribute-note {
+    font-family: var(--font-ui);
+    font-size: 0.78rem;
+    color: var(--color-gray);
+    font-style: italic;
+    margin-top: 8px;
   }
 
   .back-link {

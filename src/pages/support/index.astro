@@ -64,77 +64,51 @@ const base = import.meta.env.BASE_URL;
       <div class="tiers-grid reveal">
         <GivingTier
           name="Friend of the Institute"
-          monthlyPrice="$10–49"
-          annualPrice="$120–588"
-          description="The accessible entry point for anyone who believes in Catholic cultural renewal."
+          monthlyPrice="$15+"
+          annualPrice="$180+"
+          description="The foundation. Join the growing community sustaining Catholic cultural renewal."
           benefits={[
             "Monthly prayer inclusion",
-            "Magnalia Letter (free newsletter)",
+            "Magnalia Letter (curated monthly guide)",
             "Magnalia digital edition (PDF)",
             "Early event registration",
             "Named recognition on the website"
           ]}
           ctaText="Become a Friend"
-          ctaHref={`${import.meta.env.BASE_URL}support/friend/`}
+          ctaHref={`${base}support/friend/`}
         />
         <GivingTier
           name="Patron"
-          monthlyPrice="$50"
-          annualPrice="$600"
+          monthlyPrice="$50+"
+          annualPrice="$600+"
           description="The backbone of the Institute. Patrons make everything possible."
           benefits={[
             "Everything in Friend, plus:",
             "Magnalia print subscription included",
-            "Quarterly Patron Conversation with Dr. Topping",
             "Named recognition in Magnalia",
             "Signed copy of Renewing Catholic Schools",
-            "Annual personal conversation with Dr. Topping",
+            "Annual Patron gathering with Dr. Topping",
             "Conference early-bird + 10% discount"
           ]}
           featured={true}
           ctaText="Become a Patron"
-          ctaHref={`${import.meta.env.BASE_URL}magnalia/patron/`}
-        />
-        <GivingTier
-          name="Underwriter"
-          monthlyPrice="~$200"
-          annualPrice="$2,500"
-          description="Named underwriter of a Magnalia issue or flagship program."
-          benefits={[
-            "Everything in Patron, plus:",
-            "Named issue underwriting in Magnalia",
-            "Inner circle dinner with Dr. Topping",
-            "Early access to research and publications",
-            "Personal briefing on Institute direction"
-          ]}
-          ctaText="Become an Underwriter"
-          ctaHref={`${import.meta.env.BASE_URL}support/underwriter/`}
+          ctaHref={`${base}magnalia/patron/`}
         />
         <GivingTier
           name="Leadership Circle"
           monthlyPrice="—"
           annualPrice="$5,000+"
-          description="Strategic partners shaping the future of Catholic culture in Canada."
+          description="Strategic partners building the future of Catholic culture in Canada."
           benefits={[
-            "Everything in Underwriter, plus:",
-            "Seat on the Patron Advisory Council",
-            "Co-naming of a major program",
-            "Annual retreat with the leadership team",
-            "Quarterly strategic briefings"
+            "Everything in Patron, plus:",
+            "Personal relationship with Dr. Topping",
+            "Input on Institute direction",
+            "Named recognition in flagship programs",
+            "Annual Leadership gathering"
           ]}
-          ctaText="Join the Leadership Circle"
-          ctaHref={`${import.meta.env.BASE_URL}support/leadership/`}
+          ctaText="Request a Conversation"
+          ctaHref={`${base}support/leadership/`}
         />
-      </div>
-
-      <div class="founding-fellow">
-        <p class="label text-gold">For Visionary Partners</p>
-        <h3>Founding Fellow — $25,000+/year</h3>
-        <p>
-          For visionary partners building the 2027 Launch — the Catholic trade school, certificate programs,
-          and think-tank. Co-naming of a major program, advisory council role, annual retreat with Dr. Topping.
-        </p>
-        <Button href={`${import.meta.env.BASE_URL}contact/`} variant="secondary" size="small">Request a Conversation</Button>
       </div>
     </div>
   </section>
@@ -447,7 +421,7 @@ const base = import.meta.env.BASE_URL;
 
   @media (min-width: 1024px) {
     .tiers-grid {
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(3, 1fr);
     }
   }
 
