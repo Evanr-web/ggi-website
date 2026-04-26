@@ -19,6 +19,22 @@ export default defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: 'template',
+      title: 'Page Template',
+      type: 'string',
+      description: 'Choose the layout for this program page.',
+      options: {
+        list: [
+          { title: 'Conference (flagship event)', value: 'conference' },
+          { title: 'Book Studies (reading clubs)', value: 'book-studies' },
+          { title: 'Masterclasses (short courses)', value: 'masterclasses' },
+          { title: 'Seminar / Intensive (Faith & Reason)', value: 'seminar' },
+          { title: 'Camp (residential youth)', value: 'camp' },
+        ],
+      },
+      initialValue: 'conference',
+    }),
+    defineField({
       name: 'tagline',
       title: 'Tagline / Quote',
       type: 'text',

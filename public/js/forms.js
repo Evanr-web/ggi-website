@@ -9,21 +9,34 @@ document.addEventListener('DOMContentLoaded', () => {
       btn.textContent = 'Sending...';
       btn.disabled = true;
 
-      const formData = new FormData(form);
-      const data = Object.fromEntries(formData.entries());
       const endpoint = form.dataset.acEndpoint;
+      const hasFile = form.querySelector('input[type="file"]');
 
-      try {
-        const res = await fetch(endpoint, {
+      let fetchOptions;
+
+      if (hasFile) {
+        // File upload — send as FormData (multipart)
+        const formData = new FormData(form);
+        fetchOptions = {
+          method: 'POST',
+          body: formData,
+        };
+      } else {
+        // Standard form — send as JSON
+        const formData = new FormData(form);
+        const data = Object.fromEntries(formData.entries());
+        fetchOptions = {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(data),
-        });
+        };
+      }
 
+      try {
+        const res = await fetch(endpoint, fetchOptions);
         const result = await res.json();
 
         if (res.ok && result.success) {
-          // Show success state
           form.innerHTML = `
             <div style="text-align: center; padding: 20px;">
               <p style="font-family: var(--font-display); font-size: 1.3rem; color: var(--color-navy); margin-bottom: 8px;">
@@ -35,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
           `;
         } else {
-          btn.textContent = 'Something went wrong — try again';
+          btn.textContent = result.error || 'Something went wrong — try again';
           btn.disabled = false;
           setTimeout(() => { btn.textContent = originalText; }, 3000);
         }

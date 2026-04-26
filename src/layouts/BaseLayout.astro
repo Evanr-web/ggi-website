@@ -1,6 +1,8 @@
 ---
 import Navigation from '../components/Navigation.astro';
 import Footer from '../components/Footer.astro';
+import RibbonBanner from '../components/RibbonBanner.astro';
+import FlyinPopup from '../components/FlyinPopup.astro';
 import '../styles/global.css';
 
 interface Props {
@@ -60,11 +62,13 @@ const ogImageUrl = ogImage.startsWith('http') ? ogImage : `${siteUrl}${base}${og
     <!-- Skip to content (accessibility) -->
     <a href="#main-content" class="skip-link">Skip to main content</a>
 
+    <RibbonBanner />
     <Navigation />
     <main id="main-content" role="main">
       <slot />
     </main>
     <Footer />
+    <FlyinPopup />
 
     <!-- Form handler -->
     <script src={`${base}js/forms.js`} defer></script>

@@ -1,0 +1,120 @@
+---
+// Fly-in Popup — bottom-right on desktop, bottom banner on mobile
+// Currently hardcoded; will pull from Sanity siteSettings.flyinPopup when wired
+const enabled = true;
+const headline = "We're Hiring!";
+const message = "Join the team renewing Catholic culture in Canada. Communications & Development Intern — Summer 2026.";
+const ctaText = "Apply Now";
+const ctaUrl = "/careers/";
+const delay = 5; // seconds
+---
+
+{enabled && (
+  <div class="flyin" id="flyin-popup" data-delay={delay} role="dialog" aria-label="Promotional popup">
+    <button class="flyin__close" aria-label="Close popup" onclick="document.getElementById('flyin-popup').remove(); sessionStorage.setItem('flyin-dismissed', '1');">×</button>
+    <p class="flyin__headline">{headline}</p>
+    <p class="flyin__message">{message}</p>
+    <a href={ctaUrl} class="flyin__cta">{ctaText}</a>
+  </div>
+)}
+
+<style>
+  .flyin {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 999;
+    max-width: 320px;
+    background-color: var(--color-navy);
+    color: var(--color-parchment);
+    border-radius: 6px;
+    padding: 24px 20px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+    transform: translateY(120%);
+    opacity: 0;
+    transition: transform 0.4s ease, opacity 0.3s ease;
+  }
+
+  .flyin.flyin--visible {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  .flyin__close {
+    position: absolute;
+    top: 8px;
+    right: 12px;
+    background: none;
+    border: none;
+    color: rgba(245, 239, 229, 0.5);
+    font-size: 1.4rem;
+    cursor: pointer;
+    line-height: 1;
+    padding: 4px;
+  }
+
+  .flyin__close:hover { color: var(--color-parchment); }
+
+  .flyin__headline {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--color-gold);
+    margin-bottom: 8px;
+  }
+
+  .flyin__message {
+    font-family: var(--font-body);
+    font-size: 0.88rem;
+    line-height: 1.55;
+    color: rgba(245, 239, 229, 0.85);
+    margin-bottom: 16px;
+  }
+
+  .flyin__cta {
+    display: inline-block;
+    font-family: var(--font-display);
+    font-size: 0.9rem;
+    font-weight: 600;
+    padding: 10px 24px;
+    background-color: var(--color-gold);
+    color: var(--color-navy);
+    border-radius: 3px;
+    text-decoration: none;
+    transition: background-color var(--transition-fast);
+  }
+
+  .flyin__cta:hover { background-color: #a08638; }
+
+  /* Mobile: bottom banner instead of corner widget */
+  @media (max-width: 640px) {
+    .flyin {
+      bottom: 0;
+      right: 0;
+      left: 0;
+      max-width: none;
+      border-radius: 12px 12px 0 0;
+      padding: 20px 16px;
+      text-align: center;
+    }
+
+    .flyin__cta {
+      width: 100%;
+      display: block;
+      text-align: center;
+    }
+  }
+</style>
+
+<script>
+  // Show after delay if not previously dismissed this session
+  const popup = document.getElementById('flyin-popup');
+  if (popup && !sessionStorage.getItem('flyin-dismissed')) {
+    const delay = parseInt(popup.dataset.delay || '5', 10) * 1000;
+    setTimeout(() => {
+      popup.classList.add('flyin--visible');
+    }, delay);
+  } else if (popup) {
+    popup.remove();
+  }
+</script>

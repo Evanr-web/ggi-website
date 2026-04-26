@@ -1,0 +1,94 @@
+---
+// Ribbon Banner — thin strip above navigation
+// Currently hardcoded; will pull from Sanity siteSettings.ribbonBanner when wired
+const enabled = true;
+const message = "We're hiring! Communications & Development Intern — Canada Summer Jobs 2026.";
+const linkText = "Apply Now →";
+const linkUrl = "/careers/";
+const style = "gold"; // gold | navy | crimson
+---
+
+{enabled && (
+  <div class={`ribbon ribbon--${style}`} role="banner">
+    <div class="ribbon__inner">
+      <span class="ribbon__message">{message}</span>
+      {linkText && linkUrl && (
+        <a href={linkUrl} class="ribbon__link">{linkText}</a>
+      )}
+      <button class="ribbon__close" aria-label="Dismiss banner" onclick="this.closest('.ribbon').remove()">×</button>
+    </div>
+  </div>
+)}
+
+<style>
+  .ribbon {
+    width: 100%;
+    padding: 8px 16px;
+    text-align: center;
+    font-family: var(--font-ui);
+    font-size: 0.82rem;
+    line-height: 1.4;
+    position: relative;
+    z-index: 1001;
+  }
+
+  .ribbon--gold {
+    background-color: var(--color-gold);
+    color: var(--color-navy);
+  }
+
+  .ribbon--navy {
+    background-color: var(--color-navy);
+    color: var(--color-parchment);
+  }
+
+  .ribbon--crimson {
+    background-color: var(--color-crimson);
+    color: var(--color-parchment);
+  }
+
+  .ribbon__inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    max-width: 1200px;
+    margin-inline: auto;
+  }
+
+  .ribbon__message {
+    font-weight: 500;
+  }
+
+  .ribbon__link {
+    font-weight: 700;
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    white-space: nowrap;
+  }
+
+  .ribbon--gold .ribbon__link { color: var(--color-crimson); }
+
+  .ribbon__close {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: inherit;
+    font-size: 1.2rem;
+    cursor: pointer;
+    opacity: 0.6;
+    padding: 4px 8px;
+    line-height: 1;
+  }
+
+  .ribbon__close:hover { opacity: 1; }
+
+  @media (max-width: 640px) {
+    .ribbon { font-size: 0.75rem; padding: 6px 32px 6px 12px; }
+    .ribbon__inner { gap: 6px; }
+  }
+</style>

@@ -97,6 +97,24 @@ export default defineType({
       ],
     }),
     defineField({
+      name: 'template',
+      title: 'Page Template',
+      type: 'string',
+      description: 'Choose the page layout for this event. Contact your developer if you need a new template.',
+      options: {
+        list: [
+          { title: 'Conference (multi-day, speakers, schedule)', value: 'conference' },
+          { title: 'Music & Leadership Camp (residential, activities)', value: 'camp' },
+          { title: 'Book Study (reading list, small group)', value: 'book-study' },
+          { title: 'Masterclass (short course, instructor)', value: 'masterclass' },
+          { title: 'Workshop / Seminar (single session)', value: 'workshop' },
+          { title: 'Community Event (social, fundraiser)', value: 'community' },
+          { title: 'Simple (just details + registration)', value: 'simple' },
+        ],
+      },
+      initialValue: 'simple',
+    }),
+    defineField({
       name: 'status',
       title: 'Status',
       type: 'string',
