@@ -38,6 +38,7 @@ export default defineType({
               { title: 'Gold (default)', value: 'gold' },
               { title: 'Navy (urgent)', value: 'navy' },
               { title: 'Crimson (critical)', value: 'crimson' },
+              { title: 'Laurel Green (positive news)', value: 'laurel' },
             ],
           },
           initialValue: 'gold',

@@ -5,7 +5,7 @@ const enabled = true;
 const message = "We're hiring! Communications & Development Intern — Canada Summer Jobs 2026.";
 const linkText = "Apply Now →";
 const linkUrl = "/careers/";
-const style = "navy"; // gold | navy | crimson — navy avoids competing with gold Support CTA
+const style = "laurel"; // gold | navy | crimson | laurel — laurel green stands out without competing
 const bannerId = "hiring-intern-2026"; // unique ID for dismiss persistence
 ---
 
@@ -48,6 +48,11 @@ const bannerId = "hiring-intern-2026"; // unique ID for dismiss persistence
     color: var(--color-parchment);
   }
 
+  .ribbon--laurel {
+    background-color: #2d6a4f;
+    color: #f5efe5;
+  }
+
   .ribbon__inner {
     display: flex;
     align-items: center;
@@ -70,6 +75,7 @@ const bannerId = "hiring-intern-2026"; // unique ID for dismiss persistence
   }
 
   .ribbon--gold .ribbon__link { color: var(--color-crimson); }
+  .ribbon--laurel .ribbon__link { color: var(--color-gold); }
 
   .ribbon__close {
     position: absolute;
