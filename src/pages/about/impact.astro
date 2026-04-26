@@ -17,7 +17,7 @@ import SectionDivider from '../../components/SectionDivider.astro';
 
   <!-- Intro -->
   <section class="section">
-    <div class="container impact-intro">
+    <div class="container impact-intro reveal">
       <p>
         Our Annual Impact Report highlights key achievements, financial stewardship, and organizational
         growth over the past year. We invite you to download the full report to learn more about our
@@ -55,26 +55,38 @@ import SectionDivider from '../../components/SectionDivider.astro';
         <p class="label text-gold">2025 Report</p>
         <h2>Year in Review</h2>
       </div>
-      <div class="highlights-grid">
-        <div class="highlight-card">
-          <div class="highlight-card__icon">📖</div>
-          <h3>Formation</h3>
-          <p>Book studies launched across multiple provinces, with over 76 registered participants in the inaugural series.</p>
+      <div class="highlights-grid reveal-stagger">
+        <div class="highlight-card reveal">
+          <div class="highlight-card__accent"></div>
+          <div class="highlight-card__body">
+            <p class="label text-gold">Formation</p>
+            <h3>Book Studies</h3>
+            <p>Launched across multiple provinces, with over 76 registered participants in the inaugural series.</p>
+          </div>
         </div>
-        <div class="highlight-card">
-          <div class="highlight-card__icon">🎓</div>
-          <h3>Courses</h3>
-          <p>Masterclasses and the Faith and Reason Seminar brought the Great Tradition to leaders across Western Canada.</p>
+        <div class="highlight-card reveal">
+          <div class="highlight-card__accent"></div>
+          <div class="highlight-card__body">
+            <p class="label text-gold">Courses</p>
+            <h3>Masterclasses & Seminars</h3>
+            <p>The Faith and Reason Seminar brought the Great Tradition to leaders across Western Canada.</p>
+          </div>
         </div>
-        <div class="highlight-card">
-          <div class="highlight-card__icon">📰</div>
-          <h3>Publications</h3>
-          <p><em>Magnalia</em> journal reached every Catholic bishop and seminary rector in Canada — 60 pages of essays, letters, and art.</p>
+        <div class="highlight-card reveal">
+          <div class="highlight-card__accent"></div>
+          <div class="highlight-card__body">
+            <p class="label text-gold">Publications</p>
+            <h3>Magnalia Journal</h3>
+            <p>Reached every Catholic bishop and seminary rector in Canada — 60 pages of essays, letters, and art.</p>
+          </div>
         </div>
-        <div class="highlight-card">
-          <div class="highlight-card__icon">🎵</div>
-          <h3>Youth Programs</h3>
-          <p>St. Gregory's Music and Leadership Camp welcomed young Canadians for formation in sacred and folk music traditions.</p>
+        <div class="highlight-card reveal">
+          <div class="highlight-card__accent"></div>
+          <div class="highlight-card__body">
+            <p class="label text-gold">Youth</p>
+            <h3>Music & Leadership Camp</h3>
+            <p>St. Gregory's Camp welcomed young Canadians for formation in sacred and folk music traditions.</p>
+          </div>
         </div>
       </div>
     </div>
@@ -172,16 +184,21 @@ import SectionDivider from '../../components/SectionDivider.astro';
   }
 
   .highlight-card {
-    padding: 28px 24px;
-    background-color: var(--color-linen);
+    display: flex;
+    background-color: var(--color-parchment);
     border: 1px solid rgba(90, 90, 110, 0.08);
     border-radius: 3px;
-    text-align: center;
+    overflow: hidden;
   }
 
-  .highlight-card__icon {
-    font-size: 2rem;
-    margin-bottom: 12px;
+  .highlight-card__accent {
+    width: 5px;
+    flex-shrink: 0;
+    background-color: var(--color-gold);
+  }
+
+  .highlight-card__body {
+    padding: 24px 20px;
   }
 
   .highlight-card h3 {
@@ -189,10 +206,10 @@ import SectionDivider from '../../components/SectionDivider.astro';
     font-size: 1.15rem;
     font-weight: 600;
     color: var(--color-navy);
-    margin-bottom: 8px;
+    margin: 6px 0 8px;
   }
 
-  .highlight-card p {
+  .highlight-card p:not(.label) {
     font-family: var(--font-body);
     font-size: 0.92rem;
     line-height: 1.6;
