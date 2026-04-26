@@ -1,116 +1,303 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Button from '../../components/Button.astro';
+import SectionDivider from '../../components/SectionDivider.astro';
 const base = import.meta.env.BASE_URL;
 ---
 
-<BaseLayout title="The Magnalia Letter — Gregory the Great Institute" description="Free monthly essays, event invitations, and reading recommendations from the Institute.">
+<BaseLayout title="The Magnalia Letter — Gregory the Great Institute" description="A free monthly guide to the Catholic intellectual life — curated essays, books, art, and ideas from the best minds in Canada.">
 
+  <!-- Hero -->
+  <section class="hero-letter section--dark">
+    <div class="hero-letter__bg" style={`background-image: url(${base}images/art/Bodleian-Library-Oxford.jpg)`}></div>
+    <div class="hero-letter__overlay"></div>
+    <div class="hero-letter__content container">
+      <p class="label text-gold">Free · Monthly · No Spam</p>
+      <h1 class="display">The Magnalia Letter</h1>
+      <p class="hero-letter__subtitle">Your monthly guide to the Catholic intellectual life in Canada.</p>
+    </div>
+  </section>
+
+  <!-- Value Proposition -->
   <section class="section">
-    <div class="container letter-page">
-      <div class="letter-page__header">
-        <p class="label text-gold">Free · Monthly · No Spam</p>
-        <h1>The Magnalia Letter</h1>
-        <p class="letter-page__intro">
-          A free monthly essay from the Gregory the Great Institute, plus event invitations
-          and reading recommendations. Join over 1,500 readers across Canada.
-        </p>
-      </div>
+    <div class="container letter-intro reveal">
+      <p class="letter-intro__lead">
+        The Magnalia Letter is not a newsletter about the Gregory the Great Institute. It is a
+        <strong>curated guide to the Catholic intellectual life</strong> — assembled by people whose
+        taste and judgment you can trust.
+      </p>
+      <p>
+        Each month, we gather the best essays, books, articles, art, music, videos, and podcasts
+        oriented toward faith, reason, and culture — and deliver them to your inbox. No fundraising
+        appeals. No org updates disguised as content. Just the ideas, thinkers, and works that matter.
+      </p>
+      <p>
+        Over 1,500 readers across Canada already trust the Letter as their guide to what's worth
+        reading, watching, and thinking about. Join them.
+      </p>
+    </div>
+  </section>
 
-      <div class="letter-signup">
-        <form class="letter-signup__form" action="#" method="POST">
+  <!-- Signup -->
+  <section class="signup-section">
+    <div class="container">
+      <div class="signup-box reveal">
+        <h2>Subscribe Free</h2>
+        <form class="signup-form" action="#" method="POST">
+          <input type="text" name="firstName" placeholder="First name" required aria-label="First name" />
+          <input type="email" name="email" placeholder="Email address" required aria-label="Email address" />
+          <button type="submit">Join 1,500+ Readers</button>
+        </form>
+        <p class="signup-note">Unsubscribe any time. We never share your email.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- What You'll Receive -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <p class="label text-gold">Every Month</p>
+        <h2>What the Letter Delivers</h2>
+      </div>
+      <div class="features-grid reveal-stagger">
+        <div class="feature-card reveal">
+          <div class="feature-card__accent"></div>
+          <div class="feature-card__body">
+            <p class="label text-gold">Ideas</p>
+            <h3>Curated Reading</h3>
+            <p>The best essays, articles, and long reads from across the Catholic intellectual world — selected, not aggregated. We read widely so you can read well.</p>
+          </div>
+        </div>
+        <div class="feature-card reveal">
+          <div class="feature-card__accent"></div>
+          <div class="feature-card__body">
+            <p class="label text-gold">Formation</p>
+            <h3>Books & Resources</h3>
+            <p>Recommended books, podcasts, lectures, and study guides for anyone serious about the life of the mind and the formation of the heart.</p>
+          </div>
+        </div>
+        <div class="feature-card reveal">
+          <div class="feature-card__accent"></div>
+          <div class="feature-card__body">
+            <p class="label text-gold">Beauty</p>
+            <h3>Art, Music & Culture</h3>
+            <p>Sacred art, new recordings, poetry, architecture, and cultural commentary — because beauty is not optional in the Christian life.</p>
+          </div>
+        </div>
+        <div class="feature-card reveal">
+          <div class="feature-card__accent"></div>
+          <div class="feature-card__body">
+            <p class="label text-gold">Community</p>
+            <h3>Events & Invitations</h3>
+            <p>Early access to conferences, book studies, masterclasses, and gatherings. Be the first to know when something is happening near you.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <SectionDivider />
+
+  <!-- Why It's Different -->
+  <section class="section section--linen">
+    <div class="container why-different reveal">
+      <div class="section-header">
+        <p class="label text-gold">Why It's Different</p>
+        <h2>Curation, Not Marketing</h2>
+      </div>
+      <div class="why-grid">
+        <div class="why-item">
+          <h3>Other newsletters say:</h3>
+          <p>"Here's what our organization did this month."</p>
+        </div>
+        <div class="why-item why-item--ours">
+          <h3>The Magnalia Letter says:</h3>
+          <p>"Here's what's worth your attention this month — and why it matters for the renewal of Catholic culture."</p>
+        </div>
+      </div>
+      <p class="why-footnote">
+        When we do share Institute news — a new Magnalia issue, a conference, a Fellow's essay — it arrives
+        in the context of genuine intellectual value you've already been receiving. Not as a pitch.
+      </p>
+    </div>
+  </section>
+
+  <!-- Upgrade Path -->
+  <section class="section">
+    <div class="container upgrade-section reveal">
+      <div class="upgrade-inner">
+        <img src={`${base}images/branding/Magnalia_Cover.jpg`} alt="Magnalia Issue One" class="upgrade-cover" />
+        <div class="upgrade-text">
+          <p class="label text-gold">Go Deeper</p>
+          <h2>From Letter to Journal</h2>
+          <p>
+            Love the Letter? The print journal goes deeper — 60 pages of original essays, interviews,
+            letters, and art from Canada's leading Catholic thinkers. Delivered to your door twice yearly.
+          </p>
+          <div class="upgrade-ctas">
+            <Button href={`${base}magnalia/subscribe/`} variant="primary">Subscribe to Magnalia</Button>
+            <Button href={`${base}magnalia/`} variant="tertiary">Learn More →</Button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Bottom Signup -->
+  <section class="signup-section signup-section--bottom">
+    <div class="container">
+      <div class="signup-box signup-box--compact reveal">
+        <h2>Start Reading</h2>
+        <p class="signup-box__desc">Join 1,500+ readers who trust the Magnalia Letter as their guide to Catholic intellectual life.</p>
+        <form class="signup-form" action="#" method="POST">
           <input type="text" name="firstName" placeholder="First name" required aria-label="First name" />
           <input type="email" name="email" placeholder="Email address" required aria-label="Email address" />
           <button type="submit">Subscribe Free</button>
         </form>
-        <p class="letter-signup__note">Unsubscribe any time. We never share your email.</p>
-      </div>
-
-      <div class="letter-what">
-        <h2>What You'll Receive</h2>
-        <div class="letter-features">
-          <div class="letter-feature">
-            <h3>Monthly Essay</h3>
-            <p>An original essay from one of Canada's leading Catholic thinkers — delivered to your inbox.</p>
-          </div>
-          <div class="letter-feature">
-            <h3>Event Invitations</h3>
-            <p>Be the first to know about conferences, book studies, masterclasses, and music camp.</p>
-          </div>
-          <div class="letter-feature">
-            <h3>Reading Recommendations</h3>
-            <p>Curated books, articles, and resources for Catholic intellectual formation.</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="letter-cta">
-        <img src={`${base}images/branding/Magnalia_Cover.jpg`} alt="Magnalia Issue One" class="letter-cta__cover" />
-        <div class="letter-cta__content">
-          <p>Want more? Subscribe to the print journal for 60 pages of the best Catholic writing in Canada.</p>
-          <Button href={`${base}magnalia/subscribe/`} variant="secondary" size="small">Subscribe to Magnalia</Button>
-        </div>
-      </div>
-
-      <div style="text-align: center; margin-top: 40px;">
-        <a href={`${base}magnalia/`} class="back-link">← Back to Magnalia</a>
       </div>
     </div>
   </section>
+
+  <section style="text-align: center; padding: 24px 0 48px;">
+    <a href={`${base}magnalia/`} class="back-link">← Back to Magnalia</a>
+  </section>
+
 </BaseLayout>
 
 <style>
-  .letter-page {
-    max-width: 600px;
+  /* Hero */
+  .hero-letter {
+    position: relative;
+    min-height: 360px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  .hero-letter__bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+  }
+
+  .hero-letter__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(14, 51, 82, 0.78), rgba(14, 51, 82, 0.88));
+  }
+
+  .hero-letter__content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    max-width: 700px;
+    margin-inline: auto;
+    padding-block: 60px;
+  }
+
+  .hero-letter__content h1 {
+    color: var(--color-text-on-dark);
+    margin: 8px 0 12px;
+  }
+
+  .hero-letter__subtitle {
+    font-family: var(--font-body);
+    font-size: 1.15rem;
+    color: rgba(245, 239, 229, 0.85);
+    line-height: 1.6;
+  }
+
+  /* Intro */
+  .letter-intro {
+    max-width: 680px;
     margin-inline: auto;
   }
 
-  .letter-page__header {
-    text-align: center;
-    margin-bottom: 36px;
-  }
-
-  .letter-page__header h1 {
-    font-size: 2.2rem;
-    color: var(--color-navy);
-    margin: 8px 0 16px;
-  }
-
-  .letter-page__intro {
+  .letter-intro__lead {
     font-family: var(--font-body);
-    font-size: 1.05rem;
-    color: var(--color-gray);
-    line-height: 1.7;
+    font-size: 1.15rem;
+    line-height: 1.8;
+    color: var(--color-ink);
+    margin-bottom: 16px;
   }
 
-  .letter-signup {
+  .letter-intro p {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    line-height: 1.75;
+    color: var(--color-gray);
+    margin-bottom: 14px;
+  }
+
+  .letter-intro p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* Signup */
+  .signup-section {
+    padding: 40px 0;
+  }
+
+  .signup-section--bottom {
     background-color: var(--color-linen);
-    border: 1px solid rgba(90, 90, 110, 0.1);
+    padding: 48px 0;
+  }
+
+  .signup-box {
+    max-width: 520px;
+    margin-inline: auto;
+    background-color: var(--color-linen);
+    border: 2px solid var(--color-gold);
     border-radius: 3px;
-    padding: 32px;
-    margin-bottom: 40px;
+    padding: 36px 32px;
     text-align: center;
   }
 
-  .letter-signup__form {
+  .signup-box--compact {
+    background-color: var(--color-parchment);
+  }
+
+  .signup-box h2 {
+    font-size: 1.6rem;
+    margin-bottom: 16px;
+  }
+
+  .signup-box__desc {
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    color: var(--color-gray);
+    line-height: 1.6;
+    margin-bottom: 16px;
+  }
+
+  .signup-form {
     display: flex;
-    gap: 10px;
+    gap: 8px;
     flex-wrap: wrap;
     justify-content: center;
   }
 
-  .letter-signup__form input {
+  .signup-form input {
     flex: 1;
-    min-width: 160px;
+    min-width: 150px;
     padding: 12px 16px;
-    font-family: var(--font-body);
-    font-size: 0.95rem;
+    font-family: var(--font-ui);
+    font-size: 0.9rem;
     border: 1px solid rgba(90, 90, 110, 0.2);
     border-radius: 3px;
     background-color: white;
+    color: var(--color-ink);
+    outline: none;
+    transition: border-color var(--transition-fast);
   }
 
-  .letter-signup__form button {
+  .signup-form input:focus {
+    border-color: var(--color-gold);
+  }
+
+  .signup-form button {
     font-family: var(--font-display);
     font-size: 0.95rem;
     font-weight: 600;
@@ -121,80 +308,194 @@ const base = import.meta.env.BASE_URL;
     border-radius: 3px;
     cursor: pointer;
     transition: background-color var(--transition-fast);
+    white-space: nowrap;
   }
 
-  .letter-signup__form button:hover {
+  .signup-form button:hover {
     background-color: #6b2124;
   }
 
-  .letter-signup__note {
+  .signup-note {
     font-family: var(--font-ui);
-    font-size: 0.78rem;
+    font-size: 0.75rem;
     color: var(--color-gray);
     margin-top: 10px;
+  }
+
+  /* Section header */
+  .section-header {
     text-align: center;
+    margin-bottom: var(--space-component);
   }
 
-  .letter-what h2 {
-    margin-bottom: 20px;
+  .section-header h2 {
+    margin-top: 8px;
   }
 
-  .letter-features {
+  /* Features */
+  .features-grid {
     display: grid;
-    gap: 20px;
+    grid-template-columns: 1fr;
+    gap: 16px;
+    max-width: 900px;
+    margin-inline: auto;
   }
 
-  .letter-feature h3 {
+  .feature-card {
+    display: flex;
+    background-color: var(--color-parchment);
+    border: 1px solid rgba(90, 90, 110, 0.08);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .feature-card__accent {
+    width: 5px;
+    flex-shrink: 0;
+    background-color: var(--color-gold);
+  }
+
+  .feature-card__body {
+    padding: 24px 20px;
+  }
+
+  .feature-card h3 {
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--color-navy);
+    margin: 6px 0 8px;
+  }
+
+  .feature-card p:not(.label) {
+    font-family: var(--font-body);
+    font-size: 0.92rem;
+    line-height: 1.65;
+    color: var(--color-gray);
+  }
+
+  @media (min-width: 640px) {
+    .features-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  /* Why Different */
+  .why-different {
+    max-width: 740px;
+    margin-inline: auto;
+  }
+
+  .why-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+
+  .why-item {
+    padding: 24px;
+    border-radius: 3px;
+    background-color: var(--color-parchment);
+    border: 1px solid rgba(90, 90, 110, 0.08);
+  }
+
+  .why-item h3 {
+    font-family: var(--font-ui);
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-gray);
+    margin-bottom: 8px;
+  }
+
+  .why-item p {
     font-family: var(--font-display);
     font-size: 1.1rem;
-    color: var(--color-navy);
-    margin-bottom: 4px;
-  }
-
-  .letter-feature p {
-    font-family: var(--font-body);
-    font-size: 0.95rem;
+    font-style: italic;
+    line-height: 1.5;
     color: var(--color-gray);
-    line-height: 1.6;
   }
 
-  .letter-cta {
+  .why-item--ours {
+    border: 2px solid var(--color-gold);
+    background-color: white;
+  }
+
+  .why-item--ours p {
+    color: var(--color-navy);
+  }
+
+  .why-footnote {
+    font-family: var(--font-body);
+    font-size: 0.92rem;
+    line-height: 1.65;
+    color: var(--color-gray);
+    text-align: center;
+    max-width: 600px;
+    margin-inline: auto;
+  }
+
+  @media (min-width: 640px) {
+    .why-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  /* Upgrade */
+  .upgrade-section {
+    max-width: 800px;
+    margin-inline: auto;
+  }
+
+  .upgrade-inner {
     display: flex;
+    gap: 32px;
     align-items: center;
-    gap: 24px;
-    margin-top: 40px;
-    padding-top: 28px;
-    border-top: 1px solid rgba(90, 90, 110, 0.1);
   }
 
-  .letter-cta__cover {
-    width: 120px;
+  .upgrade-cover {
+    width: 180px;
     flex-shrink: 0;
     border-radius: 3px;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
     transform: rotate(-2deg);
   }
 
-  .letter-cta__content {
-    text-align: left;
+  .upgrade-text h2 {
+    margin: 6px 0 12px;
   }
 
-  .letter-cta p {
+  .upgrade-text p {
     font-family: var(--font-body);
-    font-size: 0.95rem;
+    font-size: 1rem;
+    line-height: 1.7;
     color: var(--color-gray);
-    margin-bottom: 14px;
+    margin-bottom: 20px;
   }
 
-  @media (max-width: 480px) {
-    .letter-cta {
+  .upgrade-ctas {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  @media (max-width: 640px) {
+    .upgrade-inner {
       flex-direction: column;
       text-align: center;
     }
-    .letter-cta__cover { width: 100px; }
-    .letter-cta__content { text-align: center; }
+    .upgrade-cover {
+      width: 140px;
+    }
+    .upgrade-ctas {
+      justify-content: center;
+    }
   }
 
+  /* Back link */
   .back-link {
     font-family: var(--font-ui);
     font-size: 0.9rem;
@@ -203,5 +504,11 @@ const base = import.meta.env.BASE_URL;
     font-weight: 500;
   }
 
-  .back-link:hover { color: var(--color-crimson); }
+  .back-link:hover {
+    color: var(--color-crimson);
+  }
+
+  .section--linen {
+    background-color: var(--color-linen);
+  }
 </style>

@@ -3,6 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import GivingTier from '../../components/GivingTier.astro';
 import Button from '../../components/Button.astro';
 import SectionDivider from '../../components/SectionDivider.astro';
+const base = import.meta.env.BASE_URL;
 ---
 
 <BaseLayout title="Support the Institute" description="Your patronage builds Catholic intellectual life in Canada. Join as a Friend, Patron, or Underwriter.">
@@ -17,12 +18,47 @@ import SectionDivider from '../../components/SectionDivider.astro';
     </div>
   </section>
 
-  <!-- Hook + Giving Tiers -->
+  <!-- Case for Support -->
   <section class="section">
-    <div class="container">
-      <div class="section-header">
+    <div class="container case-section reveal">
+      <div class="case-hook">
         <p class="support-hook">1,500 people. Every bishop in Canada. Four provinces. One year.</p>
         <h2>Now imagine year two.</h2>
+      </div>
+      <div class="case-body">
+        <p>
+          In its first twelve months, the Gregory the Great Institute published <em>Magnalia</em> and placed it
+          in the hands of every Catholic bishop and seminary rector in Canada. We ran formation programs in
+          four provinces. We hosted the inaugural Renewing Culture Conference. We launched Book Study groups
+          that are now multiplying coast to coast. We did this on a lean budget with a small team — because
+          the mission is real and the need is urgent.
+        </p>
+        <p>
+          Catholic intellectual life in Canada has been in retreat for a generation. The institutions that
+          once formed leaders, shaped public discourse, and transmitted the tradition have weakened or
+          disappeared. The Gregory the Great Institute exists to rebuild that infrastructure — not by
+          lamenting what was lost, but by building what comes next.
+        </p>
+        <p>
+          Your support doesn't fund an organization. It funds a movement: courses that form the next
+          generation of Catholic leaders, a journal that gives the Church's best thinkers a platform,
+          research that equips Catholics to engage the culture with confidence, and gatherings that turn
+          isolated believers into a community with shared purpose.
+        </p>
+        <p class="case-cta-line">
+          <strong>Every tier below is a named relationship — not a donation receipt.</strong> You are not
+          giving to a cause. You are joining a community that is building something that will outlast all of us.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Giving Tiers -->
+  <section class="section section--linen" style="padding-top: 36px;">
+    <div class="container">
+      <div class="section-header">
+        <p class="label text-gold">Join the Mission</p>
+        <h2>Choose Your Role</h2>
       </div>
 
       <div class="tiers-grid reveal">
@@ -153,6 +189,24 @@ import SectionDivider from '../../components/SectionDivider.astro';
     </div>
   </section>
 
+  <!-- Ambassador CTA -->
+  <section class="section">
+    <div class="container ambassador-cta reveal">
+      <div class="ambassador-cta__inner">
+        <div class="ambassador-cta__text">
+          <p class="label text-gold">Grow the Mission</p>
+          <h2>Become an Ambassador</h2>
+          <p>
+            Know people who should know about GGI? Ambassadors bring Catholic cultural renewal to their
+            own communities — hosting events, sharing resources, and making introductions. We provide
+            the materials and support. You provide the community.
+          </p>
+          <Button href={`${base}support/ambassadors/`} variant="primary">Learn More & Apply</Button>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- One-Time Giving -->
   <section class="section section--linen">
     <div class="container" style="text-align: center; max-width: 600px; margin-inline: auto;">
@@ -233,6 +287,39 @@ import SectionDivider from '../../components/SectionDivider.astro';
     font-family: var(--font-body);
     font-size: 1.15rem;
     color: rgba(245, 239, 229, 0.85);
+  }
+
+  /* Case for Support */
+  .case-section {
+    max-width: 740px;
+    margin-inline: auto;
+  }
+
+  .case-hook {
+    text-align: center;
+    margin-bottom: 32px;
+  }
+
+  .case-body p {
+    font-family: var(--font-body);
+    font-size: 1.02rem;
+    line-height: 1.8;
+    color: var(--color-gray);
+    margin-bottom: 16px;
+  }
+
+  .case-body p:last-child {
+    margin-bottom: 0;
+  }
+
+  .case-cta-line {
+    font-size: 1.05rem;
+    color: var(--color-ink);
+    padding-top: 8px;
+    border-top: 1px solid rgba(184, 154, 71, 0.3);
+    margin-top: 24px;
+    padding-top: 24px;
+    text-align: center;
   }
 
   .support-hook {
@@ -388,6 +475,29 @@ import SectionDivider from '../../components/SectionDivider.astro';
     font-size: 0.95rem;
     color: var(--color-gray);
     line-height: 1.6;
+    margin-bottom: 20px;
+  }
+
+  /* Ambassador CTA */
+  .ambassador-cta__inner {
+    max-width: 640px;
+    margin-inline: auto;
+    text-align: center;
+    padding: 40px 32px;
+    border: 2px solid var(--color-gold);
+    border-radius: 3px;
+    background-color: var(--color-linen);
+  }
+
+  .ambassador-cta__text h2 {
+    margin: 6px 0 12px;
+  }
+
+  .ambassador-cta__text p {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--color-gray);
     margin-bottom: 20px;
   }
 
