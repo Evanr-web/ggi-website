@@ -197,7 +197,7 @@ import SectionDivider from '../../components/SectionDivider.astro';
         Stay connected with the Magnalia Letter — a free monthly essay from the Institute, plus event invitations
         and reading recommendations.
       </p>
-      <form class="newsletter-section__form" action="#" method="POST" style="justify-content: center;">
+      <form class="newsletter-section__form" action="#" method="POST" style="justify-content: center; gap: 10px; flex-wrap: wrap;">
         <input type="email" name="email" placeholder="Email address" class="newsletter-inline-input" required aria-label="Email address" />
         <button type="submit" class="newsletter-inline-btn">Subscribe Free</button>
       </form>
@@ -590,6 +590,16 @@ import SectionDivider from '../../components/SectionDivider.astro';
 
   .newsletter-inline-btn:hover {
     background-color: #a08638;
+  }
+
+  @media (max-width: 480px) {
+    .newsletter-inline-input {
+      min-width: 100%;
+      width: 100%;
+    }
+    .newsletter-inline-btn {
+      width: 100%;
+    }
   }
 
   /* Shared */
