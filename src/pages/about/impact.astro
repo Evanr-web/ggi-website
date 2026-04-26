@@ -104,6 +104,56 @@ import SectionDivider from '../../components/SectionDivider.astro';
       </p>
       <div class="cta-buttons">
         <a href="https://adbcbf1f-fcf5-4099-8aa0-1d9b99602ff4.filesusr.com/ugd/437a61_b4dc2d74f545432ab3b84d43635c636c.pdf" target="_blank" rel="noopener" class="btn-download">Download the Report</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- What's Next — Conversion Block -->
+  <section class="section">
+    <div class="container next-section">
+      <div class="next-header reveal">
+        <p class="label text-gold">What Comes Next</p>
+        <h2>Year Two Is Being Built Right Now</h2>
+        <p class="next-lead">
+          Everything you just read happened in twelve months with a small team and a lean budget.
+          With your support, Year Two brings a second issue of Magnalia, expanded Book Studies coast
+          to coast, the Renewing Culture Conference, new masterclasses, and the groundwork for a
+          Catholic think-tank. The question is not whether the mission is working. It's whether
+          enough people will join it.
+        </p>
+      </div>
+
+      <div class="next-paths reveal-stagger">
+        <a href={`${import.meta.env.BASE_URL}magnalia/letter/`} class="next-card reveal">
+          <p class="label text-gold">Free</p>
+          <h3>Subscribe to the Letter</h3>
+          <p class="next-card__desc">
+            A curated monthly guide to the Catholic intellectual life — essays, books, art, and ideas.
+            The best way to stay connected if you're not ready to give.
+          </p>
+          <span class="next-card__action">Subscribe Free →</span>
+        </a>
+        <a href={`${import.meta.env.BASE_URL}support/`} class="next-card next-card--featured reveal">
+          <p class="label text-gold">From $10/month</p>
+          <h3>Become a Friend</h3>
+          <p class="next-card__desc">
+            Monthly prayer inclusion, digital Magnalia, early event access, and named recognition.
+            The entry point for anyone who believes Catholic culture in Canada is worth rebuilding.
+          </p>
+          <span class="next-card__action">Join as a Friend →</span>
+        </a>
+        <a href={`${import.meta.env.BASE_URL}magnalia/patron/`} class="next-card reveal">
+          <p class="label text-gold">$50/month</p>
+          <h3>Become a Patron</h3>
+          <p class="next-card__desc">
+            The backbone of the Institute. Print Magnalia subscription, quarterly conversations
+            with Dr. Topping, named recognition, and a signed book.
+          </p>
+          <span class="next-card__action">Join as a Patron →</span>
+        </a>
+      </div>
+
+      <div class="next-footer reveal">
         <Button href={`${import.meta.env.BASE_URL}about/`} variant="secondary">← Back to About</Button>
       </div>
     </div>
@@ -246,6 +296,91 @@ import SectionDivider from '../../components/SectionDivider.astro';
   .btn-download:hover {
     background-color: #6b2124;
     color: var(--color-parchment);
+  }
+
+  /* What's Next */
+  .next-section {
+    max-width: 960px;
+    margin-inline: auto;
+  }
+
+  .next-header {
+    text-align: center;
+    max-width: 680px;
+    margin-inline: auto;
+    margin-bottom: var(--space-component);
+  }
+
+  .next-header h2 {
+    margin: 8px 0 16px;
+  }
+
+  .next-lead {
+    font-family: var(--font-body);
+    font-size: 1.02rem;
+    line-height: 1.8;
+    color: var(--color-gray);
+  }
+
+  .next-paths {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+
+  .next-card {
+    display: block;
+    text-decoration: none;
+    padding: 28px 24px;
+    background-color: var(--color-linen);
+    border: 1px solid rgba(90, 90, 110, 0.1);
+    border-radius: 3px;
+    transition: border-color var(--transition-base), transform var(--transition-base), box-shadow var(--transition-base);
+  }
+
+  .next-card:hover {
+    border-color: var(--color-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(14, 51, 82, 0.08);
+  }
+
+  .next-card--featured {
+    border: 2px solid var(--color-gold);
+    background-color: white;
+  }
+
+  .next-card h3 {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--color-navy);
+    margin: 6px 0 10px;
+  }
+
+  .next-card__desc {
+    font-family: var(--font-body);
+    font-size: 0.92rem;
+    line-height: 1.65;
+    color: var(--color-gray);
+    margin-bottom: 12px;
+  }
+
+  .next-card__action {
+    font-family: var(--font-ui);
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--color-gold);
+  }
+
+  @media (min-width: 768px) {
+    .next-paths {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .next-footer {
+    text-align: center;
   }
 
   .section--linen {
