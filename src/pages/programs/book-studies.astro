@@ -1,8 +1,1248 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import ComingSoon from '../../components/ComingSoon.astro';
+import Button from '../../components/Button.astro';
+const base = import.meta.env.BASE_URL;
 ---
 
-<BaseLayout title="Book Studies — Inklings Clubs — Gregory the Great Institute">
-  <ComingSoon title="Book Studies — Inklings Clubs" parentLabel="Programs" parentHref={`${import.meta.env.BASE_URL}programs/`} />
+<BaseLayout title="Book Studies — Inklings Clubs — Gregory the Great Institute" description="Free small-group reading clubs across Canada. Study guides, webinars, and community.">
+
+  <!-- Hero -->
+  <section class="inklings-hero section--dark">
+    <div class="inklings-hero__bg" style={`background-image: url(${base}images/art/rembrandt-scholar-study.jpg)`}></div>
+    <div class="inklings-hero__overlay"></div>
+    <div class="inklings-hero__content container">
+      <p class="inklings-brand__mark">☙ Inklings ❧</p>
+      <h1 class="inklings-hero__title">Book Studies</h1>
+      <p class="inklings-brand__tagline">Read Well · Think Deeply · Build Community</p>
+      <div class="inklings-hero__rule"></div>
+      <p class="inklings-hero__subtitle">Free · Year-Round · Across Canada</p>
+    </div>
+  </section>
+
+  <!-- What Are Inklings Clubs -->
+  <section class="section">
+    <div class="container bs-intro">
+      <div class="bs-intro__text">
+        <p class="label text-gold">What Are Inklings Clubs?</p>
+        <h2>Read Great Books. Build Community.</h2>
+        <p>
+          Named after the famous Oxford circle of C.S. Lewis, J.R.R. Tolkien, and Charles Williams,
+          Inklings Clubs are free small-group reading communities that meet across Canada. Three times
+          a year, the Institute selects a book that deepens Catholic intellectual life — and invites
+          everyone to read together.
+        </p>
+        <p>
+          Each study comes with discussion guides written by our Fellows, live webinars to connect
+          readers nationwide, and discounted copies of the book. Whether you join a local group or
+          follow along online, you're part of a growing network of Canadians who believe reading
+          well is a form of worship.
+        </p>
+      </div>
+      <div class="bs-intro__details">
+        <div class="bs-detail">
+          <svg class="bs-detail__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <div>
+            <strong>Three studies per year</strong>
+            <span>February · May · September</span>
+          </div>
+        </div>
+        <div class="bs-detail">
+          <svg class="bs-detail__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          <div>
+            <strong>Always free</strong>
+            <span>No cost to join, ever</span>
+          </div>
+        </div>
+        <div class="bs-detail">
+          <svg class="bs-detail__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          <div>
+            <strong>Local groups + online</strong>
+            <span>Join in your city or from home</span>
+          </div>
+        </div>
+        <div class="bs-detail">
+          <svg class="bs-detail__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
+          <div>
+            <strong>Study guides provided</strong>
+            <span>Written by GGI Fellows</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2026 Reading List -->
+  <section class="section section--linen" style="padding-top: 40px;">
+    <div class="container">
+      <div style="text-align: center; margin-bottom: 40px;">
+        <p class="label text-gold">2026 Reading List</p>
+        <h2>This Year's Books</h2>
+      </div>
+
+      <div class="bs-books">
+        <div class="bs-book">
+          <div class="bs-book__status bs-book__status--past">Completed</div>
+          <h3>Searching for and Maintaining Peace</h3>
+          <p class="bs-book__author">Fr. Jacques Philippe</p>
+          <p class="bs-book__date">February 2026</p>
+          <p class="bs-book__desc">
+            A beloved guide to interior peace — short, profound, and one of the most widely read
+            spiritual books of the past generation. How to find and keep peace of heart in the
+            midst of life's trials.
+          </p>
+          <Button href={`${base}events/book-study-feb-2026/`} variant="secondary" size="small">View Study</Button>
+        </div>
+
+        <div class="bs-book bs-book--current">
+          <div class="bs-book__status bs-book__status--current">Current Study</div>
+          <h3>Animal Farm</h3>
+          <p class="bs-book__author">George Orwell</p>
+          <p class="bs-book__date">May 2026</p>
+          <p class="bs-book__desc">
+            Orwell's classic political fable, read through the lens of Catholic social teaching.
+            What does the barnyard revolution reveal about power, ideology, and the dignity of
+            the human person?
+          </p>
+          <Button href={`${base}events/book-study-may-2026/`} variant="primary" size="small">Join This Study</Button>
+        </div>
+
+        <div class="bs-book">
+          <div class="bs-book__status bs-book__status--upcoming">September</div>
+          <h3>Leisure: The Basis of Culture</h3>
+          <p class="bs-book__author">Josef Pieper</p>
+          <p class="bs-book__date">September 2026</p>
+          <p class="bs-book__desc">
+            Pieper's masterwork on why contemplation — not productivity — is the foundation of
+            civilization. Prepares readers for the October Renewing Culture Conference, which
+            takes up Pieper's vision in depth.
+          </p>
+          <Button href={`${base}events/book-study-sep-2026/`} variant="secondary" size="small">Preview Study</Button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works -->
+  <section class="section section--dark" style="padding-top: 48px; padding-bottom: 48px;">
+    <div class="container bs-how">
+      <div style="text-align: center; margin-bottom: 40px;">
+        <p class="label text-gold">How It Works</p>
+        <h2 style="color: var(--color-text-on-dark);">Four Steps to Get Started</h2>
+      </div>
+      <div class="bs-steps">
+        <div class="bs-step">
+          <span class="bs-step__number">1</span>
+          <h3>Sign Up</h3>
+          <p>Register for the current study — it takes 30 seconds and costs nothing.</p>
+        </div>
+        <div class="bs-step">
+          <span class="bs-step__number">2</span>
+          <h3>Get the Book</h3>
+          <p>Buy your copy at a discount through our partner link, or borrow from your library.</p>
+        </div>
+        <div class="bs-step">
+          <span class="bs-step__number">3</span>
+          <h3>Read & Discuss</h3>
+          <p>Follow the study guide at your own pace. Join a local group or discuss online.</p>
+        </div>
+        <div class="bs-step">
+          <span class="bs-step__number">4</span>
+          <h3>Join the Webinar</h3>
+          <p>Connect with readers across Canada in a live discussion led by a GGI Fellow.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Find a Group -->
+  <section class="section section--linen" style="padding-top: 40px;">
+    <div class="container">
+      <div style="text-align: center; margin-bottom: 0;">
+        <p class="label text-gold">Find a Group</p>
+        <h2>Inklings Clubs Across Canada</h2>
+        <p style="font-family: var(--font-body); color: var(--color-gray); max-width: 560px; margin-inline: auto; margin-bottom: 0;">
+          Join an existing group near you — or start one in your city.
+        </p>
+      </div>
+
+      <!-- Canada Map with Province Clusters -->
+      <div class="bs-map-container">
+        <div class="bs-map-wrapper">
+          <img src={`${base}images/canada-map.svg`} alt="Map of Canada showing Inklings Club locations" class="bs-map-img" />
+          <!-- Province clusters — click scrolls to accordion -->
+          <button class="bs-pin bs-pin--cluster" style="left: 6%; top: 66%;" data-province="BC" type="button">
+            <span class="bs-pin__count">3</span>
+            <span class="bs-pin__label">B.C.</span>
+          </button>
+          <button class="bs-pin bs-pin--cluster" style="left: 20%; top: 68%;" data-province="AB" type="button">
+            <span class="bs-pin__count">13</span>
+            <span class="bs-pin__label">Alberta</span>
+          </button>
+          <button class="bs-pin bs-pin--cluster" style="left: 29%; top: 74%;" data-province="SK" type="button">
+            <span class="bs-pin__count">5</span>
+            <span class="bs-pin__label">Sask.</span>
+          </button>
+          <button class="bs-pin bs-pin--cluster" style="left: 42%; top: 76%;" data-province="MB" type="button">
+            <span class="bs-pin__count">2</span>
+            <span class="bs-pin__label">Manitoba</span>
+          </button>
+          <button class="bs-pin bs-pin--cluster" style="left: 57%; top: 80%;" data-province="ON" type="button">
+            <span class="bs-pin__count">8</span>
+            <span class="bs-pin__label">Ontario</span>
+          </button>
+          <button class="bs-pin bs-pin--cluster" style="left: 70%; top: 74%;" data-province="QC" type="button">
+            <span class="bs-pin__count">1</span>
+            <span class="bs-pin__label">Quebec</span>
+          </button>
+          <button class="bs-pin bs-pin--cluster" style="left: 87%; top: 82%;" data-province="NS" type="button">
+            <span class="bs-pin__count">2</span>
+            <span class="bs-pin__label">N.S.</span>
+          </button>
+          <button class="bs-pin bs-pin--cluster" style="left: 82%; top: 60%;" data-province="NL" type="button">
+            <span class="bs-pin__count">1</span>
+            <span class="bs-pin__label">N.L.</span>
+          </button>
+        </div>
+        <p class="bs-map-total">
+          <strong>35 groups</strong> in <strong>18 cities</strong> across <strong>8 provinces</strong>
+        </p>
+      </div>
+
+      <!-- Province Accordions -->
+      <div class="bs-accordions" id="bs-accordions">
+        <!-- British Columbia -->
+        <details class="bs-accordion" data-province="BC">
+          <summary class="bs-accordion__header">
+            <span class="bs-accordion__name">British Columbia</span>
+            <span class="bs-accordion__count">3 groups · 2 cities</span>
+            <span class="bs-accordion__chevron">▸</span>
+          </summary>
+          <div class="bs-accordion__body">
+            <div class="bs-city">
+              <span class="bs-city__name">Vancouver</span>
+              <span class="bs-city__groups">2 groups</span>
+              <button class="bs-city__join" data-province="BC" data-city="Vancouver" type="button">Join →</button>
+            </div>
+            <div class="bs-city">
+              <span class="bs-city__name">Kelowna</span>
+              <span class="bs-city__groups">1 group</span>
+              <button class="bs-city__join" data-province="BC" data-city="Kelowna" type="button">Join →</button>
+            </div>
+          </div>
+        </details>
+
+        <!-- Alberta -->
+        <details class="bs-accordion" data-province="AB">
+          <summary class="bs-accordion__header">
+            <span class="bs-accordion__name">Alberta</span>
+            <span class="bs-accordion__count">13 groups · 7 cities</span>
+            <span class="bs-accordion__chevron">▸</span>
+          </summary>
+          <div class="bs-accordion__body">
+            <div class="bs-city">
+              <span class="bs-city__name">Edmonton</span>
+              <span class="bs-city__groups">3 groups</span>
+              <button class="bs-city__join" data-province="AB" data-city="Edmonton" type="button">Join →</button>
+            </div>
+            <div class="bs-city">
+              <span class="bs-city__name">St. Albert</span>
+              <span class="bs-city__groups">1 group</span>
+              <button class="bs-city__join" data-province="AB" data-city="St. Albert" type="button">Join →</button>
+            </div>
+            <div class="bs-city">
+              <span class="bs-city__name">Sherwood Park</span>
+              <span class="bs-city__groups">1 group</span>
+              <button class="bs-city__join" data-province="AB" data-city="Sherwood Park" type="button">Join →</button>
+            </div>
+            <div class="bs-city">
+              <span class="bs-city__name">Spruce Grove</span>
+              <span class="bs-city__groups">1 group</span>
+              <button class="bs-city__join" data-province="AB" data-city="Spruce Grove" type="button">Join →</button>
+            </div>
+            <div class="bs-city">
+              <span class="bs-city__name">Fort McMurray</span>
+              <span class="bs-city__groups">1 group</span>
+              <button class="bs-city__join" data-province="AB" data-city="Fort McMurray" type="button">Join →</button>
+            </div>
+            <div class="bs-city">
+              <span class="bs-city__name">Red Deer</span>
+              <span class="bs-city__groups">1 group</span>
+              <button class="bs-city__join" data-province="AB" data-city="Red Deer" type="button">Join →</button>
+            </div>
+            <div class="bs-city">
+              <span class="bs-city__name">Lethbridge</span>
+              <span class="bs-city__groups">1 group</span>
+              <button class="bs-city__join" data-province="AB" data-city="Lethbridge" type="button">Join →</button>
+            </div>
+            <div class="bs-city">
+              <span class="bs-city__name">Calgary</span>
+              <span class="bs-city__groups">3 groups</span>
+              <button class="bs-city__join" data-province="AB" data-city="Calgary" type="button">Join →</button>
+            </div>
+          </div>
+        </details>
+
+        <!-- Saskatchewan -->
+        <details class="bs-accordion" data-province="SK">
+          <summary class="bs-accordion__header">
+            <span class="bs-accordion__name">Saskatchewan</span>
+            <span class="bs-accordion__count">5 groups · 2 cities</span>
+            <span class="bs-accordion__chevron">▸</span>
+          </summary>
+          <div class="bs-accordion__body">
+            <div class="bs-city">
+              <span class="bs-city__name">Saskatoon</span>
+              <span class="bs-city__groups">3 groups</span>
+              <button class="bs-city__join" data-province="SK" data-city="Saskatoon" type="button">Join →</button>
+            </div>
+            <div class="bs-city">
+              <span class="bs-city__name">Regina</span>
+              <span class="bs-city__groups">2 groups</span>
+              <button class="bs-city__join" data-province="SK" data-city="Regina" type="button">Join →</button>
+            </div>
+          </div>
+        </details>
+
+        <!-- Manitoba -->
+        <details class="bs-accordion" data-province="MB">
+          <summary class="bs-accordion__header">
+            <span class="bs-accordion__name">Manitoba</span>
+            <span class="bs-accordion__count">2 groups · 1 city</span>
+            <span class="bs-accordion__chevron">▸</span>
+          </summary>
+          <div class="bs-accordion__body">
+            <div class="bs-city">
+              <span class="bs-city__name">Winnipeg</span>
+              <span class="bs-city__groups">2 groups</span>
+              <button class="bs-city__join" data-province="MB" data-city="Winnipeg" type="button">Join →</button>
+            </div>
+          </div>
+        </details>
+
+        <!-- Ontario -->
+        <details class="bs-accordion" data-province="ON">
+          <summary class="bs-accordion__header">
+            <span class="bs-accordion__name">Ontario</span>
+            <span class="bs-accordion__count">8 groups · 2 cities</span>
+            <span class="bs-accordion__chevron">▸</span>
+          </summary>
+          <div class="bs-accordion__body">
+            <div class="bs-city">
+              <span class="bs-city__name">Toronto</span>
+              <span class="bs-city__groups">5 groups</span>
+              <button class="bs-city__join" data-province="ON" data-city="Toronto" type="button">Join →</button>
+            </div>
+            <div class="bs-city">
+              <span class="bs-city__name">Ottawa</span>
+              <span class="bs-city__groups">3 groups</span>
+              <button class="bs-city__join" data-province="ON" data-city="Ottawa" type="button">Join →</button>
+            </div>
+          </div>
+        </details>
+
+        <!-- Quebec -->
+        <details class="bs-accordion" data-province="QC">
+          <summary class="bs-accordion__header">
+            <span class="bs-accordion__name">Quebec</span>
+            <span class="bs-accordion__count">1 group · 1 city</span>
+            <span class="bs-accordion__chevron">▸</span>
+          </summary>
+          <div class="bs-accordion__body">
+            <div class="bs-city">
+              <span class="bs-city__name">Montreal</span>
+              <span class="bs-city__groups">1 group</span>
+              <button class="bs-city__join" data-province="QC" data-city="Montreal" type="button">Join →</button>
+            </div>
+          </div>
+        </details>
+
+        <!-- Nova Scotia -->
+        <details class="bs-accordion" data-province="NS">
+          <summary class="bs-accordion__header">
+            <span class="bs-accordion__name">Nova Scotia</span>
+            <span class="bs-accordion__count">2 groups · 1 city</span>
+            <span class="bs-accordion__chevron">▸</span>
+          </summary>
+          <div class="bs-accordion__body">
+            <div class="bs-city">
+              <span class="bs-city__name">Halifax</span>
+              <span class="bs-city__groups">2 groups</span>
+              <button class="bs-city__join" data-province="NS" data-city="Halifax" type="button">Join →</button>
+            </div>
+          </div>
+        </details>
+
+        <!-- Newfoundland -->
+        <details class="bs-accordion" data-province="NL">
+          <summary class="bs-accordion__header">
+            <span class="bs-accordion__name">Newfoundland & Labrador</span>
+            <span class="bs-accordion__count">1 group · 1 city</span>
+            <span class="bs-accordion__chevron">▸</span>
+          </summary>
+          <div class="bs-accordion__body">
+            <div class="bs-city">
+              <span class="bs-city__name">St. John's</span>
+              <span class="bs-city__groups">1 group</span>
+              <button class="bs-city__join" data-province="NL" data-city="St. John's" type="button">Join →</button>
+            </div>
+          </div>
+        </details>
+      </div>
+
+      <!-- Don't see your city callout -->
+      <div class="bs-not-listed">
+        <p class="bs-not-listed__text">
+          <strong>Don't see your city?</strong> No problem — sign up below with your location and when there's enough
+          interest in your area, we'll connect you with a group or help you start one.
+        </p>
+        <a href="#join-form" class="bs-not-listed__link">Sign up below →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Join / Start Form -->
+  <section class="section" id="join-form">
+    <div class="container" style="max-width: 560px;">
+      <div style="text-align: center; margin-bottom: 32px;">
+        <p class="label text-gold">Get Connected</p>
+        <h2 id="form-title">Join an Inklings Club</h2>
+        <p style="font-family: var(--font-body); color: var(--color-gray); font-size: 0.95rem;">
+          Tell us a bit about yourself and we'll connect you with a group — or help you start one.
+        </p>
+      </div>
+      <form class="bs-form" action="#" method="POST">
+        <div class="bs-form__row">
+          <div class="bs-form__field">
+            <label for="bs-name">Name</label>
+            <input type="text" id="bs-name" name="name" required placeholder="Your name" />
+          </div>
+          <div class="bs-form__field">
+            <label for="bs-email">Email</label>
+            <input type="email" id="bs-email" name="email" required placeholder="you@example.com" />
+          </div>
+        </div>
+        <div class="bs-form__row">
+          <div class="bs-form__field">
+            <label for="bs-province">Province</label>
+            <select id="bs-province" name="province" required>
+              <option value="" disabled selected>Select province</option>
+              <option value="BC">British Columbia</option>
+              <option value="AB">Alberta</option>
+              <option value="SK">Saskatchewan</option>
+              <option value="MB">Manitoba</option>
+              <option value="ON">Ontario</option>
+              <option value="QC">Quebec</option>
+              <option value="NB">New Brunswick</option>
+              <option value="NS">Nova Scotia</option>
+              <option value="PE">Prince Edward Island</option>
+              <option value="NL">Newfoundland & Labrador</option>
+              <option value="other">Territory / Other</option>
+            </select>
+          </div>
+          <div class="bs-form__field">
+            <label for="bs-city">City</label>
+            <select id="bs-city" name="city" required disabled>
+              <option value="" disabled selected>Select province first</option>
+            </select>
+          </div>
+        </div>
+        <div class="bs-form__field" id="other-city-field" style="display: none;">
+          <label for="bs-other-city">Your city</label>
+          <input type="text" id="bs-other-city" name="other_city" placeholder="e.g. Thunder Bay" />
+        </div>
+        <div class="bs-form__field">
+          <label for="bs-interest">I'm interested in</label>
+          <select id="bs-interest" name="interest" required>
+            <option value="" disabled selected>Select one</option>
+            <option value="join">Joining an existing group</option>
+            <option value="waitlist">No group near me — add me to the waitlist</option>
+            <option value="host">Starting / hosting a new group</option>
+            <option value="online">Online only — send me the materials</option>
+          </select>
+        </div>
+        <div class="bs-form__field" id="host-count-field" style="display: none;">
+          <label for="bs-host-count">How many people do you expect?</label>
+          <select id="bs-host-count" name="host_count">
+            <option value="3-5">3–5 people</option>
+            <option value="6-10">6–10 people</option>
+            <option value="10+">10+ people</option>
+            <option value="unsure">Not sure yet</option>
+          </select>
+        </div>
+        <div class="bs-form__checkbox">
+          <label>
+            <input type="checkbox" name="magnalia_letter" value="yes" />
+            <span>I'd also like to receive the <strong>Magnalia Letter</strong> — the Institute's free newsletter</span>
+          </label>
+        </div>
+        <button type="submit" class="bs-form__submit">Get Connected</button>
+        <p class="bs-form__note">We'll be in touch within a few days. Your information is never shared publicly.</p>
+      </form>
+    </div>
+  </section>
+
+  <!-- Start a Club CTA -->
+  <section class="section section--dark">
+    <div class="container" style="text-align: center; max-width: 600px;">
+      <h2 style="color: var(--color-text-on-dark);">No Group Near You?</h2>
+      <p style="color: rgba(245,239,229,0.8); font-family: var(--font-body); line-height: 1.7; margin-bottom: 8px;">
+        Start an Inklings Club in your city. We'll send you everything you need — study guides,
+        hosting tips, and promotional materials.
+      </p>
+      <p style="color: rgba(245,239,229,0.5); font-family: var(--font-ui); font-size: 0.9rem; margin-bottom: 24px;">
+        All you need is a living room, a few friends, and a willingness to read.
+      </p>
+      <a href="#join-form" class="btn btn--primary" onclick="document.getElementById('bs-interest').value='hosting'; document.getElementById('host-count-field').style.display='block';">Start a Club</a>
+    </div>
+  </section>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // City data by province
+      const cityData: Record<string, string[]> = {
+        BC: ['Vancouver', 'Kelowna'],
+        AB: ['Edmonton', 'St. Albert', 'Sherwood Park', 'Spruce Grove', 'Fort McMurray', 'Red Deer', 'Lethbridge', 'Calgary'],
+        SK: ['Saskatoon', 'Regina'],
+        MB: ['Winnipeg'],
+        ON: ['Toronto', 'Ottawa'],
+        QC: ['Montreal'],
+        NB: [],
+        NS: ['Halifax'],
+        PE: [],
+        NL: ["St. John's"],
+        other: []
+      };
+
+      const provinceSelect = document.getElementById('bs-province') as HTMLSelectElement;
+      const citySelect = document.getElementById('bs-city') as HTMLSelectElement;
+      const otherCityField = document.getElementById('other-city-field');
+      const interestSelect = document.getElementById('bs-interest') as HTMLSelectElement;
+      const hostCountField = document.getElementById('host-count-field');
+
+      // Province → City cascade
+      provinceSelect?.addEventListener('change', () => {
+        const prov = provinceSelect.value;
+        const cities = cityData[prov] || [];
+        citySelect.innerHTML = '';
+        citySelect.disabled = false;
+
+        if (cities.length > 0) {
+          const placeholder = document.createElement('option');
+          placeholder.value = '';
+          placeholder.disabled = true;
+          placeholder.selected = true;
+          placeholder.textContent = 'Select city';
+          citySelect.appendChild(placeholder);
+
+          cities.forEach(city => {
+            const opt = document.createElement('option');
+            opt.value = city;
+            opt.textContent = city;
+            citySelect.appendChild(opt);
+          });
+
+          const otherOpt = document.createElement('option');
+          otherOpt.value = 'other';
+          otherOpt.textContent = 'Other / not listed';
+          citySelect.appendChild(otherOpt);
+        } else {
+          const opt = document.createElement('option');
+          opt.value = 'other';
+          opt.textContent = 'Enter your city below';
+          opt.selected = true;
+          citySelect.appendChild(opt);
+        }
+
+        // Show/hide other city field
+        citySelect.dispatchEvent(new Event('change'));
+      });
+
+      // City "other" toggle
+      citySelect?.addEventListener('change', () => {
+        if (otherCityField) {
+          otherCityField.style.display = citySelect.value === 'other' ? 'flex' : 'none';
+        }
+      });
+
+      // Interest → host count toggle
+      interestSelect?.addEventListener('change', () => {
+        if (hostCountField) {
+          hostCountField.style.display = interestSelect.value === 'host' ? 'block' : 'none';
+        }
+      });
+
+      // Map province clusters → open accordion + scroll
+      document.querySelectorAll('.bs-pin--cluster[data-province]').forEach(pin => {
+        pin.addEventListener('click', () => {
+          const prov = pin.getAttribute('data-province');
+          const accordion = document.querySelector(`.bs-accordion[data-province="${prov}"]`) as HTMLDetailsElement;
+          if (accordion) {
+            accordion.open = true;
+            accordion.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          }
+        });
+      });
+
+      // City join buttons → scroll to form, pre-select province + city, set interest to "join"
+      document.querySelectorAll('.bs-city__join').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const prov = btn.getAttribute('data-province');
+          const city = btn.getAttribute('data-city');
+
+          if (prov && provinceSelect) {
+            provinceSelect.value = prov;
+            provinceSelect.dispatchEvent(new Event('change'));
+
+            // Wait for city options to populate
+            setTimeout(() => {
+              if (city && citySelect) {
+                citySelect.value = city;
+                citySelect.dispatchEvent(new Event('change'));
+              }
+            }, 50);
+          }
+
+          if (interestSelect) {
+            interestSelect.value = 'join';
+            interestSelect.dispatchEvent(new Event('change'));
+          }
+
+          document.getElementById('join-form')?.scrollIntoView({ behavior: 'smooth' });
+        });
+      });
+    });
+  </script>
+
+  <section class="section--footnote">
+    <div class="container" style="text-align: center;">
+      <a href={`${base}programs/`} class="back-link">← Back to Programs</a>
+    </div>
+  </section>
 </BaseLayout>
+
+<style>
+  /* Inklings Hero */
+  .inklings-hero {
+    position: relative;
+    overflow: hidden;
+    min-height: 360px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .inklings-hero__bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center 30%;
+  }
+
+  .inklings-hero__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      rgba(15, 12, 8, 0.75) 0%,
+      rgba(15, 12, 8, 0.65) 50%,
+      rgba(15, 12, 8, 0.8) 100%
+    );
+  }
+
+  .inklings-hero__content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    max-width: 600px;
+    margin-inline: auto;
+    padding-block: 72px 64px;
+  }
+
+  .inklings-hero__title {
+    font-family: var(--font-display);
+    font-size: 2.8rem;
+    color: #f5efe5;
+    letter-spacing: 0.02em;
+    margin-bottom: 8px;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
+  }
+
+  .inklings-hero__rule {
+    width: 60px;
+    height: 1px;
+    background: var(--color-gold);
+    margin: 16px auto;
+    opacity: 0.6;
+  }
+
+  .inklings-hero__subtitle {
+    font-family: var(--font-ui);
+    font-size: 0.85rem;
+    color: rgba(245, 239, 229, 0.5);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  /* Inklings Brand */
+  .inklings-brand__mark {
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    color: var(--color-gold);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+    text-shadow: 0 1px 8px rgba(198, 160, 50, 0.3);
+  }
+
+  .inklings-brand__tagline {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-style: italic;
+    color: rgba(245, 239, 229, 0.8);
+    letter-spacing: 0.03em;
+    margin-bottom: 0;
+  }
+
+  @media (max-width: 640px) {
+    .inklings-hero { min-height: 280px; }
+    .inklings-hero__title { font-size: 2rem; }
+    .inklings-brand__tagline { font-size: 0.95rem; }
+  }
+
+  /* Intro */
+  .bs-intro {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: start;
+  }
+
+  .bs-intro__text h2 {
+    margin: 8px 0 16px;
+    color: var(--color-navy);
+  }
+
+  .bs-intro__text p {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: var(--color-gray);
+    line-height: 1.8;
+    margin-bottom: 12px;
+  }
+
+  .bs-intro__details {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding-top: 8px;
+  }
+
+  .bs-detail {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: white;
+    border: 1px solid rgba(90, 90, 110, 0.1);
+    border-radius: 3px;
+    padding: 16px 20px;
+  }
+
+  .bs-detail:hover {
+    border-color: var(--color-gold);
+  }
+
+  .bs-detail__icon {
+    width: 24px;
+    height: 24px;
+    color: var(--color-crimson);
+    flex-shrink: 0;
+  }
+
+  .bs-detail strong {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    color: var(--color-navy);
+  }
+
+  .bs-detail span {
+    font-family: var(--font-ui);
+    font-size: 0.82rem;
+    color: var(--color-gray);
+  }
+
+  /* Books */
+  .bs-books {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  .bs-book {
+    background: white;
+    border: 1px solid rgba(90, 90, 110, 0.1);
+    border-radius: 3px;
+    padding: 28px 24px;
+    position: relative;
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+  }
+
+  .bs-book:hover {
+    box-shadow: 0 4px 16px rgba(14, 51, 82, 0.06);
+  }
+
+  .bs-book--current {
+    border-color: var(--color-gold);
+    box-shadow: 0 4px 20px rgba(198, 160, 50, 0.12);
+  }
+
+  .bs-book__status {
+    font-family: var(--font-ui);
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 3px 10px;
+    border-radius: 2px;
+    display: inline-block;
+    margin-bottom: 14px;
+  }
+
+  .bs-book__status--past {
+    background: rgba(90, 90, 110, 0.08);
+    color: var(--color-gray);
+  }
+
+  .bs-book__status--current {
+    background: var(--color-gold);
+    color: white;
+  }
+
+  .bs-book__status--upcoming {
+    background: rgba(139, 37, 0, 0.08);
+    color: var(--color-crimson);
+  }
+
+  .bs-book h3 {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    color: var(--color-navy);
+    margin-bottom: 4px;
+    font-style: italic;
+  }
+
+  .bs-book__author {
+    font-family: var(--font-ui);
+    font-size: 0.85rem;
+    color: var(--color-gold);
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+
+  .bs-book__date {
+    font-family: var(--font-ui);
+    font-size: 0.8rem;
+    color: var(--color-gray);
+    margin-bottom: 12px;
+  }
+
+  .bs-book__desc {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    color: var(--color-gray);
+    line-height: 1.6;
+    margin-bottom: 16px;
+  }
+
+  /* Steps */
+  .bs-steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+  }
+
+  .bs-step {
+    text-align: center;
+  }
+
+  .bs-step__number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--color-gold);
+    color: white;
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+
+  .bs-step h3 {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    color: var(--color-text-on-dark);
+    margin-bottom: 6px;
+  }
+
+  .bs-step p {
+    font-family: var(--font-body);
+    font-size: 0.88rem;
+    color: rgba(245, 239, 229, 0.7);
+    line-height: 1.5;
+  }
+
+  /* Map */
+  .bs-map-container {
+    max-width: 700px;
+    margin: 0 auto 12px;
+  }
+
+  .bs-map-wrapper {
+    position: relative;
+    width: 100%;
+  }
+
+  .bs-map-img {
+    width: 100%;
+    height: auto;
+  }
+
+  .bs-pin {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+    z-index: 2;
+  }
+
+  .bs-pin::before {
+    content: '';
+    display: block;
+    width: 14px;
+    height: 14px;
+    background: var(--color-gold);
+    border: 2px solid white;
+    border-radius: 50%;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+    margin: 0 auto;
+  }
+
+  .bs-pin--cluster::before {
+    width: 0;
+    height: 0;
+    border: none;
+    box-shadow: none;
+    background: none;
+  }
+
+  .bs-pin__count {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    background: var(--color-gold);
+    color: white;
+    border: 2px solid white;
+    border-radius: 50%;
+    font-family: var(--font-ui);
+    font-size: 13px;
+    font-weight: 700;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+    margin: 0 auto;
+  }
+
+  .bs-pin__label {
+    display: block;
+    font-family: var(--font-ui);
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--color-navy);
+    text-align: center;
+    white-space: nowrap;
+    margin-top: 2px;
+    text-shadow: 0 0 4px rgba(255,255,255,0.9), 0 0 8px rgba(255,255,255,0.7);
+  }
+
+  .bs-pin--ghost::before {
+    background: rgba(198, 160, 50, 0.3);
+    border: 2px dashed var(--color-gold);
+    box-shadow: none;
+  }
+
+  .bs-pin--ghost .bs-pin__label {
+    color: rgba(90, 90, 110, 0.5);
+    font-style: italic;
+    font-weight: 400;
+  }
+
+  /* Form */
+  .bs-form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .bs-form__row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .bs-form__field {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .bs-form__field label {
+    font-family: var(--font-ui);
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--color-navy);
+  }
+
+  .bs-form__field input,
+  .bs-form__field select {
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    padding: 10px 14px;
+    border: 1px solid rgba(90, 90, 110, 0.2);
+    border-radius: 3px;
+    background: white;
+    color: var(--color-navy);
+    transition: border-color var(--transition-fast);
+  }
+
+  .bs-form__field input:focus,
+  .bs-form__field select:focus {
+    outline: none;
+    border-color: var(--color-gold);
+    box-shadow: 0 0 0 3px rgba(198, 160, 50, 0.15);
+  }
+
+  .bs-form__submit {
+    font-family: var(--font-ui);
+    font-size: 0.9rem;
+    font-weight: 600;
+    padding: 12px 32px;
+    background: var(--color-crimson);
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    align-self: center;
+    transition: background var(--transition-fast);
+  }
+
+  .bs-form__submit:hover {
+    background: #6b1d00;
+  }
+
+  .bs-form__note {
+    font-family: var(--font-ui);
+    font-size: 0.78rem;
+    color: var(--color-gray);
+    text-align: center;
+  }
+
+  .bs-form__checkbox {
+    display: flex;
+    align-items: flex-start;
+  }
+
+  .bs-form__checkbox label {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-family: var(--font-body);
+    font-size: 0.88rem;
+    color: var(--color-gray);
+    cursor: pointer;
+    line-height: 1.4;
+  }
+
+  .bs-form__checkbox input[type="checkbox"] {
+    margin-top: 3px;
+    accent-color: var(--color-gold);
+    flex-shrink: 0;
+  }
+
+  .bs-form__checkbox strong {
+    color: var(--color-navy);
+  }
+
+  @media (max-width: 480px) {
+    .bs-form__row { grid-template-columns: 1fr; }
+  }
+
+  /* Map total */
+  .bs-map-total {
+    text-align: center;
+    font-family: var(--font-ui);
+    font-size: 0.88rem;
+    color: var(--color-gray);
+    margin-top: 12px;
+  }
+
+  .bs-map-total strong {
+    color: var(--color-navy);
+  }
+
+  /* Province Accordions */
+  .bs-accordions {
+    max-width: 640px;
+    margin-inline: auto;
+  }
+
+  .bs-accordion {
+    border-bottom: 1px solid rgba(90, 90, 110, 0.1);
+  }
+
+  .bs-accordion__header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 0;
+    cursor: pointer;
+    list-style: none;
+    user-select: none;
+  }
+
+  .bs-accordion__header::-webkit-details-marker { display: none; }
+
+  .bs-accordion__name {
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--color-navy);
+    flex: 1;
+  }
+
+  .bs-accordion__count {
+    font-family: var(--font-ui);
+    font-size: 0.8rem;
+    color: var(--color-gray);
+  }
+
+  .bs-accordion__chevron {
+    font-size: 0.9rem;
+    color: var(--color-gold);
+    transition: transform 0.2s ease;
+  }
+
+  .bs-accordion[open] .bs-accordion__chevron {
+    transform: rotate(90deg);
+  }
+
+  .bs-accordion__body {
+    padding: 0 0 14px 16px;
+  }
+
+  .bs-city {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(90, 90, 110, 0.04);
+  }
+
+  .bs-city:last-child { border-bottom: none; }
+
+  .bs-city__name {
+    font-family: var(--font-ui);
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: var(--color-navy);
+    min-width: 130px;
+  }
+
+  .bs-city__groups {
+    font-family: var(--font-ui);
+    font-size: 0.82rem;
+    color: var(--color-gray);
+    flex: 1;
+  }
+
+  .bs-city__join {
+    font-family: var(--font-ui);
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--color-gold);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    white-space: nowrap;
+  }
+
+  .bs-city__join:hover {
+    color: var(--color-crimson);
+  }
+
+  /* Not listed callout */
+  .bs-not-listed {
+    max-width: 640px;
+    margin: 28px auto 0;
+    padding: 20px 24px;
+    background: white;
+    border: 1px dashed var(--color-gold);
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+  }
+
+  .bs-not-listed__text {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    color: var(--color-gray);
+    line-height: 1.5;
+  }
+
+  .bs-not-listed__text strong {
+    color: var(--color-navy);
+  }
+
+  .bs-not-listed__link {
+    font-family: var(--font-ui);
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--color-gold);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  .bs-not-listed__link:hover {
+    color: var(--color-crimson);
+  }
+
+  @media (max-width: 480px) {
+    .bs-not-listed {
+      flex-direction: column;
+      text-align: center;
+    }
+  }
+
+  .back-link {
+    font-family: var(--font-ui);
+    font-size: 0.9rem;
+    color: var(--color-gold);
+    text-decoration: none;
+    font-weight: 500;
+  }
+  .back-link:hover { color: var(--color-crimson); }
+
+  @media (max-width: 768px) {
+    .bs-intro { grid-template-columns: 1fr; gap: 32px; }
+    .bs-books { grid-template-columns: 1fr; }
+    .bs-steps { grid-template-columns: 1fr 1fr; gap: 28px; }
+  }
+
+  @media (max-width: 480px) {
+    .bs-steps { grid-template-columns: 1fr; }
+  }
+</style>

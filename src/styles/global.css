@@ -30,7 +30,9 @@
   --font-ui: 'Inter', system-ui, -apple-system, sans-serif;
 
   /* Spacing */
-  --space-section: 80px;
+  --space-section: 56px;
+  --space-section-tight: 36px;
+  --space-heading: 24px;
   --space-component: 40px;
   --space-element: 16px;
   --max-content-width: 1200px;
@@ -277,7 +279,9 @@ button:focus:not(:focus-visible) {
   h2 { font-size: 1.5rem; }
   h3 { font-size: 1.25rem; }
   :root {
-    --space-section: 48px;
+    --space-section: 40px;
+    --space-section-tight: 28px;
+    --space-heading: 18px;
     --space-component: 24px;
   }
 }
