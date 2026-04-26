@@ -103,7 +103,7 @@ import SectionDivider from '../../components/SectionDivider.astro';
         the Gregory the Great Institute.
       </p>
       <div class="cta-buttons">
-        <Button href="https://adbcbf1f-fcf5-4099-8aa0-1d9b99602ff4.filesusr.com/ugd/437a61_b4dc2d74f545432ab3b84d43635c636c.pdf" variant="primary">Download the Report</Button>
+        <a href="https://adbcbf1f-fcf5-4099-8aa0-1d9b99602ff4.filesusr.com/ugd/437a61_b4dc2d74f545432ab3b84d43635c636c.pdf" target="_blank" rel="noopener" class="btn-download">Download the Report</a>
         <Button href={`${import.meta.env.BASE_URL}about/`} variant="secondary">← Back to About</Button>
       </div>
     </div>
@@ -228,6 +228,24 @@ import SectionDivider from '../../components/SectionDivider.astro';
     flex-wrap: wrap;
     justify-content: center;
     gap: 12px;
+  }
+
+  .btn-download {
+    display: inline-block;
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-parchment);
+    background-color: var(--color-crimson);
+    padding: 14px 32px;
+    border-radius: 3px;
+    text-decoration: none;
+    transition: background-color var(--transition-fast);
+  }
+
+  .btn-download:hover {
+    background-color: #6b2124;
+    color: var(--color-parchment);
   }
 
   .section--linen {
