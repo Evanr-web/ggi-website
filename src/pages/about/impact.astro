@@ -124,16 +124,7 @@ import SectionDivider from '../../components/SectionDivider.astro';
       </div>
 
       <div class="next-paths reveal-stagger">
-        <a href={`${import.meta.env.BASE_URL}magnalia/letter/`} class="next-card reveal">
-          <p class="label text-gold">Free</p>
-          <h3>Subscribe to the Letter</h3>
-          <p class="next-card__desc">
-            A curated monthly guide to the Catholic intellectual life — essays, books, art, and ideas.
-            The best way to stay connected if you're not ready to give.
-          </p>
-          <span class="next-card__action">Subscribe Free →</span>
-        </a>
-        <a href={`${import.meta.env.BASE_URL}support/`} class="next-card next-card--featured reveal">
+        <a href={`${import.meta.env.BASE_URL}support/`} class="next-card reveal">
           <p class="label text-gold">From $10/month</p>
           <h3>Become a Friend</h3>
           <p class="next-card__desc">
@@ -142,7 +133,7 @@ import SectionDivider from '../../components/SectionDivider.astro';
           </p>
           <span class="next-card__action">Join as a Friend →</span>
         </a>
-        <a href={`${import.meta.env.BASE_URL}magnalia/patron/`} class="next-card reveal">
+        <a href={`${import.meta.env.BASE_URL}magnalia/patron/`} class="next-card next-card--featured reveal">
           <p class="label text-gold">$50/month</p>
           <h3>Become a Patron</h3>
           <p class="next-card__desc">
@@ -151,6 +142,30 @@ import SectionDivider from '../../components/SectionDivider.astro';
           </p>
           <span class="next-card__action">Join as a Patron →</span>
         </a>
+        <a href={`${import.meta.env.BASE_URL}support/`} class="next-card reveal">
+          <p class="label text-gold">$208+/month</p>
+          <h3>Underwrite the Mission</h3>
+          <p class="next-card__desc">
+            Named underwriting of a Magnalia issue or flagship program. Inner circle access,
+            early research briefings, and a direct role in shaping what comes next.
+          </p>
+          <span class="next-card__action">See Giving Options →</span>
+        </a>
+      </div>
+
+      <!-- High-capacity CTA -->
+      <div class="leadership-cta reveal">
+        <div class="leadership-cta__inner">
+          <div class="leadership-cta__text">
+            <h3>Thinking Bigger?</h3>
+            <p>
+              If the Institute's vision resonates at a deeper level — a trade school for Catholic men,
+              a national think-tank, certificate programs in Christian leadership — we'd welcome a
+              conversation about what strategic partnership looks like.
+            </p>
+          </div>
+          <Button href={`${import.meta.env.BASE_URL}contact/`} variant="primary">Request a Conversation</Button>
+        </div>
       </div>
 
       <div class="next-footer reveal">
@@ -376,6 +391,45 @@ import SectionDivider from '../../components/SectionDivider.astro';
   @media (min-width: 768px) {
     .next-paths {
       grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  /* Leadership CTA */
+  .leadership-cta {
+    margin-bottom: 32px;
+  }
+
+  .leadership-cta__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 32px;
+    border: 2px solid var(--color-gold);
+    border-radius: 3px;
+    background-color: var(--color-linen);
+  }
+
+  .leadership-cta__text h3 {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--color-navy);
+    margin-bottom: 8px;
+  }
+
+  .leadership-cta__text p {
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    line-height: 1.65;
+    color: var(--color-gray);
+    margin: 0;
+  }
+
+  @media (max-width: 768px) {
+    .leadership-cta__inner {
+      flex-direction: column;
+      text-align: center;
     }
   }
 
