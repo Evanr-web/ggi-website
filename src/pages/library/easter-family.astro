@@ -33,7 +33,7 @@ const base = import.meta.env.BASE_URL;
   <div class="resource-download">
     <h3 class="resource-download__heading">Get this resource</h3>
     <p class="resource-download__desc">Enter your email and we'll send you a copy.</p>
-    <form class="resource-download__form" action="#" method="POST">
+    <form class="resource-download__form" data-ac-endpoint="/api/subscribe" data-ac-success="Check your inbox for the download link!" method="POST">
       <input type="hidden" name="resource" value="easter-family" />
       <input type="email" name="email" required placeholder="Email address" aria-label="Email address" />
       <button type="submit">Email Me a Copy</button>

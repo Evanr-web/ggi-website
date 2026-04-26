@@ -300,7 +300,7 @@ import EndorsementCard from '../components/EndorsementCard.astro';
     <div class="container newsletter-section__inner">
       <h2 class="newsletter-section__title">Join the Magnalia Letter</h2>
       <p class="newsletter-section__desc">Free monthly essays, event invitations, and reading recommendations from the Institute.</p>
-      <form class="newsletter-section__form" action="#" method="POST">
+      <form class="newsletter-section__form" data-ac-endpoint="/api/subscribe" data-ac-success="You're subscribed to the Magnalia Letter!" method="POST">
         <input type="text" name="firstName" placeholder="First name" class="newsletter-section__input" required aria-label="First name" />
         <input type="email" name="email" placeholder="Email address" class="newsletter-section__input" required aria-label="Email address" />
         <button type="submit" class="newsletter-section__btn">Subscribe</button>

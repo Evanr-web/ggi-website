@@ -43,7 +43,7 @@ const base = import.meta.env.BASE_URL;
     <div class="container">
       <div class="signup-box reveal">
         <h2>Subscribe Free</h2>
-        <form class="signup-form" action="#" method="POST">
+        <form class="signup-form" data-ac-endpoint="/api/subscribe" data-ac-success="Welcome to the Magnalia Letter! Check your inbox." method="POST">
           <input type="text" name="firstName" placeholder="First name" required aria-label="First name" />
           <input type="email" name="email" placeholder="Email address" required aria-label="Email address" />
           <button type="submit">Join 1,500+ Readers</button>
@@ -150,7 +150,7 @@ const base = import.meta.env.BASE_URL;
       <div class="signup-box signup-box--compact reveal">
         <h2>Start Reading</h2>
         <p class="signup-box__desc">Join 1,500+ readers who trust the Magnalia Letter as their guide to Catholic intellectual life.</p>
-        <form class="signup-form" action="#" method="POST">
+        <form class="signup-form" data-ac-endpoint="/api/subscribe" data-ac-success="Welcome to the Magnalia Letter! Check your inbox." method="POST">
           <input type="text" name="firstName" placeholder="First name" required aria-label="First name" />
           <input type="email" name="email" placeholder="Email address" required aria-label="Email address" />
           <button type="submit">Subscribe Free</button>

@@ -197,7 +197,7 @@ import SectionDivider from '../../components/SectionDivider.astro';
         Stay connected with the Magnalia Letter — a free monthly essay from the Institute, plus event invitations
         and reading recommendations.
       </p>
-      <form class="newsletter-section__form" action="#" method="POST" style="justify-content: center; gap: 10px; flex-wrap: wrap;">
+      <form class="newsletter-section__form" data-ac-endpoint="/api/subscribe" data-ac-success="You're subscribed! Check your inbox." method="POST" style="justify-content: center; gap: 10px; flex-wrap: wrap;">
         <input type="email" name="email" placeholder="Email address" class="newsletter-inline-input" required aria-label="Email address" />
         <button type="submit" class="newsletter-inline-btn">Subscribe Free</button>
       </form>

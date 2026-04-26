@@ -86,7 +86,7 @@ const categories = ["All", "News", "Essays", "Videos", "Resources"];
     <div class="container" style="max-width: 520px;">
       <h2 style="margin-bottom: 8px;">Get essays like these in your inbox</h2>
       <p style="font-family: var(--font-body); font-size: 0.95rem; color: var(--color-gray); margin-bottom: 20px;">Subscribe to the Magnalia Letter — free monthly essays, event invitations, and reading recommendations.</p>
-      <form class="newsletter-inline" action="#" method="POST">
+      <form class="newsletter-inline" data-ac-endpoint="/api/subscribe" data-ac-success="You're subscribed!" method="POST">
         <input type="email" name="email" placeholder="Email address" required aria-label="Email address" />
         <button type="submit">Subscribe</button>
       </form>
