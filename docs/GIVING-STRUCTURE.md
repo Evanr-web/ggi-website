@@ -64,7 +64,7 @@ Last updated: April 2026
 
 **What the Institute delivers:**
 - Everything in Patron, plus:
-- Personal relationship with Dr. Topping
+- Annual one-on-one conversation with Dr. Topping
 - Input on Institute direction (informal, not a board seat)
 - Named recognition in flagship programs (if desired)
 - Annual Leadership gathering
