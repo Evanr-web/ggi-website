@@ -7,14 +7,15 @@ const message = "Join the team renewing Catholic culture in Canada. Communicatio
 const ctaText = "Apply Now";
 const ctaUrl = "/careers/";
 const delay = 5; // seconds
+const popupId = "hiring-intern-2026"; // unique ID for dismiss persistence
 ---
 
 {enabled && (
-  <div class="flyin" id="flyin-popup" data-delay={delay} role="dialog" aria-label="Promotional popup">
-    <button class="flyin__close" aria-label="Close popup" onclick="document.getElementById('flyin-popup').remove(); sessionStorage.setItem('flyin-dismissed', '1');">×</button>
+  <div class="flyin" id="flyin-popup" data-delay={delay} data-popup-id={popupId} role="dialog" aria-label="Promotional popup" style="display:none;">
+    <button class="flyin__close" aria-label="Close popup">×</button>
     <p class="flyin__headline">{headline}</p>
     <p class="flyin__message">{message}</p>
-    <a href={ctaUrl} class="flyin__cta">{ctaText}</a>
+    <a href={ctaUrl} class="flyin__cta" data-flyin-cta>{ctaText}</a>
   </div>
 )}
 
@@ -86,7 +87,6 @@ const delay = 5; // seconds
 
   .flyin__cta:hover { background-color: #a08638; }
 
-  /* Mobile: bottom banner instead of corner widget */
   @media (max-width: 640px) {
     .flyin {
       bottom: 0;
@@ -107,14 +107,32 @@ const delay = 5; // seconds
 </style>
 
 <script>
-  // Show after delay if not previously dismissed this session
   const popup = document.getElementById('flyin-popup');
-  if (popup && !sessionStorage.getItem('flyin-dismissed')) {
-    const delay = parseInt(popup.dataset.delay || '5', 10) * 1000;
-    setTimeout(() => {
-      popup.classList.add('flyin--visible');
-    }, delay);
-  } else if (popup) {
-    popup.remove();
+  if (popup) {
+    const id = popup.dataset.popupId;
+    const key = `flyin-dismissed-${id}`;
+
+    // Don't show if previously dismissed (persists across sessions via localStorage)
+    if (localStorage.getItem(key)) {
+      popup.remove();
+    } else {
+      popup.style.display = '';
+      const delay = parseInt(popup.dataset.delay || '5', 10) * 1000;
+
+      setTimeout(() => {
+        popup.classList.add('flyin--visible');
+      }, delay);
+
+      // Dismiss on X click
+      popup.querySelector('.flyin__close')?.addEventListener('click', () => {
+        localStorage.setItem(key, '1');
+        popup.remove();
+      });
+
+      // Dismiss on CTA click too
+      popup.querySelector('[data-flyin-cta]')?.addEventListener('click', () => {
+        localStorage.setItem(key, '1');
+      });
+    }
   }
 </script>

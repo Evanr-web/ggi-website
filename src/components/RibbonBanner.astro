@@ -5,17 +5,18 @@ const enabled = true;
 const message = "We're hiring! Communications & Development Intern — Canada Summer Jobs 2026.";
 const linkText = "Apply Now →";
 const linkUrl = "/careers/";
-const style = "gold"; // gold | navy | crimson
+const style = "navy"; // gold | navy | crimson — navy avoids competing with gold Support CTA
+const bannerId = "hiring-intern-2026"; // unique ID for dismiss persistence
 ---
 
 {enabled && (
-  <div class={`ribbon ribbon--${style}`} role="banner">
+  <div class={`ribbon ribbon--${style}`} id="ribbon-banner" data-banner-id={bannerId} role="banner" style="display:none;">
     <div class="ribbon__inner">
       <span class="ribbon__message">{message}</span>
       {linkText && linkUrl && (
-        <a href={linkUrl} class="ribbon__link">{linkText}</a>
+        <a href={linkUrl} class="ribbon__link" data-ribbon-cta>{linkText}</a>
       )}
-      <button class="ribbon__close" aria-label="Dismiss banner" onclick="this.closest('.ribbon').remove()">×</button>
+      <button class="ribbon__close" aria-label="Dismiss banner">×</button>
     </div>
   </div>
 )}
@@ -62,7 +63,7 @@ const style = "gold"; // gold | navy | crimson
 
   .ribbon__link {
     font-weight: 700;
-    color: inherit;
+    color: var(--color-gold);
     text-decoration: underline;
     text-underline-offset: 2px;
     white-space: nowrap;
@@ -88,7 +89,33 @@ const style = "gold"; // gold | navy | crimson
   .ribbon__close:hover { opacity: 1; }
 
   @media (max-width: 640px) {
-    .ribbon { font-size: 0.75rem; padding: 6px 32px 6px 12px; }
-    .ribbon__inner { gap: 6px; }
+    .ribbon { font-size: 0.75rem; padding: 8px 36px 8px 12px; }
+    .ribbon__inner { gap: 6px; flex-wrap: wrap; justify-content: center; text-align: center; }
   }
 </style>
+
+<script>
+  const ribbon = document.getElementById('ribbon-banner');
+  if (ribbon) {
+    const id = ribbon.dataset.bannerId;
+    const key = `ribbon-dismissed-${id}`;
+
+    // Don't show if previously dismissed (persists across sessions)
+    if (localStorage.getItem(key)) {
+      ribbon.remove();
+    } else {
+      ribbon.style.display = '';
+
+      // Dismiss on X click
+      ribbon.querySelector('.ribbon__close')?.addEventListener('click', () => {
+        localStorage.setItem(key, '1');
+        ribbon.remove();
+      });
+
+      // Dismiss on CTA click too (they clicked through — don't show again)
+      ribbon.querySelector('[data-ribbon-cta]')?.addEventListener('click', () => {
+        localStorage.setItem(key, '1');
+      });
+    }
+  }
+</script>

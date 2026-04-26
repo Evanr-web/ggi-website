@@ -8,6 +8,7 @@ const SUBJECT_TAGS = {
   magnalia: '5',   // contact-magnalia
   programs: '6',   // contact-programs
   support: '7',    // contact-support
+  volunteering: '18', // contact-volunteering
   other: '3',      // contact-general
 };
 
