@@ -1,0 +1,159 @@
+---
+import ArticleLayout from '../../layouts/ArticleLayout.astro';
+import Button from '../../components/Button.astro';
+const base = import.meta.env.BASE_URL;
+---
+
+<ArticleLayout
+  title="The Abolition of Man Study Guide"
+  author="Gregory the Great Institute"
+  date="December 2025"
+  category="Resource"
+  image="/images/art/gozzoli-triumph-aquinas.jpg"
+  imageAlt="Triumph of St Thomas Aquinas by Benozzo Gozzoli"
+  related={[
+    { title: "2026 Book Studies — Inklings Clubs", href: `${base}programs/book-studies/`, meta: "Program · Join a group" },
+    { title: "5 Ways to Celebrate Easter as a Family", href: `${base}library/easter-family/`, meta: "Resource · Catherine Renneberg" },
+  ]}
+>
+  <p>
+    C.S. Lewis's <em>The Abolition of Man</em> is one of the most important works of the
+    twentieth century — a short, devastating critique of moral relativism and a defence of
+    natural law that remains as urgent today as when it was written in 1943.
+  </p>
+
+  <p>
+    This study guide is designed for use in reading groups, classrooms, and individual study.
+    It provides chapter-by-chapter discussion questions, key passages for reflection, and
+    background context to help readers engage more deeply with Lewis's argument.
+  </p>
+
+  <p>
+    Whether you're leading an Inklings Club, teaching a class, or simply reading on your own,
+    this guide will help you get more out of one of the great books of the Western tradition.
+  </p>
+
+  <h2>What's Included</h2>
+  <ul>
+    <li>Chapter-by-chapter discussion questions</li>
+    <li>Key passages highlighted for close reading</li>
+    <li>Historical and philosophical context</li>
+    <li>Suggestions for further reading</li>
+    <li>Leader's notes for group facilitators</li>
+  </ul>
+
+  <div class="resource-download">
+    <h3 class="resource-download__heading">Get this study guide</h3>
+    <p class="resource-download__desc">Enter your email and we'll send you a copy.</p>
+    <form class="resource-download__form" action="#" method="POST">
+      <input type="hidden" name="resource" value="abolition-of-man-guide" />
+      <input type="email" name="email" required placeholder="Email address" aria-label="Email address" />
+      <button type="submit">Email Me a Copy</button>
+    </form>
+    <label class="resource-download__optin">
+      <input type="checkbox" name="magnalia_letter" value="yes" />
+      <span>I'd like to receive future resources and essays from <strong>Magnalia Letter</strong></span>
+    </label>
+  </div>
+</ArticleLayout>
+
+<style>
+  .resource-download {
+    background: var(--color-linen);
+    border: 1px solid rgba(198, 160, 50, 0.3);
+    border-radius: 3px;
+    padding: 28px;
+    text-align: center;
+    margin-top: 28px;
+  }
+
+  .resource-download__heading {
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    color: var(--color-navy);
+    margin-bottom: 4px;
+  }
+
+  .resource-download__desc {
+    font-family: var(--font-body) !important;
+    font-size: 0.88rem !important;
+    color: var(--color-gray) !important;
+    margin-bottom: 16px !important;
+  }
+
+  .resource-download__form {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 12px;
+  }
+
+  .resource-download__form :global(input[type="email"]) {
+    font-family: var(--font-ui);
+    font-size: 0.88rem;
+    padding: 10px 14px;
+    border: 1px solid rgba(90, 90, 110, 0.2);
+    border-radius: 3px;
+    background: white;
+    color: var(--color-navy);
+    min-width: 200px;
+    outline: none;
+  }
+
+  .resource-download__form :global(input[type="email"]):focus {
+    border-color: var(--color-gold);
+    box-shadow: 0 0 0 3px rgba(198, 160, 50, 0.15);
+  }
+
+  .resource-download__form :global(button) {
+    font-family: var(--font-ui);
+    font-size: 0.85rem;
+    font-weight: 600;
+    padding: 10px 20px;
+    background: var(--color-crimson);
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background var(--transition-fast);
+  }
+
+  .resource-download__form :global(button:hover) {
+    background: #6b1d00;
+  }
+
+  .resource-download__optin {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    justify-content: center;
+    font-family: var(--font-body);
+    font-size: 0.82rem;
+    color: var(--color-gray);
+    cursor: pointer;
+  }
+
+  .resource-download__optin :global(input[type="checkbox"]) {
+    margin-top: 2px;
+    accent-color: var(--color-gold);
+    flex-shrink: 0;
+  }
+
+  .resource-download__optin :global(strong) {
+    color: var(--color-navy);
+  }
+
+  .article__body :global(ul) {
+    font-family: var(--font-body);
+    font-size: 1.05rem;
+    line-height: 1.85;
+    color: var(--color-gray);
+    padding-left: 24px;
+    margin-bottom: 16px;
+  }
+
+  .article__body :global(li) {
+    margin-bottom: 4px;
+  }
+</style>

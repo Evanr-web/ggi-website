@@ -1,8 +1,624 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import ComingSoon from '../../components/ComingSoon.astro';
+import Button from '../../components/Button.astro';
+const base = import.meta.env.BASE_URL;
 ---
 
-<BaseLayout title="Faith & Reason Seminar — Gregory the Great Institute">
-  <ComingSoon title="Faith & Reason Seminar" parentLabel="Programs" parentHref={`${import.meta.env.BASE_URL}programs/`} />
+<BaseLayout title="Faith & Reason Seminar — Gregory the Great Institute" description="An intensive 3-day Great Books immersion for Catholic leaders.">
+
+  <!-- Hero -->
+  <section class="fr-hero section--dark">
+    <div class="fr-hero__bg" style={`background-image: url(${base}images/art/newman-millais-portrait.jpg)`}></div>
+    <div class="fr-hero__overlay"></div>
+    <div class="fr-hero__content container">
+      <p class="label text-gold">Intensive Formation</p>
+      <h1 class="fr-hero__title">Faith & Reason Seminar</h1>
+      <p class="fr-hero__tagline">Three days. Great books. Deep conversation.</p>
+      <div class="fr-hero__rule"></div>
+      <p class="fr-hero__subtitle">A residential Great Books immersion for Catholic leaders</p>
+    </div>
+  </section>
+
+  <!-- What It Is -->
+  <section class="section" style="padding-bottom: var(--space-section-tight);">
+    <div class="container fr-intro">
+      <div class="fr-intro__text">
+        <h2>Go Deeper</h2>
+        <p>
+          For three days, a small group of Catholic leaders steps away from the noise and into
+          the company of the greatest minds in the tradition. Using the Socratic method, participants
+          read and discuss primary texts — Augustine, Aquinas, Newman, Chesterton, Pieper. No lectures.
+          No PowerPoints. Just the text, the table, and the conversation.
+        </p>
+        <p>
+          Structured around the rhythm of prayer, study, and fellowship, participants leave not
+          with a certificate but with a renewed mind and a deeper love for the tradition.
+        </p>
+        <Button href="#interest-form" variant="primary" size="small">Join the Interest List</Button>
+      </div>
+      <div class="fr-intro__sidebar">
+        <div class="fr-detail-card">
+          <h3>At a Glance</h3>
+          <dl class="fr-details">
+            <dt>Format</dt>
+            <dd>3-day residential intensive</dd>
+            <dt>Method</dt>
+            <dd>Socratic seminar (discussion-based)</dd>
+            <dt>Size</dt>
+            <dd>15–20 participants</dd>
+            <dt>Frequency</dt>
+            <dd>Once per year</dd>
+            <dt>Location</dt>
+            <dd>Alberta (venue TBA)</dd>
+            <dt>Cost</dt>
+            <dd>Includes lodging and meals</dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Reading List + Schedule Side by Side -->
+  <section class="section section--linen" style="padding-top: var(--space-section-tight);">
+    <div class="container">
+      <div class="fr-twin">
+        <!-- Reading List -->
+        <div class="fr-twin__col">
+          <p class="label text-gold">The Reading List</p>
+          <h3 class="fr-twin__heading">What You'll Read</h3>
+          <div class="fr-readings">
+            <div class="fr-reading">
+              <span class="fr-reading__author">St. Augustine</span>
+              <span class="fr-reading__work">Confessions</span>
+            </div>
+            <div class="fr-reading">
+              <span class="fr-reading__author">St. Thomas Aquinas</span>
+              <span class="fr-reading__work">Summa Theologiae</span>
+            </div>
+            <div class="fr-reading">
+              <span class="fr-reading__author">John Henry Newman</span>
+              <span class="fr-reading__work">The Idea of a University</span>
+            </div>
+            <div class="fr-reading">
+              <span class="fr-reading__author">G.K. Chesterton</span>
+              <span class="fr-reading__work">Orthodoxy</span>
+            </div>
+            <div class="fr-reading">
+              <span class="fr-reading__author">Josef Pieper</span>
+              <span class="fr-reading__work">Leisure: The Basis of Culture</span>
+            </div>
+            <div class="fr-reading">
+              <span class="fr-reading__author">Pope Benedict XVI</span>
+              <span class="fr-reading__work">Regensburg Address</span>
+            </div>
+          </div>
+          <p class="fr-twin__note">Reading packets provided in advance.</p>
+        </div>
+
+        <!-- Divider -->
+        <div class="fr-twin__divider"></div>
+
+        <!-- Schedule -->
+        <div class="fr-twin__col">
+          <p class="label text-gold">A Typical Day</p>
+          <h3 class="fr-twin__heading">The Experience</h3>
+          <div class="fr-schedule-light">
+            <div class="fr-sched">
+              <span class="fr-sched__time">7:30</span>
+              <span class="fr-sched__label">Morning Prayer</span>
+            </div>
+            <div class="fr-sched">
+              <span class="fr-sched__time">8:00</span>
+              <span class="fr-sched__label">Breakfast</span>
+            </div>
+            <div class="fr-sched">
+              <span class="fr-sched__time">9:00</span>
+              <span class="fr-sched__label">Morning Seminar</span>
+            </div>
+            <div class="fr-sched">
+              <span class="fr-sched__time">12:00</span>
+              <span class="fr-sched__label">Holy Mass</span>
+            </div>
+            <div class="fr-sched">
+              <span class="fr-sched__time">1:00</span>
+              <span class="fr-sched__label">Lunch & Rest</span>
+            </div>
+            <div class="fr-sched">
+              <span class="fr-sched__time">3:00</span>
+              <span class="fr-sched__label">Afternoon Seminar</span>
+            </div>
+            <div class="fr-sched">
+              <span class="fr-sched__time">5:30</span>
+              <span class="fr-sched__label">Vespers</span>
+            </div>
+            <div class="fr-sched">
+              <span class="fr-sched__time">6:30</span>
+              <span class="fr-sched__label">Dinner & Fellowship</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Who It's For -->
+  <section class="section" style="padding-top: var(--space-section-tight); padding-bottom: var(--space-section-tight);">
+    <div class="container fr-audience">
+      <div style="text-align: center; margin-bottom: var(--space-heading);">
+        <p class="label text-gold">Who It's For</p>
+        <h2>Is This for You?</h2>
+      </div>
+      <div class="fr-audience__grid">
+        <div class="fr-audience__card">
+          <h3>Parish Leaders</h3>
+          <p>Pastors, DREs, and lay leaders who want to deepen their intellectual formation and bring it back to their communities.</p>
+        </div>
+        <div class="fr-audience__card">
+          <h3>Catholic Professionals</h3>
+          <p>Doctors, lawyers, teachers, and business owners who want to integrate faith and reason in their vocation.</p>
+        </div>
+        <div class="fr-audience__card">
+          <h3>Seminarians & Religious</h3>
+          <p>Those in formation who want an immersive encounter with the Great Books tradition beyond the classroom.</p>
+        </div>
+        <div class="fr-audience__card">
+          <h3>Serious Seekers</h3>
+          <p>Anyone drawn to the Catholic intellectual tradition — converts, reverts, and lifelong Catholics hungry for more.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interest List Form -->
+  <section class="section" id="interest-form">
+    <div class="container" style="max-width: 560px;">
+      <div style="text-align: center; margin-bottom: var(--space-heading);">
+        <p class="label text-gold">Limited to 15–20 Participants</p>
+        <h2>Join the Interest List</h2>
+        <p style="font-family: var(--font-body); color: var(--color-gray); font-size: 0.95rem;">
+          Tell us about yourself and we'll notify you when registration opens for the next seminar.
+        </p>
+      </div>
+      <form class="fr-form" action="#" method="POST">
+        <div class="fr-form__row">
+          <div class="fr-form__field">
+            <label for="fr-name">Name</label>
+            <input type="text" id="fr-name" name="name" required placeholder="Your name" />
+          </div>
+          <div class="fr-form__field">
+            <label for="fr-email">Email</label>
+            <input type="email" id="fr-email" name="email" required placeholder="you@example.com" />
+          </div>
+        </div>
+        <div class="fr-form__row">
+          <div class="fr-form__field">
+            <label for="fr-city">City & Province</label>
+            <input type="text" id="fr-city" name="city" placeholder="e.g. Edmonton, AB" />
+          </div>
+          <div class="fr-form__field">
+            <label for="fr-vocation">Vocation / Field</label>
+            <select id="fr-vocation" name="vocation" required>
+              <option value="" disabled selected>Select one</option>
+              <option value="clergy">Clergy / Religious</option>
+              <option value="seminarian">Seminarian</option>
+              <option value="academic">Academic / Educator</option>
+              <option value="business">Business / Professional</option>
+              <option value="legal">Legal / Government</option>
+              <option value="medical">Medical / Healthcare</option>
+              <option value="apostolate">Apostolate / Ministry</option>
+              <option value="arts">Arts / Media</option>
+              <option value="retired">Retired</option>
+              <option value="student">Student</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+        </div>
+        <div class="fr-form__field">
+          <label for="fr-role">Briefly describe your leadership role or involvement</label>
+          <textarea id="fr-role" name="role" rows="3" placeholder="e.g. Parish council chair, runs a Catholic bookstore, principal at a Catholic school..."></textarea>
+        </div>
+        <div class="fr-form__field">
+          <label for="fr-why">Why are you interested in the Faith & Reason Seminar?</label>
+          <textarea id="fr-why" name="why" rows="3" placeholder="A sentence or two is fine."></textarea>
+        </div>
+        <div class="fr-form__checkbox">
+          <label>
+            <input type="checkbox" name="magnalia_letter" value="yes" />
+            <span>I'd also like to receive the <strong>Magnalia Letter</strong> — the Institute's free newsletter</span>
+          </label>
+        </div>
+        <button type="submit" class="fr-form__submit">Join the Interest List</button>
+        <p class="fr-form__note">We'll be in touch when registration opens. Your information is never shared.</p>
+      </form>
+    </div>
+  </section>
+
+  <section class="section--footnote">
+    <div class="container" style="text-align: center;">
+      <a href={`${base}programs/`} class="back-link">← Back to Programs</a>
+    </div>
+  </section>
 </BaseLayout>
+
+<style>
+  /* Hero */
+  .fr-hero {
+    position: relative;
+    overflow: hidden;
+    min-height: 380px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .fr-hero__bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center 15%;
+  }
+
+  .fr-hero__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      rgba(15, 10, 8, 0.6) 0%,
+      rgba(15, 10, 8, 0.5) 40%,
+      rgba(15, 10, 8, 0.75) 100%
+    );
+  }
+
+  .fr-hero__content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    max-width: 600px;
+    margin-inline: auto;
+    padding-block: 72px 64px;
+  }
+
+  .fr-hero__title {
+    font-family: var(--font-display);
+    font-size: 2.8rem;
+    color: #f5efe5;
+    letter-spacing: 0.02em;
+    margin: 8px 0;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
+  }
+
+  .fr-hero__tagline {
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    font-style: italic;
+    color: rgba(245, 239, 229, 0.85);
+    margin-bottom: 0;
+  }
+
+  .fr-hero__rule {
+    width: 60px;
+    height: 1px;
+    background: var(--color-gold);
+    margin: 16px auto;
+    opacity: 0.6;
+  }
+
+  .fr-hero__subtitle {
+    font-family: var(--font-ui);
+    font-size: 0.85rem;
+    color: rgba(245, 239, 229, 0.5);
+    letter-spacing: 0.05em;
+  }
+
+  /* Intro */
+  .fr-intro {
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 48px;
+    align-items: start;
+  }
+
+  .fr-intro__text h2 {
+    color: var(--color-navy);
+    margin-bottom: 16px;
+  }
+
+  .fr-intro__text p {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: var(--color-gray);
+    line-height: 1.8;
+    margin-bottom: 12px;
+  }
+
+  .fr-detail-card {
+    background: white;
+    border: 1px solid rgba(90, 90, 110, 0.1);
+    border-radius: 3px;
+    padding: 24px;
+    border-top: 3px solid var(--color-gold);
+  }
+
+  .fr-detail-card h3 {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    color: var(--color-navy);
+    margin-bottom: 16px;
+  }
+
+  .fr-details dt {
+    font-family: var(--font-ui);
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-gold);
+    margin-top: 10px;
+  }
+
+  .fr-details dt:first-child { margin-top: 0; }
+
+  .fr-details dd {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    color: var(--color-gray);
+    margin: 2px 0 0 0;
+  }
+
+  /* Twin columns */
+  .fr-twin {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 32px;
+    align-items: start;
+  }
+
+  .fr-twin__heading {
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    color: var(--color-navy);
+    margin: 4px 0 16px;
+  }
+
+  .fr-twin__divider {
+    width: 1px;
+    background: rgba(90, 90, 110, 0.12);
+    align-self: stretch;
+    margin-top: 8px;
+  }
+
+  .fr-twin__note {
+    font-family: var(--font-ui);
+    font-size: 0.78rem;
+    color: var(--color-gray);
+    margin-top: 12px;
+  }
+
+  /* Reading List */
+  .fr-reading {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(90, 90, 110, 0.06);
+    gap: 12px;
+  }
+
+  .fr-reading:last-child { border-bottom: none; }
+
+  .fr-reading__author {
+    font-family: var(--font-display);
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--color-navy);
+    white-space: nowrap;
+  }
+
+  .fr-reading__work {
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    font-style: italic;
+    color: var(--color-gray);
+    text-align: right;
+  }
+
+  /* Schedule (light version) */
+  .fr-sched {
+    display: flex;
+    gap: 12px;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(90, 90, 110, 0.06);
+  }
+
+  .fr-sched:last-child { border-bottom: none; }
+
+  .fr-sched__time {
+    font-family: var(--font-ui);
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--color-gold);
+    min-width: 40px;
+  }
+
+  .fr-sched__label {
+    font-family: var(--font-body);
+    font-size: 0.88rem;
+    color: var(--color-gray);
+  }
+
+  /* Audience */
+  .fr-audience__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  .fr-audience__card {
+    background: white;
+    border: 1px solid rgba(90, 90, 110, 0.1);
+    border-radius: 3px;
+    padding: 24px;
+    transition: border-color var(--transition-fast);
+  }
+
+  .fr-audience__card:hover {
+    border-color: var(--color-gold);
+  }
+
+  .fr-audience__card h3 {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    color: var(--color-navy);
+    margin-bottom: 6px;
+  }
+
+  .fr-audience__card p {
+    font-family: var(--font-body);
+    font-size: 0.88rem;
+    color: var(--color-gray);
+    line-height: 1.5;
+  }
+
+  /* Quote */
+  .fr-quote p {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    font-style: italic;
+    color: var(--color-navy);
+    line-height: 1.6;
+    margin-bottom: 12px;
+  }
+
+  .fr-quote cite {
+    font-family: var(--font-ui);
+    font-size: 0.85rem;
+    color: var(--color-gold);
+    font-style: normal;
+  }
+
+  /* Form */
+  .fr-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .fr-form__row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .fr-form__field {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .fr-form__field label {
+    font-family: var(--font-ui);
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--color-navy);
+  }
+
+  .fr-form__field input,
+  .fr-form__field select,
+  .fr-form__field textarea {
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    padding: 10px 14px;
+    border: 1px solid rgba(90, 90, 110, 0.2);
+    border-radius: 3px;
+    background: white;
+    color: var(--color-navy);
+    transition: border-color var(--transition-fast);
+  }
+
+  .fr-form__field input:focus,
+  .fr-form__field select:focus,
+  .fr-form__field textarea:focus {
+    outline: none;
+    border-color: var(--color-gold);
+    box-shadow: 0 0 0 3px rgba(198, 160, 50, 0.15);
+  }
+
+  .fr-form__field textarea {
+    resize: vertical;
+  }
+
+  .fr-form__checkbox {
+    display: flex;
+    align-items: flex-start;
+  }
+
+  .fr-form__checkbox label {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-family: var(--font-body);
+    font-size: 0.88rem;
+    color: var(--color-gray);
+    cursor: pointer;
+    line-height: 1.4;
+  }
+
+  .fr-form__checkbox input[type="checkbox"] {
+    margin-top: 3px;
+    accent-color: var(--color-gold);
+    flex-shrink: 0;
+  }
+
+  .fr-form__checkbox strong {
+    color: var(--color-navy);
+  }
+
+  .fr-form__submit {
+    font-family: var(--font-ui);
+    font-size: 0.9rem;
+    font-weight: 600;
+    padding: 12px 32px;
+    background: var(--color-crimson);
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    align-self: center;
+    transition: background var(--transition-fast);
+  }
+
+  .fr-form__submit:hover {
+    background: #6b1d00;
+  }
+
+  .fr-form__note {
+    font-family: var(--font-ui);
+    font-size: 0.78rem;
+    color: var(--color-gray);
+    text-align: center;
+  }
+
+  @media (max-width: 480px) {
+    .fr-form__row { grid-template-columns: 1fr; }
+  }
+
+  .back-link {
+    font-family: var(--font-ui);
+    font-size: 0.9rem;
+    color: var(--color-gold);
+    text-decoration: none;
+    font-weight: 500;
+  }
+  .back-link:hover { color: var(--color-crimson); }
+
+  @media (max-width: 768px) {
+    .fr-hero { min-height: 300px; }
+    .fr-hero__title { font-size: 2rem; }
+    .fr-intro { grid-template-columns: 1fr; gap: 32px; }
+    .fr-audience__grid { grid-template-columns: 1fr; }
+    .fr-twin { grid-template-columns: 1fr; }
+    .fr-twin__divider { width: 100%; height: 1px; margin: 8px 0; }
+    .fr-reading { flex-direction: column; gap: 2px; }
+    .fr-reading__work { text-align: left; }
+  }
+</style>

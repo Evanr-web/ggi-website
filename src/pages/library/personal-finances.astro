@@ -1,8 +1,52 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import ComingSoon from '../../components/ComingSoon.astro';
+import ArticleLayout from '../../layouts/ArticleLayout.astro';
+import Button from '../../components/Button.astro';
+const base = import.meta.env.BASE_URL;
 ---
 
-<BaseLayout title="Personal Finances — Gregory the Great Institute">
-  <ComingSoon title="Personal Finances" parentLabel="Library" parentHref={`${import.meta.env.BASE_URL}library/`} />
-</BaseLayout>
+<ArticleLayout
+  title="Master Your Money, Serve Your Vocation: Personal Finances 101"
+  author="Jesse Underwood"
+  date="April 9, 2026"
+  category="News"
+  readTime="1 min read"
+  authorImage="/images/branding/ggi-seal.png"
+  image="/images/events/finances-placeholder.jpg"
+  imageAlt="The Moneylender and His Wife by Quentin Matsys"
+  related={[
+    { title: "FINE Gathering in Ottawa and National Prayer Breakfast", href: `${base}library/fine-gathering-ottawa/`, meta: "News · Victor Carpay" },
+    { title: "Medicine Forgets Its Vocation: Alberta Places Guardrails", href: `${base}library/medicine-forgets-vocation/`, meta: "Essay · Dr. Woodard" },
+  ]}
+>
+  <p>
+    64% of Canadians report that they never learned how to manage money. That statistic alone
+    tells us something important — not just about financial literacy, but about how we think
+    about stewardship.
+  </p>
+
+  <p>
+    For Christians, money is not merely a tool for consumption. It is a resource entrusted to
+    us for the good of our families, our parishes, and our communities. Financial literacy,
+    rightly understood, is a form of stewardship — and stewardship is a vocation.
+  </p>
+
+  <p>
+    That is the vision behind <strong>Personal Finances 101</strong>, a new masterclass from the
+    Gregory the Great Institute. This isn't just another budgeting seminar. It's an invitation
+    to think about money in the light of Catholic social teaching — to understand debt, savings,
+    investment, and generosity as parts of a well-ordered life.
+  </p>
+
+  <p>
+    The masterclass will cover practical strategies for budgeting, saving, and investing, but
+    always in the context of a larger question: <em>How do I order my finances to support my
+    vocation?</em>
+  </p>
+
+  <p>
+    Whether you're a young adult just starting out, a family managing a household, or someone
+    looking to be more intentional with your resources, this masterclass is for you.
+  </p>
+
+  <Button href={`${base}events/finances-101/`} variant="primary" size="small">View Event Details</Button>
+</ArticleLayout>

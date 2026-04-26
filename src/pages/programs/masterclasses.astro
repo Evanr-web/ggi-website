@@ -1,8 +1,318 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import ComingSoon from '../../components/ComingSoon.astro';
+import Button from '../../components/Button.astro';
+import SectionDivider from '../../components/SectionDivider.astro';
 ---
 
-<BaseLayout title="Masterclasses — Gregory the Great Institute">
-  <ComingSoon title="Masterclasses" parentLabel="Programs" parentHref={`${import.meta.env.BASE_URL}programs/`} />
+<BaseLayout title="Masterclasses — The Great Tradition" description="Short courses on the Great Tradition — Aquinas, leadership, beauty, and classical education. Online and in-person.">
+
+  <!-- Hero -->
+  <section class="hero-mc section--dark">
+    <div class="hero-mc__bg" style={`background-image: url(${import.meta.env.BASE_URL}images/art/gozzoli-triumph-aquinas.jpg)`}></div>
+    <div class="hero-mc__overlay"></div>
+    <div class="hero-mc__content container">
+      <p class="label text-gold">Programs</p>
+      <h1 class="display">Masterclasses</h1>
+      <p class="hero-mc__subtitle">Short courses on the Great Tradition — online and in person.</p>
+    </div>
+  </section>
+
+  <!-- Intro -->
+  <section class="section">
+    <div class="container mc-intro">
+      <div class="section-header">
+        <p class="label text-gold">Learn from the Tradition</p>
+        <h2>Masterclasses on the Great Tradition</h2>
+      </div>
+      <p>
+        Our Masterclasses are short, focused courses designed to bring the riches of the Catholic
+        intellectual tradition to life. Led by expert instructors, each course combines lectures,
+        discussion, and primary source readings — available both online and in person across Canada.
+      </p>
+      <p>
+        Whether you're a teacher, parish leader, student, or simply a seeker, these courses offer a
+        rigorous yet accessible entry into the ideas that have shaped Western civilization.
+      </p>
+    </div>
+  </section>
+
+  <SectionDivider />
+
+  <!-- Course Cards -->
+  <section class="section section--linen">
+    <div class="container">
+      <div class="mc-grid">
+
+        <div class="mc-card">
+          <div class="mc-card__accent"></div>
+          <div class="mc-card__body">
+            <p class="label text-gold">Philosophy</p>
+            <h3>The Philosophy of Aquinas</h3>
+            <p>
+              An introduction to the thought of St. Thomas Aquinas — the Angelic Doctor whose synthesis
+              of faith and reason remains the cornerstone of Catholic philosophy. Topics include the five
+              ways, natural law, virtue, and the nature of the soul.
+            </p>
+          </div>
+        </div>
+
+        <div class="mc-card">
+          <div class="mc-card__accent"></div>
+          <div class="mc-card__body">
+            <p class="label text-gold">Leadership</p>
+            <h3>Virtuous Leadership</h3>
+            <p>
+              What does it mean to lead well? Drawing on Aristotle, Aquinas, and the Catholic tradition
+              of the virtues, this course equips participants to lead with prudence, justice, fortitude,
+              and temperance in professional and communal life.
+            </p>
+          </div>
+        </div>
+
+        <div class="mc-card">
+          <div class="mc-card__accent"></div>
+          <div class="mc-card__body">
+            <p class="label text-gold">Culture</p>
+            <h3>Christian Beauty and Art</h3>
+            <p>
+              Why does beauty matter? This course explores the Catholic theology of beauty — from the
+              cathedrals and icons of Christendom to the crisis of modern aesthetics — and asks how
+              Christians can recover the arts as a path to God.
+            </p>
+          </div>
+        </div>
+
+        <div class="mc-card">
+          <div class="mc-card__accent"></div>
+          <div class="mc-card__body">
+            <p class="label text-gold">Education</p>
+            <h3>Classical Education for Teachers</h3>
+            <p>
+              A practical and philosophical introduction to classical education for teachers and school
+              leaders. Covers the trivium, the liberal arts, the role of wonder, and how to build a
+              curriculum rooted in the Great Books tradition.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Format -->
+  <section class="section">
+    <div class="container mc-format">
+      <div class="section-header">
+        <p class="label text-gold">How It Works</p>
+        <h2>Course Format</h2>
+      </div>
+      <div class="format-grid">
+        <div class="format-item">
+          <strong>Duration</strong>
+          <p>4–6 sessions per course</p>
+        </div>
+        <div class="format-item">
+          <strong>Delivery</strong>
+          <p>Online (live) and in-person across Canada</p>
+        </div>
+        <div class="format-item">
+          <strong>Materials</strong>
+          <p>Reading guides and primary sources included</p>
+        </div>
+        <div class="format-item">
+          <strong>Community</strong>
+          <p>Small cohort format with discussion</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <SectionDivider />
+
+  <!-- CTA -->
+  <section class="section section--linen" style="text-align: center;">
+    <div class="container">
+      <h2>Join the Interest List</h2>
+      <p style="max-width: 560px; margin-inline: auto; font-family: var(--font-body); font-size: 1rem; line-height: 1.7; color: var(--color-gray); margin-bottom: 24px;">
+        New masterclass cohorts are announced throughout the year. Sign up to be the first to know
+        when registration opens.
+      </p>
+      <div class="cta-buttons">
+        <Button href={`${import.meta.env.BASE_URL}contact/`} variant="primary">Join Interest List</Button>
+        <Button href={`${import.meta.env.BASE_URL}programs/`} variant="secondary">← Back to Programs</Button>
+      </div>
+    </div>
+  </section>
+
 </BaseLayout>
+
+<style>
+  /* Hero */
+  .hero-mc {
+    position: relative;
+    min-height: 380px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  .hero-mc__bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center 20%;
+  }
+
+  .hero-mc__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(14, 51, 82, 0.72), rgba(14, 51, 82, 0.85));
+  }
+
+  .hero-mc__content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    max-width: 700px;
+    margin-inline: auto;
+    padding-block: 60px;
+  }
+
+  .hero-mc__content h1 {
+    color: var(--color-text-on-dark);
+    margin: 8px 0 12px;
+  }
+
+  .hero-mc__subtitle {
+    font-family: var(--font-body);
+    font-size: 1.1rem;
+    color: rgba(245, 239, 229, 0.85);
+    line-height: 1.6;
+  }
+
+  /* Intro */
+  .mc-intro {
+    max-width: 740px;
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  .mc-intro p {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    line-height: 1.75;
+    color: var(--color-gray);
+    margin-bottom: 14px;
+  }
+
+  /* Section header */
+  .section-header {
+    text-align: center;
+    margin-bottom: var(--space-component);
+  }
+
+  .section-header h2 {
+    margin-top: 8px;
+  }
+
+  /* Course Cards */
+  .mc-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    max-width: 900px;
+    margin-inline: auto;
+  }
+
+  .mc-card {
+    display: flex;
+    background-color: var(--color-parchment);
+    border: 1px solid rgba(90, 90, 110, 0.08);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .mc-card__accent {
+    width: 5px;
+    flex-shrink: 0;
+    background-color: var(--color-gold);
+  }
+
+  .mc-card__body {
+    padding: 28px 24px;
+  }
+
+  .mc-card__body h3 {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--color-navy);
+    margin: 6px 0 10px;
+  }
+
+  .mc-card__body p {
+    font-family: var(--font-body);
+    font-size: 0.92rem;
+    line-height: 1.65;
+    color: var(--color-gray);
+  }
+
+  @media (min-width: 640px) {
+    .mc-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  /* Format */
+  .mc-format {
+    max-width: 800px;
+    margin-inline: auto;
+  }
+
+  .format-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  .format-item {
+    text-align: center;
+    padding: 20px 16px;
+    background-color: var(--color-linen);
+    border-radius: 3px;
+  }
+
+  .format-item strong {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    color: var(--color-navy);
+    margin-bottom: 4px;
+  }
+
+  .format-item p {
+    font-family: var(--font-body);
+    font-size: 0.88rem;
+    color: var(--color-gray);
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  @media (min-width: 640px) {
+    .format-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  /* CTA */
+  .cta-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+  }
+
+  .section--linen {
+    background-color: var(--color-linen);
+  }
+</style>

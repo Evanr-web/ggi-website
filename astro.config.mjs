@@ -1,6 +1,7 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 import sanity from '@sanity/astro';
+import sitemap from '@astrojs/sitemap';
 
 const isGHPages = process.env.SITE?.includes('github.io');
 
@@ -15,5 +16,6 @@ export default defineConfig({
       dataset: 'production',
       useCdn: true,
     }),
+    sitemap(),
   ],
 });

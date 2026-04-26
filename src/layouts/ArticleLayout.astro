@@ -1,0 +1,334 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Button from '../components/Button.astro';
+
+interface RelatedArticle {
+  title: string;
+  href: string;
+  meta: string;
+}
+
+interface Props {
+  title: string;
+  author: string;
+  date: string;
+  category: string;
+  image?: string;
+  imageAlt?: string;
+  readTime?: string;
+  related?: RelatedArticle[];
+  authorImage?: string;
+}
+
+const { title, author, date, category, image, imageAlt = '', readTime, related = [], authorImage } = Astro.props;
+const authorImg = authorImage || '/images/branding/ggi-seal.png';
+const base = import.meta.env.BASE_URL;
+---
+
+<BaseLayout title={`${title} — Gregory the Great Institute`}>
+  <article class="article">
+    {image && (
+      <div class="article__hero">
+        <img src={image.startsWith('/') ? `${base}${image.slice(1)}` : image} alt={imageAlt} class="article__hero-img art-filter" />
+      </div>
+    )}
+    <div class="article__container container">
+      <div class="article__meta-bar">
+        <span class="article__category">{category}</span>
+      </div>
+      <h1 class="article__title">{title}</h1>
+      <div class="article__author-row">
+        <img src={authorImg.startsWith('/') ? `${base}${authorImg.slice(1)}` : authorImg} alt={author} class={`article__author-img${!authorImage ? ' article__author-img--seal' : ''}`} />
+        <div>
+          <p class="article__author-name">{author}</p>
+          <p class="article__author-meta">{date}{readTime ? ` · ${readTime}` : ''}</p>
+        </div>
+      </div>
+      <div class="article__body">
+        <slot />
+      </div>
+      {/* Related Articles */}
+      {related.length > 0 && (
+        <div class="article__related">
+          <h3 class="article__related-heading">You might also enjoy</h3>
+          <div class="article__related-list">
+            {related.map(r => (
+              <a href={r.href} class="article__related-card">
+                <span class="article__related-title">{r.title}</span>
+                <span class="article__related-meta">{r.meta}</span>
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Newsletter Signup */}
+      <div class="article__newsletter">
+        <h3 class="article__newsletter-heading">Stay in the conversation</h3>
+        <p class="article__newsletter-desc">
+          Get essays, event invitations, and reading recommendations from the Institute — free, monthly.
+        </p>
+        <form class="article__newsletter-form" action="#" method="POST">
+          <input type="email" name="email" placeholder="Email address" required aria-label="Email address" />
+          <button type="submit">Subscribe to Magnalia Letter</button>
+        </form>
+      </div>
+
+      <div class="article__footer">
+        <a href={`${base}library/`} class="back-link">← Back to Library</a>
+      </div>
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .article__hero {
+    width: 100%;
+    height: 300px;
+    overflow: hidden;
+  }
+
+  .article__hero-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .article__container {
+    max-width: 680px;
+    padding-top: 32px;
+    padding-bottom: 48px;
+  }
+
+  .article__meta-bar {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+
+  .article__category {
+    font-family: var(--font-ui);
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-gold);
+  }
+
+  .article__title {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    color: var(--color-navy);
+    line-height: 1.2;
+    margin-bottom: 16px;
+  }
+
+  .article__author-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 32px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid rgba(90, 90, 110, 0.1);
+  }
+
+  .article__author-img {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+  }
+
+  .article__author-img--seal {
+    object-fit: contain;
+    background: var(--color-linen);
+    padding: 4px;
+  }
+
+  .article__author-name {
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--color-navy);
+    line-height: 1.2;
+  }
+
+  .article__author-meta {
+    font-family: var(--font-ui);
+    font-size: 0.8rem;
+    color: var(--color-gray);
+  }
+
+  .article__body :global(p) {
+    font-family: var(--font-body);
+    font-size: 1.05rem;
+    line-height: 1.85;
+    color: var(--color-gray);
+    margin-bottom: 16px;
+  }
+
+  .article__body :global(h2) {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    color: var(--color-navy);
+    margin-top: 32px;
+    margin-bottom: 12px;
+  }
+
+  .article__body :global(blockquote) {
+    border-left: 3px solid var(--color-gold);
+    padding-left: 20px;
+    margin: 24px 0;
+    font-style: italic;
+    color: var(--color-navy);
+  }
+
+  .article__body :global(blockquote p) {
+    color: var(--color-navy);
+  }
+
+  /* Related Articles */
+  .article__related {
+    margin-top: 40px;
+    padding-top: 28px;
+    border-top: 1px solid rgba(90, 90, 110, 0.1);
+  }
+
+  .article__related-heading {
+    font-family: var(--font-ui);
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-gold);
+    margin-bottom: 12px;
+  }
+
+  .article__related-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .article__related-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 12px 16px;
+    background: var(--color-linen);
+    border-radius: 3px;
+    text-decoration: none;
+    gap: 16px;
+    transition: border-color var(--transition-fast), background var(--transition-fast);
+    border: 1px solid transparent;
+  }
+
+  .article__related-card:hover {
+    border-color: var(--color-gold);
+    background: white;
+  }
+
+  .article__related-title {
+    font-family: var(--font-display);
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: var(--color-navy);
+  }
+
+  .article__related-meta {
+    font-family: var(--font-ui);
+    font-size: 0.78rem;
+    color: var(--color-gray);
+    white-space: nowrap;
+  }
+
+  /* Newsletter */
+  .article__newsletter {
+    margin-top: 32px;
+    padding: 28px;
+    background: var(--color-linen);
+    border-radius: 3px;
+    text-align: center;
+  }
+
+  .article__newsletter-heading {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    color: var(--color-navy);
+    margin-bottom: 6px;
+  }
+
+  .article__newsletter-desc {
+    font-family: var(--font-body);
+    font-size: 0.88rem;
+    color: var(--color-gray);
+    margin-bottom: 16px;
+    line-height: 1.5;
+  }
+
+  .article__newsletter-form {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .article__newsletter-form input {
+    font-family: var(--font-ui);
+    font-size: 0.88rem;
+    padding: 10px 14px;
+    border: 1px solid rgba(90, 90, 110, 0.2);
+    border-radius: 3px;
+    background: white;
+    color: var(--color-navy);
+    min-width: 200px;
+    outline: none;
+  }
+
+  .article__newsletter-form input:focus {
+    border-color: var(--color-gold);
+    box-shadow: 0 0 0 3px rgba(198, 160, 50, 0.15);
+  }
+
+  .article__newsletter-form button {
+    font-family: var(--font-ui);
+    font-size: 0.85rem;
+    font-weight: 600;
+    padding: 10px 20px;
+    background: var(--color-gold);
+    color: var(--color-navy);
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background var(--transition-fast);
+  }
+
+  .article__newsletter-form button:hover {
+    background: #b8922a;
+  }
+
+  .article__footer {
+    margin-top: 24px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(90, 90, 110, 0.1);
+  }
+
+  .back-link {
+    font-family: var(--font-ui);
+    font-size: 0.9rem;
+    color: var(--color-gold);
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  .back-link:hover {
+    color: var(--color-crimson);
+  }
+
+  @media (max-width: 768px) {
+    .article__hero { height: 200px; }
+    .article__title { font-size: 1.6rem; }
+  }
+</style>

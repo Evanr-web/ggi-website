@@ -1,0 +1,70 @@
+---
+import ArticleLayout from '../../layouts/ArticleLayout.astro';
+import Button from '../../components/Button.astro';
+const base = import.meta.env.BASE_URL;
+---
+
+<ArticleLayout
+  title="Christmas Book Recommendations 2025"
+  author="Gregory the Great Institute"
+  date="December 2025"
+  category="Resource"
+  image="/images/art/roestraten-still-life-books.jpg"
+  imageAlt="Still Life of Books by Pseudo-Roestraten"
+  related={[
+    { title: "The Abolition of Man Study Guide", href: `${base}library/abolition-of-man-guide/`, meta: "Resource · GGI" },
+    { title: "5 Ways to Celebrate Easter as a Family", href: `${base}library/easter-family/`, meta: "Resource · Catherine Renneberg" },
+  ]}
+>
+  <p>
+    Each year, the Gregory the Great Institute curates a list of books worth giving — and
+    reading — during the Christmas season. These are not bestsellers or beach reads. They
+    are books that reward careful attention, that deepen the mind and the spirit, and that
+    make excellent gifts for the thoughtful reader in your life.
+  </p>
+
+  <p>
+    Our 2025 list draws from theology, philosophy, literature, and history — the traditions
+    that have shaped Catholic culture for centuries and continue to offer wisdom for our time.
+  </p>
+
+  <div class="resource-download">
+    <a href="#" class="resource-download__btn">Download Christmas Book Recommendations</a>
+    <p class="resource-download__note">Free PDF · No signup required</p>
+  </div>
+</ArticleLayout>
+
+<style>
+  .resource-download {
+    background: var(--color-linen);
+    border: 1px solid rgba(198, 160, 50, 0.3);
+    border-radius: 3px;
+    padding: 28px;
+    text-align: center;
+    margin-top: 28px;
+  }
+
+  .resource-download__btn {
+    display: inline-block;
+    font-family: var(--font-ui);
+    font-size: 0.9rem;
+    font-weight: 600;
+    padding: 12px 28px;
+    background: var(--color-crimson);
+    color: white;
+    border-radius: 3px;
+    text-decoration: none;
+    transition: background var(--transition-fast);
+  }
+
+  .resource-download__btn:hover {
+    background: #6b1d00;
+  }
+
+  .resource-download__note {
+    font-family: var(--font-ui);
+    font-size: 0.78rem;
+    color: var(--color-gray);
+    margin-top: 8px;
+  }
+</style>

@@ -1,0 +1,134 @@
+---
+import ArticleLayout from '../../layouts/ArticleLayout.astro';
+import Button from '../../components/Button.astro';
+const base = import.meta.env.BASE_URL;
+---
+
+<ArticleLayout
+  title="5 Ways to Celebrate Easter as a Family"
+  author="Catherine Renneberg"
+  date="January 2026"
+  category="Resource"
+  authorImage="/images/people/Catherine-Renneberg-headshot.jpg"
+  image="/images/art/caravaggio-supper-emmaus.jpg"
+  imageAlt="Supper at Emmaus by Caravaggio, 1601"
+  related={[
+    { title: "Christmas Book Recommendations 2025", href: `${base}library/christmas-books-2025/`, meta: "Resource · GGI" },
+    { title: "The Abolition of Man Study Guide", href: `${base}library/abolition-of-man-guide/`, meta: "Resource · GGI" },
+  ]}
+>
+  <p>
+    Easter is the centre of the Christian year — the feast that gives meaning to everything
+    else. But in a culture that moves quickly from one holiday to the next, it can be
+    difficult to give the Paschal season the attention it deserves, especially with children.
+  </p>
+
+  <p>
+    This short guide offers five practical ideas for families looking to deepen their
+    celebration of Easter at home. From simple traditions to liturgical practices, these
+    suggestions are designed to help families — whether just starting out or looking for
+    new ways to mark the season — enter more deeply into the mystery of the Resurrection.
+  </p>
+
+  <div class="resource-download">
+    <h3 class="resource-download__heading">Get this resource</h3>
+    <p class="resource-download__desc">Enter your email and we'll send you a copy.</p>
+    <form class="resource-download__form" action="#" method="POST">
+      <input type="hidden" name="resource" value="easter-family" />
+      <input type="email" name="email" required placeholder="Email address" aria-label="Email address" />
+      <button type="submit">Email Me a Copy</button>
+    </form>
+    <label class="resource-download__optin">
+      <input type="checkbox" name="magnalia_letter" value="yes" />
+      <span>I'd like to receive future resources and essays from <strong>Magnalia Letter</strong></span>
+    </label>
+  </div>
+</ArticleLayout>
+
+<style>
+  .resource-download {
+    background: var(--color-linen);
+    border: 1px solid rgba(198, 160, 50, 0.3);
+    border-radius: 3px;
+    padding: 28px;
+    text-align: center;
+    margin-top: 28px;
+  }
+
+  .resource-download__heading {
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    color: var(--color-navy);
+    margin-bottom: 4px;
+  }
+
+  .resource-download__desc {
+    font-family: var(--font-body) !important;
+    font-size: 0.88rem !important;
+    color: var(--color-gray) !important;
+    margin-bottom: 16px !important;
+  }
+
+  .resource-download__form {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 12px;
+  }
+
+  .resource-download__form :global(input[type="email"]) {
+    font-family: var(--font-ui);
+    font-size: 0.88rem;
+    padding: 10px 14px;
+    border: 1px solid rgba(90, 90, 110, 0.2);
+    border-radius: 3px;
+    background: white;
+    color: var(--color-navy);
+    min-width: 200px;
+    outline: none;
+  }
+
+  .resource-download__form :global(input[type="email"]):focus {
+    border-color: var(--color-gold);
+    box-shadow: 0 0 0 3px rgba(198, 160, 50, 0.15);
+  }
+
+  .resource-download__form :global(button) {
+    font-family: var(--font-ui);
+    font-size: 0.85rem;
+    font-weight: 600;
+    padding: 10px 20px;
+    background: var(--color-crimson);
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background var(--transition-fast);
+  }
+
+  .resource-download__form :global(button:hover) {
+    background: #6b1d00;
+  }
+
+  .resource-download__optin {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    justify-content: center;
+    font-family: var(--font-body);
+    font-size: 0.82rem;
+    color: var(--color-gray);
+    cursor: pointer;
+  }
+
+  .resource-download__optin :global(input[type="checkbox"]) {
+    margin-top: 2px;
+    accent-color: var(--color-gold);
+    flex-shrink: 0;
+  }
+
+  .resource-download__optin :global(strong) {
+    color: var(--color-navy);
+  }
+</style>

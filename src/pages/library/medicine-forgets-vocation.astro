@@ -1,8 +1,91 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import ComingSoon from '../../components/ComingSoon.astro';
+import ArticleLayout from '../../layouts/ArticleLayout.astro';
 ---
 
-<BaseLayout title="When Medicine Forgets Its Vocation — Gregory the Great Institute">
-  <ComingSoon title="When Medicine Forgets Its Vocation" parentLabel="Library" parentHref={`${import.meta.env.BASE_URL}library/`} />
-</BaseLayout>
+<ArticleLayout
+  title="Medicine Forgets Its Vocation: Alberta Places Guardrails"
+  author="Dr. Joseph Woodard"
+  date="March 20, 2026"
+  category="Essay"
+  readTime="4 min read"
+  authorImage="/images/people/Joe-Woodard-headshot.jpg"
+  image="/images/art/raphael-resurrection.jpg"
+  imageAlt="Resurrection of Christ by Raphael"
+  related={[
+    { title: "FINE Gathering in Ottawa and National Prayer Breakfast", href: `${import.meta.env.BASE_URL}library/fine-gathering-ottawa/`, meta: "News · Victor Carpay" },
+    { title: "The Abolition of Man Study Guide", href: `${import.meta.env.BASE_URL}library/abolition-of-man-guide/`, meta: "Resource · GGI" },
+  ]}
+>
+  <p>
+    When hospital chaplains find themselves counselling traumatized healthcare professionals,
+    something has gone badly wrong with the practice of medicine.
+  </p>
+
+  <p>
+    This is not a hypothetical scenario. Across Canada, healthcare workers are reporting
+    moral distress at levels unprecedented in the history of the profession. The source of
+    that distress is not overwork alone — though the pandemic made that worse — but something
+    deeper: a growing sense that the profession itself has lost its way.
+  </p>
+
+  <h2>The Expansion of MAID</h2>
+
+  <p>
+    At the centre of this crisis is Canada's Medical Assistance in Dying (MAID) regime.
+    Since its introduction in 2016, MAID has expanded rapidly — both in the number of deaths
+    and in the categories of people eligible. What began as a narrow exception for those at
+    the very end of life has become, in practice, an increasingly routine part of Canadian
+    healthcare.
+  </p>
+
+  <p>
+    The statistics are stark. In 2022, MAID accounted for 4.1% of all deaths in Canada —
+    a figure that has risen every year since the law was enacted. The trajectory is clear,
+    and it raises profound questions about what medicine is for.
+  </p>
+
+  <h2>Alberta's Response</h2>
+
+  <p>
+    In this context, Alberta's decision to place guardrails on the practice of MAID
+    deserves serious attention. The province has moved to ensure conscience protections
+    for healthcare workers, to require more rigorous assessment processes, and to invest
+    in palliative care as a genuine alternative.
+  </p>
+
+  <p>
+    These are not radical measures. They are, in fact, a return to basic principles that
+    the medical profession once took for granted: that the physician's primary obligation
+    is to heal, to comfort, and — when healing is no longer possible — to accompany the
+    patient with dignity through the end of life.
+  </p>
+
+  <blockquote>
+    <p>
+      The question is not whether we can end suffering by ending life. The question is
+      whether a society that does so can still call itself civilized.
+    </p>
+  </blockquote>
+
+  <h2>Medicine as Vocation</h2>
+
+  <p>
+    The Catholic tradition has always understood medicine as a vocation — not merely a
+    profession, but a calling. The physician stands in a relationship of trust with the
+    patient that is, at its deepest level, a form of service. When that relationship is
+    distorted — when the doctor becomes an agent of death rather than a servant of life —
+    something essential is lost.
+  </p>
+
+  <p>
+    Alberta's guardrails are a step in the right direction. But they are only a step.
+    The deeper work — of recovering a vision of medicine as vocation, of rebuilding a
+    culture of life within our healthcare institutions — will require sustained effort
+    from Catholics and all people of good will.
+  </p>
+
+  <p>
+    The chaplains counselling traumatized healthcare workers know this. The question is
+    whether the rest of us are willing to listen.
+  </p>
+</ArticleLayout>

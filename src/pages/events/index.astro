@@ -2,6 +2,97 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import EventCard from '../../components/EventCard.astro';
 import Button from '../../components/Button.astro';
+
+const base = import.meta.env.BASE_URL;
+
+// All events in one array — sorted automatically by date
+const events = [
+  {
+    title: "2026 Book Study — Searching for and Maintaining Peace",
+    month: "Feb", day: "1", date: "2026-02-01",
+    location: "Locations across Canada",
+    description: "Fr. Jacques Philippe's beloved guide to interior peace. Join a local reading group or follow along online.",
+    href: `${base}events/book-study-feb-2026/`,
+    programTag: "Book Study",
+    thumbnail: "/images/events/book-study-placeholder.jpg",
+    thumbnailAlt: "Leather-bound books"
+  },
+  {
+    title: "GGI at Provincial Prayer Breakfast",
+    month: "Mar", day: "18", date: "2026-03-18",
+    location: "Edmonton, AB",
+    description: "The GGI team attended the annual Premier's Prayer Breakfast in Alberta.",
+    href: `${base}events/prayer-breakfast-2026/`,
+    programTag: "Community",
+    thumbnail: "/images/events/prayer-breakfast-placeholder.jpg",
+    thumbnailAlt: "Candles"
+  },
+  {
+    title: "Personal Finances 101",
+    month: "Apr", day: "25", date: "2026-04-25",
+    location: "Concordia University of Edmonton",
+    description: "Master your money, serve your vocation. Financial literacy as stewardship and Catholic formation. Led by Jesse Underwood.",
+    href: `${base}events/finances-101/`,
+    programTag: "Masterclass",
+    thumbnail: "/images/events/finances-placeholder.jpg",
+    thumbnailAlt: "The Moneylender and His Wife"
+  },
+  {
+    title: "2026 Book Study — Animal Farm",
+    month: "May", day: "1", date: "2026-05-01",
+    location: "Locations across Canada",
+    description: "George Orwell's classic political fable, read through the lens of Catholic social teaching.",
+    href: `${base}events/book-study-may-2026/`,
+    programTag: "Book Study",
+    thumbnail: "/images/events/animal-farm-morland.jpg",
+    thumbnailAlt: "Pigs by George Morland"
+  },
+  {
+    title: "St. Gregory's Music & Leadership Camp",
+    month: "Jul", day: "12", date: "2026-07-12",
+    location: "Solara Water's Edge, Parkland County, AB",
+    description: "Four nights of fiddle, penny whistle, voice, games, prayer, and leadership for youth ages 12–18. $350/child, family discounts available.",
+    href: `${base}events/music-camp-2026/`,
+    programTag: "Camp",
+    thumbnail: "/images/events/music-camp-hero-outdoor.jpeg",
+    thumbnailAlt: "Youth at music camp outdoors"
+  },
+  {
+    title: "2026 Book Study — Leisure: The Basis of Culture",
+    month: "Sep", day: "1", date: "2026-09-01",
+    location: "Locations across Canada",
+    description: "Josef Pieper's masterwork on why contemplation — not productivity — is the foundation of civilization.",
+    href: `${base}events/book-study-sep-2026/`,
+    programTag: "Book Study",
+    thumbnail: "/images/events/leisure-bruegel-harvesters.jpg",
+    thumbnailAlt: "The Harvesters by Pieter Bruegel the Elder"
+  },
+  {
+    title: "Bringing Back Sunday — Renewing Culture Conference",
+    month: "Oct", day: "2", date: "2026-10-02",
+    location: "Mt Carmel Spirituality Centre",
+    description: "2nd Annual Renewing Culture Conference. Two days of speakers, seminars, prayer, and fellowship reflecting on Pieper's Leisure.",
+    href: `${base}events/conference-2026/`,
+    programTag: "Conference",
+    thumbnail: "/images/events/2026-renewing-culture-conference-art.jpg",
+    thumbnailAlt: "Adoration of the Mystic Lamb"
+  },
+  {
+    title: "1st Annual Renewing Culture Conference",
+    month: "Oct", day: "4", date: "2025-10-04",
+    location: "Newman Theological College",
+    description: "Inaugural conference featuring Dr. Ryan Topping and guests. Socratic seminars on Newman, Chesterton, and the renewal of Catholic culture.",
+    href: `${base}events/conference-2025/`,
+    programTag: "Conference",
+    thumbnail: "/images/events/2026-renewing-culture-conference-art.jpg",
+    thumbnailAlt: "Conference art"
+  },
+];
+
+// Auto-split based on today's date
+const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
+const upcoming = events.filter(e => e.date >= today).sort((a, b) => a.date.localeCompare(b.date));
+const past = events.filter(e => e.date < today).sort((a, b) => b.date.localeCompare(a.date)); // newest first
 ---
 
 <BaseLayout title="Events" description="Upcoming conferences, courses, book studies, and community gatherings across Canada.">
@@ -9,158 +100,75 @@ import Button from '../../components/Button.astro';
   <!-- Hero -->
   <section class="hero-compact section--dark">
     <div class="container" style="text-align: center; padding-block: 60px;">
-      <h1 class="display" style="color: var(--color-text-on-dark);">Upcoming Events</h1>
+      <h1 class="display" style="color: var(--color-text-on-dark);">Events</h1>
       <p style="font-family: var(--font-body); font-size: 1.05rem; color: rgba(245,239,229,0.8); max-width: 600px; margin-inline: auto; margin-top: 12px; line-height: 1.7;">
         Join us across Canada for conferences, courses, book studies, and community gatherings.
       </p>
     </div>
   </section>
 
-  <!-- Upcoming Events -->
-  <section class="section">
-    <div class="container">
-      <div class="events-list">
-        <EventCard
-          title="Personal Finances 101"
-          month="Apr"
-          day="25"
-          date="2026-04-25"
-          location="Concordia University of Edmonton"
-          description="Master your money, serve your vocation. Financial literacy as stewardship and Catholic formation. Led by Jesse Underwood."
-          href={`${import.meta.env.BASE_URL}events/finances-101/`}
-          programTag="Masterclass"
-          thumbnail="/images/events/finances-placeholder.jpg"
-          thumbnailAlt="Chalice"
-        />
-        <EventCard
-          title="2026 Book Study — Searching for and Maintaining Peace"
-          month="Feb"
-          day="1"
-          date="2026-02-01"
-          location="Locations across Canada"
-          description="Fr. Jacques Philippe's beloved guide to interior peace. Join a local reading group or follow along online."
-          href={`${import.meta.env.BASE_URL}events/book-study-feb-2026/`}
-          programTag="Book Study"
-          thumbnail="/images/events/book-study-placeholder.jpg"
-          thumbnailAlt="Leather-bound books"
-        />
-        <EventCard
-          title="2026 Book Study — Animal Farm"
-          month="May"
-          day="1"
-          date="2026-05-01"
-          location="Locations across Canada"
-          description="George Orwell's classic political fable, read through the lens of Catholic social teaching."
-          href={`${import.meta.env.BASE_URL}events/book-study-may-2026/`}
-          programTag="Book Study"
-          thumbnail="/images/events/book-study-placeholder.jpg"
-          thumbnailAlt="Leather-bound books"
-        />
-        <EventCard
-          title="St. Gregory's Music & Leadership Camp"
-          month="Jul"
-          day="12"
-          date="2026-07-12"
-          location="Solara Water's Edge, Parkland County, AB"
-          description="Four nights of fiddle, penny whistle, voice, games, prayer, and leadership for youth ages 12–18. $350/child, family discounts available."
-          href={`${import.meta.env.BASE_URL}events/music-camp-2026/`}
-          programTag="Camp"
-          thumbnail="/images/events/music-camp-hero-outdoor.jpeg"
-          thumbnailAlt="Youth at music camp outdoors"
-        />
-        <EventCard
-          title="2026 Book Study — Leisure: The Basis of Culture"
-          month="Sep"
-          day="1"
-          date="2026-09-01"
-          location="Locations across Canada"
-          description="Josef Pieper's masterwork on why contemplation — not productivity — is the foundation of civilization."
-          href={`${import.meta.env.BASE_URL}events/book-study-sep-2026/`}
-          programTag="Book Study"
-          thumbnail="/images/events/book-study-placeholder.jpg"
-          thumbnailAlt="Leather-bound books"
-        />
-        <EventCard
-          title="Bringing Back Sunday — Renewing Culture Conference"
-          month="Oct"
-          day="2"
-          date="2026-10-02"
-          location="Mt Carmel Spirituality Centre"
-          description="2nd Annual Renewing Culture Conference. Two days of speakers, seminars, prayer, and fellowship reflecting on Pieper's Leisure."
-          href={`${import.meta.env.BASE_URL}events/conference-2026/`}
-          programTag="Conference"
-          thumbnail="/images/events/2026-renewing-culture-conference-art.jpg"
-          thumbnailAlt="Adoration of the Mystic Lamb"
-        />
+  {upcoming.length > 0 && (
+    <section class="section">
+      <div class="container">
+        <h2 style="margin-bottom: 24px;">Upcoming</h2>
+        <div class="events-list">
+          {upcoming.map(e => (
+            <EventCard
+              title={e.title}
+              month={e.month}
+              day={e.day}
+              date={e.date}
+              location={e.location}
+              description={e.description}
+              href={e.href}
+              programTag={e.programTag}
+              thumbnail={e.thumbnail}
+              thumbnailAlt={e.thumbnailAlt}
+            />
+          ))}
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
+  )}
 
-  <!-- Past Events -->
-  <section class="section section--linen">
-    <div class="container">
-      <h2 style="margin-bottom: 24px;">Past Events</h2>
-      <div class="events-list events-list--past">
-        <EventCard
-          title="GGI at Provincial Prayer Breakfast"
-          month="Mar"
-          day="18"
-          date="2026-03-18"
-          location="Edmonton, AB"
-          description="The GGI team attended the annual Premier's Prayer Breakfast in Alberta."
-          href={`${import.meta.env.BASE_URL}events/prayer-breakfast-2026/`}
-          programTag="Community"
-          thumbnail="/images/events/prayer-breakfast-placeholder.jpg"
-          thumbnailAlt="Candles"
-        />
-        <EventCard
-          title="1st Annual Renewing Culture Conference"
-          month="Oct"
-          day="4"
-          date="2025-10-04"
-          location="Edmonton, AB"
-          description="The inaugural Renewing Culture Conference — GGI's first major public gathering."
-          href={`${import.meta.env.BASE_URL}events/conference-2025/`}
-          programTag="Conference"
-          thumbnail="/images/events/2026-renewing-culture-conference-art.jpg"
-          thumbnailAlt="Adoration of the Mystic Lamb"
-        />
+  {past.length > 0 && (
+    <section class="section section--linen">
+      <div class="container">
+        <h2 style="margin-bottom: 24px;">Past Events</h2>
+        <div class="events-list events-list--past">
+          {past.map(e => (
+            <EventCard
+              title={e.title}
+              month={e.month}
+              day={e.day}
+              date={e.date}
+              location={e.location}
+              description={e.description}
+              href={e.href}
+              programTag={e.programTag}
+              thumbnail={e.thumbnail}
+              thumbnailAlt={e.thumbnailAlt}
+              past={true}
+            />
+          ))}
+        </div>
       </div>
-    </div>
-  </section>
-
-  <!-- Newsletter -->
-  <section class="section" style="text-align: center;">
-    <div class="container" style="max-width: 500px;">
-      <p style="font-family: var(--font-body); font-size: 1rem; color: var(--color-gray); font-style: italic; margin-bottom: 16px;">
-        No upcoming events right now? Subscribe to the Magnalia Letter to be the first to know.
-      </p>
-      <Button href={`${import.meta.env.BASE_URL}magnalia/letter/`} variant="secondary" size="small">Subscribe Free</Button>
-    </div>
-  </section>
-
+    </section>
+  )}
 </BaseLayout>
 
 <style>
-  .hero-compact {
-    background-color: var(--color-navy);
-  }
-
   .events-list {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 24px;
   }
 
   .events-list--past :global(.event-card) {
-    opacity: 0.65;
+    opacity: 0.7;
   }
 
   .events-list--past :global(.event-card:hover) {
-    opacity: 0.85;
-  }
-
-  .section--linen {
-    background-color: var(--color-linen);
+    opacity: 1;
   }
 </style>

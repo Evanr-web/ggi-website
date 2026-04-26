@@ -1,8 +1,396 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import ComingSoon from '../../components/ComingSoon.astro';
+import Button from '../../components/Button.astro';
+import SectionDivider from '../../components/SectionDivider.astro';
+const base = import.meta.env.BASE_URL;
 ---
 
-<BaseLayout title="Founding Director — Gregory the Great Institute">
-  <ComingSoon title="Founding Director" parentLabel="About" parentHref={`${import.meta.env.BASE_URL}about/`} />
+<BaseLayout title="Founding Director — Dr. Ryan N.S. Topping" description="Dr. Ryan N.S. Topping is the Founding Executive Director of the Gregory the Great Institute. Convert, scholar, father of eight, author of eleven books.">
+
+  <!-- Hero -->
+  <section class="section--dark" style="padding: 60px 0; text-align: center;">
+    <div class="container">
+      <p class="label text-gold">About the Institute</p>
+      <h1 class="display" style="color: var(--color-text-on-dark); margin-top: 8px;">Our Founder's Story</h1>
+    </div>
+  </section>
+
+  <!-- Intro -->
+  <section class="section">
+    <div class="container profile">
+      <div class="profile__photo-col">
+        <img src={`${base}images/people/ryan-topping-portrait.jpg`} alt="Dr. Ryan N.S. Topping" class="profile__photo" />
+      </div>
+      <div class="profile__text-col">
+        <p class="label text-gold">Founder & Executive Director</p>
+        <h2>Dr. Ryan N.S. Topping</h2>
+        <p>
+          Dr. Ryan Topping is the Founder and Executive Director of the Gregory the Great Institute. He is thrilled to be serving with a wonderful team of staff and advisors. Here is a little about his story.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <SectionDivider />
+
+  <!-- Conversion & Early Years -->
+  <section class="section section--linen">
+    <div class="container story">
+      <div class="story__text">
+        <h3>From Saskatchewan to Rome</h3>
+        <p>
+          Ryan and his wife, Anna, grew up as Mennonites in Saskatchewan and British Columbia; they converted to Catholicism after a long search, help from many friends, and attending the funeral of John Paul II in Rome while studying at Oxford University.
+        </p>
+        <p>
+          After training to be a Mennonite pastor, and completing undergraduate work in classics, philosophy, and theology, Ryan completed an MA in philosophy at the University of Manitoba on Plato's account of human psychology.
+        </p>
+        <p>
+          Shortly after Ryan and Anna were married they helped to found an intentional Christian community, "Emmaus House," with several other dear friends near the downtown area of Winnipeg.
+        </p>
+      </div>
+      <div class="story__image">
+        <img src={`${base}images/people/ryan-anna-topping.jpg`} alt="Ryan and Anna Topping at St. Peter's Square, Rome" />
+        <span class="story__caption">Ryan and Anna at St. Peter's Square</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Oxford -->
+  <section class="section">
+    <div class="container story story--reverse">
+      <div class="story__text">
+        <h3>Oxford</h3>
+        <p>
+          Ryan's next phase of formation was at Oxford where he studied under, among others, Oliver O'Donovan, Fr. Aidan Nichols, O.P., and Sir Roger Scruton. His Masters work in theology focused on the theological foundations of modern political thought; his Doctoral work focused on St. Augustine's moral and educational philosophy.
+        </p>
+        <p>
+          During his years of doctoral formation he was influenced by such leading Catholic thinkers as John Finnis, Ralph McInerny, Fr. John Saward, Stratford Caldecott, and C.S. Lewis' last secretary, Walter Hooper.
+        </p>
+        <p>
+          The Oxford Oratory, one time home to Cardinal Newman and Gerard Manley Hopkins, offered the Toppings their first experience of Catholic parish life. Even better than earning a doctorate, the Toppings returned home to North America in 2008 with their first sons, Peter and Joseph.
+        </p>
+      </div>
+      <div class="story__image">
+        <img src={`${base}images/people/ryan-topping-oxford.jpg`} alt="The Topping family" />
+        <span class="story__caption">The Topping family</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Academic Career -->
+  <section class="section section--linen">
+    <div class="container story">
+      <div class="story__text">
+        <h3>Building Catholic Studies in Canada</h3>
+        <p>
+          As a professor, Ryan helped establish the Catholic Studies Program at St. Thomas College (Saskatoon, SK), held the Chair in Catholic Studies at St. Thomas University (Fredericton, NB), then served as a Fellow at a classically-oriented Catholic Great Books college, the Thomas More College of the Liberal Arts, just north of Boston.
+        </p>
+        <p>
+          Feeling a strong tug to be nearer to family and to serve in the Church's intellectual apostolate nearer to home, the Toppings returned to Canada seven years ago, when Ryan took the position of Vice-President and Academic Dean at Newman Theological College, Edmonton, AB. Their family by this time had grown to 8 lovely children.
+        </p>
+        <p>
+          At Newman, Ryan helped the college solidify its accreditation status, establish its first BA in Catholic Studies, secure over 1 million dollars in funding for outreach programs, publish a first-of-its-kind national study on newly ordained priests in Canada, and nearly double the college's student enrollment.
+        </p>
+        <p>
+          During these years Ryan helped launch other outreach initiatives at NTC including a yearly Faith and Reason Seminar for professionals, the John Paul II Leadership Camp for youth, and the Catholic Culture Internship program for students.
+        </p>
+      </div>
+      <div class="story__image">
+        <img src={`${base}images/people/ryan-topping-teaching.jpg`} alt="Dr. Topping teaching in the Canadian Rockies" />
+        <span class="story__caption">Teaching in the Rockies</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Family & Today -->
+  <section class="section">
+    <div class="container story story--reverse">
+      <div class="story__text">
+        <h3>Family & Vocation</h3>
+        <p>
+          The Toppings are privileged to be a founding family of Campion Classical Academy, where Anna serves as the Administrator. Their eldest son, a graduate of Campion, is currently studying as a seminarian.
+        </p>
+        <p>
+          Ryan is a sought-after speaker and has published 11 books on Catholic culture and education and dozens of articles and interviews in outlets such as First Things, EWTN, Word on Fire, Crisis, Catholic World Report, National Catholic Register, Shalom Media, and the Epoch Times.
+        </p>
+        <p>
+          Topping is a recipient of the <strong>Queen Elizabeth II Platinum Jubilee Medal</strong> (Alberta).
+        </p>
+      </div>
+      <div class="story__image">
+        <img src={`${base}images/people/topping-family.jpg`} alt="The Topping family" />
+        <span class="story__caption">The Topping family</span>
+      </div>
+    </div>
+  </section>
+
+  <SectionDivider />
+
+  <!-- Publications -->
+  <section class="section section--linen">
+    <div class="container">
+      <div class="section-header">
+        <p class="label text-gold">Selected Works</p>
+        <h2>Key Publications</h2>
+      </div>
+      <div class="pub-list">
+        <div class="pub-item">
+          <span class="pub-item__title">Thinking as Though God Exists: Newman on Evangelizing the 'Nones'</span>
+          <span class="pub-item__note">Most recent</span>
+        </div>
+        <div class="pub-item">
+          <span class="pub-item__title">The Case for Catholic Education</span>
+        </div>
+        <div class="pub-item">
+          <span class="pub-item__title">Rebuilding Catholic Culture</span>
+        </div>
+        <div class="pub-item">
+          <span class="pub-item__title">St. Augustine's Moral and Educational Philosophy</span>
+          <span class="pub-item__note">Oxford DPhil</span>
+        </div>
+      </div>
+      <p class="pub-count">Author of <strong>11 books</strong> on Catholic culture and education.</p>
+    </div>
+  </section>
+
+  <!-- Media & Speaking -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <p class="label text-gold">In the Media</p>
+        <h2>Speaking & Appearances</h2>
+      </div>
+      <p class="media-intro">
+        Dr. Topping is a frequent contributor and speaker across Catholic media and intellectual life.
+      </p>
+      <div class="media-grid">
+        <div class="media-tag">First Things</div>
+        <div class="media-tag">EWTN</div>
+        <div class="media-tag">Word on Fire</div>
+        <div class="media-tag">Crisis Magazine</div>
+        <div class="media-tag">Catholic World Report</div>
+        <div class="media-tag">National Catholic Register</div>
+        <div class="media-tag">Shalom Media</div>
+        <div class="media-tag">The Epoch Times</div>
+      </div>
+    </div>
+  </section>
+
+  <SectionDivider />
+
+  <!-- CTA -->
+  <section class="section section--linen" style="text-align: center;">
+    <div class="container">
+      <h2>Invite Dr. Topping to Speak</h2>
+      <p style="max-width: 580px; margin-inline: auto; font-family: var(--font-body); font-size: 1rem; line-height: 1.7; color: var(--color-gray); margin-bottom: 24px;">
+        Dr. Topping is available for conferences, parish events, lectures, and media appearances on topics
+        of Catholic education, culture, and intellectual life.
+      </p>
+      <div class="cta-buttons">
+        <Button href={`${base}contact/`} variant="primary">Contact for Speaking</Button>
+        <Button href={`${base}about/`} variant="secondary">← Back to About</Button>
+      </div>
+    </div>
+  </section>
+
 </BaseLayout>
+
+<style>
+  /* Profile intro */
+  .profile {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 32px;
+    align-items: center;
+    max-width: 900px;
+    margin-inline: auto;
+  }
+
+  .profile__photo {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+    margin-inline: auto;
+    border: 3px solid var(--color-gold);
+  }
+
+  .profile__text-col h2 {
+    margin: 8px 0 16px;
+    font-family: var(--font-display);
+    color: var(--color-navy);
+  }
+
+  .profile__text-col p {
+    font-family: var(--font-body);
+    font-size: 1.05rem;
+    line-height: 1.75;
+    color: var(--color-gray);
+  }
+
+  @media (min-width: 768px) {
+    .profile {
+      grid-template-columns: auto 1fr;
+    }
+  }
+
+  /* Story sections — alternating text + image */
+  .story {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 32px;
+    align-items: center;
+    max-width: 960px;
+    margin-inline: auto;
+  }
+
+  .story__text h3 {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    color: var(--color-navy);
+    margin-bottom: 16px;
+  }
+
+  .story__text p {
+    font-family: var(--font-body);
+    font-size: 0.98rem;
+    line-height: 1.75;
+    color: var(--color-gray);
+    margin-bottom: 14px;
+  }
+
+  .story__text p:last-child {
+    margin-bottom: 0;
+  }
+
+  .story__image {
+    text-align: center;
+  }
+
+  .story__image img {
+    width: 100%;
+    max-width: 420px;
+    border-radius: 3px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  }
+
+  .story__caption {
+    display: block;
+    margin-top: 8px;
+    font-family: var(--font-ui);
+    font-size: 0.78rem;
+    color: var(--color-gray);
+    font-style: italic;
+  }
+
+  @media (min-width: 768px) {
+    .story {
+      grid-template-columns: 1.2fr 0.8fr;
+    }
+
+    .story--reverse {
+      grid-template-columns: 0.8fr 1.2fr;
+    }
+
+    .story--reverse .story__image {
+      order: -1;
+    }
+  }
+
+  /* Section header */
+  .section-header {
+    text-align: center;
+    margin-bottom: var(--space-component);
+  }
+
+  .section-header h2 {
+    margin-top: 8px;
+  }
+
+  /* Publications */
+  .pub-list {
+    max-width: 600px;
+    margin-inline: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .pub-item {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 12px 16px;
+    background-color: var(--color-parchment);
+    border: 1px solid rgba(90, 90, 110, 0.08);
+    border-radius: 3px;
+  }
+
+  .pub-item__title {
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    color: var(--color-navy);
+    font-style: italic;
+  }
+
+  .pub-item__note {
+    font-family: var(--font-ui);
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--color-gold);
+    white-space: nowrap;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .pub-count {
+    text-align: center;
+    margin-top: 20px;
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    color: var(--color-gray);
+  }
+
+  /* Media */
+  .media-intro {
+    text-align: center;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: var(--color-gray);
+    margin-bottom: 24px;
+  }
+
+  .media-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    max-width: 700px;
+    margin-inline: auto;
+  }
+
+  .media-tag {
+    font-family: var(--font-ui);
+    font-size: 0.85rem;
+    font-weight: 500;
+    padding: 8px 20px;
+    background-color: var(--color-linen);
+    border: 1px solid rgba(90, 90, 110, 0.1);
+    border-radius: 3px;
+    color: var(--color-navy);
+  }
+
+  /* CTA */
+  .cta-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+  }
+
+  .section--linen {
+    background-color: var(--color-linen);
+  }
+</style>

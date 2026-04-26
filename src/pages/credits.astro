@@ -1,0 +1,273 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+const base = import.meta.env.BASE_URL;
+
+const credits = [
+  {
+    image: "Admont Abbey Library",
+    artist: "Jorge Royan",
+    license: "CC BY-SA 3.0",
+    source: "https://commons.wikimedia.org/wiki/File:Austria_-_Admont_Abbey_Library_-_1326.jpg",
+    usage: "Library page hero"
+  },
+  {
+    image: "The School of Athens (1511)",
+    artist: "Raphael",
+    license: "Public Domain",
+    source: "https://commons.wikimedia.org/wiki/File:Sanzio_01.jpg",
+    usage: "Homepage hero"
+  },
+  {
+    image: "Notre-Dame Basilica, Montreal",
+    artist: "Public Domain",
+    license: "Public Domain",
+    source: "",
+    usage: "About page hero"
+  },
+  {
+    image: "St. Gregory the Great with the Dove",
+    artist: "Unknown (historical)",
+    license: "Public Domain",
+    source: "",
+    usage: "Programs, Library featured"
+  },
+  {
+    image: "Adoration of the Mystic Lamb (1432)",
+    artist: "Jan van Eyck",
+    license: "Public Domain",
+    source: "https://commons.wikimedia.org/wiki/File:Genter_altar,_lamb_adoration_-_Jan_van_Eyck.jpg",
+    usage: "Conference event art"
+  },
+  {
+    image: "Portrait of Cardinal Newman (1881)",
+    artist: "Sir John Everett Millais",
+    license: "Public Domain",
+    source: "https://commons.wikimedia.org/wiki/File:John_Henry_Newman_by_Sir_John_Everett_Millais,_1st_Bt.jpg",
+    usage: "Faith & Reason Seminar hero"
+  },
+  {
+    image: "Scholar at His Study (1634)",
+    artist: "Rembrandt van Rijn",
+    license: "Public Domain",
+    source: "https://commons.wikimedia.org/wiki/File:Rembrandt_Harmensz_van_Rijn_-_Scholar_at_his_Study_-_Google_Art_Project.jpg",
+    usage: "Inklings Book Studies hero"
+  },
+  {
+    image: "The Moneylender and His Wife (1514)",
+    artist: "Quentin Matsys",
+    license: "Public Domain",
+    source: "https://commons.wikimedia.org/wiki/File:Massysm_Quentin_%E2%80%94_The_Moneylender_and_his_Wife_%E2%80%94_1514.jpg",
+    usage: "Personal Finances event"
+  },
+  {
+    image: "Pigs (c. 1800)",
+    artist: "George Morland",
+    license: "Public Domain",
+    source: "https://commons.wikimedia.org/wiki/File:George_Morland_(1763-1804)_-_Pigs_-_1887P956_-_Birmingham_Museums_Trust.jpg",
+    usage: "Animal Farm book study"
+  },
+  {
+    image: "The Harvesters (1565)",
+    artist: "Pieter Bruegel the Elder",
+    license: "Public Domain",
+    source: "https://commons.wikimedia.org/wiki/File:The_Harvesters.jpg",
+    usage: "Leisure book study"
+  },
+  {
+    image: "Parliament Hill, Ottawa",
+    artist: "Saffron Blaze",
+    license: "CC BY-SA 3.0",
+    source: "https://commons.wikimedia.org/wiki/File:Centre_Block_-_Parliament_Hill.jpg",
+    usage: "FINE Gathering article"
+  },
+  {
+    image: "Resurrection of Christ (c. 1502)",
+    artist: "Raphael",
+    license: "CC BY-SA 4.0 (photo)",
+    source: "https://commons.wikimedia.org/wiki/File:MASP_-_Raffaello_Sanzio_02.jpg",
+    usage: "Medicine essay, Library featured"
+  },
+  {
+    image: "Supper at Emmaus (1601)",
+    artist: "Caravaggio",
+    license: "Public Domain",
+    source: "https://commons.wikimedia.org/wiki/File:Michelangelo_Caravaggio_034.jpg",
+    usage: "Easter family resource"
+  },
+  {
+    image: "Triumph of St Thomas Aquinas (1471)",
+    artist: "Benozzo Gozzoli",
+    license: "Public Domain",
+    source: "https://commons.wikimedia.org/wiki/File:Benozzo_Gozzoli_004.jpg",
+    usage: "Abolition of Man study guide"
+  },
+  {
+    image: "Still Life of Books and Musical Instruments",
+    artist: "Pseudo-Roestraten",
+    license: "Public Domain",
+    source: "https://commons.wikimedia.org/wiki/File:Pseudo-Roestraten_-_Still_Life_of_Books,_Musical_Instruments_and_other_Objects_on_a_Table_Draped_with_an_Oriental_Carpet.jpg",
+    usage: "Christmas Book Recommendations"
+  },
+  {
+    image: "Vanitas Still Life",
+    artist: "Unknown (historical)",
+    license: "Public Domain",
+    source: "",
+    usage: "Programs"
+  },
+  {
+    image: "Bodleian Library, Oxford",
+    artist: "Unknown",
+    license: "Public Domain",
+    source: "",
+    usage: "Homepage"
+  },
+  {
+    image: "Canada blank map",
+    artist: "Wikimedia Commons contributors",
+    license: "Public Domain",
+    source: "https://commons.wikimedia.org/wiki/File:Canada_blank_map.svg",
+    usage: "Book Studies map (modified)"
+  },
+];
+---
+
+<BaseLayout title="Image Credits — Gregory the Great Institute">
+  <section class="section">
+    <div class="container credits-page">
+      <h1>Image Credits</h1>
+      <p class="credits-intro">
+        The Gregory the Great Institute uses classical artwork and imagery throughout this website
+        to reflect the beauty of the Catholic intellectual tradition. Below is a list of images used,
+        their creators, and applicable licenses.
+      </p>
+
+      <table class="credits-table">
+        <thead>
+          <tr>
+            <th>Image</th>
+            <th>Artist</th>
+            <th>License</th>
+            <th>Used For</th>
+          </tr>
+        </thead>
+        <tbody>
+          {credits.map(c => (
+            <tr>
+              <td>
+                {c.source ? (
+                  <a href={c.source} target="_blank" rel="noopener noreferrer">{c.image}</a>
+                ) : (
+                  c.image
+                )}
+              </td>
+              <td>{c.artist}</td>
+              <td>{c.license}</td>
+              <td>{c.usage}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+
+      <p class="credits-note">
+        All public domain works are used freely under applicable copyright law.
+        Creative Commons licensed works are used in accordance with their respective license terms.
+        If you believe an image has been used in error, please <a href={`${base}contact/`}>contact us</a>.
+      </p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .credits-page h1 {
+    font-family: var(--font-display);
+    font-size: 1.8rem;
+    color: var(--color-navy);
+    margin-bottom: 12px;
+  }
+
+  .credits-intro {
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    color: var(--color-gray);
+    line-height: 1.7;
+    max-width: 640px;
+    margin-bottom: 32px;
+  }
+
+  .credits-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: var(--font-body);
+    font-size: 0.88rem;
+  }
+
+  .credits-table th {
+    font-family: var(--font-ui);
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-gold);
+    text-align: left;
+    padding: 10px 12px;
+    border-bottom: 2px solid rgba(90, 90, 110, 0.15);
+  }
+
+  .credits-table td {
+    padding: 10px 12px;
+    border-bottom: 1px solid rgba(90, 90, 110, 0.06);
+    color: var(--color-gray);
+    vertical-align: top;
+  }
+
+  .credits-table a {
+    color: var(--color-navy);
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  .credits-table a:hover {
+    color: var(--color-gold);
+  }
+
+  .credits-note {
+    font-family: var(--font-ui);
+    font-size: 0.82rem;
+    color: var(--color-gray);
+    margin-top: 32px;
+    line-height: 1.6;
+  }
+
+  .credits-note a {
+    color: var(--color-gold);
+    text-decoration: none;
+  }
+
+  @media (max-width: 640px) {
+    .credits-table,
+    .credits-table thead,
+    .credits-table tbody,
+    .credits-table tr,
+    .credits-table td {
+      display: block;
+    }
+
+    .credits-table thead { display: none; }
+
+    .credits-table tr {
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(90, 90, 110, 0.1);
+    }
+
+    .credits-table td {
+      padding: 2px 0;
+      border: none;
+    }
+
+    .credits-table td:first-child {
+      font-weight: 600;
+      color: var(--color-navy);
+    }
+  }
+</style>

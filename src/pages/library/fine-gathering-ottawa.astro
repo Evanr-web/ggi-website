@@ -1,8 +1,45 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import ComingSoon from '../../components/ComingSoon.astro';
+import ArticleLayout from '../../layouts/ArticleLayout.astro';
 ---
 
-<BaseLayout title="A Fine Gathering in Ottawa — Gregory the Great Institute">
-  <ComingSoon title="A Fine Gathering in Ottawa" parentLabel="Library" parentHref={`${import.meta.env.BASE_URL}library/`} />
-</BaseLayout>
+<ArticleLayout
+  title="FINE Gathering in Ottawa and National Prayer Breakfast"
+  author="Victor Carpay"
+  date="April 14, 2026"
+  category="News"
+  readTime="2 min read"
+  authorImage="/images/people/Victor-Carpay-headshot.jpg"
+  image="/images/art/parliament-hill-ottawa.jpg"
+  imageAlt="Parliament Hill, Ottawa"
+  related={[
+    { title: "Medicine Forgets Its Vocation: Alberta Places Guardrails", href: `${import.meta.env.BASE_URL}library/medicine-forgets-vocation/`, meta: "Essay · Dr. Woodard" },
+    { title: "Master Your Money, Serve Your Vocation", href: `${import.meta.env.BASE_URL}library/personal-finances/`, meta: "News · Jesse Underwood" },
+  ]}
+>
+  <p>
+    Dr. Ryan Topping and Victor Carpay were recently invited to attend the FINE Gathering
+    in Ottawa, an event coordinated by Catholic Christian Outreach (CCO). The gathering
+    brought together Catholic leaders from across the country for a time of fellowship,
+    discussion, and shared vision for the future of the Church in Canada.
+  </p>
+
+  <p>
+    While in Ottawa, Dr. Topping and Victor were also invited to the National Prayer Breakfast
+    by MP Shuv Majumbar, representing the riding of Calgary Heritage. The Prayer Breakfast
+    is an annual, non-partisan gathering of parliamentarians and community leaders who come
+    together in a spirit of prayer and national reflection.
+  </p>
+
+  <p>
+    These gatherings represent an important opportunity for the Gregory the Great Institute
+    to build relationships with other Catholic organizations and public servants who share
+    a commitment to faith, culture, and the common good. As the Institute grows, events like
+    these help to establish the kind of network that will be essential for renewing Catholic
+    culture at the national level.
+  </p>
+
+  <p>
+    We are grateful for the invitation and look forward to continued collaboration with
+    CCO and the many faithful leaders we met in Ottawa.
+  </p>
+</ArticleLayout>
