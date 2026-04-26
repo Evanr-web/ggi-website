@@ -1,0 +1,381 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Button from '../../components/Button.astro';
+import SectionDivider from '../../components/SectionDivider.astro';
+const base = import.meta.env.BASE_URL;
+---
+
+<BaseLayout title="Leadership Circle — Gregory the Great Institute" description="Strategic partners shaping the future of Catholic culture in Canada. $5,000+/year.">
+
+  <!-- Hero -->
+  <section class="hero-lc section--dark">
+    <div class="hero-lc__bg" style={`background-image: url(${base}images/art/school-of-athens.jpg)`}></div>
+    <div class="hero-lc__overlay"></div>
+    <div class="hero-lc__content container">
+      <p class="label text-gold">Strategic Partnership</p>
+      <h1 class="display">The Leadership Circle</h1>
+      <p class="hero-lc__subtitle">For those who see what Catholic culture in Canada could become — and are ready to build it.</p>
+    </div>
+  </section>
+
+  <!-- Vision -->
+  <section class="section">
+    <div class="container lc-intro reveal">
+      <p class="lc-intro__lead">
+        The Leadership Circle is not a giving tier. It is a <strong>strategic partnership</strong>
+        with the people building the future of Catholic intellectual life in Canada.
+      </p>
+      <p>
+        Leadership Circle members don't just fund programs — they shape them. They sit at the table
+        where decisions are made about what the Institute builds next. A Catholic trade school for
+        young men. Certificate programs in Christian leadership. A national think-tank that equips
+        Catholics to engage the culture with confidence. These are not distant dreams. They are the
+        next phase — and they require partners who share the vision and have the capacity to make
+        it real.
+      </p>
+      <p>
+        If that describes you, Dr. Topping would welcome a personal conversation.
+      </p>
+    </div>
+  </section>
+
+  <SectionDivider />
+
+  <!-- What Leadership Looks Like -->
+  <section class="section section--linen">
+    <div class="container">
+      <div class="section-header">
+        <p class="label text-gold">What It Looks Like</p>
+        <h2>Partnership, Not Patronage</h2>
+      </div>
+      <div class="lc-features reveal-stagger">
+        <div class="lc-feature reveal">
+          <div class="lc-feature__accent"></div>
+          <div class="lc-feature__body">
+            <h3>Patron Advisory Council</h3>
+            <p>
+              A seat on the advisory body that helps Dr. Topping and the Board shape the Institute's
+              strategic direction. Your experience, network, and counsel — applied directly.
+            </p>
+          </div>
+        </div>
+        <div class="lc-feature reveal">
+          <div class="lc-feature__accent"></div>
+          <div class="lc-feature__body">
+            <h3>Co-Naming of a Major Program</h3>
+            <p>
+              Name a flagship initiative — a masterclass series, a research program, a conference
+              track — in your name, your family's name, or in honour of someone who shaped your faith.
+            </p>
+          </div>
+        </div>
+        <div class="lc-feature reveal">
+          <div class="lc-feature__accent"></div>
+          <div class="lc-feature__body">
+            <h3>Annual Leadership Retreat</h3>
+            <p>
+              A private gathering with Dr. Topping, the Board, and fellow Leadership Circle members.
+              Deep conversation about the state of Catholic culture, the Institute's trajectory,
+              and the work ahead.
+            </p>
+          </div>
+        </div>
+        <div class="lc-feature reveal">
+          <div class="lc-feature__accent"></div>
+          <div class="lc-feature__body">
+            <h3>Quarterly Strategic Briefings</h3>
+            <p>
+              Written updates from Dr. Topping on what's working, what's changing, and what's coming.
+              The information that shapes your confidence in the partnership.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- The 2027 Vision -->
+  <section class="section">
+    <div class="container lc-vision reveal">
+      <div class="section-header">
+        <p class="label text-gold">The Road Ahead</p>
+        <h2>What Year Three Makes Possible</h2>
+      </div>
+      <div class="lc-vision__body">
+        <p>
+          In its first year, the Institute proved the mission is real. In Year Two, we are scaling
+          what works — more Book Studies, a second Magnalia issue, expanded masterclasses, and the
+          second Renewing Culture Conference.
+        </p>
+        <p>
+          Year Three is where the Institute becomes an institution. The programs that are proving
+          themselves now become permanent infrastructure:
+        </p>
+        <ul class="lc-vision__list">
+          <li><strong>A Catholic trade school</strong> — practical formation for young men in the skilled trades, grounded in the virtues</li>
+          <li><strong>Certificate programs</strong> — credentialed courses in Christian leadership, Catholic social teaching, and classical education</li>
+          <li><strong>A national think-tank</strong> — original research equipping Catholics to engage public policy, culture, and media with confidence</li>
+        </ul>
+        <p>
+          These are not ideas on a whiteboard. They are in active planning, with timelines, budgets,
+          and the institutional credibility to execute. What they require is partners with the vision
+          and capacity to build alongside us.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <SectionDivider />
+
+  <!-- CTA -->
+  <section class="section section--dark lc-cta-section">
+    <div class="container lc-cta">
+      <h2>Let's Talk</h2>
+      <p>
+        Leadership Circle partnerships begin with a personal conversation with Dr. Topping.
+        No pressure. No pitch deck. Just a direct conversation about what you care about
+        and how the Institute's vision aligns with yours.
+      </p>
+      <div class="lc-cta__price">
+        <span class="lc-cta__amount">$5,000+</span>
+        <span class="lc-cta__period">/year</span>
+      </div>
+      <Button href={`${base}contact/`} variant="primary">Request a Conversation</Button>
+      <p class="lc-cta__ff">
+        For visionary partners building the 2027 Launch: <strong>Founding Fellow — $25,000+/year</strong>
+      </p>
+    </div>
+  </section>
+
+  <section style="text-align: center; padding: 24px 0 48px;">
+    <a href={`${base}support/`} class="back-link">← Back to All Giving Options</a>
+  </section>
+
+</BaseLayout>
+
+<style>
+  /* Hero */
+  .hero-lc {
+    position: relative;
+    min-height: 400px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  .hero-lc__bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center 30%;
+  }
+
+  .hero-lc__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(14, 51, 82, 0.72), rgba(14, 51, 82, 0.90));
+  }
+
+  .hero-lc__content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    max-width: 720px;
+    margin-inline: auto;
+    padding-block: 60px;
+  }
+
+  .hero-lc__content h1 {
+    color: var(--color-text-on-dark);
+    margin: 8px 0 12px;
+  }
+
+  .hero-lc__subtitle {
+    font-family: var(--font-body);
+    font-size: 1.12rem;
+    color: rgba(245, 239, 229, 0.85);
+    line-height: 1.7;
+  }
+
+  /* Intro */
+  .lc-intro {
+    max-width: 700px;
+    margin-inline: auto;
+  }
+
+  .lc-intro__lead {
+    font-family: var(--font-body);
+    font-size: 1.12rem;
+    line-height: 1.8;
+    color: var(--color-ink);
+    margin-bottom: 14px;
+  }
+
+  .lc-intro p {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    line-height: 1.75;
+    color: var(--color-gray);
+    margin-bottom: 14px;
+  }
+
+  .lc-intro p:last-child { margin-bottom: 0; }
+
+  /* Section header */
+  .section-header {
+    text-align: center;
+    margin-bottom: var(--space-component);
+  }
+
+  .section-header h2 { margin-top: 8px; }
+
+  /* Features */
+  .lc-features {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+    max-width: 900px;
+    margin-inline: auto;
+  }
+
+  .lc-feature {
+    display: flex;
+    background-color: var(--color-parchment);
+    border: 1px solid rgba(90, 90, 110, 0.08);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .lc-feature__accent {
+    width: 5px;
+    flex-shrink: 0;
+    background-color: var(--color-gold);
+  }
+
+  .lc-feature__body {
+    padding: 24px 20px;
+  }
+
+  .lc-feature h3 {
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--color-navy);
+    margin-bottom: 8px;
+  }
+
+  .lc-feature p {
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: var(--color-gray);
+  }
+
+  @media (min-width: 640px) {
+    .lc-features { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  /* Vision */
+  .lc-vision__body {
+    max-width: 680px;
+    margin-inline: auto;
+  }
+
+  .lc-vision__body p {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    line-height: 1.8;
+    color: var(--color-gray);
+    margin-bottom: 16px;
+  }
+
+  .lc-vision__list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin: 20px 0;
+    padding-left: 0;
+  }
+
+  .lc-vision__list li {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--color-gray);
+    padding-left: 20px;
+    position: relative;
+  }
+
+  .lc-vision__list li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--color-gold);
+    font-weight: 700;
+  }
+
+  .lc-vision__list li strong {
+    color: var(--color-navy);
+  }
+
+  /* CTA */
+  .lc-cta {
+    text-align: center;
+    max-width: 560px;
+    margin-inline: auto;
+  }
+
+  .lc-cta h2 {
+    color: var(--color-text-on-dark);
+    margin-bottom: 12px;
+  }
+
+  .lc-cta > p:first-of-type {
+    font-family: var(--font-body);
+    font-size: 1.05rem;
+    color: rgba(245, 239, 229, 0.85);
+    line-height: 1.6;
+    margin-bottom: 20px;
+  }
+
+  .lc-cta__price { margin-bottom: 24px; }
+
+  .lc-cta__amount {
+    font-family: var(--font-display);
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--color-text-on-dark);
+  }
+
+  .lc-cta__period {
+    font-family: var(--font-ui);
+    font-size: 1rem;
+    color: rgba(245, 239, 229, 0.6);
+  }
+
+  .lc-cta__ff {
+    font-family: var(--font-ui);
+    font-size: 0.85rem;
+    color: rgba(245, 239, 229, 0.5);
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(245, 239, 229, 0.1);
+  }
+
+  .lc-cta__ff strong {
+    color: var(--color-gold);
+  }
+
+  .back-link {
+    font-family: var(--font-ui);
+    font-size: 0.9rem;
+    color: var(--color-gold);
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  .back-link:hover { color: var(--color-crimson); }
+
+  .section--linen { background-color: var(--color-linen); }
+</style>

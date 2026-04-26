@@ -1,0 +1,385 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Button from '../../components/Button.astro';
+import SectionDivider from '../../components/SectionDivider.astro';
+const base = import.meta.env.BASE_URL;
+---
+
+<BaseLayout title="Become an Underwriter — Gregory the Great Institute" description="Named underwriter of a Magnalia issue or flagship program. $2,500/year.">
+
+  <!-- Hero -->
+  <section class="hero-uw section--dark">
+    <div class="hero-uw__bg" style={`background-image: url(${base}images/art/notre-dame-montreal.jpg)`}></div>
+    <div class="hero-uw__overlay"></div>
+    <div class="hero-uw__content container">
+      <p class="label text-gold">An Invitation</p>
+      <h1 class="display">Underwrite the Mission</h1>
+      <p class="hero-uw__subtitle">Put your name on something that matters.</p>
+    </div>
+  </section>
+
+  <!-- Case -->
+  <section class="section">
+    <div class="container uw-intro reveal">
+      <p class="uw-intro__lead">
+        Underwriters don't just fund the Institute. They <strong>make specific things possible</strong>
+        — a Magnalia issue that reaches every bishop in Canada, a Conference session that forms 200 leaders,
+        a masterclass series that brings Aquinas to a new generation.
+      </p>
+      <p>
+        When your name appears in Magnalia as the underwriter of an issue, it is a public witness — a
+        statement that Catholic intellectual life in Canada has people willing to invest in it seriously.
+        That witness matters as much as the money.
+      </p>
+      <div class="uw-price-block">
+        <span class="uw-price">$2,500/year</span>
+        <span class="uw-price-sub">~$200/month</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- What You Underwrite -->
+  <section class="section section--linen">
+    <div class="container">
+      <div class="section-header">
+        <p class="label text-gold">Your Impact</p>
+        <h2>What You Can Underwrite</h2>
+      </div>
+      <div class="uw-options reveal-stagger">
+        <div class="uw-option reveal">
+          <div class="uw-option__accent"></div>
+          <div class="uw-option__body">
+            <h3>A Magnalia Issue</h3>
+            <p>
+              60 pages of the best Catholic writing in Canada — commissioned, edited, designed, printed,
+              and sent to bishops, rectors, subscribers, and libraries. Your name on the masthead as
+              presenting underwriter.
+            </p>
+          </div>
+        </div>
+        <div class="uw-option reveal">
+          <div class="uw-option__accent"></div>
+          <div class="uw-option__body">
+            <h3>A Conference Session</h3>
+            <p>
+              A keynote, panel, or workshop at the annual Renewing Culture Conference — named in your
+              honour or in memory of someone you love. Seen by every attendee.
+            </p>
+          </div>
+        </div>
+        <div class="uw-option reveal">
+          <div class="uw-option__accent"></div>
+          <div class="uw-option__body">
+            <h3>A Masterclass Series</h3>
+            <p>
+              A full course — Philosophy of Aquinas, Virtuous Leadership, Christian Beauty — offered
+              free or at reduced cost because you made it possible.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Benefits -->
+  <section class="section">
+    <div class="container uw-benefits">
+      <h2>What You Receive</h2>
+      <p class="uw-benefits__note">Everything in the Patron tier, plus:</p>
+      <div class="uw-benefits__list reveal-stagger">
+        <div class="uw-benefit reveal">
+          <h3>Named Issue Underwriting</h3>
+          <p>Your name (or a dedication) printed in the Magnalia issue you underwrite — seen by every reader.</p>
+        </div>
+        <div class="uw-benefit reveal">
+          <h3>Inner Circle Dinner</h3>
+          <p>Annual private dinner with Dr. Topping and fellow Underwriters — conversation, vision-casting, and fellowship.</p>
+        </div>
+        <div class="uw-benefit reveal">
+          <h3>Early Research Access</h3>
+          <p>First look at Institute publications, research briefs, and think-tank outputs before public release.</p>
+        </div>
+        <div class="uw-benefit reveal">
+          <h3>Personal Briefing</h3>
+          <p>Semi-annual briefing from Dr. Topping on Institute direction, new programs, and strategic priorities.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <SectionDivider />
+
+  <!-- CTA -->
+  <section class="section section--dark uw-cta-section">
+    <div class="container uw-cta">
+      <h2>Ready to Underwrite?</h2>
+      <p>
+        This is the level where your support becomes visible — in print, in programs, and in the
+        lives of the people the Institute forms. If you're ready, we'd welcome a conversation.
+      </p>
+      <div class="uw-cta__price">
+        <span class="uw-cta__amount">$2,500</span>
+        <span class="uw-cta__period">/year</span>
+      </div>
+      <Button href={`${base}contact/`} variant="primary">Request a Conversation</Button>
+      <p class="uw-cta__nav">
+        <a href={`${base}support/leadership/`}>Thinking bigger? See Leadership Circle →</a>
+      </p>
+    </div>
+  </section>
+
+  <section style="text-align: center; padding: 24px 0 48px;">
+    <a href={`${base}support/`} class="back-link">← Back to All Giving Options</a>
+  </section>
+
+</BaseLayout>
+
+<style>
+  /* Hero */
+  .hero-uw {
+    position: relative;
+    min-height: 380px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  .hero-uw__bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+  }
+
+  .hero-uw__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(14, 51, 82, 0.75), rgba(14, 51, 82, 0.88));
+  }
+
+  .hero-uw__content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    max-width: 700px;
+    margin-inline: auto;
+    padding-block: 60px;
+  }
+
+  .hero-uw__content h1 {
+    color: var(--color-text-on-dark);
+    margin: 8px 0 12px;
+  }
+
+  .hero-uw__subtitle {
+    font-family: var(--font-body);
+    font-size: 1.15rem;
+    color: rgba(245, 239, 229, 0.85);
+    line-height: 1.6;
+  }
+
+  /* Intro */
+  .uw-intro {
+    max-width: 680px;
+    margin-inline: auto;
+  }
+
+  .uw-intro__lead {
+    font-family: var(--font-body);
+    font-size: 1.12rem;
+    line-height: 1.8;
+    color: var(--color-ink);
+    margin-bottom: 14px;
+  }
+
+  .uw-intro p {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    line-height: 1.75;
+    color: var(--color-gray);
+  }
+
+  .uw-price-block {
+    margin-top: 24px;
+    text-align: center;
+  }
+
+  .uw-price {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--color-navy);
+  }
+
+  .uw-price-sub {
+    display: block;
+    font-family: var(--font-ui);
+    font-size: 0.85rem;
+    color: var(--color-gray);
+    margin-top: 2px;
+  }
+
+  /* Section header */
+  .section-header {
+    text-align: center;
+    margin-bottom: var(--space-component);
+  }
+
+  .section-header h2 { margin-top: 8px; }
+
+  /* Options */
+  .uw-options {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+    max-width: 900px;
+    margin-inline: auto;
+  }
+
+  .uw-option {
+    display: flex;
+    background-color: var(--color-parchment);
+    border: 1px solid rgba(90, 90, 110, 0.08);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .uw-option__accent {
+    width: 5px;
+    flex-shrink: 0;
+    background-color: var(--color-gold);
+  }
+
+  .uw-option__body {
+    padding: 24px 20px;
+  }
+
+  .uw-option h3 {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--color-navy);
+    margin-bottom: 8px;
+  }
+
+  .uw-option p {
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: var(--color-gray);
+  }
+
+  @media (min-width: 768px) {
+    .uw-options { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  /* Benefits */
+  .uw-benefits {
+    max-width: 720px;
+    margin-inline: auto;
+  }
+
+  .uw-benefits h2 {
+    text-align: center;
+    margin-bottom: 8px;
+  }
+
+  .uw-benefits__note {
+    text-align: center;
+    font-family: var(--font-ui);
+    font-size: 0.85rem;
+    color: var(--color-gray);
+    margin-bottom: 28px;
+  }
+
+  .uw-benefits__list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .uw-benefit {
+    padding: 24px;
+    background-color: var(--color-linen);
+    border: 1px solid rgba(90, 90, 110, 0.08);
+    border-radius: 3px;
+  }
+
+  .uw-benefit h3 {
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--color-navy);
+    margin-bottom: 6px;
+  }
+
+  .uw-benefit p {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--color-gray);
+  }
+
+  @media (max-width: 640px) {
+    .uw-benefits__list { grid-template-columns: 1fr; }
+  }
+
+  /* CTA */
+  .uw-cta {
+    text-align: center;
+    max-width: 520px;
+    margin-inline: auto;
+  }
+
+  .uw-cta h2 {
+    color: var(--color-text-on-dark);
+    margin-bottom: 12px;
+  }
+
+  .uw-cta > p:first-of-type {
+    font-family: var(--font-body);
+    font-size: 1.05rem;
+    color: rgba(245, 239, 229, 0.85);
+    line-height: 1.6;
+    margin-bottom: 20px;
+  }
+
+  .uw-cta__price { margin-bottom: 24px; }
+
+  .uw-cta__amount {
+    font-family: var(--font-display);
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--color-text-on-dark);
+  }
+
+  .uw-cta__period {
+    font-family: var(--font-ui);
+    font-size: 1rem;
+    color: rgba(245, 239, 229, 0.6);
+  }
+
+  .uw-cta__nav {
+    font-family: var(--font-ui);
+    font-size: 0.85rem;
+    color: rgba(245, 239, 229, 0.5);
+    margin-top: 16px;
+  }
+
+  .uw-cta__nav a {
+    color: var(--color-gold);
+    text-decoration: none;
+  }
+
+  .back-link {
+    font-family: var(--font-ui);
+    font-size: 0.9rem;
+    color: var(--color-gold);
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  .back-link:hover { color: var(--color-crimson); }
+
+  .section--linen { background-color: var(--color-linen); }
+</style>

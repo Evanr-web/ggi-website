@@ -1,0 +1,378 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Button from '../../components/Button.astro';
+import SectionDivider from '../../components/SectionDivider.astro';
+const base = import.meta.env.BASE_URL;
+---
+
+<BaseLayout title="Become a Friend of the Institute — Gregory the Great Institute" description="Join the Friends sustaining Catholic cultural renewal in Canada. From $10/month.">
+
+  <!-- Hero -->
+  <section class="section">
+    <div class="container friend-hero reveal">
+      <div class="friend-hero__text">
+        <p class="label text-gold">An Invitation</p>
+        <h1>Become a Friend of the Institute</h1>
+        <p class="friend-hero__lead">
+          You don't have to be a scholar to build Catholic culture. You just have to show up.
+        </p>
+        <p class="friend-hero__body">
+          Friends of the Institute are the foundation — the growing community of Canadians who believe
+          that faith, reason, and beauty still have something to say to our country. Your monthly gift,
+          at whatever level fits your life, sustains the programs, publications, and gatherings that are
+          renewing Catholic intellectual life from coast to coast.
+        </p>
+        <div class="friend-hero__cta">
+          <div class="friend-hero__price-block">
+            <span class="friend-hero__price">$10–49/month</span>
+            <span class="friend-hero__price-annual">($120–588/year)</span>
+          </div>
+          <Button href={`${base}support/donate/`} variant="primary">Become a Friend</Button>
+        </div>
+      </div>
+      <div class="friend-hero__seal">
+        <img src={`${base}images/branding/ggi-seal.png`} alt="GGI Seal" class="friend-hero__img" />
+      </div>
+    </div>
+  </section>
+
+  <!-- What Your Gift Sustains -->
+  <section class="section section--linen">
+    <div class="container friend-impact">
+      <h2 class="friend-impact__title">What Your Gift Sustains</h2>
+      <div class="friend-impact__grid reveal-stagger">
+        <div class="friend-impact__card reveal">
+          <span class="friend-impact__number">$10</span>
+          <span class="friend-impact__per">/month</span>
+          <p>Funds one student's access to a Book Study series — putting the Great Books in the hands of the next generation.</p>
+        </div>
+        <div class="friend-impact__card reveal">
+          <span class="friend-impact__number">$25</span>
+          <span class="friend-impact__per">/month</span>
+          <p>Covers the cost of printing and mailing Magnalia to a Catholic bishop or seminary rector in Canada.</p>
+        </div>
+        <div class="friend-impact__card reveal">
+          <span class="friend-impact__number">$49</span>
+          <span class="friend-impact__per">/month</span>
+          <p>Sustains a full scholarship seat at the Renewing Culture Conference — so no one is turned away for cost.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Benefits -->
+  <section class="section">
+    <div class="container friend-benefits">
+      <h2>What You Receive</h2>
+      <div class="friend-benefits__list reveal-stagger">
+        <div class="friend-benefit reveal">
+          <div class="friend-benefit__accent"></div>
+          <div class="friend-benefit__body">
+            <h3>Monthly Prayer Inclusion</h3>
+            <p>Your intentions are held in prayer by the Institute community each month.</p>
+          </div>
+        </div>
+        <div class="friend-benefit reveal">
+          <div class="friend-benefit__accent"></div>
+          <div class="friend-benefit__body">
+            <h3>Magnalia Letter</h3>
+            <p>Our free curated monthly guide to the Catholic intellectual life — you'll receive it first.</p>
+          </div>
+        </div>
+        <div class="friend-benefit reveal">
+          <div class="friend-benefit__accent"></div>
+          <div class="friend-benefit__body">
+            <h3>Magnalia Digital Edition</h3>
+            <p>Full PDF of every Magnalia issue, delivered to your inbox on publication day.</p>
+          </div>
+        </div>
+        <div class="friend-benefit reveal">
+          <div class="friend-benefit__accent"></div>
+          <div class="friend-benefit__body">
+            <h3>Early Event Registration</h3>
+            <p>First access to Conference tickets, Book Studies, and masterclass signups before public announcement.</p>
+          </div>
+        </div>
+        <div class="friend-benefit reveal">
+          <div class="friend-benefit__accent"></div>
+          <div class="friend-benefit__body">
+            <h3>Named Recognition</h3>
+            <p>Listed as a Friend of the Institute on our website — a public witness to the mission.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <SectionDivider />
+
+  <!-- CTA -->
+  <section class="section section--dark friend-cta-section">
+    <div class="container friend-cta">
+      <h2>Join the Friends</h2>
+      <p>
+        Over 150 supporters already sustain this work. Catholic culture in Canada is being rebuilt —
+        not by institutions alone, but by the people who believe it matters enough to show up monthly.
+      </p>
+      <div class="friend-cta__price">
+        <span class="friend-cta__amount">$10–49</span>
+        <span class="friend-cta__period">/month</span>
+      </div>
+      <Button href={`${base}support/donate/`} variant="primary">Become a Friend</Button>
+      <p class="friend-cta__upgrade">
+        Ready for a deeper commitment? <a href={`${base}magnalia/patron/`}>Become a Patron →</a>
+      </p>
+    </div>
+  </section>
+
+  <section style="text-align: center; padding: 24px 0 48px;">
+    <a href={`${base}support/`} class="back-link">← Back to All Giving Options</a>
+  </section>
+
+</BaseLayout>
+
+<style>
+  /* Hero */
+  .friend-hero {
+    display: flex;
+    gap: 40px;
+    align-items: center;
+    max-width: 900px;
+    margin-inline: auto;
+  }
+
+  .friend-hero__text {
+    flex: 1;
+  }
+
+  .friend-hero__text h1 {
+    font-size: 2.2rem;
+    color: var(--color-navy);
+    margin: 8px 0 20px;
+    line-height: 1.15;
+  }
+
+  .friend-hero__lead {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-style: italic;
+    color: var(--color-crimson);
+    margin-bottom: 16px;
+    line-height: 1.4;
+  }
+
+  .friend-hero__body {
+    font-family: var(--font-body);
+    font-size: 1.02rem;
+    color: var(--color-gray);
+    line-height: 1.8;
+  }
+
+  .friend-hero__cta {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-top: 20px;
+  }
+
+  .friend-hero__price-block {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .friend-hero__price {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--color-navy);
+    line-height: 1.2;
+  }
+
+  .friend-hero__price-annual {
+    font-family: var(--font-ui);
+    font-size: 0.8rem;
+    color: var(--color-gray);
+  }
+
+  .friend-hero__seal {
+    flex-shrink: 0;
+  }
+
+  .friend-hero__img {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+  }
+
+  @media (max-width: 640px) {
+    .friend-hero {
+      flex-direction: column;
+      text-align: center;
+    }
+    .friend-hero__text h1 { font-size: 1.8rem; }
+    .friend-hero__cta { justify-content: center; }
+    .friend-hero__img { width: 120px; height: 120px; }
+  }
+
+  /* Impact */
+  .friend-impact {
+    text-align: center;
+  }
+
+  .friend-impact__title {
+    margin-bottom: 32px;
+  }
+
+  .friend-impact__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    max-width: 900px;
+    margin-inline: auto;
+  }
+
+  .friend-impact__card {
+    padding: 24px;
+    background-color: white;
+    border-radius: 3px;
+    border-top: 3px solid var(--color-gold);
+  }
+
+  .friend-impact__number {
+    font-family: var(--font-display);
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--color-gold);
+    line-height: 1;
+  }
+
+  .friend-impact__per {
+    font-family: var(--font-ui);
+    font-size: 0.8rem;
+    color: var(--color-gray);
+    display: block;
+    margin-bottom: 12px;
+  }
+
+  .friend-impact__card p {
+    font-family: var(--font-body);
+    font-size: 0.92rem;
+    color: var(--color-gray);
+    line-height: 1.6;
+  }
+
+  @media (max-width: 640px) {
+    .friend-impact__grid { grid-template-columns: 1fr; }
+  }
+
+  /* Benefits */
+  .friend-benefits {
+    max-width: 700px;
+    margin-inline: auto;
+  }
+
+  .friend-benefits h2 {
+    text-align: center;
+    margin-bottom: 32px;
+  }
+
+  .friend-benefits__list {
+    display: grid;
+    gap: 12px;
+  }
+
+  .friend-benefit {
+    display: flex;
+    background-color: var(--color-linen);
+    border: 1px solid rgba(90, 90, 110, 0.08);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .friend-benefit__accent {
+    width: 5px;
+    flex-shrink: 0;
+    background-color: var(--color-gold);
+  }
+
+  .friend-benefit__body {
+    padding: 20px;
+  }
+
+  .friend-benefit h3 {
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--color-navy);
+    margin-bottom: 4px;
+  }
+
+  .friend-benefit p {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--color-gray);
+  }
+
+  /* CTA */
+  .friend-cta {
+    text-align: center;
+    max-width: 520px;
+    margin-inline: auto;
+  }
+
+  .friend-cta h2 {
+    color: var(--color-text-on-dark);
+    margin-bottom: 12px;
+  }
+
+  .friend-cta > p:first-of-type {
+    font-family: var(--font-body);
+    font-size: 1.05rem;
+    color: rgba(245, 239, 229, 0.85);
+    line-height: 1.6;
+    margin-bottom: 20px;
+  }
+
+  .friend-cta__price {
+    margin-bottom: 24px;
+  }
+
+  .friend-cta__amount {
+    font-family: var(--font-display);
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--color-text-on-dark);
+  }
+
+  .friend-cta__period {
+    font-family: var(--font-ui);
+    font-size: 1rem;
+    color: rgba(245, 239, 229, 0.6);
+  }
+
+  .friend-cta__upgrade {
+    font-family: var(--font-ui);
+    font-size: 0.85rem;
+    color: rgba(245, 239, 229, 0.5);
+    margin-top: 16px;
+  }
+
+  .friend-cta__upgrade a {
+    color: var(--color-gold);
+    text-decoration: none;
+  }
+
+  .back-link {
+    font-family: var(--font-ui);
+    font-size: 0.9rem;
+    color: var(--color-gold);
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  .back-link:hover { color: var(--color-crimson); }
+
+  .section--linen { background-color: var(--color-linen); }
+</style>
