@@ -174,21 +174,20 @@ const navItems = [
     background: var(--color-navy);
     border-radius: 3px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-    overflow: hidden;
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.15s ease, visibility 0s linear 0.4s;
     pointer-events: none;
   }
 
-  /* Bridge the gap so hover doesn't break */
+  /* Bridge the gap between nav link and dropdown panel */
   .nav__dropdown::before {
     content: '';
     position: absolute;
     top: -12px;
-    left: 0;
-    right: 0;
-    height: 12px;
+    left: -8px;
+    right: -8px;
+    height: 16px;
   }
 
   .nav__dropdown-wrap:hover .nav__dropdown {
