@@ -168,7 +168,6 @@ const navItems = [
   }
 
   .nav__dropdown {
-    display: none;
     position: absolute;
     top: calc(100% + 8px);
     left: -12px;
@@ -176,6 +175,10 @@ const navItems = [
     border-radius: 3px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
     overflow: hidden;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.15s ease, visibility 0s linear 0.4s;
+    pointer-events: none;
   }
 
   /* Bridge the gap so hover doesn't break */
@@ -189,7 +192,10 @@ const navItems = [
   }
 
   .nav__dropdown-wrap:hover .nav__dropdown {
-    display: block;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transition: opacity 0.15s ease, visibility 0s linear 0s;
   }
 
   .nav__dropdown-wrap:hover .nav__chevron {
