@@ -16,6 +16,7 @@ export default defineType({
       name: 'slug',
       title: 'Slug',
       type: 'slug',
+      description: 'Auto-generated from the title. This becomes the page URL (e.g. /careers/communications-intern/).',
       options: { source: 'title', maxLength: 96 },
       validation: (Rule) => Rule.required(),
     }),

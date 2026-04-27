@@ -15,6 +15,7 @@ export default defineType({
       name: 'slug',
       title: 'Slug',
       type: 'slug',
+      description: 'Auto-generated from the title. This becomes the page URL (e.g. /events/my-event/).',
       options: { source: 'title', maxLength: 96 },
       validation: (Rule) => Rule.required(),
     }),
@@ -66,6 +67,7 @@ export default defineType({
       title: 'Hero Image',
       type: 'image',
       options: { hotspot: true },
+      description: 'Recommended: 1600×900px or larger, landscape. Shown at the top of the event page.',
     }),
     defineField({
       name: 'cost',

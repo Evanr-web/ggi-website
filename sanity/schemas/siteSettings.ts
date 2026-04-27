@@ -15,6 +15,7 @@ export default defineType({
       title: 'Logo',
       type: 'image',
       options: { hotspot: true },
+      description: 'The GGI seal. Recommended: 400×400px PNG with transparent background.',
     }),
 
     // === Ribbon Banner ===

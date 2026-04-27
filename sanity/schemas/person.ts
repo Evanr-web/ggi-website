@@ -15,6 +15,7 @@ export default defineType({
       name: 'slug',
       title: 'Slug',
       type: 'slug',
+      description: 'Auto-generated from the name. Used if this person gets their own page.',
       options: { source: 'name', maxLength: 96 },
     }),
     defineField({
@@ -22,6 +23,7 @@ export default defineType({
       title: 'Photo',
       type: 'image',
       options: { hotspot: true },
+      description: 'Headshot, square crop works best. Recommended: 400×400px or larger.',
     }),
     defineField({
       name: 'role',

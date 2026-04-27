@@ -31,7 +31,7 @@ export default defineType({
       type: 'image',
       options: { hotspot: true },
       group: 'basics',
-      description: 'This image appears everywhere Magnalia is featured — homepage, subscribe page, patron page, etc.',
+      description: 'Recommended: 600×800px or larger, portrait orientation. This image appears everywhere Magnalia is featured — homepage, subscribe page, patron page, etc.',
       validation: (Rule) => Rule.required(),
     }),
     defineField({

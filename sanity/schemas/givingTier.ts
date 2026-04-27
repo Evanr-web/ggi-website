@@ -28,18 +28,21 @@ export default defineType({
       title: 'Description',
       type: 'text',
       rows: 2,
+      description: 'One sentence shown below the tier name on the Support page.',
     }),
     defineField({
       name: 'benefits',
       title: 'Benefits',
       type: 'array',
       of: [{ type: 'string' }],
+      description: 'One benefit per line. First item can be "Everything in [lower tier], plus:" to show progression.',
     }),
     defineField({
       name: 'recommended',
       title: 'Recommended / Featured',
       type: 'boolean',
       initialValue: false,
+      description: 'Toggle ON to highlight this tier with a gold border on the Support page. Only one tier should be featured.',
     }),
     defineField({
       name: 'ctaText',
@@ -56,6 +59,7 @@ export default defineType({
       name: 'order',
       title: 'Sort Order',
       type: 'number',
+      description: 'Controls display order. 1 = first, 2 = second, etc.',
     }),
   ],
   orderings: [
