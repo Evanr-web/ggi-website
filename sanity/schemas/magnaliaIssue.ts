@@ -63,6 +63,7 @@ export default defineType({
       group: 'content',
       description: 'Short blurbs for the subscribe page. e.g. "Original essays on faith, culture, and education"',
       of: [{ type: 'string' }],
+      validation: (Rule) => Rule.max(8).warning('Keep to 5-8 items for the best layout.'),
     }),
     defineField({
       name: 'tableOfContents',

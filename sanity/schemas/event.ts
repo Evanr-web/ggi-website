@@ -52,6 +52,8 @@ export default defineType({
       title: 'Short Description',
       type: 'text',
       rows: 3,
+      description: 'Shown on the Events listing page. Keep under 200 characters.',
+      validation: (Rule) => Rule.max(250).warning('Try to keep this under 200 characters for the best card layout.'),
     }),
     defineField({
       name: 'body',

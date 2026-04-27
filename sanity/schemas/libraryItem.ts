@@ -54,6 +54,8 @@ export default defineType({
       name: 'excerpt',
       title: 'Excerpt',
       type: 'text',
+      description: 'Shown on the Library listing page. Keep under 200 characters.',
+      validation: (Rule) => Rule.max(250).warning('Try to keep this under 200 characters for the best card layout.'),
       rows: 3,
       description: 'Short excerpt for cards and previews',
     }),

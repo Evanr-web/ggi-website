@@ -27,7 +27,7 @@ export default defineType({
       description: 'A thin banner above the navigation. Use for timely announcements.',
       fields: [
         { name: 'enabled', title: 'Show Banner', type: 'boolean', initialValue: false },
-        { name: 'message', title: 'Message', type: 'string', description: 'Keep it short — one line.' },
+        { name: 'message', title: 'Message', type: 'string', description: 'Keep it short — one line.', validation: (Rule: any) => Rule.max(100).warning('Over 100 characters may wrap on mobile.') },
         { name: 'linkText', title: 'Link Text', type: 'string', description: 'e.g. "Learn More" or "Register Now"' },
         { name: 'linkUrl', title: 'Link URL', type: 'string' },
         {

@@ -15,7 +15,8 @@ export default defineType({
       title: 'Name',
       type: 'string',
       group: 'basics',
-      validation: (Rule) => Rule.required(),
+      description: 'Full name as it should appear on the website.',
+      validation: (Rule) => Rule.required().max(60).warning('Long names may wrap awkwardly on cards. Consider abbreviating titles.'),
     }),
     defineField({
       name: 'photo',
@@ -85,8 +86,8 @@ export default defineType({
       type: 'text',
       rows: 2,
       group: 'details',
-      description: 'Appears on the Leadership page under this person\'s card. Keep to 1-2 sentences.',
-      validation: (Rule) => Rule.custom((value, context) => {
+      description: 'Appears on the Leadership page under this person\'s card. Keep to 1-2 sentences (under 150 characters).',
+      validation: (Rule) => Rule.max(200).warning('Keep under 150 characters for consistent card heights.').custom((value, context) => {
         const doc = context.document as any;
         if (doc?.published && doc?.personType !== 'board' && doc?.personType !== 'patron' && !value) {
           return 'Short bio is required for Staff, Fellows, and Advisory members before showing on the website';

@@ -64,6 +64,7 @@ export default defineType({
       type: 'text',
       rows: 3,
       description: 'Appears on the careers listing page. 2-3 sentences.',
+      validation: (Rule) => Rule.max(300).warning('Keep under 300 characters for the best layout.'),
     }),
     defineField({
       name: 'description',
