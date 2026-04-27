@@ -138,7 +138,7 @@ export default defineType({
       fields: [
         { name: 'metaTitle', title: 'Meta Title', type: 'string' },
         { name: 'metaDescription', title: 'Meta Description', type: 'text', rows: 2 },
-        { name: 'ogImage', title: 'OG Image', type: 'image' },
+        { name: 'ogImage', title: 'OG Image', type: 'image', description: 'Social media preview image (Facebook, Twitter, iMessage). Recommended: 1200×630px. Falls back to hero image if blank.' },
       ],
     }),
   ],
