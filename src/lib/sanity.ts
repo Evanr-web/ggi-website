@@ -96,16 +96,17 @@ export async function getLibraryArticle(slug: string) {
 }
 
 // People
-export async function getPeople(group?: string) {
-  const filter = group ? `&& group == "${group}"` : '';
+export async function getPeople(personType?: string) {
+  const filter = personType ? `&& personType == "${personType}"` : '';
   return sanityClient.fetch(`*[_type == "person" ${filter}] | order(order asc, name asc) {
     _id,
     name,
     role,
-    bio,
-    group,
+    shortBio,
+    personType,
     "photo": photo.asset->url,
-    credentials
+    credentials,
+    email
   }`);
 }
 
