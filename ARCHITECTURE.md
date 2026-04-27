@@ -156,7 +156,7 @@ Build time: ~1–2 seconds. Deploy time: ~30–60 seconds including CDN propagat
 
 | Role | Name | Email |
 |------|------|-------|
-| Website Builder | Evan Ropp | evanropp@gmail.com |
+| Website Builder | Evan Ropp | (contact via GGI team) |
 | Communications | Victor Carpay | vcarpay@gregorythegreat.ca |
 | Executive Director | Dr. Ryan Topping | rtopping@gregorythegreat.ca |
 | Programs | Catherine Renneberg | crenneberg@gregorythegreat.ca |
