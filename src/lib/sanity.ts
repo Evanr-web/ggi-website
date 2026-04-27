@@ -98,7 +98,7 @@ export async function getLibraryArticle(slug: string) {
 // People
 export async function getPeople(personType?: string) {
   const filter = personType ? `&& personType == "${personType}"` : '';
-  return sanityClient.fetch(`*[_type == "person" ${filter}] | order(order asc, name asc) {
+  return sanityClient.fetch(`*[_type == "person" && published == true ${filter}] | order(order asc, name asc) {
     _id,
     name,
     role,

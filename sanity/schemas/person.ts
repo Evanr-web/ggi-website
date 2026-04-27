@@ -24,6 +24,11 @@ export default defineType({
       options: { hotspot: true },
       group: 'basics',
       description: 'Headshot, square crop works best. Recommended: 400×400px or larger. Appears on the Leadership page next to this person\'s name.',
+      validation: (Rule) => Rule.custom((value, context) => {
+        const doc = context.document as any;
+        if (doc?.published && !value) return 'Photo is required before showing on the website';
+        return true;
+      }),
     }),
     defineField({
       name: 'role',
@@ -58,6 +63,14 @@ export default defineType({
       description: 'Shown on the Leadership page for Staff only (e.g. rtopping@gregorythegreat.ca). Leave blank to hide.',
     }),
     defineField({
+      name: 'published',
+      title: 'Show on Website',
+      type: 'boolean',
+      group: 'basics',
+      initialValue: false,
+      description: 'Toggle ON when this person is ready to appear on the Leadership page. Leave OFF to save as a draft.',
+    }),
+    defineField({
       name: 'order',
       title: 'Sort Order',
       type: 'number',
@@ -73,6 +86,13 @@ export default defineType({
       rows: 2,
       group: 'details',
       description: 'Appears on the Leadership page under this person\'s card. Keep to 1-2 sentences.',
+      validation: (Rule) => Rule.custom((value, context) => {
+        const doc = context.document as any;
+        if (doc?.published && doc?.personType !== 'board' && doc?.personType !== 'patron' && !value) {
+          return 'Short bio is required for Staff, Fellows, and Advisory members before showing on the website';
+        }
+        return true;
+      }),
     }),
     defineField({
       name: 'bio',
@@ -116,6 +136,13 @@ export default defineType({
     { title: 'Name', name: 'nameAsc', by: [{ field: 'name', direction: 'asc' }] },
   ],
   preview: {
-    select: { title: 'name', subtitle: 'role', media: 'photo' },
+    select: { title: 'name', subtitle: 'role', media: 'photo', published: 'published' },
+    prepare({ title, subtitle, media, published }) {
+      return {
+        title: `${published ? '' : '🚫 '}${title}`,
+        subtitle: subtitle || '',
+        media,
+      };
+    },
   },
 });
