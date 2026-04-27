@@ -9,6 +9,22 @@ import DarkSection from '../components/DarkSection.astro';
 import EventCard from '../components/EventCard.astro';
 import GivingTier from '../components/GivingTier.astro';
 import EndorsementCard from '../components/EndorsementCard.astro';
+import { getHomepage } from '../lib/sanity';
+
+const base = import.meta.env.BASE_URL;
+
+// Try Sanity for homepage data
+let cms: any = null;
+try { cms = await getHomepage(); } catch (e) { /* fallback */ }
+
+// Resolved values
+const heroHeadline = cms?.heroHeadline || 'Inspiring Canadian Catholic Culture';
+const heroSubtitle = cms?.heroSubtitle || 'Forming leaders. Teaching the tradition. Publishing research.';
+const heroImage = cms?.heroImage || `${base}images/art/school-of-athens.jpg`;
+const primaryCta = cms?.heroCta || { text: 'Subscribe to the Magnalia Letter', url: `${base}magnalia/letter/` };
+const secondaryCta = cms?.heroSecondaryCta?.text && cms?.heroSecondaryCta?.url ? cms.heroSecondaryCta : { text: 'Explore Our Programs', url: `${base}programs/` };
+const hasSecondaryCta = secondaryCta?.text && secondaryCta?.url;
+const videoId = cms?.videoUrl ? cms.videoUrl.match(/(?:v=|youtu\.be\/)([^&]+)/)?.[1] : 'Lhzqr8tMYsI';
 ---
 
 <BaseLayout title="Inspiring Canadian Catholic Culture">
@@ -16,15 +32,15 @@ import EndorsementCard from '../components/EndorsementCard.astro';
   <!-- ============================================
        Section 1: HERO
        ============================================ -->
-  <section class="hero hero--home" style={`background-image: url(${import.meta.env.BASE_URL}images/art/school-of-athens.jpg)`}>
+  <section class="hero hero--home" style={`background-image: url(${heroImage})`}>
     <div class="hero__overlay"></div>
     <div class="hero__content container">
-      <h1 class="hero__headline display">Inspiring Canadian Catholic Culture</h1>
+      <h1 class="hero__headline display">{heroHeadline}</h1>
       <p class="hero__tagline">Fides&ensp;•&ensp;Ratio<span class="hero__tagline-dot">&ensp;•&ensp;</span><br class="hero__tagline-break" />Cultura</p>
-      <p class="hero__subtitle">Forming leaders. Teaching the tradition. Publishing research.</p>
+      <p class="hero__subtitle">{heroSubtitle}</p>
       <div class="hero__ctas">
-        <a href={`${import.meta.env.BASE_URL}magnalia/letter/`} class="btn btn--subscribe">Subscribe to the Magnalia Letter</a>
-        <a href={`${import.meta.env.BASE_URL}programs/`} class="btn btn--ghost">Explore Our Programs</a>
+        <a href={primaryCta.url} class="btn btn--subscribe">{primaryCta.text}</a>
+        {hasSecondaryCta && <a href={secondaryCta.url} class="btn btn--ghost">{secondaryCta.text}</a>}
       </div>
     </div>
   </section>
@@ -92,7 +108,7 @@ import EndorsementCard from '../components/EndorsementCard.astro';
       </div>
       <div class="video-embed reveal reveal--scale">
         <iframe
-          src="https://www.youtube.com/embed/Lhzqr8tMYsI"
+          src={`https://www.youtube.com/embed/${videoId}`}
           title="Why Catholic Culture Matters — Gregory the Great Institute"
           frameborder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
