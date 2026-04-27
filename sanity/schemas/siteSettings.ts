@@ -2,7 +2,7 @@ import { defineType, defineField } from 'sanity';
 
 export default defineType({
   name: 'siteSettings',
-  title: 'Site Settings',
+  title: 'Announcements & Site Info',
   type: 'document',
   groups: [
     { name: 'announcements', title: '📢 Announcements' },
@@ -135,7 +135,7 @@ export default defineType({
   ],
   preview: {
     prepare() {
-      return { title: 'Site Settings' };
+      return { title: 'Announcements & Site Info' };
     },
   },
 });
