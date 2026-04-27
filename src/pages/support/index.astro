@@ -110,6 +110,19 @@ const base = import.meta.env.BASE_URL;
           ctaHref={`${base}support/leadership/`}
         />
       </div>
+
+      <!-- Founding Partner Signal -->
+      <div class="founding-callout reveal">
+        <div class="founding-callout__inner">
+          <p class="label text-gold">Founding Partner — $25,000+/year</p>
+          <p class="founding-callout__body">
+            A small number of founding partners are helping launch the Institute's most ambitious projects — 
+            a national conference series, a Catholic publishing program, and a residential think-tank. 
+            If you share this vision and have the capacity to invest at this level, we'd welcome a conversation.
+          </p>
+          <Button href={`${base}support/leadership/`} variant="secondary" size="small">Start a Conversation →</Button>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -423,6 +436,27 @@ const base = import.meta.env.BASE_URL;
     .tiers-grid {
       grid-template-columns: repeat(3, 1fr);
     }
+  }
+
+  /* Founding Partner Callout */
+  .founding-callout {
+    max-width: 720px;
+    margin: var(--space-component) auto 0;
+  }
+
+  .founding-callout__inner {
+    text-align: center;
+    border-top: 2px solid var(--color-gold);
+    padding-top: 28px;
+  }
+
+  .founding-callout__body {
+    font-family: var(--font-body);
+    font-size: 0.98rem;
+    line-height: 1.7;
+    color: var(--color-gray);
+    margin: 12px auto 20px;
+    max-width: 580px;
   }
 
   /* Founding Fellow */
