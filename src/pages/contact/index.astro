@@ -7,9 +7,9 @@ import SectionDivider from '../../components/SectionDivider.astro';
 <BaseLayout title="Contact" description="Get in touch with the Gregory the Great Institute. General inquiries, speaker booking, and more.">
 
   <!-- Hero -->
-  <section class="section--dark" style="padding: 60px 0; text-align: center;">
+  <section class="section--dark" class="page-hero">
     <div class="container">
-      <h1 class="display" style="color: var(--color-text-on-dark);">Get in Touch</h1>
+      <h1 class="display heading-on-dark">Get in Touch</h1>
     </div>
   </section>
 
@@ -110,10 +110,10 @@ import SectionDivider from '../../components/SectionDivider.astro';
   </section>
 
   <!-- Newsletter -->
-  <section class="section" style="text-align: center;">
-    <div class="container" style="max-width: 520px;">
-      <h2 style="margin-bottom: 8px;">Stay Connected</h2>
-      <p style="font-family: var(--font-body); font-size: 0.95rem; color: var(--color-gray); margin-bottom: 20px;">
+  <section class="section" class="text-center">
+    <div class="container container--xs">
+      <h2 class="cta-heading">Stay Connected</h2>
+      <p class="cta-desc">
         Subscribe to the Magnalia Letter for free monthly essays and Institute news.
       </p>
       <Button href={`${import.meta.env.BASE_URL}magnalia/letter/`} variant="secondary" size="small">Subscribe Free</Button>

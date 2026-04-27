@@ -1,0 +1,108 @@
+---
+/**
+ * Canada map with province clusters + accordion groups.
+ * Used on the Book Studies (Inklings) page.
+ * Interactive behavior (pin clicks → accordion scroll, city join → form) is handled
+ * by the parent page's script since it needs to wire to the form.
+ */
+const base = import.meta.env.BASE_URL;
+
+interface City {
+  name: string;
+  groups: number;
+}
+
+interface Province {
+  code: string;
+  name: string;
+  cities: City[];
+  pin: { left: string; top: string };
+}
+
+const provinces: Province[] = [
+  { code: 'BC', name: 'British Columbia', pin: { left: '6%', top: '66%' }, cities: [
+    { name: 'Vancouver', groups: 2 }, { name: 'Kelowna', groups: 1 }
+  ]},
+  { code: 'AB', name: 'Alberta', pin: { left: '20%', top: '68%' }, cities: [
+    { name: 'Edmonton', groups: 3 }, { name: 'St. Albert', groups: 1 }, { name: 'Sherwood Park', groups: 1 },
+    { name: 'Spruce Grove', groups: 1 }, { name: 'Fort McMurray', groups: 1 }, { name: 'Red Deer', groups: 1 },
+    { name: 'Lethbridge', groups: 1 }, { name: 'Calgary', groups: 3 }
+  ]},
+  { code: 'SK', name: 'Saskatchewan', pin: { left: '29%', top: '74%' }, cities: [
+    { name: 'Saskatoon', groups: 3 }, { name: 'Regina', groups: 2 }
+  ]},
+  { code: 'MB', name: 'Manitoba', pin: { left: '42%', top: '76%' }, cities: [
+    { name: 'Winnipeg', groups: 2 }
+  ]},
+  { code: 'ON', name: 'Ontario', pin: { left: '57%', top: '80%' }, cities: [
+    { name: 'Toronto', groups: 5 }, { name: 'Ottawa', groups: 3 }
+  ]},
+  { code: 'QC', name: 'Quebec', pin: { left: '70%', top: '74%' }, cities: [
+    { name: 'Montreal', groups: 1 }
+  ]},
+  { code: 'NS', name: 'Nova Scotia', pin: { left: '87%', top: '82%' }, cities: [
+    { name: 'Halifax', groups: 2 }
+  ]},
+  { code: 'NL', name: 'Newfoundland & Labrador', pin: { left: '82%', top: '60%' }, cities: [
+    { name: "St. John's", groups: 1 }
+  ]},
+];
+
+const totalGroups = provinces.reduce((sum, p) => sum + p.cities.reduce((s, c) => s + c.groups, 0), 0);
+const totalCities = provinces.reduce((sum, p) => sum + p.cities.length, 0);
+const shortNames: Record<string, string> = { BC: 'B.C.', AB: 'Alberta', SK: 'Sask.', MB: 'Manitoba', ON: 'Ontario', QC: 'Quebec', NS: 'N.S.', NL: 'N.L.' };
+---
+
+<!-- Canada Map -->
+<div class="bs-map-container">
+  <div class="bs-map-wrapper">
+    <img src={`${base}images/canada-map.svg`} alt="Map of Canada showing Inklings Club locations" class="bs-map-img" />
+    {provinces.map(p => {
+      const provGroups = p.cities.reduce((s, c) => s + c.groups, 0);
+      return (
+        <button class="bs-pin bs-pin--cluster" style={`left: ${p.pin.left}; top: ${p.pin.top};`} data-province={p.code} type="button">
+          <span class="bs-pin__count">{provGroups}</span>
+          <span class="bs-pin__label">{shortNames[p.code] || p.name}</span>
+        </button>
+      );
+    })}
+  </div>
+  <p class="bs-map-total">
+    <strong>{totalGroups} groups</strong> in <strong>{totalCities} cities</strong> across <strong>{provinces.length} provinces</strong>
+  </p>
+</div>
+
+<!-- Province Accordions -->
+<div class="bs-accordions" id="bs-accordions">
+  {provinces.map(p => {
+    const provGroups = p.cities.reduce((s, c) => s + c.groups, 0);
+    const cityLabel = p.cities.length === 1 ? '1 city' : `${p.cities.length} cities`;
+    return (
+      <details class="bs-accordion" data-province={p.code}>
+        <summary class="bs-accordion__header">
+          <span class="bs-accordion__name">{p.name}</span>
+          <span class="bs-accordion__count">{provGroups} groups · {cityLabel}</span>
+          <span class="bs-accordion__chevron">▸</span>
+        </summary>
+        <div class="bs-accordion__body">
+          {p.cities.map(c => (
+            <div class="bs-city">
+              <span class="bs-city__name">{c.name}</span>
+              <span class="bs-city__groups">{c.groups} {c.groups === 1 ? 'group' : 'groups'}</span>
+              <button class="bs-city__join" data-province={p.code} data-city={c.name} type="button">Join →</button>
+            </div>
+          ))}
+        </div>
+      </details>
+    );
+  })}
+</div>
+
+<!-- Don't see your city -->
+<div class="bs-not-listed">
+  <p class="bs-not-listed__text">
+    <strong>Don't see your city?</strong> No problem — sign up below with your location and when there's enough
+    interest in your area, we'll connect you with a group or help you start one.
+  </p>
+  <a href="#join-form" class="bs-not-listed__link">Sign up below →</a>
+</div>

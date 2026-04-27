@@ -1,6 +1,5 @@
 ---
 import EventLayout from '../../layouts/EventLayout.astro';
-import Button from '../../components/Button.astro';
 const base = import.meta.env.BASE_URL;
 ---
 
@@ -8,12 +7,14 @@ const base = import.meta.env.BASE_URL;
   title="Bringing Back Sunday — Renewing Culture Conference"
   date="2026-10-02"
   endDate="2026-10-03"
-  location="Mt Carmel Spirituality Centre, Alberta"
+  location="Mount Carmel Spirituality Centre, Parkland County"
+  locationAddress="Mount Carmel Spirituality Centre, 1225 Township Rd 535, Parkland County, AB T7Y 0H5"
+  showMap={true}
   image="/images/events/2026-renewing-culture-conference-art.jpg"
   artFilter={true}
   imageAlt="Adoration of the Mystic Lamb — van Eyck"
   tag="Annual Flagship Conference"
-  ctaText="Register"
+  ctaText="Get Notified"
   ctaHref={`${base}contact/`}
 >
   <p>
@@ -38,15 +39,8 @@ const base = import.meta.env.BASE_URL;
     <li>Book signings and a curated reading table</li>
   </ul>
 
-  <h2>Details</h2>
-  <ul>
-    <li><strong>Who:</strong> All welcome — no prerequisites</li>
-    <li><strong>When:</strong> October 2–3, 2026</li>
-    <li><strong>Where:</strong> Mt Carmel Spirituality Centre, Alberta</li>
-    <li><strong>Format:</strong> 2-day in-person conference</li>
-  </ul>
-
-  <p>Registration details coming soon.</p>
-
-  <Button href={`${base}contact/`} variant="primary">Contact Us for Details</Button>
+  <p>
+    All are welcome — no prerequisites. Registration details coming soon.
+    Get notified above to be first in line.
+  </p>
 </EventLayout>

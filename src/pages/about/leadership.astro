@@ -6,10 +6,10 @@ import SectionDivider from '../../components/SectionDivider.astro';
 <BaseLayout title="Leadership" description="Board of directors, staff, fellows, and advisory board of the Gregory the Great Institute.">
 
   <!-- Hero -->
-  <section class="section--dark" style="padding: 60px 0; text-align: center;">
-    <div class="container">
-      <h1 class="display" style="color: var(--color-text-on-dark);">Leadership</h1>
-      <p style="font-family: var(--font-body); font-size: 1.05rem; color: rgba(245,239,229,0.8); margin-top: 8px;">The people building the Institute</p>
+  <section class="section--dark leadership-hero">
+    <div class="container text-center">
+      <h1 class="display heading-on-dark">Leadership</h1>
+      <p class="leadership-hero__subtitle">The people building the Institute</p>
     </div>
   </section>
 
@@ -33,7 +33,7 @@ import SectionDivider from '../../components/SectionDivider.astro';
   <!-- Staff -->
   <section class="section">
     <div class="container">
-      <h2 style="margin-bottom: 24px;">Staff</h2>
+      <h2 class="leadership-section__heading">Staff</h2>
       <div class="people-grid people-grid--staff">
         <div class="person-card person-card--large">
           <img src={`${import.meta.env.BASE_URL}images/people/Ryan-Topping-headshot.jpg`} alt="Dr. Ryan Topping" class="person-card__photo" />
@@ -77,7 +77,7 @@ import SectionDivider from '../../components/SectionDivider.astro';
   <!-- Board -->
   <section class="section section--linen">
     <div class="container">
-      <h2 style="margin-bottom: 24px;">Board of Directors</h2>
+      <h2 class="leadership-section__heading">Board of Directors</h2>
       <div class="board-chair">
         <img src={`${import.meta.env.BASE_URL}images/people/Ryan-Topping-headshot.jpg`} alt="Dr. Ryan Topping" class="board-chair__photo" />
         <h3>Dr. Ryan N.S. Topping</h3>
@@ -116,7 +116,7 @@ import SectionDivider from '../../components/SectionDivider.astro';
   <!-- Fellows -->
   <section class="section">
     <div class="container">
-      <h2 style="margin-bottom: 24px;">Fellows</h2>
+      <h2 class="leadership-section__heading">Fellows</h2>
       <div class="people-grid people-grid--large">
         <div class="person-card person-card--large">
           <img src={`${import.meta.env.BASE_URL}images/people/Joe-Woodard-headshot.jpg`} alt="Dr. Joe Woodard" class="person-card__photo" />
@@ -143,8 +143,8 @@ import SectionDivider from '../../components/SectionDivider.astro';
           <p class="person-card__bio">Theology, priesthood, and cultural renewal.</p>
         </div>
       </div>
-      <p style="text-align: center; margin-top: 24px;">
-        <a href={`${import.meta.env.BASE_URL}magnalia/contributors/`} style="font-family: var(--font-ui); font-size: 0.85rem; color: var(--color-gold); text-decoration: none;">Our Fellows also contribute to Magnalia →</a>
+      <p class="text-center leadership-fellows-link">
+        <a href={`${import.meta.env.BASE_URL}magnalia/contributors/`} class="back-link">Our Fellows also contribute to Magnalia →</a>
       </p>
     </div>
   </section>
@@ -154,7 +154,7 @@ import SectionDivider from '../../components/SectionDivider.astro';
   <!-- Advisory Board -->
   <section class="section section--linen">
     <div class="container">
-      <h2 style="margin-bottom: 24px;">Advisory Board</h2>
+      <h2 class="leadership-section__heading">Advisory Board</h2>
       <div class="advisory-list">
         <div class="advisory-item">
           <img src={`${import.meta.env.BASE_URL}images/people/Jeff-Lockert-headshot.jpg`} alt="Jeff Lockert" class="advisory-item__photo" />
@@ -191,7 +191,7 @@ import SectionDivider from '../../components/SectionDivider.astro';
   <!-- Subcommittees -->
   <section class="section">
     <div class="container">
-      <h2 style="margin-bottom: 24px;">Board Subcommittees</h2>
+      <h2 class="leadership-section__heading">Board Subcommittees</h2>
       <div class="committees">
         <div class="committee">
           <h3>Fundraising Committee</h3>
@@ -218,6 +218,17 @@ import SectionDivider from '../../components/SectionDivider.astro';
 </BaseLayout>
 
 <style>
+  /* Leadership Hero */
+  .leadership-hero { padding: 60px 0; }
+  .leadership-hero__subtitle {
+    font-family: var(--font-body);
+    font-size: 1.05rem;
+    color: rgba(245, 239, 229, 0.8);
+    margin-top: 8px;
+  }
+  .leadership-section__heading { margin-bottom: 24px; }
+  .leadership-fellows-link { margin-top: 24px; }
+
   /* People Grid */
   .people-grid {
     display: grid;

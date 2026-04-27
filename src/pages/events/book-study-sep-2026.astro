@@ -1,6 +1,5 @@
 ---
 import EventLayout from '../../layouts/EventLayout.astro';
-import Button from '../../components/Button.astro';
 const base = import.meta.env.BASE_URL;
 ---
 
@@ -13,6 +12,9 @@ const base = import.meta.env.BASE_URL;
   imageAlt="The Harvesters by Pieter Bruegel the Elder, 1565"
   imagePosition="center 95%"
   tag="Book Study · Inklings Club"
+  cost="Free"
+  ctaText="Find a Group & Join"
+  ctaHref={`${base}programs/book-studies/#join-form`}
 >
   <p>
     Josef Pieper's masterwork on why <strong>contemplation — not productivity — is the foundation
@@ -28,13 +30,8 @@ const base = import.meta.env.BASE_URL;
     <li>Discounts on the book for participants</li>
   </ul>
 
-  <h2>Details</h2>
-  <ul>
-    <li><strong>Book:</strong> <em>Leisure: The Basis of Culture</em> by Josef Pieper</li>
-    <li><strong>When:</strong> September 2026</li>
-    <li><strong>Where:</strong> Local groups across Canada + online</li>
-    <li><strong>Cost:</strong> Free</li>
-  </ul>
-
-  <Button href={`${base}programs/book-studies/`} variant="primary">Learn About Book Studies</Button>
+  <p>
+    Local groups across Canada, plus online. Study guides and discussion questions provided.
+    This study prepares readers for the October Renewing Culture Conference.
+  </p>
 </EventLayout>

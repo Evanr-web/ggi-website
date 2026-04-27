@@ -1,0 +1,117 @@
+---
+interface Props {
+  address: string;
+  lat?: number;
+  lng?: number;
+  label?: string;
+}
+
+const { address, lat, lng, label = 'Event Location' } = Astro.props;
+const hasCoords = lat !== undefined && lng !== undefined;
+const embedQuery = hasCoords ? `${lat},${lng}` : encodeURIComponent(address);
+const mapsUrl = hasCoords
+  ? `https://www.google.com/maps?q=${lat},${lng}`
+  : `https://www.google.com/maps?q=${encodeURIComponent(address)}`;
+---
+
+<div class="google-map">
+  <div class="google-map__header">
+    <strong class="google-map__label">{label}</strong>
+    <a href={mapsUrl} target="_blank" rel="noopener noreferrer" class="google-map__directions">
+      Get Directions ↗
+    </a>
+  </div>
+  <p class="google-map__address">{address}</p>
+  <div class="google-map__frame">
+    <iframe
+      src={`https://www.google.com/maps?q=${embedQuery}&output=embed`}
+      width="100%"
+      height="100%"
+      style="border:0;"
+      allowfullscreen
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade"
+      title={`Map showing ${address}`}
+    ></iframe>
+  </div>
+</div>
+
+<style>
+  .google-map {
+    margin-top: 40px;
+    padding: 24px;
+    border: 1px solid rgba(14, 51, 82, 0.12);
+    border-radius: 6px;
+    background: var(--color-linen);
+  }
+
+  .google-map__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 8px;
+  }
+
+  .google-map__label {
+    font-family: var(--font-ui);
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-gold);
+  }
+
+  .google-map__directions {
+    font-family: var(--font-ui);
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--color-navy);
+    text-decoration: none;
+    opacity: 0.7;
+    transition: opacity var(--transition-fast);
+  }
+
+  .google-map__directions:hover {
+    opacity: 1;
+    color: var(--color-crimson);
+  }
+
+  .google-map__address {
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    color: var(--color-ink);
+    margin-bottom: 16px;
+    line-height: 1.5;
+    white-space: pre-line;
+  }
+
+  .google-map__frame {
+    width: 100%;
+    height: 300px;
+    border-radius: 4px;
+    overflow: hidden;
+    border: 1px solid rgba(14, 51, 82, 0.08);
+  }
+
+  .google-map__frame iframe {
+    display: block;
+    filter: grayscale(60%) sepia(20%) brightness(1.02) contrast(0.95);
+    transition: filter 0.4s ease;
+  }
+
+  .google-map__frame:hover iframe {
+    filter: none;
+  }
+
+  @media (max-width: 640px) {
+    .google-map {
+      padding: 16px;
+      margin-top: 32px;
+    }
+
+    .google-map__frame {
+      height: 240px;
+    }
+  }
+</style>

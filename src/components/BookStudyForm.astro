@@ -1,0 +1,76 @@
+---
+/**
+ * Book Study signup form.
+ * Province → City cascade and interest → host count toggle
+ * are handled by the parent page's script.
+ */
+---
+
+<form class="bs-form" data-ac-endpoint="/api/subscribe" data-ac-success="You're registered! Check your inbox for Book Study details." method="POST">
+  <div class="bs-form__row">
+    <div class="bs-form__field">
+      <label for="bs-name">Name</label>
+      <input type="text" id="bs-name" name="name" required placeholder="Your name" />
+    </div>
+    <div class="bs-form__field">
+      <label for="bs-email">Email</label>
+      <input type="email" id="bs-email" name="email" required placeholder="you@example.com" />
+    </div>
+  </div>
+  <div class="bs-form__row">
+    <div class="bs-form__field">
+      <label for="bs-province">Province</label>
+      <select id="bs-province" name="province" required>
+        <option value="" disabled selected>Select province</option>
+        <option value="BC">British Columbia</option>
+        <option value="AB">Alberta</option>
+        <option value="SK">Saskatchewan</option>
+        <option value="MB">Manitoba</option>
+        <option value="ON">Ontario</option>
+        <option value="QC">Quebec</option>
+        <option value="NB">New Brunswick</option>
+        <option value="NS">Nova Scotia</option>
+        <option value="PE">Prince Edward Island</option>
+        <option value="NL">Newfoundland & Labrador</option>
+        <option value="other">Territory / Other</option>
+      </select>
+    </div>
+    <div class="bs-form__field">
+      <label for="bs-city">City</label>
+      <select id="bs-city" name="city" required disabled>
+        <option value="" disabled selected>Select province first</option>
+      </select>
+    </div>
+  </div>
+  <div class="bs-form__field" id="other-city-field" style="display: none;">
+    <label for="bs-other-city">Your city</label>
+    <input type="text" id="bs-other-city" name="other_city" placeholder="e.g. Thunder Bay" />
+  </div>
+  <div class="bs-form__field">
+    <label for="bs-interest">I'm interested in</label>
+    <select id="bs-interest" name="interest" required>
+      <option value="" disabled selected>Select one</option>
+      <option value="join">Joining an existing group</option>
+      <option value="waitlist">No group near me — add me to the waitlist</option>
+      <option value="host">Starting / hosting a new group</option>
+      <option value="online">Online only — send me the materials</option>
+    </select>
+  </div>
+  <div class="bs-form__field" id="host-count-field" style="display: none;">
+    <label for="bs-host-count">How many people do you expect?</label>
+    <select id="bs-host-count" name="host_count">
+      <option value="3-5">3–5 people</option>
+      <option value="6-10">6–10 people</option>
+      <option value="10+">10+ people</option>
+      <option value="unsure">Not sure yet</option>
+    </select>
+  </div>
+  <div class="bs-form__checkbox">
+    <label>
+      <input type="checkbox" name="magnalia_letter" value="yes" />
+      <span>I'd also like to receive the <strong>Magnalia Letter</strong> — the Institute's free newsletter</span>
+    </label>
+  </div>
+  <button type="submit" class="bs-form__submit">Get Connected</button>
+  <p class="bs-form__note">We'll be in touch within a few days. Your information is never shared publicly.</p>
+</form>

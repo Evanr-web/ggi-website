@@ -1,12 +1,20 @@
 ---
 import BaseLayout from './BaseLayout.astro';
 import Button from '../components/Button.astro';
+import GoogleMap from '../components/GoogleMap.astro';
+import ShareBar from '../components/ShareBar.astro';
+import AddToCalendar from '../components/AddToCalendar.astro';
 
 interface Props {
   title: string;
   date: string;
   endDate?: string;
   location: string;
+  locationAddress?: string;
+  mapLat?: number;
+  mapLng?: number;
+  showMap?: boolean;
+  cost?: string;
   image?: string;
   imageAlt?: string;
   tag: string;
@@ -17,7 +25,7 @@ interface Props {
   imagePosition?: string;
 }
 
-const { title, date, endDate, location, image, imageAlt = '', tag, past = false, ctaText, ctaHref, artFilter = false, imagePosition } = Astro.props;
+const { title, date, endDate, location, locationAddress, mapLat, mapLng, showMap = false, cost, image, imageAlt = '', tag, past = false, ctaText, ctaHref, artFilter = false, imagePosition } = Astro.props;
 const base = import.meta.env.BASE_URL;
 
 const formatDate = (d: string) => {
@@ -42,24 +50,47 @@ const formatDate = (d: string) => {
       </div>
 
       <div class="event-detail__meta">
-        <div class="event-detail__meta-items">
-          <div class="event-detail__meta-item">
-            <strong>Date</strong>
-            <span>{formatDate(date)}{endDate ? ` – ${formatDate(endDate)}` : ''}</span>
+        <div class="event-detail__meta-row">
+          <div class="event-detail__meta-items">
+            <div class="event-detail__meta-item">
+              <strong>Date</strong>
+              <span>{formatDate(date)}{endDate ? ` – ${formatDate(endDate)}` : ''}</span>
+            </div>
+            <div class="event-detail__meta-item">
+              <strong>Location</strong>
+              <span>{location}</span>
+            </div>
+            {cost && (
+              <div class="event-detail__meta-item">
+                <strong>Cost</strong>
+                <span>{cost}</span>
+              </div>
+            )}
           </div>
-          <div class="event-detail__meta-item">
-            <strong>Location</strong>
-            <span>{location}</span>
-          </div>
+          {ctaText && ctaHref && (
+            <a href={ctaHref} class="event-detail__meta-cta">{ctaText}</a>
+          )}
         </div>
-        {ctaText && ctaHref && (
-          <a href={ctaHref} class="event-detail__meta-cta">{ctaText}</a>
-        )}
+        <div class="event-detail__meta-toolbar">
+          <AddToCalendar title={title} date={date} endDate={endDate} location={location} />
+          <ShareBar title={title} compact />
+        </div>
       </div>
 
       <div class="event-detail__body">
         <slot />
       </div>
+
+      {showMap && locationAddress && (
+        <GoogleMap address={locationAddress} lat={mapLat} lng={mapLng} />
+      )}
+
+      {!past && (
+        <div class="event-detail__share-bottom">
+          <p class="event-detail__share-prompt">Know someone who'd love this? Help us spread the word.</p>
+          <ShareBar title={title} />
+        </div>
+      )}
 
       <div class="event-detail__footer">
         <a href={`${base}events/`} class="event-detail__back">← Back to All Events</a>
@@ -114,15 +145,18 @@ const formatDate = (d: string) => {
   }
 
   .event-detail__meta {
+    padding: 20px 0;
+    border-top: 1px solid rgba(90, 90, 110, 0.1);
+    border-bottom: 1px solid rgba(90, 90, 110, 0.1);
+    margin-bottom: 32px;
+  }
+
+  .event-detail__meta-row {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 24px;
     flex-wrap: wrap;
-    padding: 20px 0;
-    border-top: 1px solid rgba(90, 90, 110, 0.1);
-    border-bottom: 1px solid rgba(90, 90, 110, 0.1);
-    margin-bottom: 32px;
   }
 
   .event-detail__meta-items {
@@ -147,6 +181,37 @@ const formatDate = (d: string) => {
 
   .event-detail__meta-cta:hover {
     background-color: #6b2124;
+  }
+
+  .event-detail__meta-toolbar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px solid rgba(90, 90, 110, 0.06);
+    flex-wrap: wrap;
+  }
+
+  .event-detail__share-bottom {
+    margin-top: 40px;
+    padding: 24px;
+    background: var(--color-linen);
+    border: 1px solid rgba(14, 51, 82, 0.08);
+    border-radius: 6px;
+    text-align: center;
+  }
+
+  .event-detail__share-bottom :global(.share-bar) {
+    justify-content: center;
+  }
+
+  .event-detail__share-prompt {
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    color: var(--color-navy);
+    margin-bottom: 14px;
+    font-weight: 500;
   }
 
   .event-detail__meta-item {
