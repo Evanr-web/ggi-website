@@ -130,8 +130,8 @@ export default defineType({
       title: 'SEO',
       type: 'object',
       fields: [
-        { name: 'metaTitle', title: 'Meta Title', type: 'string' },
-        { name: 'metaDescription', title: 'Meta Description', type: 'text', rows: 2 },
+        { name: 'metaTitle', title: 'Meta Title', type: 'string', description: 'Custom page title for search engines. Keep under 60 characters. If blank, the program title is used.' },
+        { name: 'metaDescription', title: 'Meta Description', type: 'text', rows: 2, description: 'The snippet shown in Google search results. Keep under 160 characters. If blank, the short description is used.' },
         { name: 'ogImage', title: 'OG Image', type: 'image', description: 'The image shown when this page is shared on social media (Facebook, Twitter, iMessage, etc.). Recommended: 1200×630px, landscape. If left blank, the hero image is used.' },
       ],
     }),

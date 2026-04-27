@@ -34,12 +34,21 @@ export default defineType({
       name: 'location',
       title: 'Location',
       type: 'string',
+      description: 'Venue name shown on the event card. e.g. "Mt Carmel Spirituality Centre"',
     }),
     defineField({
       name: 'locationAddress',
       title: 'Full Address',
       type: 'text',
       rows: 2,
+      description: 'Full street address. Used for the Google Maps embed if "Show Map" is enabled.',
+    }),
+    defineField({
+      name: 'showMap',
+      title: 'Show Google Map',
+      type: 'boolean',
+      initialValue: false,
+      description: 'Toggle ON to display an embedded Google Map on the event page. Requires a Full Address above. Leave OFF for online or multi-location events.',
     }),
     defineField({
       name: 'program',
@@ -136,10 +145,11 @@ export default defineType({
       title: 'SEO',
       type: 'object',
       fields: [
-        { name: 'metaTitle', title: 'Meta Title', type: 'string' },
-        { name: 'metaDescription', title: 'Meta Description', type: 'text', rows: 2 },
+        { name: 'metaTitle', title: 'Meta Title', type: 'string', description: 'Custom page title for search engines. Keep under 60 characters. If blank, the event title is used.' },
+        { name: 'metaDescription', title: 'Meta Description', type: 'text', rows: 2, description: 'The snippet shown in Google search results. Keep under 160 characters. If blank, the short description is used.' },
         { name: 'ogImage', title: 'OG Image', type: 'image', description: 'Social media preview image (Facebook, Twitter, iMessage). Recommended: 1200×630px. Falls back to hero image if blank.' },
       ],
+      description: 'Optional. These control how the page appears in Google and when shared on social media. Safe to leave blank — sensible defaults are used.',
     }),
   ],
   orderings: [
