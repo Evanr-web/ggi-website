@@ -11,13 +11,7 @@ export default defineType({
       type: 'string',
       validation: (Rule) => Rule.required(),
     }),
-    defineField({
-      name: 'slug',
-      title: 'Slug',
-      type: 'slug',
-      description: 'Auto-generated from the name. Used if this person gets their own page.',
-      options: { source: 'name', maxLength: 96 },
-    }),
+
     defineField({
       name: 'photo',
       title: 'Photo',
