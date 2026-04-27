@@ -1,13 +1,30 @@
 ---
-// Fly-in Popup — bottom-right on desktop, bottom banner on mobile
-// Currently hardcoded; will pull from Sanity siteSettings.flyinPopup when wired
-const enabled = true;
-const headline = "We're Hiring!";
-const message = "Join the team renewing Catholic culture in Canada. Communications & Development Intern — Summer 2026.";
-const ctaText = "Apply Now";
-const ctaUrl = "/careers/";
-const delay = 5; // seconds
-const popupId = "hiring-intern-2026"; // unique ID for dismiss persistence
+import { getSiteSettings } from '../lib/sanity';
+
+// Try Sanity first, fall back to hardcoded defaults
+let enabled = true;
+let headline = "We're Hiring!";
+let message = "Join the team renewing Catholic culture in Canada. Communications & Development Intern — Summer 2026.";
+let ctaText = "Apply Now";
+let ctaUrl = "/careers/";
+let delay = 5;
+let popupId = "hiring-intern-2026";
+
+try {
+  const settings = await getSiteSettings();
+  if (settings?.flyinPopup) {
+    const fp = settings.flyinPopup;
+    enabled = fp.enabled ?? false;
+    headline = fp.headline ?? headline;
+    message = fp.message ?? message;
+    ctaText = fp.ctaText ?? ctaText;
+    ctaUrl = fp.ctaUrl ?? ctaUrl;
+    delay = fp.delay ?? delay;
+    popupId = `flyin-${headline.slice(0, 20).replace(/\W/g, '-').toLowerCase()}`;
+  }
+} catch (e) {
+  // Sanity unavailable — use hardcoded defaults
+}
 ---
 
 {enabled && (
@@ -112,7 +129,6 @@ const popupId = "hiring-intern-2026"; // unique ID for dismiss persistence
     const id = popup.dataset.popupId;
     const key = `flyin-dismissed-${id}`;
 
-    // Don't show if previously dismissed (persists across sessions via localStorage)
     if (localStorage.getItem(key)) {
       popup.remove();
     } else {
@@ -123,13 +139,11 @@ const popupId = "hiring-intern-2026"; // unique ID for dismiss persistence
         popup.classList.add('flyin--visible');
       }, delay);
 
-      // Dismiss on X click
       popup.querySelector('.flyin__close')?.addEventListener('click', () => {
         localStorage.setItem(key, '1');
         popup.remove();
       });
 
-      // Dismiss on CTA click too
       popup.querySelector('[data-flyin-cta]')?.addEventListener('click', () => {
         localStorage.setItem(key, '1');
       });

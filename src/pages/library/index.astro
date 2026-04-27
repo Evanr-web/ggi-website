@@ -2,9 +2,30 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Card from '../../components/Card.astro';
 import Button from '../../components/Button.astro';
+import { getLibraryArticles } from '../../lib/sanity';
 
 const base = import.meta.env.BASE_URL;
-const entries = [
+
+// Try Sanity first
+let sanityArticles: any[] = [];
+try { sanityArticles = await getLibraryArticles() || []; } catch (e) { /* fallback */ }
+
+// Map Sanity articles to our format
+const cmsEntries = sanityArticles.map((a: any) => {
+  const d = a.publishDate ? new Date(a.publishDate) : null;
+  const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  return {
+    title: a.title,
+    author: a.author || 'Gregory the Great Institute',
+    category: a.category || 'Resource',
+    date: d ? `${months[d.getMonth()]} ${d.getFullYear()}` : '',
+    image: a.image || '',
+    excerpt: a.excerpt || '',
+    href: a.slug?.current || '',
+  };
+});
+
+const fallbackEntries = [
   // Real articles from GGI Latest
   { title: "FINE Gathering in Ottawa and National Prayer Breakfast", author: "Victor Carpay", category: "News", date: "Apr 2026", image: `${base}images/art/parliament-hill-ottawa.jpg`, excerpt: "Dr. Topping and Victor were invited to the FINE Gathering coordinated by CCO and the National Prayer Breakfast by MP Shuv Majumbar (Calgary Heritage).", href: "fine-gathering-ottawa" },
   { title: "Master Your Money, Serve Your Vocation: Personal Finances 101", author: "Jesse Underwood", category: "News", date: "Apr 2026", image: `${base}images/events/finances-placeholder.jpg`, excerpt: "64% of Canadians never learned money management. Financial literacy as stewardship and vocation — a preview of our upcoming masterclass.", href: "personal-finances" },
@@ -14,6 +35,9 @@ const entries = [
   { title: "The Abolition of Man Study Guide", author: "Gregory the Great Institute", category: "Resource", date: "Dec 2025", image: `${base}images/art/gozzoli-triumph-aquinas.jpg`, excerpt: "A downloadable study guide for C.S. Lewis's The Abolition of Man, designed for use in reading groups and classrooms.", href: "abolition-of-man-guide" },
   { title: "Christmas Book Recommendations 2025", author: "Gregory the Great Institute", category: "Resource", date: "Dec 2025", image: `${base}images/art/roestraten-still-life-books.jpg`, excerpt: "Our annual curated list of books worth giving — and reading — this Christmas season.", href: "christmas-books-2025" },
 ];
+
+// Use CMS data if available, otherwise fallback
+const entries = cmsEntries.length > 0 ? cmsEntries : fallbackEntries;
 
 const categories = ["All", "News", "Essays", "Videos", "Resources"];
 ---

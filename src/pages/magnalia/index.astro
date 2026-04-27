@@ -3,6 +3,17 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Button from '../../components/Button.astro';
 import QuoteBlock from '../../components/QuoteBlock.astro';
 import SectionDivider from '../../components/SectionDivider.astro';
+import { getCurrentMagnaliaIssue } from '../../lib/sanity';
+
+const base = import.meta.env.BASE_URL;
+
+// Try Sanity for current issue data
+let issue: any = null;
+try { issue = await getCurrentMagnaliaIssue(); } catch (e) { /* fallback */ }
+
+// Resolved values (CMS or hardcoded defaults)
+const coverImage = issue?.coverImage || `${base}images/branding/Magnalia_Cover.jpg`;
+const issueLabel = issue ? `Inside Issue ${issue.issueNumber}${issue.title ? ' · ' + issue.title : ''} · ${issue.pageCount || 60} Pages` : 'Inside Issue One · Winter 2026 · 60 Pages';
 ---
 
 <BaseLayout title="Magnalia" description="The journal of Catholic cultural renewal in Canada. Essays, art, and letters from leading Catholic thinkers.">
@@ -25,7 +36,7 @@ import SectionDivider from '../../components/SectionDivider.astro';
         </div>
       </div>
       <div class="magnalia-hero__cover">
-        <img src={`${import.meta.env.BASE_URL}images/branding/Magnalia_Cover.jpg`} alt="Magnalia Journal — Issue One" />
+        <img src={coverImage} alt="Magnalia Journal — Current Issue" />
       </div>
     </div>
   </section>
@@ -34,7 +45,7 @@ import SectionDivider from '../../components/SectionDivider.astro';
   <section class="section section--tight">
     <div class="container">
       <div class="section-header">
-        <p class="label text-gold">Inside Issue One · Winter 2026 · 60 Pages</p>
+        <p class="label text-gold">{issueLabel}</p>
         <h2>What You'll Find</h2>
       </div>
 

@@ -2,7 +2,13 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Button from '../../components/Button.astro';
 import SectionDivider from '../../components/SectionDivider.astro';
+import { getActiveCareerPostings } from '../../lib/sanity';
 const base = import.meta.env.BASE_URL;
+
+// Try Sanity first
+let cmsPostings: any[] = [];
+try { cmsPostings = await getActiveCareerPostings() || []; } catch (e) { /* fallback */ }
+const hasCmsPostings = cmsPostings.length > 0;
 ---
 
 <BaseLayout title="Careers & Opportunities — Gregory the Great Institute" description="Join the team renewing Catholic culture in Canada. Current jobs, internships, and volunteer opportunities.">
@@ -37,8 +43,53 @@ const base = import.meta.env.BASE_URL;
         <h2>Open Positions</h2>
       </div>
 
-      <!-- Internship Posting -->
-      <div class="posting reveal">
+      <!-- CMS Postings (from Sanity) -->
+      {cmsPostings.map((posting: any) => (
+        <div class="posting reveal">
+          <div class="posting__header">
+            <div>
+              <h3>{posting.title}</h3>
+              <div class="posting__meta">
+                <span class={`posting__badge posting__badge--${posting.type}`}>{posting.type}</span>
+                {posting.location && <span>{posting.location}</span>}
+                {posting.deadline && <span>Deadline: {new Date(posting.deadline).toLocaleDateString('en-CA', { month: 'short', day: 'numeric', year: 'numeric' })}</span>}
+              </div>
+            </div>
+          </div>
+          <div class="posting__body">
+            {posting.summary && <p>{posting.summary}</p>}
+            <div class="posting__details">
+              {posting.compensation && (
+                <div class="posting__detail">
+                  <strong>Compensation</strong>
+                  <span>{posting.compensation}</span>
+                </div>
+              )}
+              {posting.location && (
+                <div class="posting__detail">
+                  <strong>Location</strong>
+                  <span>{posting.location}</span>
+                </div>
+              )}
+              {posting.startDate && (
+                <div class="posting__detail">
+                  <strong>Start Date</strong>
+                  <span>{new Date(posting.startDate).toLocaleDateString('en-CA', { month: 'long', year: 'numeric' })}</span>
+                </div>
+              )}
+            </div>
+            <div class="posting__actions">
+              {(posting.detailsPdfUrl || posting.externalPdfUrl) && (
+                <a href={posting.detailsPdfUrl || posting.externalPdfUrl} target="_blank" rel="noopener" class="posting__pdf-link">📄 View Full Job Description (PDF)</a>
+              )}
+              <Button href="#apply" variant="primary">Apply Now</Button>
+            </div>
+          </div>
+        </div>
+      ))}
+
+      <!-- Hardcoded Internship Posting (fallback when Sanity is empty) -->
+      {!hasCmsPostings && <div class="posting reveal">
         <div class="posting__header">
           <div>
             <h3>Communications & Development Intern</h3>
@@ -81,9 +132,9 @@ const base = import.meta.env.BASE_URL;
             <Button href="#apply" variant="primary">Apply Now</Button>
           </div>
         </div>
-      </div>
+      </div>}
 
-      <!-- Future postings will be dynamically rendered from Sanity -->
+      <!-- Postings now driven by Sanity when available -->
     </div>
   </section>
 
@@ -133,7 +184,10 @@ const base = import.meta.env.BASE_URL;
           <label for="position">Position Applying For *</label>
           <select id="position" name="position" required>
             <option value="">Select...</option>
-            <option value="communications-intern-2026">Communications & Development Intern — Summer 2026</option>
+            {cmsPostings.map((p: any) => (
+              <option value={p.slug?.current || p.title}>{p.title}</option>
+            ))}
+            {!hasCmsPostings && <option value="communications-intern-2026">Communications & Development Intern — Summer 2026</option>}
             <option value="general">General Interest / Future Openings</option>
           </select>
         </div>

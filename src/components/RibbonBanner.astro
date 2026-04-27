@@ -1,12 +1,28 @@
 ---
-// Ribbon Banner — thin strip above navigation
-// Currently hardcoded; will pull from Sanity siteSettings.ribbonBanner when wired
-const enabled = true;
-const message = "We're hiring! Communications & Development Intern — Canada Summer Jobs 2026.";
-const linkText = "Apply Now →";
-const linkUrl = "/careers/";
-const style = "laurel"; // gold | navy | crimson | laurel — laurel green stands out without competing
-const bannerId = "hiring-intern-2026"; // unique ID for dismiss persistence
+import { getSiteSettings } from '../lib/sanity';
+
+// Try Sanity first, fall back to hardcoded defaults
+let enabled = true;
+let message = "We're hiring! Communications & Development Intern — Canada Summer Jobs 2026.";
+let linkText = "Apply Now →";
+let linkUrl = "/careers/";
+let style = "laurel";
+let bannerId = "hiring-intern-2026";
+
+try {
+  const settings = await getSiteSettings();
+  if (settings?.ribbonBanner) {
+    const rb = settings.ribbonBanner;
+    enabled = rb.enabled ?? false;
+    message = rb.message ?? message;
+    linkText = rb.linkText ?? linkText;
+    linkUrl = rb.linkUrl ?? linkUrl;
+    style = rb.style ?? style;
+    bannerId = `ribbon-${message.slice(0, 20).replace(/\W/g, '-').toLowerCase()}`;
+  }
+} catch (e) {
+  // Sanity unavailable — use hardcoded defaults
+}
 ---
 
 {enabled && (
@@ -106,19 +122,16 @@ const bannerId = "hiring-intern-2026"; // unique ID for dismiss persistence
     const id = ribbon.dataset.bannerId;
     const key = `ribbon-dismissed-${id}`;
 
-    // Don't show if previously dismissed (persists across sessions)
     if (localStorage.getItem(key)) {
       ribbon.remove();
     } else {
       ribbon.style.display = '';
 
-      // Dismiss on X click
       ribbon.querySelector('.ribbon__close')?.addEventListener('click', () => {
         localStorage.setItem(key, '1');
         ribbon.remove();
       });
 
-      // Dismiss on CTA click too (they clicked through — don't show again)
       ribbon.querySelector('[data-ribbon-cta]')?.addEventListener('click', () => {
         localStorage.setItem(key, '1');
       });
