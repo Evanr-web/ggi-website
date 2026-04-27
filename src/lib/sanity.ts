@@ -34,10 +34,7 @@ export async function getHomepage() {
     heroCta,
     heroSecondaryCta,
     videoUrl,
-    videoCaption,
-    magnaliaHeadline,
-    magnaliaDescription,
-    magnaliaCta
+    videoCaption
   }`);
 }
 

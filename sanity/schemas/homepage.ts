@@ -7,7 +7,6 @@ export default defineType({
   groups: [
     { name: 'hero', title: '🏔️ Hero' },
     { name: 'video', title: '🎬 Video' },
-    { name: 'magnalia', title: '📖 Magnalia Feature' },
   ],
   fields: [
     // === Hero ===
@@ -17,6 +16,7 @@ export default defineType({
       type: 'image',
       options: { hotspot: true },
       group: 'hero',
+      description: 'Recommended: 1920×1080px or larger, landscape orientation. The image will be darkened with an overlay — high contrast images work best.',
     }),
     defineField({
       name: 'heroHeadline',
@@ -45,9 +45,10 @@ export default defineType({
     }),
     defineField({
       name: 'heroSecondaryCta',
-      title: 'Secondary CTA',
+      title: 'Secondary CTA (optional)',
       type: 'object',
       group: 'hero',
+      description: 'A smaller text link below the main button. Leave both fields blank to show only the primary CTA.',
       fields: [
         { name: 'text', title: 'Link Text', type: 'string', initialValue: 'Explore Our Programs →' },
         { name: 'url', title: 'Link URL', type: 'string' },
@@ -70,31 +71,7 @@ export default defineType({
       description: 'Text shown below the video.',
     }),
 
-    // === Magnalia Feature ===
-    defineField({
-      name: 'magnaliaHeadline',
-      title: 'Section Headline',
-      type: 'string',
-      group: 'magnalia',
-      initialValue: 'Magnalia — A Journal for the Catholic Mind',
-    }),
-    defineField({
-      name: 'magnaliaDescription',
-      title: 'Section Description',
-      type: 'text',
-      rows: 3,
-      group: 'magnalia',
-    }),
-    defineField({
-      name: 'magnaliaCta',
-      title: 'CTA Button',
-      type: 'object',
-      group: 'magnalia',
-      fields: [
-        { name: 'text', title: 'Button Text', type: 'string', initialValue: 'Subscribe to Magnalia' },
-        { name: 'url', title: 'Button URL', type: 'string' },
-      ],
-    }),
+    // Magnalia feature section is hand-designed — content comes from the Magnalia Issue document
   ],
   preview: {
     prepare() {
