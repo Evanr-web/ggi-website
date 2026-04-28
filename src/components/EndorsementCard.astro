@@ -30,6 +30,19 @@ const { quote, name, title, image } = Astro.props;
     position: relative;
   }
 
+  /* Corner flourish */
+  .endorsement::after {
+    content: '☙';
+    position: absolute;
+    bottom: 10px;
+    right: 14px;
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    color: var(--color-gold);
+    opacity: 0.2;
+    line-height: 1;
+  }
+
   .endorsement__mark {
     font-family: var(--font-display);
     font-size: 3rem;

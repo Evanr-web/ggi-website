@@ -331,3 +331,142 @@ button:focus:not(:focus-visible) {
 .container--xs { max-width: 520px; margin-inline: auto; }
 .cta-desc { font-family: var(--font-body); font-size: 0.95rem; color: var(--color-gray); margin-bottom: 20px; }
 .cta-heading { margin-bottom: 8px; }
+
+/* ============================================
+   Medieval Ornamentation System
+   ============================================ */
+
+/* --- Parchment Texture (subtle grain on light sections) --- */
+.section--linen,
+.section--parchment,
+body {
+  position: relative;
+}
+
+body::after,
+.section--linen::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.3;
+  z-index: 0;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E");
+}
+
+body > *,
+.section--linen > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* --- Illuminated Drop Cap --- */
+.drop-cap::first-letter {
+  font-family: var(--font-display);
+  font-size: 4.2em;
+  float: left;
+  line-height: 0.8;
+  padding-right: 10px;
+  padding-top: 6px;
+  color: var(--color-navy);
+  font-weight: 700;
+  font-style: normal;
+}
+
+/* Crimson variant for dark-background context or emphasis */
+.drop-cap--crimson::first-letter {
+  color: var(--color-crimson);
+}
+
+/* Gold initial on navy field */
+.drop-cap--illuminated::first-letter {
+  color: var(--color-gold);
+  background: var(--color-navy);
+  padding: 8px 12px 4px 10px;
+  margin-right: 6px;
+  border-radius: 2px;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  box-shadow: inset 0 0 0 1px rgba(184, 154, 71, 0.3);
+}
+
+/* --- Ornamental Fleuron Divider --- */
+.fleuron {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding-block: 8px;
+}
+
+.fleuron__line {
+  flex: 1;
+  max-width: 120px;
+  height: 1px;
+  background: linear-gradient(to var(--fleuron-dir, right), var(--color-gold), transparent);
+}
+
+.fleuron__line--left { --fleuron-dir: left; }
+.fleuron__line--right { --fleuron-dir: right; }
+
+.fleuron__mark {
+  color: var(--color-gold);
+  font-size: 1.1rem;
+  line-height: 1;
+  opacity: 0.7;
+}
+
+/* --- Colophon (article end mark) --- */
+.colophon {
+  text-align: center;
+  margin-top: 36px;
+  margin-bottom: 8px;
+}
+
+.colophon__mark {
+  display: inline-block;
+  color: var(--color-gold);
+  font-size: 1.2rem;
+  opacity: 0.5;
+  letter-spacing: 0.3em;
+}
+
+/* --- Enhanced Blockquote (manuscript border) --- */
+.blockquote--ornate {
+  position: relative;
+  border-left: none;
+  padding: 28px 32px;
+  margin: 32px 0;
+  background: var(--color-linen);
+  border-radius: 2px;
+}
+
+.blockquote--ornate::before,
+.blockquote--ornate::after {
+  position: absolute;
+  color: var(--color-gold);
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  opacity: 0.4;
+  line-height: 1;
+}
+
+.blockquote--ornate::before {
+  content: '❧';
+  top: 8px;
+  left: 10px;
+}
+
+.blockquote--ornate::after {
+  content: '☙';
+  bottom: 8px;
+  right: 10px;
+}
+
+/* Gold accent bar on left */
+.blockquote--ornate {
+  border-left: 3px solid var(--color-gold);
+}
+
+/* Section footnote */
+.section--footnote { padding: 24px 0 40px; }

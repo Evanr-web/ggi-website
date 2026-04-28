@@ -44,8 +44,11 @@ const base = import.meta.env.BASE_URL;
           <p class="article__author-meta">{date}{readTime ? ` · ${readTime}` : ''}</p>
         </div>
       </div>
-      <div class="article__body">
+      <div class="article__body article__body--dropcap">
         <slot />
+      </div>
+      <div class="colophon" aria-hidden="true">
+        <span class="colophon__mark">✠</span>
       </div>
       {/* Related Articles */}
       {related.length > 0 && (
@@ -177,12 +180,42 @@ const base = import.meta.env.BASE_URL;
     margin-bottom: 12px;
   }
 
+  /* Drop cap on first paragraph */
+  .article__body--dropcap :global(p:first-child)::first-letter {
+    font-family: var(--font-display);
+    font-size: 4.2em;
+    float: left;
+    line-height: 0.8;
+    padding-right: 10px;
+    padding-top: 6px;
+    color: var(--color-navy);
+    font-weight: 700;
+    font-style: normal;
+  }
+
+  /* Ornate blockquote */
   .article__body :global(blockquote) {
+    position: relative;
     border-left: 3px solid var(--color-gold);
-    padding-left: 20px;
-    margin: 24px 0;
+    padding: 24px 28px;
+    margin: 28px 0;
     font-style: italic;
     color: var(--color-navy);
+    background: var(--color-linen);
+    border-radius: 2px;
+  }
+
+  .article__body :global(blockquote)::before {
+    content: '❧';
+    position: absolute;
+    top: 6px;
+    right: 10px;
+    color: var(--color-gold);
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    opacity: 0.35;
+    font-style: normal;
+    line-height: 1;
   }
 
   .article__body :global(blockquote p) {
