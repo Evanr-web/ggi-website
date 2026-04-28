@@ -25,24 +25,27 @@ const base = import.meta.env.BASE_URL;
   // Lazy-load Pagefind on first interaction
   let pagefindLoaded = false;
 
-  async function loadPagefind() {
+  function loadPagefind() {
     if (pagefindLoaded) return;
     pagefindLoaded = true;
 
-    const pagefind = await import(base + 'pagefind/pagefind-ui.js');
-    new pagefind.PagefindUI({
-      element: '#search-container',
-      showSubResults: true,
-      showImages: false,
-      baseUrl: base,
-      resetStyles: false,
-    });
+    const script = document.createElement('script');
+    script.src = base + 'pagefind/pagefind-ui.js';
+    script.onload = () => {
+      new PagefindUI({
+        element: '#search-container',
+        showSubResults: true,
+        showImages: false,
+        bundlePath: base + 'pagefind/',
+        resetStyles: false,
+      });
 
-    // Focus the input after mount
-    setTimeout(() => {
-      const input = document.querySelector('#search-container input');
-      if (input) input.focus();
-    }, 100);
+      setTimeout(() => {
+        const input = document.querySelector('#search-container input');
+        if (input) input.focus();
+      }, 100);
+    };
+    document.head.appendChild(script);
   }
 
   const trigger = document.querySelector('.search-trigger');
