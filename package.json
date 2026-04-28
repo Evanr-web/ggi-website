@@ -7,7 +7,7 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "astro build && pagefind --site dist --root-selector main",
     "preview": "astro preview",
     "astro": "astro"
   },
@@ -15,7 +15,8 @@
     "@astrojs/sitemap": "^3.7.2",
     "@sanity/astro": "^3.3.1",
     "@sanity/client": "^7.22.0",
-    "astro": "^6.1.9"
+    "astro": "^6.1.9",
+    "pagefind": "^1.5.2"
   },
   "devDependencies": {
     "gh-pages": "^6.3.0"

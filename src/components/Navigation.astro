@@ -1,4 +1,5 @@
 ---
+import Search from './Search.astro';
 const base = import.meta.env.BASE_URL;
 const navItems = [
   { label: 'Magnalia', href: `${base}magnalia/` },
@@ -48,6 +49,8 @@ const navItems = [
         )
       ))}
     </nav>
+
+    <Search />
 
     <a href={`${import.meta.env.BASE_URL}support/`} class="nav__cta">Support</a>
 
