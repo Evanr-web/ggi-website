@@ -3,7 +3,11 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Button from '../../components/Button.astro';
 import CanadaGroupMap from '../../components/CanadaGroupMap.astro';
 import BookStudyForm from '../../components/BookStudyForm.astro';
+import Testimonials from '../../components/Testimonials.astro';
+import { getProgram } from '../../lib/sanity';
 const base = import.meta.env.BASE_URL;
+const program = await getProgram('book-studies');
+const testimonials = program?.testimonials || [];
 ---
 
 <BaseLayout title="Book Studies — Inklings Clubs — Gregory the Great Institute" description="Free small-group reading clubs across Canada. Study guides, webinars, and community.">
@@ -322,6 +326,9 @@ const base = import.meta.env.BASE_URL;
       <a href={`${base}programs/`} class="back-link">← Back to Programs</a>
     </div>
   </section>
+
+  <Testimonials testimonials={testimonials} heading="What Readers Are Saying" />
+
 </BaseLayout>
 
 <style>

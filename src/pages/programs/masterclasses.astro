@@ -2,6 +2,10 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Button from '../../components/Button.astro';
 import SectionDivider from '../../components/SectionDivider.astro';
+import Testimonials from '../../components/Testimonials.astro';
+import { getProgram } from '../../lib/sanity';
+const program = await getProgram('masterclasses');
+const testimonials = program?.testimonials || [];
 ---
 
 <BaseLayout title="Masterclasses — The Great Tradition" description="Short courses on the Great Tradition — Aquinas, leadership, beauty, and classical education. Online and in-person.">
@@ -143,6 +147,8 @@ import SectionDivider from '../../components/SectionDivider.astro';
       </div>
     </div>
   </section>
+
+  <Testimonials testimonials={testimonials} heading="What Participants Are Saying" />
 
 </BaseLayout>
 

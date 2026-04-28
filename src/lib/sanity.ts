@@ -130,7 +130,8 @@ export async function getPrograms() {
 export async function getProgram(slug: string) {
   return sanityClient.fetch(`*[_type == "program" && slug.current == $slug][0]{
     ...,
-    "headerImage": headerImage.asset->url
+    "headerImage": headerImage.asset->url,
+    testimonials
   }`, { slug });
 }
 

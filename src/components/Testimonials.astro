@@ -1,0 +1,96 @@
+---
+/**
+ * Testimonials section — renders quotes from participants/supporters.
+ * Pass an array of { quote, attribution } objects.
+ * If the array is empty or undefined, renders nothing.
+ */
+interface Props {
+  testimonials?: Array<{ quote: string; attribution?: string }>;
+  heading?: string;
+}
+
+const { testimonials, heading = 'What People Are Saying' } = Astro.props;
+const items = testimonials?.filter(t => t.quote) || [];
+---
+
+{items.length > 0 && (
+  <section class="testimonials section">
+    <div class="container">
+      <p class="label text-gold">Testimonials</p>
+      <h2 class="testimonials__heading">{heading}</h2>
+      <div class="testimonials__grid">
+        {items.map(t => (
+          <blockquote class="testimonials__card">
+            <span class="testimonials__mark">&ldquo;</span>
+            <p class="testimonials__quote">{t.quote}</p>
+            {t.attribution && (
+              <footer class="testimonials__attribution">&mdash; {t.attribution}</footer>
+            )}
+          </blockquote>
+        ))}
+      </div>
+    </div>
+  </section>
+)}
+
+<style>
+  .testimonials__heading {
+    margin-bottom: 40px;
+  }
+
+  .testimonials__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  @media (min-width: 768px) {
+    .testimonials__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .testimonials__grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .testimonials__card {
+    background: var(--color-parchment, #f8ebd9);
+    border-left: 3px solid var(--color-gold, #b89a47);
+    border-radius: 3px;
+    padding: 28px 24px 24px;
+    margin: 0;
+    position: relative;
+  }
+
+  .testimonials__mark {
+    font-family: var(--font-display);
+    font-size: 3rem;
+    color: var(--color-gold, #b89a47);
+    opacity: 0.3;
+    line-height: 1;
+    position: absolute;
+    top: 12px;
+    left: 16px;
+  }
+
+  .testimonials__quote {
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: var(--color-navy, #0e3352);
+    font-style: italic;
+    margin: 0 0 12px;
+    padding-top: 8px;
+  }
+
+  .testimonials__attribution {
+    font-family: var(--font-ui);
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--color-gray, #5a5a6e);
+    letter-spacing: 0.02em;
+  }
+</style>
