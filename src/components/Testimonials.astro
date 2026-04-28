@@ -14,18 +14,18 @@ const items = testimonials?.filter(t => t.quote) || [];
 ---
 
 {items.length > 0 && (
-  <section class="testimonials section">
+  <section class="testimonials">
     <div class="container">
-      <p class="label text-gold">Testimonials</p>
+      <p class="label testimonials__label">Testimonials</p>
       <h2 class="testimonials__heading">{heading}</h2>
-      <div class="testimonials__grid">
-        {items.map(t => (
-          <blockquote class="testimonials__card">
-            <span class="testimonials__mark">&ldquo;</span>
-            <p class="testimonials__quote">{t.quote}</p>
+      <div class="testimonials__list">
+        {items.map((t, i) => (
+          <blockquote class="testimonials__item">
+            <p class="testimonials__quote">&ldquo;{t.quote}&rdquo;</p>
             {t.attribution && (
-              <footer class="testimonials__attribution">&mdash; {t.attribution}</footer>
+              <footer class="testimonials__attribution">{t.attribution}</footer>
             )}
+            {i < items.length - 1 && <div class="testimonials__divider"><span class="tagline-cross">✠</span></div>}
           </blockquote>
         ))}
       </div>
@@ -34,63 +34,60 @@ const items = testimonials?.filter(t => t.quote) || [];
 )}
 
 <style>
-  .testimonials__heading {
-    margin-bottom: 40px;
+  .testimonials {
+    background-color: var(--color-navy, #0e3352);
+    padding: 64px 0;
   }
 
-  .testimonials__grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 24px;
-  }
-
-  @media (min-width: 768px) {
-    .testimonials__grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-
-  @media (min-width: 1024px) {
-    .testimonials__grid {
-      grid-template-columns: repeat(3, 1fr);
-    }
-  }
-
-  .testimonials__card {
-    background: var(--color-parchment, #f8ebd9);
-    border-left: 3px solid var(--color-gold, #b89a47);
-    border-radius: 3px;
-    padding: 28px 24px 24px;
-    margin: 0;
-    position: relative;
-  }
-
-  .testimonials__mark {
-    font-family: var(--font-display);
-    font-size: 3rem;
+  .testimonials__label {
+    text-align: center;
     color: var(--color-gold, #b89a47);
-    opacity: 0.3;
-    line-height: 1;
-    position: absolute;
-    top: 12px;
-    left: 16px;
+  }
+
+  .testimonials__heading {
+    text-align: center;
+    color: var(--color-text-on-dark, #f5efe5);
+    margin-bottom: 48px;
+  }
+
+  .testimonials__list {
+    max-width: 680px;
+    margin-inline: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+  }
+
+  .testimonials__item {
+    margin: 0;
+    padding: 0;
+    text-align: center;
   }
 
   .testimonials__quote {
-    font-family: var(--font-body);
-    font-size: 0.95rem;
-    line-height: 1.7;
-    color: var(--color-navy, #0e3352);
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    line-height: 1.8;
+    color: var(--color-text-on-dark, #f5efe5);
     font-style: italic;
     margin: 0 0 12px;
-    padding-top: 8px;
   }
 
   .testimonials__attribution {
     font-family: var(--font-ui);
     font-size: 0.82rem;
-    font-weight: 600;
-    color: var(--color-gray, #5a5a6e);
-    letter-spacing: 0.02em;
+    font-weight: 500;
+    color: var(--color-gold, #b89a47);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .testimonials__divider {
+    text-align: center;
+    padding: 32px 0;
+    color: var(--color-gold, #b89a47);
+    opacity: 0.4;
+    font-size: 0.9rem;
   }
 </style>
