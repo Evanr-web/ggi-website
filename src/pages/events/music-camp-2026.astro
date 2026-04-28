@@ -1,6 +1,14 @@
 ---
 import EventLayout from '../../layouts/EventLayout.astro';
+import Testimonials from '../../components/Testimonials.astro';
 const base = import.meta.env.BASE_URL;
+
+// Sample testimonials for preview — replace with real quotes or wire to Sanity
+const sampleTestimonials = [
+  { quote: "My daughter came home singing hymns and folk songs all day. She's already asking when she can go back.", attribution: "Parent, 2025 Camp" },
+  { quote: "I learned more about prayer in four days than I had in years. The music was the doorway.", attribution: "Camper, age 16" },
+  { quote: "The combination of sacred music, outdoor life, and genuine friendship — it's exactly what our kids need.", attribution: "Parent, Edmonton" },
+];
 ---
 
 <EventLayout
@@ -40,4 +48,7 @@ const base = import.meta.env.BASE_URL;
   <p>
     Open to youth ages 12–18. Four nights, residential format.
   </p>
+
+  <Testimonials testimonials={sampleTestimonials} heading="What Families Are Saying" />
+
 </EventLayout>
