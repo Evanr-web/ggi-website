@@ -180,17 +180,42 @@ const base = import.meta.env.BASE_URL;
     margin-bottom: 12px;
   }
 
-  /* Drop cap on first paragraph */
+  /* Illuminated drop cap — manuscript initial */
   .article__body--dropcap :global(p:first-child)::first-letter {
     font-family: var(--font-display);
-    font-size: 4.2em;
+    font-size: 4.5em;
     float: left;
-    line-height: 0.8;
-    padding-right: 10px;
-    padding-top: 6px;
-    color: var(--color-navy);
+    line-height: 0.78;
     font-weight: 700;
     font-style: normal;
+
+    /* Gold letter on navy field */
+    color: var(--color-gold);
+    background: linear-gradient(
+      135deg,
+      #0b2840 0%,
+      #0e3352 40%,
+      #122d45 100%
+    );
+
+    /* Inner padding */
+    padding: 10px 14px 6px 12px;
+    margin-right: 10px;
+    margin-bottom: 4px;
+
+    /* Gilded glow on letterform */
+    text-shadow:
+      0 0 8px rgba(184, 154, 71, 0.4),
+      0 1px 2px rgba(0, 0, 0, 0.5);
+
+    /* Layered ornamental frame: inner gold / gap / outer gold */
+    border: 2px solid var(--color-gold);
+    box-shadow:
+      inset 0 0 0 2px rgba(184, 154, 71, 0.15),
+      inset 0 0 12px rgba(184, 154, 71, 0.08),
+      0 0 0 3px var(--color-parchment),
+      0 0 0 4.5px rgba(184, 154, 71, 0.4),
+      0 4px 16px rgba(14, 51, 82, 0.2);
   }
 
   /* Ornate blockquote */

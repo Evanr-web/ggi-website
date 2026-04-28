@@ -379,15 +379,21 @@ body > *,
   color: var(--color-crimson);
 }
 
-/* Gold initial on navy field */
+/* Gold initial on navy field — illuminated manuscript style */
 .drop-cap--illuminated::first-letter {
   color: var(--color-gold);
-  background: var(--color-navy);
-  padding: 8px 12px 4px 10px;
-  margin-right: 6px;
-  border-radius: 2px;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-  box-shadow: inset 0 0 0 1px rgba(184, 154, 71, 0.3);
+  background: linear-gradient(135deg, #0b2840 0%, #0e3352 40%, #122d45 100%);
+  padding: 10px 14px 6px 12px;
+  margin-right: 10px;
+  margin-bottom: 4px;
+  text-shadow: 0 0 8px rgba(184, 154, 71, 0.4), 0 1px 2px rgba(0, 0, 0, 0.5);
+  border: 2px solid var(--color-gold);
+  box-shadow:
+    inset 0 0 0 2px rgba(184, 154, 71, 0.15),
+    inset 0 0 12px rgba(184, 154, 71, 0.08),
+    0 0 0 3px var(--color-parchment),
+    0 0 0 4.5px rgba(184, 154, 71, 0.4),
+    0 4px 16px rgba(14, 51, 82, 0.2);
 }
 
 /* --- Ornamental Fleuron Divider --- */
