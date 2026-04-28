@@ -51,15 +51,16 @@ const navItems = [
       ))}
     </nav>
 
-    <Search />
-
     <a href={`${import.meta.env.BASE_URL}support/`} class="nav__cta">Support</a>
 
-    <button class="nav__hamburger" aria-label="Toggle menu" aria-expanded="false">
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
+    <div class="nav__actions">
+      <Search />
+      <button class="nav__hamburger" aria-label="Toggle menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
   </div>
 
   <!-- Mobile menu -->
@@ -258,6 +259,14 @@ const navItems = [
     color: var(--color-navy);
   }
 
+  /* Actions group (search + hamburger on mobile) */
+  .nav__actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-left: auto;
+  }
+
   /* Hamburger */
   .nav__hamburger {
     display: flex;
@@ -334,6 +343,7 @@ const navItems = [
     .nav__links { display: flex; }
     .nav__cta { display: inline-block; }
     .nav__hamburger { display: none; }
+    .nav__actions { margin-left: 0; }
   }
 
   @media (max-width: 1023px) and (min-width: 640px) {
