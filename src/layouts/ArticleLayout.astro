@@ -36,7 +36,7 @@ const base = import.meta.env.BASE_URL;
       <div class="article__meta-bar">
         <span class="article__category">{category}</span>
       </div>
-      <h1 class="article__title">{title}</h1>
+      <h1 class="article__title" data-pagefind-weight="10" data-pagefind-meta="title">{title}</h1>
       <div class="article__author-row">
         <img src={authorImg.startsWith('/') ? `${base}${authorImg.slice(1)}` : authorImg} alt={author} class={`article__author-img${!authorImage ? ' article__author-img--seal' : ''}`} />
         <div>

@@ -9,7 +9,6 @@ const base = import.meta.env.BASE_URL;
 let sanityEvents: any[] = [];
 try { sanityEvents = await getEvents() || []; } catch (e) { /* fallback */ }
 
-// Map Sanity events to our format
 const cmsEvents = sanityEvents.map((e: any) => {
   const d = new Date(e.startDate);
   const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
@@ -27,7 +26,7 @@ const cmsEvents = sanityEvents.map((e: any) => {
   };
 });
 
-// Hardcoded fallback events (used when Sanity is empty)
+// Same fallback events as main events page
 const fallbackEvents = [
   {
     title: "2026 Book Study — Searching for and Maintaining Peace",
@@ -111,92 +110,100 @@ const fallbackEvents = [
   },
 ];
 
-// Use CMS data if available, otherwise fallback
 const events = cmsEvents.length > 0 ? cmsEvents : fallbackEvents;
 
-// Auto-split based on today's date
-const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
-const thirtyDaysAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
+// Show only past events, sorted newest first
+const today = new Date().toISOString().split('T')[0];
+const pastEvents = events.filter(e => e.date < today).sort((a, b) => b.date.localeCompare(a.date));
 
-const upcoming = events.filter(e => e.date >= today).sort((a, b) => a.date.localeCompare(b.date));
-const recentPast = events.filter(e => e.date < today && e.date >= thirtyDaysAgo).sort((a, b) => b.date.localeCompare(a.date));
-const olderPast = events.filter(e => e.date < thirtyDaysAgo).sort((a, b) => b.date.localeCompare(a.date));
-const hasArchive = olderPast.length > 0;
+// Group by year
+const byYear: Record<string, typeof pastEvents> = {};
+for (const e of pastEvents) {
+  const year = e.date.slice(0, 4);
+  if (!byYear[year]) byYear[year] = [];
+  byYear[year].push(e);
+}
+const years = Object.keys(byYear).sort((a, b) => b.localeCompare(a)); // newest first
 ---
 
-<BaseLayout title="Events" description="Upcoming conferences, courses, book studies, and community gatherings across Canada.">
+<BaseLayout title="Event Archive" description="Past events from the Gregory the Great Institute.">
 
-  <!-- Hero -->
   <section class="hero-compact section--dark">
     <div class="container" style="text-align: center; padding-block: 60px;">
-      <h1 data-pagefind-weight="10" class="display" style="color: var(--color-text-on-dark);">Events</h1>
+      <h1 data-pagefind-weight="10" class="display" style="color: var(--color-text-on-dark);">Event Archive</h1>
       <p style="font-family: var(--font-body); font-size: 1.05rem; color: rgba(245,239,229,0.8); max-width: 600px; margin-inline: auto; margin-top: 12px; line-height: 1.7;">
-        Join us across Canada for conferences, courses, book studies, and community gatherings.
+        A record of conferences, courses, and gatherings past.
       </p>
     </div>
   </section>
 
-  {upcoming.length > 0 && (
-    <section class="section">
-      <div class="container">
-        <h2 style="margin-bottom: 24px;">Upcoming</h2>
-        <div class="events-list">
-          {upcoming.map(e => (
-            <EventCard
-              title={e.title}
-              month={e.month}
-              day={e.day}
-              date={e.date}
-              location={e.location}
-              description={e.description}
-              href={e.href}
-              programTag={e.programTag}
-              thumbnail={e.thumbnail}
-              thumbnailAlt={e.thumbnailAlt}
-            />
-          ))}
-        </div>
-      </div>
-    </section>
-  )}
+  <section class="section">
+    <div class="container">
+      <p class="back-link-wrap">
+        <a href={`${base}events/`} class="back-link">← Back to Events</a>
+      </p>
 
-  {recentPast.length > 0 && (
-    <section class="section section--linen">
-      <div class="container">
-        <h2 style="margin-bottom: 24px;">Recent Events</h2>
-        <div class="events-list events-list--past">
-          {recentPast.map(e => (
-            <EventCard
-              title={e.title}
-              month={e.month}
-              day={e.day}
-              date={e.date}
-              location={e.location}
-              description={e.description}
-              href={e.href}
-              programTag={e.programTag}
-              thumbnail={e.thumbnail}
-              thumbnailAlt={e.thumbnailAlt}
-              past={true}
-            />
-          ))}
+      {years.map(year => (
+        <div class="archive-year">
+          <h2 class="archive-year__heading">{year}</h2>
+          <div class="events-list events-list--past">
+            {byYear[year].map(e => (
+              <EventCard
+                title={e.title}
+                month={e.month}
+                day={e.day}
+                date={e.date}
+                location={e.location}
+                description={e.description}
+                href={e.href}
+                programTag={e.programTag}
+                thumbnail={e.thumbnail}
+                thumbnailAlt={e.thumbnailAlt}
+                past={true}
+              />
+            ))}
+          </div>
         </div>
-      </div>
-    </section>
-  )}
+      ))}
 
-  {hasArchive && (
-    <section class="section" style="padding-block: 32px;">
-      <div class="container" style="text-align: center;">
-        <a href={`${base}events/archive/`} class="archive-link">
-          View Event Archive ({olderPast.length} past event{olderPast.length !== 1 ? 's' : ''}) →
-        </a>
-      </div>
-    </section>
-  )}
+      {pastEvents.length === 0 && (
+        <p style="text-align: center; color: var(--color-gray); font-family: var(--font-body);">No past events yet.</p>
+      )}
+    </div>
+  </section>
+
 </BaseLayout>
 
 <style>
+  .back-link-wrap {
+    margin-bottom: 32px;
+  }
+
+  .back-link {
+    font-family: var(--font-ui);
+    font-size: 0.9rem;
+    color: var(--color-gold);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+  }
+
+  .back-link:hover {
+    color: var(--color-crimson);
+  }
+
+  .archive-year {
+    margin-bottom: 48px;
+  }
+
+  .archive-year__heading {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    color: var(--color-navy);
+    margin-bottom: 20px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--color-gold);
+  }
+
   .events-list {
     display: flex;
     flex-direction: column;
@@ -209,18 +216,5 @@ const hasArchive = olderPast.length > 0;
 
   .events-list--past :global(.event-card:hover) {
     opacity: 1;
-  }
-
-  .archive-link {
-    font-family: var(--font-ui);
-    font-size: 0.95rem;
-    font-weight: 500;
-    color: var(--color-gold);
-    text-decoration: none;
-    transition: color var(--transition-fast);
-  }
-
-  .archive-link:hover {
-    color: var(--color-crimson);
   }
 </style>

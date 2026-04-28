@@ -35,7 +35,7 @@ const videoId = cms?.videoUrl ? cms.videoUrl.match(/(?:v=|youtu\.be\/)([^&]+)/)?
   <section class="hero hero--home" style={`background-image: url(${heroImage})`}>
     <div class="hero__overlay"></div>
     <div class="hero__content container">
-      <h1 class="hero__headline display">{heroHeadline}</h1>
+      <h1 data-pagefind-weight="10" class="hero__headline display">{heroHeadline}</h1>
       <p class="hero__tagline">Fides&ensp;•&ensp;Ratio<span class="hero__tagline-dot">&ensp;•&ensp;</span><br class="hero__tagline-break" />Cultura</p>
       <p class="hero__subtitle">{heroSubtitle}</p>
       <div class="hero__ctas">

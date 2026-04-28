@@ -46,7 +46,7 @@ const formatDate = (d: string) => {
       <div class="event-detail__header">
         <span class="label text-gold">{tag}</span>
         {past && <span class="event-detail__past-badge">Past Event</span>}
-        <h1>{title}</h1>
+        <h1 data-pagefind-weight="10" data-pagefind-meta="title">{title}</h1>
       </div>
 
       <div class="event-detail__meta">
