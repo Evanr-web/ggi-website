@@ -74,7 +74,7 @@ export default defineType({
       ],
     }),
     defineField({
-      name: 'heroImage',
+      name: 'headerImage',
       title: 'Hero Image',
       type: 'image',
       options: { hotspot: true },
@@ -157,7 +157,7 @@ export default defineType({
     { title: 'Date (Oldest)', name: 'dateAsc', by: [{ field: 'date', direction: 'asc' }] },
   ],
   preview: {
-    select: { title: 'title', subtitle: 'location', date: 'date', media: 'heroImage' },
+    select: { title: 'title', subtitle: 'location', date: 'date', media: 'headerImage' },
     prepare({ title, subtitle, date }) {
       const d = date ? new Date(date).toLocaleDateString('en-CA', { month: 'short', day: 'numeric', year: 'numeric' }) : '';
       return { title, subtitle: `${d} — ${subtitle || ''}` };

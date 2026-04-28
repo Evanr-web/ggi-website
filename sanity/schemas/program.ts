@@ -58,7 +58,7 @@ export default defineType({
       ],
     }),
     defineField({
-      name: 'heroImage',
+      name: 'headerImage',
       title: 'Hero Image',
       type: 'image',
       options: { hotspot: true },
@@ -137,6 +137,6 @@ export default defineType({
     }),
   ],
   preview: {
-    select: { title: 'title', subtitle: 'audience', media: 'heroImage' },
+    select: { title: 'title', subtitle: 'audience', media: 'headerImage' },
   },
 });
