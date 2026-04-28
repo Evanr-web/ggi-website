@@ -342,4 +342,4 @@ button:focus:not(:focus-visible) {
 .cta-heading { margin-bottom: 8px; }
 
 /* Tagline cross ornaments */
-.tagline-cross { font-size: 0.55em; opacity: 0.5; vertical-align: 0.15em; }
+.tagline-cross { font-size: 0.7em; opacity: 0.5; vertical-align: 0.12em; }
