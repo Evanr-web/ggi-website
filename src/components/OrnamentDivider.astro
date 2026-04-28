@@ -1,0 +1,127 @@
+---
+interface Props {
+  variant: 'vine' | 'celtic' | 'cross';
+  /** Show a small label above for preview purposes */
+  showLabel?: boolean;
+}
+
+const { variant, showLabel = false } = Astro.props;
+---
+
+<div class="ornament-divider" role="separator" aria-hidden="true">
+  {showLabel && <p class="ornament-divider__label">{variant === 'vine' ? '① Vine Scroll' : variant === 'celtic' ? '② Celtic Interlace' : '③ Cross Band'}</p>}
+
+  {variant === 'vine' && (
+    <svg class="ornament-divider__svg" viewBox="0 0 400 32" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <pattern id="vine-tile" x="0" y="0" width="100" height="32" patternUnits="userSpaceOnUse">
+          {/* Main vine stem — flowing S-curve */}
+          <path d="M0 16 C12 4, 25 4, 38 14 C45 19, 50 22, 56 22 C68 22, 75 4, 100 16"
+                fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" />
+          {/* Upper leaf cluster */}
+          <path d="M28 10 C24 4, 18 3, 16 8" fill="none" stroke="currentColor" stroke-width="0.7" stroke-linecap="round" />
+          <path d="M30 9 C28 3, 34 2, 36 7" fill="none" stroke="currentColor" stroke-width="0.7" stroke-linecap="round" />
+          {/* Small grape/berry cluster */}
+          <circle cx="22" cy="6" r="1.5" fill="currentColor" opacity="0.4" />
+          <circle cx="25" cy="4" r="1.3" fill="currentColor" opacity="0.35" />
+          <circle cx="24" cy="8" r="1.2" fill="currentColor" opacity="0.3" />
+          {/* Lower leaf cluster */}
+          <path d="M68 24 C72 28, 78 29, 80 24" fill="none" stroke="currentColor" stroke-width="0.7" stroke-linecap="round" />
+          <path d="M66 23 C68 29, 62 30, 60 25" fill="none" stroke="currentColor" stroke-width="0.7" stroke-linecap="round" />
+          {/* Small tendril curls */}
+          <path d="M45 18 C43 14, 40 14, 41 18" fill="none" stroke="currentColor" stroke-width="0.5" stroke-linecap="round" />
+          <path d="M88 12 C90 8, 93 9, 92 13" fill="none" stroke="currentColor" stroke-width="0.5" stroke-linecap="round" />
+        </pattern>
+        <linearGradient id="vine-fade" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-opacity="0" /><stop offset="12%" stop-opacity="1" />
+          <stop offset="88%" stop-opacity="1" /><stop offset="100%" stop-opacity="0" />
+        </linearGradient>
+        <mask id="vine-mask"><rect width="400" height="32" fill="url(#vine-fade)" /></mask>
+      </defs>
+      <rect width="400" height="32" fill="url(#vine-tile)" mask="url(#vine-mask)" />
+    </svg>
+  )}
+
+  {variant === 'celtic' && (
+    <svg class="ornament-divider__svg" viewBox="0 0 400 24" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <pattern id="celtic-tile" x="0" y="0" width="48" height="24" patternUnits="userSpaceOnUse">
+          {/* Two-strand braid: strand A (over-under) */}
+          <path d="M0 6 C8 6, 8 18, 16 18 C24 18, 24 6, 32 6 C40 6, 40 18, 48 18"
+                fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" />
+          {/* Strand B (inverse, weaving under-over) */}
+          <path d="M0 18 C8 18, 8 6, 16 6 C24 6, 24 18, 32 18 C40 18, 40 6, 48 6"
+                fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" />
+          {/* Overlay breaks to create weave effect — background-colored segments */}
+          <path d="M6 10 C8 8, 8 8, 10 10" stroke="var(--color-parchment, #f8ebd9)" stroke-width="4" fill="none" />
+          <path d="M22 14 C24 16, 24 16, 26 14" stroke="var(--color-parchment, #f8ebd9)" stroke-width="4" fill="none" />
+          <path d="M38 10 C40 8, 40 8, 42 10" stroke="var(--color-parchment, #f8ebd9)" stroke-width="4" fill="none" />
+          {/* Re-draw the "over" strand at crossing points */}
+          <path d="M5 11 C8 7, 8 7, 11 11" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" />
+          <path d="M21 13 C24 17, 24 17, 27 13" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" />
+          <path d="M37 11 C40 7, 40 7, 43 11" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" />
+        </pattern>
+        <linearGradient id="celtic-fade" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-opacity="0" /><stop offset="12%" stop-opacity="1" />
+          <stop offset="88%" stop-opacity="1" /><stop offset="100%" stop-opacity="0" />
+        </linearGradient>
+        <mask id="celtic-mask"><rect width="400" height="24" fill="url(#celtic-fade)" /></mask>
+      </defs>
+      <rect width="400" height="24" fill="url(#celtic-tile)" mask="url(#celtic-mask)" />
+    </svg>
+  )}
+
+  {variant === 'cross' && (
+    <svg class="ornament-divider__svg ornament-divider__svg--cross" viewBox="0 0 400 20" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <pattern id="cross-tile" x="0" y="0" width="40" height="20" patternUnits="userSpaceOnUse">
+          {/* Connecting horizontal line */}
+          <line x1="0" y1="10" x2="40" y2="10" stroke="currentColor" stroke-width="0.5" opacity="0.4" />
+          {/* Greek cross with slightly flared arms (cross pattée) */}
+          <path d="M18 4 L20 2 L22 4 L22 8 L26 8 L28 10 L26 12 L22 12 L22 16 L20 18 L18 16 L18 12 L14 12 L12 10 L14 8 L18 8 Z"
+                fill="none" stroke="currentColor" stroke-width="0.8" />
+          {/* Small diamond at center */}
+          <path d="M19 9 L20 8 L21 9 L20 10 Z" fill="currentColor" opacity="0.5" />
+        </pattern>
+        <linearGradient id="cross-fade" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-opacity="0" /><stop offset="12%" stop-opacity="1" />
+          <stop offset="88%" stop-opacity="1" /><stop offset="100%" stop-opacity="0" />
+        </linearGradient>
+        <mask id="cross-mask"><rect width="400" height="20" fill="url(#cross-fade)" /></mask>
+      </defs>
+      <rect width="400" height="20" fill="url(#cross-tile)" mask="url(#cross-mask)" />
+    </svg>
+  )}
+</div>
+
+<style>
+  .ornament-divider {
+    text-align: center;
+    padding-block: 4px;
+    max-width: 520px;
+    margin-inline: auto;
+  }
+
+  .ornament-divider__label {
+    font-family: var(--font-ui);
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-gray);
+    margin-bottom: 4px;
+    opacity: 0.6;
+  }
+
+  .ornament-divider__svg {
+    width: 100%;
+    max-width: 480px;
+    height: 28px;
+    color: var(--color-gold);
+    opacity: 0.45;
+  }
+
+  .ornament-divider__svg--cross {
+    height: 20px;
+  }
+</style>
