@@ -1,6 +1,6 @@
 ---
 /**
- * Testimonials section — renders quotes from participants/supporters.
+ * Testimonials carousel — auto-sliding quotes.
  * Pass an array of { quote, attribution } objects.
  * If the array is empty or undefined, renders nothing.
  */
@@ -14,80 +14,200 @@ const items = testimonials?.filter(t => t.quote) || [];
 ---
 
 {items.length > 0 && (
-  <section class="testimonials">
+  <section class="testi">
     <div class="container">
-      <p class="label testimonials__label">Testimonials</p>
-      <h2 class="testimonials__heading">{heading}</h2>
-      <div class="testimonials__list">
-        {items.map((t, i) => (
-          <blockquote class="testimonials__item">
-            <p class="testimonials__quote">&ldquo;{t.quote}&rdquo;</p>
-            {t.attribution && (
-              <footer class="testimonials__attribution">{t.attribution}</footer>
-            )}
-            {i < items.length - 1 && <div class="testimonials__divider"><span class="tagline-cross">✠</span></div>}
-          </blockquote>
-        ))}
+      <div class="testi__block">
+        <span class="testi__open-quote">&ldquo;</span>
+        <div class="testi__track">
+          {items.map((t, i) => (
+            <div class={`testi__slide ${i === 0 ? 'testi__slide--active' : ''}`} data-slide={i}>
+              <p class="testi__quote">{t.quote}</p>
+              {t.attribution && (
+                <footer class="testi__attribution">&mdash; {t.attribution}</footer>
+              )}
+            </div>
+          ))}
+        </div>
+        <div class="testi__controls">
+          <button class="testi__arrow testi__arrow--prev" aria-label="Previous testimonial">&#8249;</button>
+          <div class="testi__dots">
+            {items.map((_, i) => (
+              <button class={`testi__dot ${i === 0 ? 'testi__dot--active' : ''}`} data-dot={i} aria-label={`Go to testimonial ${i + 1}`}></button>
+            ))}
+          </div>
+          <button class="testi__arrow testi__arrow--next" aria-label="Next testimonial">&#8250;</button>
+        </div>
       </div>
     </div>
   </section>
 )}
 
+<script is:inline>
+  (function() {
+    var section = document.querySelector('.testi');
+    if (!section) return;
+
+    var slides = section.querySelectorAll('.testi__slide');
+    var dots = section.querySelectorAll('.testi__dot');
+    var prevBtn = section.querySelector('.testi__arrow--prev');
+    var nextBtn = section.querySelector('.testi__arrow--next');
+    var current = 0;
+    var total = slides.length;
+    var interval = null;
+    var DELAY = 6000;
+
+    function goTo(index) {
+      slides[current].classList.remove('testi__slide--active');
+      dots[current].classList.remove('testi__dot--active');
+      current = (index + total) % total;
+      slides[current].classList.add('testi__slide--active');
+      dots[current].classList.add('testi__dot--active');
+    }
+
+    function next() { goTo(current + 1); }
+    function prev() { goTo(current - 1); }
+
+    function startAuto() {
+      stopAuto();
+      interval = setInterval(next, DELAY);
+    }
+
+    function stopAuto() {
+      if (interval) clearInterval(interval);
+    }
+
+    if (nextBtn) nextBtn.addEventListener('click', function() { next(); startAuto(); });
+    if (prevBtn) prevBtn.addEventListener('click', function() { prev(); startAuto(); });
+
+    dots.forEach(function(dot, i) {
+      dot.addEventListener('click', function() { goTo(i); startAuto(); });
+    });
+
+    // Pause on hover
+    var block = section.querySelector('.testi__block');
+    if (block) {
+      block.addEventListener('mouseenter', stopAuto);
+      block.addEventListener('mouseleave', startAuto);
+    }
+
+    if (total > 1) startAuto();
+  })();
+</script>
+
 <style>
-  .testimonials {
+  .testi {
     background-color: var(--color-navy, #0e3352);
-    padding: 64px 0;
+    padding: 72px 0;
   }
 
-  .testimonials__label {
-    text-align: center;
-    color: var(--color-gold, #b89a47);
-  }
-
-  .testimonials__heading {
-    text-align: center;
-    color: var(--color-text-on-dark, #f5efe5);
-    margin-bottom: 48px;
-  }
-
-  .testimonials__list {
-    max-width: 680px;
+  .testi__block {
+    max-width: 720px;
     margin-inline: auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0;
-  }
-
-  .testimonials__item {
-    margin: 0;
-    padding: 0;
     text-align: center;
+    position: relative;
+    min-height: 200px;
   }
 
-  .testimonials__quote {
+  .testi__open-quote {
+    display: block;
     font-family: var(--font-display);
+    font-size: 4.5rem;
+    line-height: 1;
+    color: var(--color-gold, #b89a47);
+    opacity: 0.35;
+    margin-bottom: -12px;
+  }
+
+  /* Slides */
+  .testi__track {
+    position: relative;
+  }
+
+  .testi__slide {
+    display: none;
+    animation: testiIn 0.5s ease;
+  }
+
+  .testi__slide--active {
+    display: block;
+  }
+
+  @keyframes testiIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .testi__quote {
+    font-family: var(--font-body);
     font-size: 1.15rem;
-    line-height: 1.8;
+    line-height: 1.85;
     color: var(--color-text-on-dark, #f5efe5);
     font-style: italic;
-    margin: 0 0 12px;
+    margin: 0 0 20px;
+    padding: 0 16px;
   }
 
-  .testimonials__attribution {
+  .testi__attribution {
     font-family: var(--font-ui);
-    font-size: 0.82rem;
-    font-weight: 500;
+    font-size: 0.8rem;
+    font-weight: 600;
     color: var(--color-gold, #b89a47);
-    letter-spacing: 0.04em;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
   }
 
-  .testimonials__divider {
-    text-align: center;
-    padding: 32px 0;
+  /* Controls */
+  .testi__controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 32px;
+  }
+
+  .testi__arrow {
+    background: none;
+    border: 1px solid rgba(184, 154, 71, 0.3);
     color: var(--color-gold, #b89a47);
-    opacity: 0.4;
-    font-size: 0.9rem;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    font-size: 1.3rem;
+    line-height: 1;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .testi__arrow:hover {
+    background: rgba(184, 154, 71, 0.15);
+    border-color: var(--color-gold, #b89a47);
+  }
+
+  .testi__dots {
+    display: flex;
+    gap: 10px;
+  }
+
+  .testi__dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(245, 239, 229, 0.25);
+    cursor: pointer;
+    padding: 0;
+    transition: all 0.2s ease;
+  }
+
+  .testi__dot--active {
+    background: var(--color-gold, #b89a47);
+    transform: scale(1.25);
+  }
+
+  .testi__dot:hover {
+    background: rgba(245, 239, 229, 0.5);
   }
 </style>
