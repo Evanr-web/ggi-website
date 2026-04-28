@@ -21,8 +21,10 @@ try { cms = await getHomepage(); } catch (e) { /* fallback */ }
 const heroHeadline = cms?.heroHeadline || 'Inspiring Canadian Catholic Culture';
 const heroSubtitle = cms?.heroSubtitle || 'Forming leaders. Teaching the tradition. Publishing research.';
 const heroImage = cms?.heroImage || `${base}images/art/school-of-athens.jpg`;
-const primaryCta = cms?.heroCta || { text: 'Subscribe to the Magnalia Letter', url: `${base}magnalia/letter/` };
-const secondaryCta = cms?.heroSecondaryCta?.text && cms?.heroSecondaryCta?.url ? cms.heroSecondaryCta : { text: 'Explore Our Programs', url: `${base}programs/` };
+const rawPrimaryCta = cms?.heroCta || { text: 'Subscribe to the Magnalia Letter', url: `/magnalia/letter/` };
+const primaryCta = { text: rawPrimaryCta.text, url: rawPrimaryCta.url?.startsWith(base) ? rawPrimaryCta.url : `${base}${rawPrimaryCta.url?.replace(/^\//, '')}` };
+const rawSecondaryCta = cms?.heroSecondaryCta?.text && cms?.heroSecondaryCta?.url ? cms.heroSecondaryCta : { text: 'Explore Our Programs', url: `/programs/` };
+const secondaryCta = { text: rawSecondaryCta.text, url: rawSecondaryCta.url?.startsWith(base) ? rawSecondaryCta.url : `${base}${rawSecondaryCta.url?.replace(/^\//, '')}` };
 const hasSecondaryCta = secondaryCta?.text && secondaryCta?.url;
 const videoId = cms?.videoUrl ? cms.videoUrl.match(/(?:v=|youtu\.be\/)([^&]+)/)?.[1] : 'Lhzqr8tMYsI';
 ---
