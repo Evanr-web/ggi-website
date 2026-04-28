@@ -1,0 +1,965 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Button from '../../components/Button.astro';
+import SectionDivider from '../../components/SectionDivider.astro';
+const base = import.meta.env.BASE_URL;
+---
+
+<BaseLayout title="Media & Press" description="Dr. Ryan Topping in the media — articles, interviews, videos, and press resources from the Gregory the Great Institute.">
+
+  <!-- Hero -->
+  <section class="hero-compact section--dark">
+    <div class="hero-compact__bg" style={`background-image: url(${base}images/art/school-of-athens.jpg)`}></div>
+    <div class="hero-compact__overlay"></div>
+    <div class="hero-compact__content container">
+      <h1 data-pagefind-weight="10" class="display">Media & Press</h1>
+      <p class="hero-compact__subtitle">Articles, interviews, and press resources</p>
+    </div>
+  </section>
+
+  <!-- ============================================
+       Section 1: FEATURED VIDEO
+       ============================================ -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <p class="label text-gold">Watch</p>
+        <h2>Featured</h2>
+      </div>
+
+      <div class="media-featured reveal">
+        <div class="media-featured__video">
+          <div class="video-embed">
+            <iframe
+              src="https://www.youtube.com/embed/Lhzqr8tMYsI"
+              title="Why Catholic Culture Matters — Dr. Ryan Topping"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+              loading="lazy"
+            ></iframe>
+          </div>
+        </div>
+        <div class="media-featured__text">
+          <h3>Why Catholic Culture Matters</h3>
+          <p>Dr. Ryan Topping introduces the Gregory the Great Institute and the case for Catholic cultural renewal in Canada.</p>
+          <p class="media-featured__meta">Gregory the Great Institute · 2025</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <SectionDivider />
+
+  <!-- ============================================
+       Section 2: VIDEO APPEARANCES
+       ============================================ -->
+  <section class="section section--linen">
+    <div class="container">
+      <div class="section-header">
+        <p class="label text-gold">Video</p>
+        <h2>Interviews & Talks</h2>
+      </div>
+
+      <div class="video-grid reveal-stagger">
+        <!-- Placeholder entries — replace with actual YouTube IDs when available -->
+        <div class="video-card reveal">
+          <div class="video-embed video-embed--card">
+            <iframe
+              src="https://www.youtube.com/embed/Lhzqr8tMYsI"
+              title="Dr. Ryan Topping — Introduction to GGI"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+              loading="lazy"
+            ></iframe>
+          </div>
+          <div class="video-card__info">
+            <h3>Introduction to the Gregory the Great Institute</h3>
+            <p class="video-card__meta">GGI · 2025</p>
+          </div>
+        </div>
+        <!-- 
+          TO ADD MORE VIDEOS: Copy the video-card div above, change the YouTube embed URL 
+          (replace the ID after /embed/), update the title and meta text.
+          
+          Example appearances to add when URLs are available:
+          - EWTN interview
+          - Word on Fire conversation
+          - Shalom Media appearance
+          - Catholic World Report interview
+        -->
+      </div>
+
+      <p class="media-note no-video-note">
+        More video content launching Easter 2026 with Dr. Topping's new YouTube series on Catholic intellectual life.
+      </p>
+    </div>
+  </section>
+
+  <SectionDivider />
+
+  <!-- ============================================
+       Section 3: PUBLISHED ARTICLES & INTERVIEWS
+       ============================================ -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <p class="label text-gold">In Print</p>
+        <h2>Articles & Essays</h2>
+      </div>
+
+      <p class="media-intro">
+        Dr. Topping is a frequent contributor to leading Catholic publications. Selected articles below — 
+        for a complete bibliography, see his <a href={`${base}about/founding-director/`}>full profile</a>.
+      </p>
+
+      <div class="articles-list reveal-stagger">
+        <!-- First Things -->
+        <a href="https://www.firstthings.com" target="_blank" rel="noopener" class="article-item reveal">
+          <div class="article-item__outlet">
+            <span class="article-item__outlet-name">First Things</span>
+          </div>
+          <div class="article-item__content">
+            <h3>Contributions to First Things</h3>
+            <p>Essays on Catholic intellectual life, education, and cultural renewal in North America's leading journal of religion and public life.</p>
+          </div>
+          <span class="article-item__arrow">→</span>
+        </a>
+
+        <!-- Catholic World Report -->
+        <a href="https://www.catholicworldreport.com" target="_blank" rel="noopener" class="article-item reveal">
+          <div class="article-item__outlet">
+            <span class="article-item__outlet-name">Catholic World Report</span>
+          </div>
+          <div class="article-item__content">
+            <h3>Contributions to Catholic World Report</h3>
+            <p>Analysis and commentary on Catholic education, culture, and the state of the Church in Canada.</p>
+          </div>
+          <span class="article-item__arrow">→</span>
+        </a>
+
+        <!-- Crisis Magazine -->
+        <a href="https://www.crisismagazine.com" target="_blank" rel="noopener" class="article-item reveal">
+          <div class="article-item__outlet">
+            <span class="article-item__outlet-name">Crisis Magazine</span>
+          </div>
+          <div class="article-item__content">
+            <h3>Contributions to Crisis Magazine</h3>
+            <p>Writing on the renewal of Catholic culture, classical education, and the role of lay Catholics in public life.</p>
+          </div>
+          <span class="article-item__arrow">→</span>
+        </a>
+
+        <!-- National Catholic Register -->
+        <a href="https://www.ncregister.com" target="_blank" rel="noopener" class="article-item reveal">
+          <div class="article-item__outlet">
+            <span class="article-item__outlet-name">National Catholic Register</span>
+          </div>
+          <div class="article-item__content">
+            <h3>Contributions to the National Catholic Register</h3>
+            <p>News analysis and opinion on Catholic education and institutional life.</p>
+          </div>
+          <span class="article-item__arrow">→</span>
+        </a>
+
+        <!-- The Epoch Times -->
+        <a href="https://www.theepochtimes.com" target="_blank" rel="noopener" class="article-item reveal">
+          <div class="article-item__outlet">
+            <span class="article-item__outlet-name">The Epoch Times</span>
+          </div>
+          <div class="article-item__content">
+            <h3>Contributions to The Epoch Times</h3>
+            <p>Opinion pieces on faith, culture, and education for a general audience.</p>
+          </div>
+          <span class="article-item__arrow">→</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <SectionDivider />
+
+  <!-- ============================================
+       Section 4: MEDIA APPEARANCES (Tag Cloud)
+       ============================================ -->
+  <section class="section section--linen">
+    <div class="container">
+      <div class="section-header">
+        <p class="label text-gold">Appearances</p>
+        <h2>As Seen In</h2>
+      </div>
+
+      <div class="outlet-grid reveal">
+        <div class="outlet-tag outlet-tag--large">First Things</div>
+        <div class="outlet-tag outlet-tag--large">EWTN</div>
+        <div class="outlet-tag outlet-tag--large">Word on Fire</div>
+        <div class="outlet-tag">Crisis Magazine</div>
+        <div class="outlet-tag">Catholic World Report</div>
+        <div class="outlet-tag">National Catholic Register</div>
+        <div class="outlet-tag">Shalom Media</div>
+        <div class="outlet-tag">The Epoch Times</div>
+      </div>
+    </div>
+  </section>
+
+  <SectionDivider />
+
+  <!-- ============================================
+       Section 5: KEY PUBLICATIONS (Books)
+       ============================================ -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <p class="label text-gold">Books</p>
+        <h2>Selected Publications by Dr. Topping</h2>
+      </div>
+
+      <div class="books-grid reveal-stagger">
+        <div class="book-item reveal">
+          <div class="book-item__spine"></div>
+          <div class="book-item__content">
+            <h3>Thinking as Though God Exists</h3>
+            <p class="book-item__subtitle">Newman on Evangelizing the 'Nones'</p>
+            <p class="book-item__note">Most recent</p>
+          </div>
+        </div>
+        <div class="book-item reveal">
+          <div class="book-item__spine"></div>
+          <div class="book-item__content">
+            <h3>The Case for Catholic Education</h3>
+            <p class="book-item__subtitle">Why Parents, Teachers, and Politicians Should Reclaim the Principles of Catholic Pedagogy</p>
+          </div>
+        </div>
+        <div class="book-item reveal">
+          <div class="book-item__spine"></div>
+          <div class="book-item__content">
+            <h3>Rebuilding Catholic Culture</h3>
+            <p class="book-item__subtitle">How the Catechism Can Shape Our Common Life</p>
+          </div>
+        </div>
+        <div class="book-item reveal">
+          <div class="book-item__spine"></div>
+          <div class="book-item__content">
+            <h3>Renewing Catholic Schools</h3>
+            <p class="book-item__subtitle">How to Regain a Catholic Vision for a Secular Age</p>
+          </div>
+        </div>
+        <div class="book-item reveal">
+          <div class="book-item__spine"></div>
+          <div class="book-item__content">
+            <h3>St. Augustine</h3>
+            <p class="book-item__subtitle">Moral and Educational Philosophy (Oxford DPhil)</p>
+          </div>
+        </div>
+      </div>
+
+      <p class="books-count">Author of <strong>11 books</strong> on Catholic culture, education, and intellectual life.</p>
+    </div>
+  </section>
+
+  <SectionDivider />
+
+  <!-- ============================================
+       Section 6: PRESS KIT
+       ============================================ -->
+  <section class="section section--linen">
+    <div class="container">
+      <div class="section-header">
+        <p class="label text-gold">For Journalists & Partners</p>
+        <h2>Press Kit</h2>
+      </div>
+
+      <div class="press-kit">
+        <!-- Boilerplate -->
+        <div class="press-kit__section reveal">
+          <h3>About the Gregory the Great Institute</h3>
+          <div class="press-kit__boilerplate">
+            <p>
+              The Gregory the Great Institute is a Canadian non-profit dedicated to Catholic cultural
+              renewal through formation, courses, and publications. Founded by Dr. Ryan N.S. Topping
+              (DPhil, Oxford), the Institute runs formation programs in four provinces, publishes
+              <em>Magnalia</em> — the journal of Catholic cultural renewal in Canada — and hosts the
+              annual Renewing Culture Conference. His Eminence Thomas Cardinal Collins serves as Patron.
+            </p>
+            <p>
+              The Institute is named for St. Gregory the Great (d. 604), pope and Doctor of the Church,
+              who rebuilt civilization from the ruins of the Roman Empire through liturgy, education,
+              and pastoral care.
+            </p>
+          </div>
+        </div>
+
+        <!-- Key Facts -->
+        <div class="press-kit__section reveal">
+          <h3>Key Facts</h3>
+          <ul class="press-kit__facts">
+            <li><strong>Founded:</strong> 2025</li>
+            <li><strong>Headquarters:</strong> Edmonton, Alberta, Canada</li>
+            <li><strong>Patron:</strong> His Eminence Thomas Cardinal Collins</li>
+            <li><strong>Executive Director:</strong> Dr. Ryan N.S. Topping (DPhil, Oxford)</li>
+            <li><strong>Community:</strong> 1,500+ members across Canada</li>
+            <li><strong>Programs:</strong> Active in four provinces (AB, SK, ON, NB)</li>
+            <li><strong>Publication:</strong> <em>Magnalia</em> — distributed to every Catholic bishop in Canada</li>
+            <li><strong>Website:</strong> <a href="https://gregorythegreat.ca">gregorythegreat.ca</a></li>
+          </ul>
+        </div>
+
+        <!-- Downloads -->
+        <div class="press-kit__section reveal">
+          <h3>Downloads</h3>
+          <div class="press-kit__downloads">
+            <a href={`${base}images/branding/ggi-seal.png`} download class="download-item">
+              <span class="download-item__icon">⬇</span>
+              <div>
+                <span class="download-item__name">GGI Seal</span>
+                <span class="download-item__meta">PNG · Transparent background</span>
+              </div>
+            </a>
+            <a href={`${base}images/people/Ryan-Topping-headshot.jpg`} download class="download-item">
+              <span class="download-item__icon">⬇</span>
+              <div>
+                <span class="download-item__name">Dr. Ryan Topping — Headshot</span>
+                <span class="download-item__meta">JPG · High resolution</span>
+              </div>
+            </a>
+            <a href={`${base}images/people/ryan-topping-portrait.jpg`} download class="download-item">
+              <span class="download-item__icon">⬇</span>
+              <div>
+                <span class="download-item__name">Dr. Ryan Topping — Portrait</span>
+                <span class="download-item__meta">JPG · High resolution</span>
+              </div>
+            </a>
+            <a href={`${base}images/branding/Magnalia_Cover.jpg`} download class="download-item">
+              <span class="download-item__icon">⬇</span>
+              <div>
+                <span class="download-item__name">Magnalia Cover — Issue One</span>
+                <span class="download-item__meta">JPG</span>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <!-- Brand Colors -->
+        <div class="press-kit__section reveal">
+          <h3>Brand</h3>
+          <div class="brand-colors">
+            <div class="brand-swatch" style="background-color: #0e3352;">
+              <span class="brand-swatch__label">Navy</span>
+              <span class="brand-swatch__hex">#0E3352</span>
+            </div>
+            <div class="brand-swatch" style="background-color: #b89a47;">
+              <span class="brand-swatch__label">Gold</span>
+              <span class="brand-swatch__hex">#B89A47</span>
+            </div>
+            <div class="brand-swatch" style="background-color: #84292d;">
+              <span class="brand-swatch__label">Crimson</span>
+              <span class="brand-swatch__hex">#84292D</span>
+            </div>
+            <div class="brand-swatch brand-swatch--light" style="background-color: #f8ebd9;">
+              <span class="brand-swatch__label">Parchment</span>
+              <span class="brand-swatch__hex">#F8EBD9</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <SectionDivider />
+
+  <!-- ============================================
+       Section 7: SPEAKING & CONTACT
+       ============================================ -->
+  <section class="section">
+    <div class="container media-cta">
+      <div class="media-cta__inner reveal">
+        <img src={`${base}images/people/Ryan-Topping-headshot.jpg`} alt="Dr. Ryan Topping" class="media-cta__photo" />
+        <div class="media-cta__text">
+          <p class="label text-gold">Speaking & Media</p>
+          <h2>Invite Dr. Topping</h2>
+          <p>
+            Dr. Topping is available for conferences, parish events, lectures, podcasts, and media
+            interviews on Catholic education, cultural renewal, intellectual life, and the state of
+            the Church in Canada.
+          </p>
+          <p class="media-cta__topics">
+            <strong>Topics include:</strong> Renewing Catholic culture · Classical education ·
+            Catholic intellectual life in Canada · Newman and the 'Nones' · The case for Catholic schools ·
+            Faith and reason · The role of beauty in evangelization
+          </p>
+          <div class="media-cta__buttons">
+            <Button href={`${base}contact/`} variant="primary">Request a Speaking Engagement</Button>
+            <a href="mailto:rtopping@gregorythegreat.ca" class="media-cta__email">rtopping@gregorythegreat.ca</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Back to About -->
+  <section class="section section--linen" style="padding-block: 32px;">
+    <div class="container" style="text-align: center;">
+      <Button href={`${base}about/`} variant="secondary">← Back to About</Button>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  /* Hero */
+  .hero-compact {
+    position: relative;
+    min-height: 360px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  .hero-compact__bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+  }
+
+  .hero-compact__overlay {
+    position: absolute;
+    inset: 0;
+    background-color: rgba(14, 51, 82, 0.75);
+  }
+
+  .hero-compact__content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    max-width: 700px;
+    margin-inline: auto;
+    padding-block: 60px;
+  }
+
+  .hero-compact__content h1 {
+    color: var(--color-text-on-dark);
+    margin-bottom: 12px;
+  }
+
+  .hero-compact__subtitle {
+    font-family: var(--font-body);
+    font-size: 1.15rem;
+    color: rgba(245, 239, 229, 0.85);
+  }
+
+  /* Section header */
+  .section-header {
+    text-align: center;
+    margin-bottom: var(--space-component);
+  }
+
+  .section-header h2 {
+    margin-top: 8px;
+  }
+
+  .section--linen {
+    background-color: var(--color-linen);
+  }
+
+  /* Featured Video */
+  .media-featured {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 28px;
+    align-items: center;
+    max-width: 900px;
+    margin-inline: auto;
+  }
+
+  .video-embed {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: 3px;
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+  }
+
+  .video-embed iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .media-featured__text h3 {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--color-navy);
+    margin-bottom: 8px;
+  }
+
+  .media-featured__text p {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--color-gray);
+  }
+
+  .media-featured__meta {
+    font-family: var(--font-ui);
+    font-size: 0.8rem;
+    color: var(--color-gold);
+    margin-top: 8px;
+  }
+
+  @media (min-width: 768px) {
+    .media-featured {
+      grid-template-columns: 1.4fr 1fr;
+    }
+  }
+
+  /* Video Grid */
+  .video-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+    max-width: 900px;
+    margin-inline: auto;
+  }
+
+  .video-card {
+    background-color: var(--color-parchment);
+    border: 1px solid rgba(90, 90, 110, 0.08);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .video-embed--card {
+    box-shadow: none;
+    border-radius: 0;
+  }
+
+  .video-card__info {
+    padding: 16px 20px;
+  }
+
+  .video-card__info h3 {
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--color-navy);
+    margin-bottom: 4px;
+  }
+
+  .video-card__meta {
+    font-family: var(--font-ui);
+    font-size: 0.78rem;
+    color: var(--color-gold);
+  }
+
+  @media (min-width: 640px) {
+    .video-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .video-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .media-note {
+    text-align: center;
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    font-style: italic;
+    color: var(--color-gray);
+    margin-top: 24px;
+  }
+
+  /* Articles */
+  .media-intro {
+    text-align: center;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: var(--color-gray);
+    max-width: 640px;
+    margin: 0 auto 32px;
+    line-height: 1.7;
+  }
+
+  .media-intro a {
+    color: var(--color-gold);
+    text-decoration: none;
+  }
+
+  .articles-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-width: 760px;
+    margin-inline: auto;
+  }
+
+  .article-item {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 20px 24px;
+    background-color: var(--color-linen);
+    border: 1px solid rgba(90, 90, 110, 0.08);
+    border-radius: 3px;
+    text-decoration: none;
+    transition: border-color var(--transition-base), transform var(--transition-base);
+  }
+
+  .article-item:hover {
+    border-color: var(--color-gold);
+    transform: translateX(4px);
+  }
+
+  .article-item__outlet {
+    flex-shrink: 0;
+    width: 120px;
+  }
+
+  .article-item__outlet-name {
+    font-family: var(--font-display);
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--color-navy);
+    display: block;
+  }
+
+  .article-item__content {
+    flex: 1;
+  }
+
+  .article-item__content h3 {
+    font-family: var(--font-display);
+    font-size: 1.02rem;
+    font-weight: 600;
+    color: var(--color-navy);
+    margin-bottom: 4px;
+  }
+
+  .article-item__content p {
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: var(--color-gray);
+    margin: 0;
+  }
+
+  .article-item__arrow {
+    font-size: 1.2rem;
+    color: var(--color-gold);
+    flex-shrink: 0;
+  }
+
+  @media (max-width: 640px) {
+    .article-item {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 8px;
+    }
+    .article-item__outlet {
+      width: auto;
+    }
+    .article-item__arrow {
+      display: none;
+    }
+  }
+
+  /* Outlet Grid (As Seen In) */
+  .outlet-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    max-width: 700px;
+    margin-inline: auto;
+  }
+
+  .outlet-tag {
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    font-weight: 600;
+    padding: 12px 28px;
+    background-color: var(--color-parchment);
+    border: 1px solid rgba(90, 90, 110, 0.1);
+    border-radius: 3px;
+    color: var(--color-navy);
+  }
+
+  .outlet-tag--large {
+    font-size: 1.1rem;
+    padding: 14px 32px;
+    border-color: var(--color-gold);
+  }
+
+  /* Books */
+  .books-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-width: 640px;
+    margin-inline: auto;
+  }
+
+  .book-item {
+    display: flex;
+    background-color: var(--color-linen);
+    border: 1px solid rgba(90, 90, 110, 0.08);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .book-item__spine {
+    width: 6px;
+    flex-shrink: 0;
+    background-color: var(--color-crimson);
+  }
+
+  .book-item__content {
+    padding: 16px 20px;
+  }
+
+  .book-item h3 {
+    font-family: var(--font-display);
+    font-size: 1.02rem;
+    font-weight: 600;
+    color: var(--color-navy);
+    margin-bottom: 2px;
+  }
+
+  .book-item__subtitle {
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    font-style: italic;
+    color: var(--color-gray);
+    line-height: 1.4;
+  }
+
+  .book-item__note {
+    display: inline-block;
+    font-family: var(--font-ui);
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--color-gold);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-top: 4px;
+  }
+
+  .books-count {
+    text-align: center;
+    margin-top: 20px;
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    color: var(--color-gray);
+  }
+
+  /* Press Kit */
+  .press-kit {
+    max-width: 760px;
+    margin-inline: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .press-kit__section h3 {
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--color-navy);
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(184, 154, 71, 0.2);
+  }
+
+  .press-kit__boilerplate p {
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    line-height: 1.75;
+    color: var(--color-gray);
+    margin-bottom: 12px;
+  }
+
+  .press-kit__facts {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .press-kit__facts li {
+    font-family: var(--font-body);
+    font-size: 0.92rem;
+    color: var(--color-gray);
+    line-height: 1.5;
+  }
+
+  .press-kit__facts a {
+    color: var(--color-gold);
+    text-decoration: none;
+  }
+
+  /* Downloads */
+  .press-kit__downloads {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .download-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 18px;
+    background-color: var(--color-parchment);
+    border: 1px solid rgba(90, 90, 110, 0.1);
+    border-radius: 3px;
+    text-decoration: none;
+    transition: border-color var(--transition-base);
+  }
+
+  .download-item:hover {
+    border-color: var(--color-gold);
+  }
+
+  .download-item__icon {
+    font-size: 1.2rem;
+    flex-shrink: 0;
+  }
+
+  .download-item__name {
+    display: block;
+    font-family: var(--font-ui);
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--color-navy);
+  }
+
+  .download-item__meta {
+    display: block;
+    font-family: var(--font-ui);
+    font-size: 0.75rem;
+    color: var(--color-gray);
+  }
+
+  @media (min-width: 640px) {
+    .press-kit__downloads {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  /* Brand Colors */
+  .brand-colors {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .brand-swatch {
+    width: 100px;
+    height: 80px;
+    border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+  }
+
+  .brand-swatch__label {
+    font-family: var(--font-ui);
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.9);
+  }
+
+  .brand-swatch__hex {
+    font-family: var(--font-ui);
+    font-size: 0.7rem;
+    color: rgba(255, 255, 255, 0.6);
+  }
+
+  .brand-swatch--light .brand-swatch__label {
+    color: var(--color-navy);
+  }
+
+  .brand-swatch--light .brand-swatch__hex {
+    color: var(--color-gray);
+  }
+
+  /* Speaking CTA */
+  .media-cta {
+    max-width: 800px;
+    margin-inline: auto;
+  }
+
+  .media-cta__inner {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 28px;
+    align-items: center;
+    padding: 40px 32px;
+    border: 2px solid var(--color-gold);
+    border-radius: 3px;
+    background-color: var(--color-linen);
+  }
+
+  .media-cta__photo {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center top;
+    margin-inline: auto;
+    display: block;
+    border: 3px solid var(--color-gold);
+  }
+
+  .media-cta__text h2 {
+    margin: 6px 0 12px;
+  }
+
+  .media-cta__text p {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--color-gray);
+    margin-bottom: 12px;
+  }
+
+  .media-cta__topics {
+    font-size: 0.9rem;
+    font-style: italic;
+  }
+
+  .media-cta__buttons {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+  }
+
+  .media-cta__email {
+    font-family: var(--font-ui);
+    font-size: 0.88rem;
+    color: var(--color-gold);
+    text-decoration: none;
+  }
+
+  @media (min-width: 768px) {
+    .media-cta__inner {
+      grid-template-columns: auto 1fr;
+    }
+    .media-cta__photo {
+      margin-inline: 0;
+    }
+  }
+</style>

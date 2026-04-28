@@ -45,10 +45,7 @@ const base = import.meta.env.BASE_URL;
           research that equips Catholics to engage the culture with confidence, and gatherings that turn
           isolated believers into a community with shared purpose.
         </p>
-        <p class="case-cta-line">
-          <strong>Every tier below is a named relationship — not a donation receipt.</strong> You are not
-          giving to a cause. You are joining a community that is building something that will outlast all of us.
-        </p>
+
       </div>
     </div>
   </section>
@@ -120,7 +117,10 @@ const base = import.meta.env.BASE_URL;
             programs in Christian leadership, and a Catholic think-tank. If you see the future of Catholic 
             intellectual life in Canada and want to help build it, we'd welcome a conversation.
           </p>
-          <Button href={`${base}support/leadership/`} variant="secondary" size="small">Start a Conversation →</Button>
+          <div style="display: flex; gap: 12px; flex-wrap: wrap; justify-content: center;">
+            <Button href={`${base}support/leadership/`} variant="secondary" size="small">Start a Conversation →</Button>
+            <Button href={`${base}support/case-statement/`} variant="tertiary" size="small">Read Our Prospectus →</Button>
+          </div>
         </div>
       </div>
     </div>
