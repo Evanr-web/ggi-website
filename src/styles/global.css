@@ -340,3 +340,6 @@ button:focus:not(:focus-visible) {
 .container--xs { max-width: 520px; margin-inline: auto; }
 .cta-desc { font-family: var(--font-body); font-size: 0.95rem; color: var(--color-gray); margin-bottom: 20px; }
 .cta-heading { margin-bottom: 8px; }
+
+/* Tagline cross ornaments */
+.tagline-cross { font-size: 0.55em; opacity: 0.5; vertical-align: 0.15em; }
