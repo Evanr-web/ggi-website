@@ -44,7 +44,7 @@ const base = import.meta.env.BASE_URL;
           <p class="article__author-meta">{date}{readTime ? ` · ${readTime}` : ''}</p>
         </div>
       </div>
-      <div class="article__body">
+      <div class="article__body article__body--illuminated">
         <slot />
       </div>
       {/* Related Articles */}
@@ -167,6 +167,19 @@ const base = import.meta.env.BASE_URL;
     line-height: 1.85;
     color: var(--color-gray);
     margin-bottom: 16px;
+  }
+
+  /* Goudy Initialen illuminated drop cap */
+  .article__body--illuminated :global(p:first-child)::first-letter {
+    font-family: 'Goudy Initialen', var(--font-display);
+    font-size: 3.8em;
+    float: left;
+    line-height: 0.75;
+    padding-right: 8px;
+    padding-top: 4px;
+    color: var(--color-crimson);
+    font-weight: normal;
+    font-style: normal;
   }
 
   .article__body :global(h2) {
