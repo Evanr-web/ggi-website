@@ -5,7 +5,6 @@ import Card from '../components/Card.astro';
 import Button from '../components/Button.astro';
 import QuoteBlock from '../components/QuoteBlock.astro';
 import SectionDivider from '../components/SectionDivider.astro';
-import OrnamentDivider from '../components/OrnamentDivider.astro';
 import DarkSection from '../components/DarkSection.astro';
 import EventCard from '../components/EventCard.astro';
 import GivingTier from '../components/GivingTier.astro';
@@ -59,7 +58,7 @@ const videoId = cms?.videoUrl ? cms.videoUrl.match(/(?:v=|youtu\.be\/)([^&]+)/)?
     </div>
   </section>
 
-  <OrnamentDivider variant="vine" showLabel />
+  <SectionDivider />
 
   <!-- ============================================
        Section 3: THREE PILLARS
@@ -194,7 +193,7 @@ const videoId = cms?.videoUrl ? cms.videoUrl.match(/(?:v=|youtu\.be\/)([^&]+)/)?
     </div>
   </section>
 
-  <OrnamentDivider variant="celtic" showLabel />
+  <SectionDivider />
 
   <!-- ============================================
        Section 6: ENDORSEMENTS
@@ -263,8 +262,6 @@ const videoId = cms?.videoUrl ? cms.videoUrl.match(/(?:v=|youtu\.be\/)([^&]+)/)?
       </div>
     </div>
   </section>
-
-  <OrnamentDivider variant="cross" showLabel />
 
   <!-- ============================================
        Section 8: SUPPORT THE MISSION
