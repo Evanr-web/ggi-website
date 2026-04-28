@@ -2,29 +2,15 @@
 interface Props {
   thick?: boolean;
   contained?: boolean;
-  /** 'fleuron' (default) uses ornamental mark; 'rule' uses plain gold line */
-  variant?: 'fleuron' | 'rule';
-  /** Fleuron glyph — default ❦ (floral heart). Other options: ✠ ❧ ☙ ✦ */
-  glyph?: string;
 }
 
-const { thick = false, contained = true, variant = 'fleuron', glyph = '❦' } = Astro.props;
+const { thick = false, contained = true } = Astro.props;
 ---
 
-{variant === 'rule' ? (
-  contained ? (
-    <div class="container">
-      <hr class:list={['gold-rule', thick && 'gold-rule--thick']} />
-    </div>
-  ) : (
+{contained ? (
+  <div class="container">
     <hr class:list={['gold-rule', thick && 'gold-rule--thick']} />
-  )
-) : (
-  <div class={contained ? 'container' : undefined}>
-    <div class="fleuron" role="separator">
-      <span class="fleuron__line fleuron__line--left"></span>
-      <span class="fleuron__mark">{glyph}</span>
-      <span class="fleuron__line fleuron__line--right"></span>
-    </div>
   </div>
+) : (
+  <hr class:list={['gold-rule', thick && 'gold-rule--thick']} />
 )}
