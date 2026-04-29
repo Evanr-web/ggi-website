@@ -1,23 +1,23 @@
 ---
 /**
  * Site search powered by Pagefind.
- * Renders a search button in the nav that opens a modal overlay.
+ * Small icon in nav → dropdown search bar slides down from header.
  */
 const base = import.meta.env.BASE_URL;
 ---
 
-<button class="search-trigger" aria-label="Search the site" type="button">
-  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-    <circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" />
-  </svg>
-  <span class="search-trigger__text">Search</span>
-</button>
+<div class="search-wrap">
+  <button class="search-icon" aria-label="Search the site" type="button" aria-expanded="false">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" />
+    </svg>
+  </button>
+</div>
 
-<div class="search-overlay" id="search-overlay" aria-hidden="true" role="dialog" aria-label="Site search">
-  <div class="search-overlay__backdrop"></div>
-  <div class="search-overlay__panel">
-    <button class="search-overlay__close" aria-label="Close search" type="button">&times;</button>
+<div class="search-bar" id="search-bar" aria-hidden="true">
+  <div class="search-bar__inner container">
     <div id="search-container"></div>
+    <button class="search-bar__close" aria-label="Close search" type="button">&times;</button>
   </div>
 </div>
 
@@ -34,10 +34,7 @@ const base = import.meta.env.BASE_URL;
       var script = document.createElement('script');
       script.src = BASE + 'pagefind/pagefind-ui.js';
       script.onload = function() {
-        if (typeof window.PagefindUI === 'undefined') {
-          console.error('PagefindUI not found on window after script load');
-          return;
-        }
+        if (typeof window.PagefindUI === 'undefined') return;
         new window.PagefindUI({
           element: '#search-container',
           showSubResults: true,
@@ -48,51 +45,56 @@ const base = import.meta.env.BASE_URL;
         pagefindReady = true;
         focusInput();
       };
-      script.onerror = function() {
-        console.error('Failed to load pagefind-ui.js from ' + BASE + 'pagefind/pagefind-ui.js');
-      };
       document.head.appendChild(script);
     }
 
     function focusInput() {
       setTimeout(function() {
         var input = document.querySelector('#search-container input');
-        if (input) {
-          input.focus();
-          input.click();
-        }
+        if (input) { input.focus(); input.click(); }
       }, 150);
     }
 
-    var trigger = document.querySelector('.search-trigger');
-    var overlay = document.getElementById('search-overlay');
-    var closeBtn = document.querySelector('.search-overlay__close');
-    var backdrop = document.querySelector('.search-overlay__backdrop');
+    var trigger = document.querySelector('.search-icon');
+    var bar = document.getElementById('search-bar');
+    var closeBtn = document.querySelector('.search-bar__close');
 
     function openSearch() {
-      overlay.setAttribute('aria-hidden', 'false');
-      overlay.style.display = 'flex';
+      bar.classList.add('search-bar--open');
+      bar.setAttribute('aria-hidden', 'false');
+      trigger.setAttribute('aria-expanded', 'true');
       document.body.style.overflow = 'hidden';
       loadPagefind();
       if (pagefindReady) focusInput();
     }
 
     function closeSearch() {
-      overlay.setAttribute('aria-hidden', 'true');
-      overlay.style.display = 'none';
+      bar.classList.remove('search-bar--open');
+      bar.setAttribute('aria-hidden', 'true');
+      trigger.setAttribute('aria-expanded', 'false');
       document.body.style.overflow = '';
     }
 
-    if (trigger) trigger.addEventListener('click', openSearch);
+    function toggleSearch() {
+      bar.classList.contains('search-bar--open') ? closeSearch() : openSearch();
+    }
+
+    if (trigger) trigger.addEventListener('click', toggleSearch);
     if (closeBtn) closeBtn.addEventListener('click', closeSearch);
-    if (backdrop) backdrop.addEventListener('click', closeSearch);
+
+    // Click outside the bar to close
+    document.addEventListener('click', function(e) {
+      if (bar.classList.contains('search-bar--open') && !bar.contains(e.target) && !trigger.contains(e.target)) {
+        closeSearch();
+      }
+    });
 
     document.addEventListener('keydown', function(e) {
       if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
         e.preventDefault();
         openSearch();
       }
-      if (e.key === 'Escape' && overlay.style.display === 'flex') {
+      if (e.key === 'Escape' && bar.classList.contains('search-bar--open')) {
         closeSearch();
       }
     });
@@ -100,137 +102,148 @@ const base = import.meta.env.BASE_URL;
 </script>
 
 <style>
-  /* Trigger button in nav */
-  .search-trigger {
+  /* Icon button in nav */
+  .search-wrap {
     display: flex;
     align-items: center;
-    gap: 6px;
-    background: rgba(245, 239, 229, 0.08);
-    border: 1px solid rgba(245, 239, 229, 0.15);
-    border-radius: 3px;
-    padding: 6px 12px;
-    color: var(--color-text-on-dark);
-    font-family: var(--font-ui);
-    font-size: 0.8rem;
-    cursor: pointer;
-    transition: all var(--transition-fast);
-    white-space: nowrap;
   }
 
-  .search-trigger:hover {
-    background: rgba(245, 239, 229, 0.15);
-    border-color: var(--color-gold);
+  .search-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    color: var(--color-text-on-dark);
+    cursor: pointer;
+    padding: 6px;
+    border-radius: 3px;
+    transition: color var(--transition-fast);
+  }
+
+  .search-icon:hover {
     color: var(--color-gold);
   }
 
-  .search-trigger__text {
-    display: none;
-  }
-
-  @media (min-width: 1024px) {
-    .search-trigger__text {
-      display: inline;
-    }
-  }
-
-  /* Overlay */
-  .search-overlay {
-    display: none;
+  /* Dropdown bar */
+  .search-bar {
     position: fixed;
-    inset: 0;
-    z-index: 9999;
-    justify-content: center;
-    align-items: flex-start;
-    padding-top: 12vh;
+    top: 72px;
+    left: 0;
+    right: 0;
+    z-index: 199;
+    background: var(--color-navy);
+    border-bottom: 2px solid var(--color-gold);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease, opacity 0.25s ease;
+    opacity: 0;
   }
 
-  .search-overlay__backdrop {
-    position: absolute;
-    inset: 0;
-    background: rgba(14, 51, 82, 0.7);
-    backdrop-filter: blur(4px);
-  }
-
-  .search-overlay__panel {
-    position: relative;
-    width: 90%;
-    max-width: 640px;
-    background: white;
-    border-radius: 6px;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-    padding: 24px;
+  .search-bar--open {
     max-height: 70vh;
     overflow-y: auto;
+    opacity: 1;
   }
 
-  .search-overlay__close {
-    position: absolute;
-    top: 12px;
-    right: 16px;
+  .search-bar__inner {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+
+  #search-container {
+    flex: 1;
+  }
+
+  .search-bar__close {
     background: none;
     border: none;
-    font-size: 1.6rem;
-    color: var(--color-gray);
+    color: rgba(245, 239, 229, 0.6);
+    font-size: 1.4rem;
     cursor: pointer;
     padding: 4px 8px;
     line-height: 1;
+    flex-shrink: 0;
+    margin-top: 4px;
+    transition: color var(--transition-fast);
   }
 
-  .search-overlay__close:hover {
-    color: var(--color-navy);
+  .search-bar__close:hover {
+    color: var(--color-gold);
   }
 
-  /* Pagefind UI overrides */
+  /* Pagefind UI overrides — dark theme for navy bar */
   :global(.pagefind-ui__search-input) {
     font-family: var(--font-ui) !important;
     font-size: 1rem !important;
     padding: 12px 16px !important;
-    border: 2px solid rgba(90, 90, 110, 0.15) !important;
+    border: 1px solid rgba(245, 239, 229, 0.2) !important;
     border-radius: 3px !important;
     width: 100% !important;
     outline: none !important;
+    background: rgba(245, 239, 229, 0.06) !important;
+    color: var(--color-text-on-dark) !important;
+  }
+
+  :global(.pagefind-ui__search-input::placeholder) {
+    color: rgba(245, 239, 229, 0.5) !important;
   }
 
   :global(.pagefind-ui__search-input:focus) {
     border-color: var(--color-gold) !important;
-    box-shadow: 0 0 0 3px rgba(184, 154, 71, 0.15) !important;
+    box-shadow: 0 0 0 3px rgba(184, 154, 71, 0.2) !important;
   }
 
   :global(.pagefind-ui__result) {
-    padding: 16px 0 !important;
-    border-bottom: 1px solid rgba(90, 90, 110, 0.08) !important;
+    padding: 14px 0 !important;
+    border-bottom: 1px solid rgba(245, 239, 229, 0.08) !important;
   }
 
   :global(.pagefind-ui__result-link) {
     font-family: var(--font-display) !important;
-    font-size: 1.05rem !important;
+    font-size: 1rem !important;
     font-weight: 600 !important;
-    color: var(--color-navy) !important;
+    color: var(--color-gold) !important;
   }
 
   :global(.pagefind-ui__result-link:hover) {
-    color: var(--color-gold) !important;
+    color: #d4ad3a !important;
   }
 
   :global(.pagefind-ui__result-excerpt) {
     font-family: var(--font-body) !important;
-    font-size: 0.88rem !important;
-    color: var(--color-gray) !important;
+    font-size: 0.85rem !important;
+    color: rgba(245, 239, 229, 0.7) !important;
     line-height: 1.6 !important;
   }
 
   :global(.pagefind-ui__message) {
     font-family: var(--font-ui) !important;
-    color: var(--color-gray) !important;
+    color: rgba(245, 239, 229, 0.6) !important;
   }
 
   :global(.pagefind-ui__search-clear) {
-    color: var(--color-gray) !important;
+    color: rgba(245, 239, 229, 0.5) !important;
   }
 
   :global(mark.pagefind-ui__result-highlight) {
-    background: rgba(184, 154, 71, 0.2) !important;
-    color: var(--color-navy) !important;
+    background: rgba(184, 154, 71, 0.25) !important;
+    color: var(--color-text-on-dark) !important;
+  }
+
+  :global(.pagefind-ui__form::before) {
+    background-color: rgba(245, 239, 229, 0.5) !important;
+  }
+
+  /* Adjust for mobile where nav is shorter */
+  @media (max-width: 1023px) {
+    .search-bar {
+      top: 72px;
+    }
   }
 </style>
 

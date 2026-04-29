@@ -51,7 +51,10 @@ const navItems = [
       ))}
     </nav>
 
-    <a href={`${import.meta.env.BASE_URL}support/`} class="nav__cta">Support</a>
+    <div class="nav__end">
+      <Search />
+      <a href={`${import.meta.env.BASE_URL}support/`} class="nav__cta">Support</a>
+    </div>
 
     <div class="nav__actions">
       <Search />
@@ -235,9 +238,8 @@ const navItems = [
     background-color: rgba(184, 154, 71, 0.08);
   }
 
-  /* CTA Button */
+  /* CTA Button (shown inside .nav__end on desktop) */
   .nav__cta {
-    display: none;
     font-family: var(--font-display);
     font-size: 1rem;
     font-weight: 700;
@@ -257,6 +259,14 @@ const navItems = [
     box-shadow: 0 4px 16px rgba(198, 160, 50, 0.45);
     transform: translateY(-1px);
     color: var(--color-navy);
+  }
+
+  /* Desktop: search icon + Support CTA */
+  .nav__end {
+    display: none;
+    align-items: center;
+    gap: 12px;
+    flex-shrink: 0;
   }
 
   /* Actions group (search + hamburger on mobile) */
@@ -341,9 +351,9 @@ const navItems = [
   /* Desktop */
   @media (min-width: 1024px) {
     .nav__links { display: flex; }
-    .nav__cta { display: inline-block; }
+    .nav__end { display: flex; }
     .nav__hamburger { display: none; }
-    .nav__actions { margin-left: 0; }
+    .nav__actions { display: none; }
   }
 
   @media (max-width: 1023px) and (min-width: 640px) {
