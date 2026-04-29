@@ -102,28 +102,29 @@ const base = import.meta.env.BASE_URL;
     top: 72px;
     left: 0;
     right: 0;
-    z-index: 199;
+    z-index: 250;
     background: var(--color-navy);
     border-bottom: 2px solid var(--color-gold);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
     max-height: 0;
     overflow: hidden;
-    transition: max-height 0.3s ease, opacity 0.25s ease;
+    transition: max-height 0.35s ease, opacity 0.25s ease;
     opacity: 0;
   }
 
   .search-bar--open {
-    max-height: 70vh;
+    max-height: 80vh;
     overflow-y: auto;
     opacity: 1;
+    padding: 8px 0;
   }
 
   .search-bar__inner {
     display: flex;
     align-items: flex-start;
     gap: 12px;
-    padding-top: 20px;
-    padding-bottom: 20px;
+    padding-top: 24px;
+    padding-bottom: 24px;
   }
 
   #search-container {
