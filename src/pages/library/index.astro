@@ -80,7 +80,7 @@ const categories = ["All", "News", "Essays", "Videos", "Resources"];
         {categories.map((cat, i) => (
           <button class={`filter-btn${i === 0 ? ' filter-btn--active' : ''}`} data-filter={cat.toLowerCase()}>{cat}</button>
         ))}
-        <a href={`${base}rss.xml`} class="filter-rss" title="RSS Feed">📡 RSS</a>
+        <a href={`${base}rss.xml`} class="filter-rss" title="Subscribe via RSS">RSS ↗</a>
       </div>
     </div>
   </section>
