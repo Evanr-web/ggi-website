@@ -80,7 +80,7 @@ const categories = ["All", "News", "Essays", "Videos", "Resources"];
         {categories.map((cat, i) => (
           <button class={`filter-btn${i === 0 ? ' filter-btn--active' : ''}`} data-filter={cat.toLowerCase()}>{cat}</button>
         ))}
-        <a href="#" class="filter-substack">Follow us on Substack →</a>
+        <a href={`${base}rss.xml`} class="filter-rss" title="RSS Feed">📡 RSS</a>
       </div>
     </div>
   </section>
@@ -250,7 +250,7 @@ const categories = ["All", "News", "Essays", "Videos", "Resources"];
     border-color: var(--color-navy);
   }
 
-  .filter-substack {
+  .filter-rss {
     margin-left: auto;
     font-family: var(--font-ui);
     font-size: 0.78rem;
@@ -258,7 +258,7 @@ const categories = ["All", "News", "Essays", "Videos", "Resources"];
     text-decoration: none;
   }
 
-  .filter-substack:hover {
+  .filter-rss:hover {
     color: var(--color-gold);
   }
 
