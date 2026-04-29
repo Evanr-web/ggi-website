@@ -51,11 +51,13 @@ const base = import.meta.env.BASE_URL;
     var bar = document.getElementById('search-bar');
     var closeBtn = document.querySelector('.search-bar__close');
     var triggers = document.querySelectorAll('.search-trigger');
+    var navEl = document.querySelector('.nav');
 
     function openSearch() {
       bar.classList.add('search-bar--open');
       bar.setAttribute('aria-hidden', 'false');
       document.body.style.overflow = 'hidden';
+      if (navEl) navEl.classList.add('nav--search-open');
       loadPagefind();
       if (pagefindReady) focusInput();
     }
@@ -64,6 +66,7 @@ const base = import.meta.env.BASE_URL;
       bar.classList.remove('search-bar--open');
       bar.setAttribute('aria-hidden', 'true');
       document.body.style.overflow = '';
+      if (navEl) navEl.classList.remove('nav--search-open');
     }
 
     function toggleSearch() {
