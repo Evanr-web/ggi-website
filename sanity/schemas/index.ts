@@ -9,6 +9,7 @@ import givingTier from './givingTier';
 import careerPosting from './careerPosting';
 import bookStudy from './bookStudy';
 import readingGroup from './readingGroup';
+import tag from './tag';
 
 export const schemaTypes = [
   // Singletons
@@ -25,4 +26,5 @@ export const schemaTypes = [
   careerPosting,
   bookStudy,
   readingGroup,
+  tag,
 ];
