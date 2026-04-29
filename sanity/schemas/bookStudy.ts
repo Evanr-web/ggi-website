@@ -22,7 +22,7 @@ export default defineType({
       title: 'Description',
       type: 'text',
       rows: 3,
-      description: 'Short description of the book and why we're reading it.',
+      description: "Short description of the book and why we're reading it.",
     }),
     defineField({
       name: 'month',
