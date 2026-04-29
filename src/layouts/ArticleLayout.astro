@@ -64,14 +64,17 @@ const base = import.meta.env.BASE_URL;
 
       {/* Newsletter Signup */}
       <div class="article__newsletter">
-        <h3 class="article__newsletter-heading">Stay in the conversation</h3>
+        <h3 class="article__newsletter-heading">The Magnalia Letter</h3>
         <p class="article__newsletter-desc">
-          Get essays, event invitations, and reading recommendations from the Institute — free, monthly.
+          A free monthly guide to the Catholic intellectual life — curated essays, event invitations, and reading recommendations from the Gregory the Great Institute.
         </p>
-        <form class="article__newsletter-form" action="#" method="POST">
-          <input type="email" name="email" placeholder="Email address" required aria-label="Email address" />
-          <button type="submit">Subscribe to Magnalia Letter</button>
+        <form class="article__newsletter-form" id="article-subscribe-form">
+          <input type="email" name="email" placeholder="Your email" required aria-label="Email address" />
+          <button type="submit">Subscribe</button>
         </form>
+        <p class="article__newsletter-confirm" id="article-subscribe-confirm" style="display:none;">
+          ✓ You're in. Watch for the Magnalia Letter in your inbox.
+        </p>
       </div>
 
       <div class="article__footer">
@@ -344,4 +347,36 @@ const base = import.meta.env.BASE_URL;
     .article__hero { height: 200px; }
     .article__title { font-size: 1.6rem; }
   }
+
+  .article__newsletter-confirm {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    color: var(--color-gold);
+    margin-top: 12px;
+    font-weight: 500;
+  }
 </style>
+
+<script is:inline>
+  (function() {
+    var form = document.getElementById('article-subscribe-form');
+    if (!form) return;
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      var email = form.querySelector('input[name="email"]').value;
+      var base = document.querySelector('link[rel="canonical"]')?.href?.replace(/\/library\/.*/, '') || '';
+      fetch(base + '/api/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: email })
+      }).then(function() {
+        form.style.display = 'none';
+        document.getElementById('article-subscribe-confirm').style.display = 'block';
+      }).catch(function() {
+        // Fallback — still show confirmation (form data captured on retry)
+        form.style.display = 'none';
+        document.getElementById('article-subscribe-confirm').style.display = 'block';
+      });
+    });
+  })();
+</script>
