@@ -4,10 +4,30 @@ import Button from '../../components/Button.astro';
 import CanadaGroupMap from '../../components/CanadaGroupMap.astro';
 import BookStudyForm from '../../components/BookStudyForm.astro';
 import Testimonials from '../../components/Testimonials.astro';
-import { getProgram } from '../../lib/sanity';
+import { getProgram, getBookStudies, getReadingGroups } from '../../lib/sanity';
 const base = import.meta.env.BASE_URL;
 const program = await getProgram('book-studies');
 const testimonials = program?.testimonials || [];
+
+// Fetch book studies from Sanity (current year)
+const currentYear = new Date().getFullYear();
+const sanityStudies = await getBookStudies(currentYear);
+
+// Fallback to hardcoded data if Sanity is empty
+const fallbackStudies = [
+  { title: 'Searching for and Maintaining Peace', author: 'Fr. Jacques Philippe', description: 'A beloved guide to interior peace — short, profound, and one of the most widely read spiritual books of the past generation. How to find and keep peace of heart in the midst of life\'s trials.', month: 'February', year: 2026, status: 'completed', eventPage: '/events/book-study-feb-2026/' },
+  { title: 'Animal Farm', author: 'George Orwell', description: 'Orwell\'s classic political fable, read through the lens of Catholic social teaching. What does the barnyard revolution reveal about power, ideology, and the dignity of the human person?', month: 'May', year: 2026, status: 'current', eventPage: '/events/book-study-may-2026/' },
+  { title: 'Leisure: The Basis of Culture', author: 'Josef Pieper', description: 'Pieper\'s masterwork on why contemplation — not productivity — is the foundation of civilization. Prepares readers for the October Renewing Culture Conference, which takes up Pieper\'s vision in depth.', month: 'September', year: 2026, status: 'upcoming', eventPage: '/events/book-study-sep-2026/' },
+];
+const studies = sanityStudies?.length > 0 ? sanityStudies : fallbackStudies;
+
+// Auto-generate summary from studies data
+const studyCount = studies.length;
+const studyMonths = studies.map(s => s.month).join(' · ');
+const studyCountWord = studyCount === 1 ? 'One study' : studyCount === 2 ? 'Two studies' : studyCount === 3 ? 'Three studies' : `${studyCount} studies`;
+
+// Fetch reading groups from Sanity
+const sanityGroups = await getReadingGroups();
 ---
 
 <BaseLayout
@@ -52,8 +72,8 @@ const testimonials = program?.testimonials || [];
         <div class="bs-detail">
           <svg class="bs-detail__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
           <div>
-            <strong>Three studies per year</strong>
-            <span>February · May · September</span>
+            <strong>{studyCountWord} per year</strong>
+            <span>{studyMonths}</span>
           </div>
         </div>
         <div class="bs-detail">
@@ -90,44 +110,25 @@ const testimonials = program?.testimonials || [];
       </div>
 
       <div class="bs-books">
-        <div class="bs-book">
-          <div class="bs-book__status bs-book__status--past">Completed</div>
-          <h3>Searching for and Maintaining Peace</h3>
-          <p class="bs-book__author">Fr. Jacques Philippe</p>
-          <p class="bs-book__date">February 2026</p>
-          <p class="bs-book__desc">
-            A beloved guide to interior peace — short, profound, and one of the most widely read
-            spiritual books of the past generation. How to find and keep peace of heart in the
-            midst of life's trials.
-          </p>
-          <Button href={`${base}events/book-study-feb-2026/`} variant="secondary" size="small">View Study</Button>
-        </div>
-
-        <div class="bs-book bs-book--current">
-          <div class="bs-book__status bs-book__status--current">Current Study</div>
-          <h3>Animal Farm</h3>
-          <p class="bs-book__author">George Orwell</p>
-          <p class="bs-book__date">May 2026</p>
-          <p class="bs-book__desc">
-            Orwell's classic political fable, read through the lens of Catholic social teaching.
-            What does the barnyard revolution reveal about power, ideology, and the dignity of
-            the human person?
-          </p>
-          <Button href={`${base}events/book-study-may-2026/`} variant="primary" size="small">Join This Study</Button>
-        </div>
-
-        <div class="bs-book">
-          <div class="bs-book__status bs-book__status--upcoming">September</div>
-          <h3>Leisure: The Basis of Culture</h3>
-          <p class="bs-book__author">Josef Pieper</p>
-          <p class="bs-book__date">September 2026</p>
-          <p class="bs-book__desc">
-            Pieper's masterwork on why contemplation — not productivity — is the foundation of
-            civilization. Prepares readers for the October Renewing Culture Conference, which
-            takes up Pieper's vision in depth.
-          </p>
-          <Button href={`${base}events/book-study-sep-2026/`} variant="secondary" size="small">Preview Study</Button>
-        </div>
+        {studies.map(study => {
+          const isCurrent = study.status === 'current';
+          const isCompleted = study.status === 'completed';
+          const statusLabel = isCurrent ? 'Current Study' : isCompleted ? 'Completed' : study.month;
+          const statusClass = isCurrent ? 'bs-book__status--current' : isCompleted ? 'bs-book__status--past' : 'bs-book__status--upcoming';
+          const btnVariant = isCurrent ? 'primary' : 'secondary';
+          const btnText = isCurrent ? 'Join This Study' : isCompleted ? 'View Study' : 'Preview Study';
+          const eventUrl = study.eventPage?.startsWith('/') ? `${base}${study.eventPage.slice(1)}` : study.eventPage;
+          return (
+            <div class={`bs-book ${isCurrent ? 'bs-book--current' : ''}`}>
+              <div class={`bs-book__status ${statusClass}`}>{statusLabel}</div>
+              <h3>{study.title}</h3>
+              <p class="bs-book__author">{study.author}</p>
+              <p class="bs-book__date">{study.month} {study.year}</p>
+              <p class="bs-book__desc">{study.description}</p>
+              {eventUrl && <Button href={eventUrl} variant={btnVariant} size="small">{btnText}</Button>}
+            </div>
+          );
+        })}
       </div>
     </div>
   </section>
@@ -175,7 +176,7 @@ const testimonials = program?.testimonials || [];
         </p>
       </div>
 
-      <CanadaGroupMap />
+      <CanadaGroupMap sanityGroups={sanityGroups} />
     </div>
   </section>
 

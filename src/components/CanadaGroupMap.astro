@@ -2,8 +2,8 @@
 /**
  * Canada map with province clusters + accordion groups.
  * Used on the Book Studies (Inklings) page.
- * Interactive behavior (pin clicks → accordion scroll, city join → form) is handled
- * by the parent page's script since it needs to wire to the form.
+ * Accepts optional `sanityGroups` prop — if provided, uses Sanity data.
+ * Falls back to hardcoded data if no Sanity data is available.
  */
 const base = import.meta.env.BASE_URL;
 
@@ -19,34 +19,85 @@ interface Province {
   pin: { left: string; top: string };
 }
 
-const provinces: Province[] = [
-  { code: 'BC', name: 'British Columbia', pin: { left: '6%', top: '66%' }, cities: [
-    { name: 'Vancouver', groups: 2 }, { name: 'Kelowna', groups: 1 }
-  ]},
-  { code: 'AB', name: 'Alberta', pin: { left: '20%', top: '68%' }, cities: [
-    { name: 'Edmonton', groups: 3 }, { name: 'St. Albert', groups: 1 }, { name: 'Sherwood Park', groups: 1 },
-    { name: 'Spruce Grove', groups: 1 }, { name: 'Fort McMurray', groups: 1 }, { name: 'Red Deer', groups: 1 },
-    { name: 'Lethbridge', groups: 1 }, { name: 'Calgary', groups: 3 }
-  ]},
-  { code: 'SK', name: 'Saskatchewan', pin: { left: '29%', top: '74%' }, cities: [
-    { name: 'Saskatoon', groups: 3 }, { name: 'Regina', groups: 2 }
-  ]},
-  { code: 'MB', name: 'Manitoba', pin: { left: '42%', top: '76%' }, cities: [
-    { name: 'Winnipeg', groups: 2 }
-  ]},
-  { code: 'ON', name: 'Ontario', pin: { left: '57%', top: '80%' }, cities: [
-    { name: 'Toronto', groups: 5 }, { name: 'Ottawa', groups: 3 }
-  ]},
-  { code: 'QC', name: 'Quebec', pin: { left: '70%', top: '74%' }, cities: [
-    { name: 'Montreal', groups: 1 }
-  ]},
-  { code: 'NS', name: 'Nova Scotia', pin: { left: '87%', top: '82%' }, cities: [
-    { name: 'Halifax', groups: 2 }
-  ]},
-  { code: 'NL', name: 'Newfoundland & Labrador', pin: { left: '82%', top: '60%' }, cities: [
-    { name: "St. John's", groups: 1 }
-  ]},
-];
+interface Props {
+  sanityGroups?: Array<{ province: string; city: string; groups: number }>;
+}
+
+const { sanityGroups } = Astro.props;
+
+// Pin positions for each province on the map SVG
+const pinPositions: Record<string, { left: string; top: string }> = {
+  BC: { left: '6%', top: '66%' },
+  AB: { left: '20%', top: '68%' },
+  SK: { left: '29%', top: '74%' },
+  MB: { left: '42%', top: '76%' },
+  ON: { left: '57%', top: '80%' },
+  QC: { left: '70%', top: '74%' },
+  NB: { left: '80%', top: '78%' },
+  NS: { left: '87%', top: '82%' },
+  PE: { left: '85%', top: '74%' },
+  NL: { left: '82%', top: '60%' },
+};
+
+const provinceNames: Record<string, string> = {
+  BC: 'British Columbia', AB: 'Alberta', SK: 'Saskatchewan', MB: 'Manitoba',
+  ON: 'Ontario', QC: 'Quebec', NB: 'New Brunswick', NS: 'Nova Scotia',
+  PE: 'Prince Edward Island', NL: 'Newfoundland & Labrador',
+};
+
+// Build provinces from Sanity data or fallback
+let provinces: Province[];
+
+if (sanityGroups && sanityGroups.length > 0) {
+  // Group Sanity data by province
+  const byProvince = new Map<string, City[]>();
+  for (const g of sanityGroups) {
+    if (!byProvince.has(g.province)) byProvince.set(g.province, []);
+    byProvince.get(g.province)!.push({ name: g.city, groups: g.groups });
+  }
+  provinces = Array.from(byProvince.entries())
+    .filter(([code]) => pinPositions[code])
+    .map(([code, cities]) => ({
+      code,
+      name: provinceNames[code] || code,
+      cities,
+      pin: pinPositions[code],
+    }))
+    .sort((a, b) => {
+      const order = ['BC', 'AB', 'SK', 'MB', 'ON', 'QC', 'NB', 'NS', 'PE', 'NL'];
+      return order.indexOf(a.code) - order.indexOf(b.code);
+    });
+} else {
+  // Fallback hardcoded data
+  provinces = [
+    { code: 'BC', name: 'British Columbia', pin: pinPositions.BC, cities: [
+      { name: 'Vancouver', groups: 2 }, { name: 'Kelowna', groups: 1 }
+    ]},
+    { code: 'AB', name: 'Alberta', pin: pinPositions.AB, cities: [
+      { name: 'Edmonton', groups: 3 }, { name: 'St. Albert', groups: 1 }, { name: 'Sherwood Park', groups: 1 },
+      { name: 'Spruce Grove', groups: 1 }, { name: 'Fort McMurray', groups: 1 }, { name: 'Red Deer', groups: 1 },
+      { name: 'Lethbridge', groups: 1 }, { name: 'Calgary', groups: 3 }
+    ]},
+    { code: 'SK', name: 'Saskatchewan', pin: pinPositions.SK, cities: [
+      { name: 'Saskatoon', groups: 3 }, { name: 'Regina', groups: 2 }
+    ]},
+    { code: 'MB', name: 'Manitoba', pin: pinPositions.MB, cities: [
+      { name: 'Winnipeg', groups: 2 }
+    ]},
+    { code: 'ON', name: 'Ontario', pin: pinPositions.ON, cities: [
+      { name: 'Toronto', groups: 5 }, { name: 'Ottawa', groups: 3 }
+    ]},
+    { code: 'QC', name: 'Quebec', pin: pinPositions.QC, cities: [
+      { name: 'Montreal', groups: 1 }
+    ]},
+    { code: 'NS', name: 'Nova Scotia', pin: pinPositions.NS, cities: [
+      { name: 'Halifax', groups: 2 }
+    ]},
+    { code: 'NL', name: 'Newfoundland & Labrador', pin: pinPositions.NL, cities: [
+      { name: "St. John's", groups: 1 }
+    ]},
+  ];
+}
 
 const totalGroups = provinces.reduce((sum, p) => sum + p.cities.reduce((s, c) => s + c.groups, 0), 0);
 const totalCities = provinces.reduce((sum, p) => sum + p.cities.length, 0);

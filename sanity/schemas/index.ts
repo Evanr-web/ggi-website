@@ -7,6 +7,8 @@ import libraryItem from './libraryItem';
 import magnaliaIssue from './magnaliaIssue';
 import givingTier from './givingTier';
 import careerPosting from './careerPosting';
+import bookStudy from './bookStudy';
+import readingGroup from './readingGroup';
 
 export const schemaTypes = [
   // Singletons
@@ -21,4 +23,6 @@ export const schemaTypes = [
   magnaliaIssue,
   givingTier,
   careerPosting,
+  bookStudy,
+  readingGroup,
 ];

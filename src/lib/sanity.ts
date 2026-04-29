@@ -218,3 +218,32 @@ export async function getCareerPosting(slug: string) {
     "detailsPdfUrl": detailsPdf.asset->url
   }`, { slug });
 }
+
+// Book Studies
+export async function getBookStudies(year?: number) {
+  const filter = year ? `&& year == ${year}` : '';
+  return sanityClient.fetch(`*[_type == "bookStudy" ${filter}] | order(order asc, year asc) {
+    _id,
+    title,
+    author,
+    description,
+    month,
+    year,
+    status,
+    eventPage,
+    studyGuideUrl,
+    "coverImage": coverImage.asset->url,
+    order
+  }`);
+}
+
+// Reading Groups
+export async function getReadingGroups() {
+  return sanityClient.fetch(`*[_type == "readingGroup" && active == true] | order(province asc, city asc) {
+    _id,
+    province,
+    city,
+    groups,
+    active
+  }`);
+}
