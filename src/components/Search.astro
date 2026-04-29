@@ -1,18 +1,11 @@
 ---
 /**
  * Site search powered by Pagefind.
- * Small icon in nav → dropdown search bar slides down from header.
+ * Dropdown search bar — triggered by .search-trigger buttons in Navigation.
+ * Only one instance rendered (after nav).
  */
 const base = import.meta.env.BASE_URL;
 ---
-
-<div class="search-wrap">
-  <button class="search-icon" aria-label="Search the site" type="button" aria-expanded="false">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" />
-    </svg>
-  </button>
-</div>
 
 <div class="search-bar" id="search-bar" aria-hidden="true">
   <div class="search-bar__inner container">
@@ -55,14 +48,13 @@ const base = import.meta.env.BASE_URL;
       }, 150);
     }
 
-    var trigger = document.querySelector('.search-icon');
     var bar = document.getElementById('search-bar');
     var closeBtn = document.querySelector('.search-bar__close');
+    var triggers = document.querySelectorAll('.search-trigger');
 
     function openSearch() {
       bar.classList.add('search-bar--open');
       bar.setAttribute('aria-hidden', 'false');
-      trigger.setAttribute('aria-expanded', 'true');
       document.body.style.overflow = 'hidden';
       loadPagefind();
       if (pagefindReady) focusInput();
@@ -71,7 +63,6 @@ const base = import.meta.env.BASE_URL;
     function closeSearch() {
       bar.classList.remove('search-bar--open');
       bar.setAttribute('aria-hidden', 'true');
-      trigger.setAttribute('aria-expanded', 'false');
       document.body.style.overflow = '';
     }
 
@@ -79,13 +70,16 @@ const base = import.meta.env.BASE_URL;
       bar.classList.contains('search-bar--open') ? closeSearch() : openSearch();
     }
 
-    if (trigger) trigger.addEventListener('click', toggleSearch);
+    triggers.forEach(function(btn) {
+      btn.addEventListener('click', toggleSearch);
+    });
     if (closeBtn) closeBtn.addEventListener('click', closeSearch);
 
-    // Click outside the bar to close
     document.addEventListener('click', function(e) {
-      if (bar.classList.contains('search-bar--open') && !bar.contains(e.target) && !trigger.contains(e.target)) {
-        closeSearch();
+      if (bar.classList.contains('search-bar--open') && !bar.contains(e.target)) {
+        var clickedTrigger = false;
+        triggers.forEach(function(btn) { if (btn.contains(e.target)) clickedTrigger = true; });
+        if (!clickedTrigger) closeSearch();
       }
     });
 
@@ -102,29 +96,6 @@ const base = import.meta.env.BASE_URL;
 </script>
 
 <style>
-  /* Icon button in nav */
-  .search-wrap {
-    display: flex;
-    align-items: center;
-  }
-
-  .search-icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: none;
-    border: none;
-    color: var(--color-text-on-dark);
-    cursor: pointer;
-    padding: 6px;
-    border-radius: 3px;
-    transition: color var(--transition-fast);
-  }
-
-  .search-icon:hover {
-    color: var(--color-gold);
-  }
-
   /* Dropdown bar */
   .search-bar {
     position: fixed;
@@ -237,13 +208,6 @@ const base = import.meta.env.BASE_URL;
 
   :global(.pagefind-ui__form::before) {
     background-color: rgba(245, 239, 229, 0.5) !important;
-  }
-
-  /* Adjust for mobile where nav is shorter */
-  @media (max-width: 1023px) {
-    .search-bar {
-      top: 72px;
-    }
   }
 </style>
 
