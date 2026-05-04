@@ -417,4 +417,29 @@ After editing content in Sanity, the changes need to be **deployed** to appear o
 
 ---
 
+## 18. Reverting Changes (Revision History)
+
+Every edit you make in Sanity Studio is automatically saved and versioned. If you accidentally delete content, overwrite text, or just want to undo a change, you can restore any previous version of a document.
+
+### How to revert a document:
+
+1. **Open the document** you want to restore (e.g., an event, article, or person)
+2. **Click the clock icon** (🕐) in the top-right corner of the document editor — this opens the revision history panel
+3. **Browse the timeline** — you'll see every saved version listed with timestamps and who made the change
+4. **Click on a previous version** to preview what the document looked like at that point
+5. **Click "Restore"** to revert the document back to that version
+6. **Publish** the restored version to make it live
+
+### Good to know:
+- Revision history is **automatic** — you don't need to do anything to enable it
+- **Every field change** is tracked, not just publishes
+- You can restore from **any point in a document's history**, not just the last save
+- Restoring does not delete the newer versions — they remain in the history, so you can always go back again
+- This works for **all document types**: events, articles, people, site settings, homepage, etc.
+
+### "I accidentally deleted a document"
+If you delete an entire document (not just edited it), it moves to a "deleted" state. Contact the developer to recover it from the dataset — deleted documents can be restored via the Sanity API.
+
+---
+
 *For technical questions or issues with Sanity Studio, contact the developer. For content questions, refer to the editorial guidelines or contact the Communications lead.*
