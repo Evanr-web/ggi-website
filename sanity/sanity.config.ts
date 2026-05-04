@@ -1,4 +1,5 @@
 import { defineConfig } from 'sanity';
+import { createElement } from 'react';
 import { structureTool } from 'sanity/structure';
 import type { StructureBuilder } from 'sanity/structure';
 import { schemaTypes } from './schemas';
@@ -127,11 +128,24 @@ const structure = (S: StructureBuilder) =>
         .child(S.documentTypeList('careerPosting').title('Career Postings')),
     ]);
 
+const GoldG = () =>
+  createElement(
+    'svg',
+    { xmlns: 'http://www.w3.org/2000/svg', viewBox: '0 0 32 32', width: '1em', height: '1em' },
+    createElement('circle', { cx: 16, cy: 16, r: 16, fill: '#0e3352' }),
+    createElement(
+      'text',
+      { x: 16, y: 21, textAnchor: 'middle', fontFamily: 'Georgia, serif', fontSize: 16, fontWeight: 'bold', fill: '#b89a47' },
+      'G'
+    )
+  );
+
 export default defineConfig({
   name: 'ggi',
   title: 'Gregory the Great Institute',
   projectId: 'dhzbvx7r',
   dataset: 'production',
+  icon: GoldG,
   plugins: [structureTool({ structure })],
   schema: {
     types: schemaTypes,
