@@ -1,5 +1,5 @@
 // POST /api/career — Career application with file upload
-import { addContact, jsonResponse, corsHeaders, isValidEmail, sanitize, checkHoneypot, isAllowedFile } from './_shared.js';
+import { addContact, jsonResponse, corsHeaders, isValidEmail, sanitize, checkHoneypot, isAllowedFile, logError } from './_shared.js';
 
 export async function onRequestOptions(context) {
   return new Response(null, { headers: corsHeaders(context.request.headers.get('Origin')) });
@@ -66,6 +66,7 @@ export async function onRequestPost(context) {
 
     return jsonResponse({ success: true, contactId, resumeUrl }, 200, origin);
   } catch (err) {
+    await logError(context.env, 'career', err, { email: email ? 'present' : 'missing' });
     return jsonResponse({ error: 'Failed to submit application' }, 500, origin);
   }
 }

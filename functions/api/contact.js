@@ -1,5 +1,5 @@
 // POST /api/contact — General contact form
-import { addContact, jsonResponse, corsHeaders, isValidEmail, sanitize, checkHoneypot } from './_shared.js';
+import { addContact, jsonResponse, corsHeaders, isValidEmail, sanitize, checkHoneypot, logError } from './_shared.js';
 
 const SUBJECT_TAGS = {
   general: '3',
@@ -50,6 +50,7 @@ export async function onRequestPost(context) {
 
     return jsonResponse({ success: true, contactId }, 200, origin);
   } catch (err) {
+    await logError(context.env, 'contact', err, { email: email ? 'present' : 'missing' });
     return jsonResponse({ error: 'Failed to submit' }, 500, origin);
   }
 }

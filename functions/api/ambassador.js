@@ -1,5 +1,5 @@
 // POST /api/ambassador — Ambassador application
-import { addContact, jsonResponse, corsHeaders, isValidEmail, sanitize, checkHoneypot } from './_shared.js';
+import { addContact, jsonResponse, corsHeaders, isValidEmail, sanitize, checkHoneypot, logError } from './_shared.js';
 
 export async function onRequestOptions(context) {
   return new Response(null, { headers: corsHeaders(context.request.headers.get('Origin')) });
@@ -41,6 +41,7 @@ export async function onRequestPost(context) {
 
     return jsonResponse({ success: true, contactId }, 200, origin);
   } catch (err) {
+    await logError(context.env, 'ambassador', err, { email: email ? 'present' : 'missing' });
     return jsonResponse({ error: 'Failed to submit application' }, 500, origin);
   }
 }
