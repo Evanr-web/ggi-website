@@ -66,7 +66,7 @@ export async function onRequestPost(context) {
 
     return jsonResponse({ success: true, contactId, resumeUrl }, 200, origin);
   } catch (err) {
-    await logError(context.env, 'career', err, { email: email ? 'present' : 'missing' });
+    logError('career', err, { email: email ? 'present' : 'missing' });
     return jsonResponse({ error: 'Failed to submit application' }, 500, origin);
   }
 }

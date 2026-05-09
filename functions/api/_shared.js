@@ -122,42 +122,10 @@ export function jsonResponse(data, status = 200, origin) {
   });
 }
 
-// --- Error logging + email alert ---
-export async function logError(env, endpoint, err, context = {}) {
-  // 1. Always log to Cloudflare console (visible in CF dashboard)
+// --- Error logging ---
+export function logError(endpoint, err, context = {}) {
   console.error(`[${endpoint}] ${err.message}`, {
     stack: err.stack?.split('\n').slice(0, 3).join(' | '),
     ...context,
   });
-
-  // 2. Send email alert via AgentMail (best-effort, don't throw)
-  try {
-    const AGENTMAIL_KEY = env.AGENTMAIL_API_KEY;
-    if (!AGENTMAIL_KEY) return;
-
-    await fetch('https://api.agentmail.to/v0/emails', {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${AGENTMAIL_KEY}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        from: 'evan_agent@agentmail.to',
-        to: 'evanropp@gmail.com',
-        subject: `[GGI] Error in /api/${endpoint}`,
-        text: [
-          `Endpoint: /api/${endpoint}`,
-          `Time: ${new Date().toISOString()}`,
-          `Error: ${err.message}`,
-          context.email ? `Email present: yes` : `Email present: no`,
-          `---`,
-          `Stack (truncated):`,
-          err.stack?.split('\n').slice(0, 5).join('\n') || 'no stack',
-        ].join('\n'),
-      }),
-    });
-  } catch (_) {
-    // Email alert is best-effort — don't let it break the response
-    console.warn(`[${endpoint}] Failed to send error alert email`);
-  }
 }

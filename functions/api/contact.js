@@ -50,7 +50,7 @@ export async function onRequestPost(context) {
 
     return jsonResponse({ success: true, contactId }, 200, origin);
   } catch (err) {
-    await logError(context.env, 'contact', err, { email: email ? 'present' : 'missing' });
+    logError('contact', err, { email: email ? 'present' : 'missing' });
     return jsonResponse({ error: 'Failed to submit' }, 500, origin);
   }
 }

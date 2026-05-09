@@ -32,7 +32,7 @@ export async function onRequestPost(context) {
 
     return jsonResponse({ success: true, contactId }, 200, origin);
   } catch (err) {
-    await logError(context.env, 'subscribe', err, { email: email ? 'present' : 'missing' });
+    logError('subscribe', err, { email: email ? 'present' : 'missing' });
     return jsonResponse({ error: 'Failed to subscribe' }, 500, origin);
   }
 }
