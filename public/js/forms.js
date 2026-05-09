@@ -1,6 +1,13 @@
 // Form handler — submits to Cloudflare Pages Functions
 document.addEventListener('DOMContentLoaded', () => {
+  // Inject honeypot field into every AC form (hidden from humans, bots fill it)
   document.querySelectorAll('form[data-ac-endpoint]').forEach((form) => {
+    const hp = document.createElement('div');
+    hp.setAttribute('aria-hidden', 'true');
+    hp.style.cssText = 'position:absolute;left:-9999px;top:-9999px;height:0;width:0;overflow:hidden;';
+    hp.innerHTML = '<label for="website">Website</label><input type="text" name="website" id="website" tabindex="-1" autocomplete="off" />';
+    form.prepend(hp);
+
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
 
@@ -15,14 +22,12 @@ document.addEventListener('DOMContentLoaded', () => {
       let fetchOptions;
 
       if (hasFile) {
-        // File upload — send as FormData (multipart)
         const formData = new FormData(form);
         fetchOptions = {
           method: 'POST',
           body: formData,
         };
       } else {
-        // Standard form — send as JSON
         const formData = new FormData(form);
         const data = Object.fromEntries(formData.entries());
         fetchOptions = {

@@ -67,12 +67,49 @@ export async function addContact(env, { email, firstName, lastName, listId, tags
   return contactId;
 }
 
+const ALLOWED_ORIGINS = [
+  'https://gregorythegreat.ca',
+  'https://www.gregorythegreat.ca',
+  'https://evanr-web.github.io',
+];
+
 export function corsHeaders(origin) {
+  const allowed = ALLOWED_ORIGINS.includes(origin) ? origin : ALLOWED_ORIGINS[0];
   return {
-    'Access-Control-Allow-Origin': origin || '*',
+    'Access-Control-Allow-Origin': allowed,
     'Access-Control-Allow-Methods': 'POST, OPTIONS',
     'Access-Control-Allow-Headers': 'Content-Type',
   };
+}
+
+// --- Validation helpers ---
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+
+export function isValidEmail(str) {
+  return typeof str === 'string' && str.length <= 254 && EMAIL_RE.test(str);
+}
+
+export function sanitize(str, maxLen = 500) {
+  if (typeof str !== 'string') return '';
+  return str.slice(0, maxLen).replace(/[<>]/g, '').trim();
+}
+
+export function checkHoneypot(body) {
+  // If the hidden "website" field has a value, it's a bot
+  return body?.website || body?.url_confirm;
+}
+
+const ALLOWED_FILE_TYPES = [
+  'application/pdf',
+  'application/msword',
+  'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+];
+const ALLOWED_FILE_EXTS = ['pdf', 'doc', 'docx'];
+
+export function isAllowedFile(file) {
+  if (!file || !file.name) return false;
+  const ext = file.name.split('.').pop()?.toLowerCase();
+  return ALLOWED_FILE_EXTS.includes(ext) && ALLOWED_FILE_TYPES.includes(file.type);
 }
 
 export function jsonResponse(data, status = 200, origin) {

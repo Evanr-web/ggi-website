@@ -1,15 +1,14 @@
 // POST /api/contact — General contact form
-import { addContact, jsonResponse, corsHeaders } from './_shared.js';
+import { addContact, jsonResponse, corsHeaders, isValidEmail, sanitize, checkHoneypot } from './_shared.js';
 
-// Map subject dropdown values to tag IDs
 const SUBJECT_TAGS = {
-  general: '3',    // contact-general
-  speaker: '4',    // contact-speaker-booking
-  magnalia: '5',   // contact-magnalia
-  programs: '6',   // contact-programs
-  support: '7',    // contact-support
-  volunteering: '18', // contact-volunteering
-  other: '3',      // contact-general
+  general: '3',
+  speaker: '4',
+  magnalia: '5',
+  programs: '6',
+  support: '7',
+  volunteering: '18',
+  other: '3',
 };
 
 export async function onRequestOptions(context) {
@@ -21,10 +20,22 @@ export async function onRequestPost(context) {
 
   try {
     const body = await context.request.json();
-    const { email, firstName, lastName, subject, message } = body;
 
-    if (!email || !message) {
-      return jsonResponse({ error: 'Email and message are required' }, 400, origin);
+    if (checkHoneypot(body)) {
+      return jsonResponse({ success: true, contactId: 'ok' }, 200, origin);
+    }
+
+    const email = sanitize(body.email, 254);
+    const firstName = sanitize(body.firstName, 100);
+    const lastName = sanitize(body.lastName, 100);
+    const subject = sanitize(body.subject, 50);
+    const message = sanitize(body.message, 2000);
+
+    if (!isValidEmail(email)) {
+      return jsonResponse({ error: 'Please enter a valid email address' }, 400, origin);
+    }
+    if (!message) {
+      return jsonResponse({ error: 'Message is required' }, 400, origin);
     }
 
     const tagId = SUBJECT_TAGS[subject] || '3';
@@ -33,13 +44,9 @@ export async function onRequestPost(context) {
       email,
       firstName,
       lastName,
-      listId: '7', // General Contact list
+      listId: '7',
       tags: [tagId],
     });
-
-    // Send notification email to Victor via AC or fallback
-    // For now, contacts appear in AC with tags — Victor monitors the list
-    // TODO: Set up AC automation to email Victor on new contact
 
     return jsonResponse({ success: true, contactId }, 200, origin);
   } catch (err) {

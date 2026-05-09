@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GGI Brand Kit — ActiveCampaign Reference</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f4f1eb; color: #333; padding: 40px 20px; }
+  .container { max-width: 800px; margin: 0 auto; }
+  h1 { font-family: Georgia, serif; color: #0e3352; font-size: 28px; margin-bottom: 8px; }
+  .subtitle { color: #888; font-size: 14px; margin-bottom: 32px; }
+  .section { background: #fff; border-radius: 8px; padding: 28px 32px; margin-bottom: 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+  .section h2 { font-family: Georgia, serif; color: #0e3352; font-size: 18px; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 2px solid #f0ece4; }
+  .color-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px; }
+  .color-card { border-radius: 6px; overflow: hidden; border: 1px solid #e8e4dc; }
+  .color-swatch { height: 64px; display: flex; align-items: flex-end; padding: 8px 12px; }
+  .color-swatch span { font-family: monospace; font-size: 13px; font-weight: 700; padding: 2px 6px; border-radius: 3px; }
+  .color-info { padding: 10px 12px; }
+  .color-info .name { font-weight: 700; font-size: 14px; color: #0e3352; }
+  .color-info .use { font-size: 12px; color: #888; margin-top: 2px; }
+  .color-info .hex { font-family: monospace; font-size: 13px; color: #b89a47; cursor: pointer; margin-top: 4px; display: inline-block; padding: 2px 8px; background: #f8ebd9; border-radius: 3px; }
+  .color-info .hex:hover { background: #b89a47; color: #fff; }
+  .color-info .hex::after { content: ' 📋'; font-size: 11px; }
+  table { width: 100%; border-collapse: collapse; }
+  th, td { text-align: left; padding: 10px 12px; font-size: 14px; border-bottom: 1px solid #f0ece4; }
+  th { color: #0e3352; font-weight: 700; background: #faf8f4; }
+  td { color: #555; }
+  .mono { font-family: monospace; color: #b89a47; cursor: pointer; }
+  .mono:hover { text-decoration: underline; }
+  .logo-preview { display: flex; gap: 24px; align-items: center; flex-wrap: wrap; }
+  .logo-box { width: 120px; height: 120px; display: flex; align-items: center; justify-content: center; border-radius: 8px; }
+  .logo-box img { width: 72px; height: 72px; border-radius: 50%; }
+  .logo-box.on-navy { background: #0e3352; border: 2px solid rgba(184,154,71,0.3); }
+  .logo-box.on-white { background: #ffffff; border: 1px solid #e8e4dc; }
+  .logo-box.on-parchment { background: #f8ebd9; border: 1px solid #e8e4dc; }
+  .font-sample { margin: 12px 0; }
+  .font-sample .demo { margin-top: 8px; padding: 12px 16px; background: #faf8f4; border-radius: 4px; border: 1px solid #f0ece4; }
+  .font-sample .demo.georgia { font-family: Georgia, 'Times New Roman', serif; }
+  .font-sample .demo.arial { font-family: Arial, Helvetica, sans-serif; }
+  .sender-row td:first-child { font-weight: 700; color: #0e3352; }
+  .footer-preview { background: #0e3352; border-radius: 6px; padding: 20px 28px; text-align: center; margin-top: 12px; }
+  .footer-preview .motto { font-family: Georgia, serif; font-size: 13px; font-style: italic; color: #b89a47; }
+  .footer-preview .addr { font-family: Arial, sans-serif; font-size: 12px; color: rgba(245,239,229,0.5); margin-top: 6px; }
+  .footer-preview .links { font-family: Arial, sans-serif; font-size: 11px; color: rgba(245,239,229,0.35); margin-top: 6px; }
+  .footer-preview .links a { color: rgba(245,239,229,0.5); }
+  .note { background: #f8ebd9; border-left: 4px solid #b89a47; padding: 12px 16px; border-radius: 0 4px 4px 0; font-size: 13px; color: #555; margin-top: 16px; }
+  .note strong { color: #0e3352; }
+  .copied { position: fixed; bottom: 24px; right: 24px; background: #0e3352; color: #b89a47; padding: 10px 20px; border-radius: 6px; font-size: 14px; font-weight: 700; opacity: 0; transition: opacity 0.3s; pointer-events: none; z-index: 100; }
+  .copied.show { opacity: 1; }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h1>🏛️ Gregory the Great Institute</h1>
+  <p class="subtitle">ActiveCampaign Brand Kit Reference — click any hex code to copy</p>
+
+  <!-- COLORS -->
+  <div class="section">
+    <h2>Colors</h2>
+    <div class="color-grid">
+      <div class="color-card">
+        <div class="color-swatch" style="background: #0e3352;"><span style="background: rgba(255,255,255,0.15); color: #f5efe5;">#0e3352</span></div>
+        <div class="color-info">
+          <div class="name">Navy</div>
+          <div class="use">Primary — headers, headings, footer</div>
+          <span class="hex" onclick="copy('#0e3352')">#0e3352</span>
+        </div>
+      </div>
+      <div class="color-card">
+        <div class="color-swatch" style="background: #b89a47;"><span style="background: rgba(0,0,0,0.2); color: #fff;">#b89a47</span></div>
+        <div class="color-info">
+          <div class="name">Gold</div>
+          <div class="use">Secondary — links, labels, accents</div>
+          <span class="hex" onclick="copy('#b89a47')">#b89a47</span>
+        </div>
+      </div>
+      <div class="color-card">
+        <div class="color-swatch" style="background: #84292d;"><span style="background: rgba(255,255,255,0.15); color: #f5efe5;">#84292d</span></div>
+        <div class="color-info">
+          <div class="name">Crimson</div>
+          <div class="use">Accent — CTA buttons</div>
+          <span class="hex" onclick="copy('#84292d')">#84292d</span>
+        </div>
+      </div>
+      <div class="color-card">
+        <div class="color-swatch" style="background: #f8ebd9;"><span style="background: rgba(0,0,0,0.06); color: #555;">#f8ebd9</span></div>
+        <div class="color-info">
+          <div class="name">Parchment</div>
+          <div class="use">Cards, callout backgrounds</div>
+          <span class="hex" onclick="copy('#f8ebd9')">#f8ebd9</span>
+        </div>
+      </div>
+      <div class="color-card">
+        <div class="color-swatch" style="background: #f4f1eb;"><span style="background: rgba(0,0,0,0.06); color: #555;">#f4f1eb</span></div>
+        <div class="color-info">
+          <div class="name">Warm Grey</div>
+          <div class="use">Email body background</div>
+          <span class="hex" onclick="copy('#f4f1eb')">#f4f1eb</span>
+        </div>
+      </div>
+      <div class="color-card">
+        <div class="color-swatch" style="background: #555555;"><span style="background: rgba(255,255,255,0.15); color: #f5efe5;">#555555</span></div>
+        <div class="color-info">
+          <div class="name">Dark Grey</div>
+          <div class="use">Body text</div>
+          <span class="hex" onclick="copy('#555555')">#555555</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LOGO -->
+  <div class="section">
+    <h2>Logo</h2>
+    <div class="logo-preview">
+      <div class="logo-box on-navy">
+        <img src="https://evanr-web.github.io/ggi-website/images/branding/ggi-seal.png" alt="GGI Seal">
+      </div>
+      <div class="logo-box on-white">
+        <img src="https://evanr-web.github.io/ggi-website/images/branding/ggi-seal.png" alt="GGI Seal">
+      </div>
+      <div class="logo-box on-parchment">
+        <img src="https://evanr-web.github.io/ggi-website/images/branding/ggi-seal.png" alt="GGI Seal">
+      </div>
+      <div style="font-size: 13px; color: #888;">
+        <p><strong style="color:#0e3352;">Seal — 48-64px</strong></p>
+        <p>border-radius: 50%</p>
+        <p>On navy: 2px border rgba(184,154,71,0.3)</p>
+        <p style="margin-top:8px;" class="mono" onclick="copy('https://evanr-web.github.io/ggi-website/images/branding/ggi-seal.png')">📋 Copy URL</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- FONTS -->
+  <div class="section">
+    <h2>Fonts</h2>
+    <div class="font-sample">
+      <table>
+        <tr><th>Role</th><th>Font</th><th>AC Setting</th></tr>
+        <tr><td>Headings</td><td>Georgia, 'Times New Roman', serif</td><td><strong>Georgia</strong></td></tr>
+        <tr><td>Body</td><td>Georgia, 'Times New Roman', serif</td><td><strong>Georgia</strong></td></tr>
+        <tr><td>Labels / UI</td><td>Arial, Helvetica, sans-serif</td><td><strong>Arial</strong></td></tr>
+      </table>
+      <div class="demo georgia">
+        <p style="font-size:26px; font-weight:700; color:#0e3352; margin-bottom:8px;">Heading — Georgia 26px bold</p>
+        <p style="font-size:16px; line-height:1.7; color:#555;">Body text — Georgia 16px, line-height 1.7. The Gregory the Great Institute exists to renew Catholic intellectual and cultural life in Canada through formation, publication, and community.</p>
+      </div>
+      <div class="demo arial" style="margin-top:8px;">
+        <p style="font-size:11px; font-weight:700; color:#b89a47; letter-spacing:2px; text-transform:uppercase;">LABEL — Arial 11px, uppercase, 2px tracking</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- SENDERS -->
+  <div class="section">
+    <h2>Sender Identities</h2>
+    <table class="sender-row">
+      <tr><th>From Name</th><th>Email</th><th>Use For</th></tr>
+      <tr><td>Dr. Ryan Topping</td><td>info@gregorythegreat.ca</td><td>Welcome series, personal letters</td></tr>
+      <tr><td>Gregory the Great Institute</td><td>info@gregorythegreat.ca</td><td>Transactional, confirmations</td></tr>
+      <tr><td>Victor Carpay</td><td>vcarpay@gregorythegreat.ca</td><td>Ambassador communications</td></tr>
+      <tr><td>The Magnalia Team</td><td>magnalia@gregorythegreat.ca</td><td>Monthly newsletter</td></tr>
+    </table>
+    <div class="note">
+      <strong>⚠️ Domain verification required.</strong> Add SPF, DKIM, and DMARC records to Cloudflare DNS for <code>gregorythegreat.ca</code> before sending from these addresses. Until verified, use Evan's personal email for testing.
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="section">
+    <h2>Email Footer</h2>
+    <p style="font-size:13px; color:#888; margin-bottom:12px;">Standard footer for all GGI emails:</p>
+    <div class="footer-preview">
+      <div class="motto">Fides &ensp;•&ensp; Ratio &ensp;•&ensp; Cultura</div>
+      <div class="addr">Gregory the Great Institute • Edmonton, Alberta, Canada</div>
+      <div class="links"><a href="#">Unsubscribe</a> • <a href="#">gregorythegreat.ca</a></div>
+    </div>
+  </div>
+
+  <!-- COMPONENT PATTERNS -->
+  <div class="section">
+    <h2>Email Component Patterns</h2>
+    <table>
+      <tr><th>Component</th><th>Style</th></tr>
+      <tr><td>Primary CTA button</td><td>Crimson <span class="mono" onclick="copy('#84292d')">#84292d</span> bg, white text, Georgia 15px bold, 14px 32px padding, 3px radius</td></tr>
+      <tr><td>Outline button</td><td>2px Gold <span class="mono" onclick="copy('#b89a47')">#b89a47</span> border, gold text, 12px 28px padding</td></tr>
+      <tr><td>Feature card (warm)</td><td>Parchment bg, 4px left border in Gold, 24px 28px padding</td></tr>
+      <tr><td>Feature card (bordered)</td><td>White bg, 1px solid #e8e4dc border, 4px radius</td></tr>
+      <tr><td>Feature card (dark)</td><td>Navy bg, cream text rgba(245,239,229,0.8)</td></tr>
+      <tr><td>Curated item</td><td>3px left border in Gold, 12px 16px padding</td></tr>
+      <tr><td>Section label</td><td>Arial 11px bold, Gold, 2px letter-spacing, uppercase</td></tr>
+      <tr><td>Divider</td><td>1px solid #f0ece4</td></tr>
+    </table>
+  </div>
+
+  <!-- AC SETUP STEPS -->
+  <div class="section">
+    <h2>AC Brand Kit Setup Steps</h2>
+    <ol style="padding-left: 20px; font-size: 14px; color: #555; line-height: 2;">
+      <li>Go to <strong>Settings → Brand Kit</strong></li>
+      <li>Scan URL: <span class="mono" onclick="copy('https://evanr-web.github.io/ggi-website/')">https://evanr-web.github.io/ggi-website/</span></li>
+      <li>Verify/correct colors using values above</li>
+      <li>Upload seal logo</li>
+      <li>Set heading font to <strong>Georgia</strong>, body to <strong>Georgia</strong></li>
+      <li>Import <code>master-template.html</code> as a saved template</li>
+      <li>Re-scan with <code>gregorythegreat.ca</code> once the site is live</li>
+    </ol>
+  </div>
+
+</div>
+
+<div class="copied" id="toast">Copied!</div>
+
+<script>
+function copy(text) {
+  navigator.clipboard.writeText(text).then(() => {
+    const toast = document.getElementById('toast');
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 1500);
+  });
+}
+</script>
+</body>
+</html>

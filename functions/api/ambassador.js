@@ -1,5 +1,5 @@
 // POST /api/ambassador — Ambassador application
-import { addContact, jsonResponse, corsHeaders } from './_shared.js';
+import { addContact, jsonResponse, corsHeaders, isValidEmail, sanitize, checkHoneypot } from './_shared.js';
 
 export async function onRequestOptions(context) {
   return new Response(null, { headers: corsHeaders(context.request.headers.get('Origin')) });
@@ -10,24 +10,34 @@ export async function onRequestPost(context) {
 
   try {
     const body = await context.request.json();
-    const { email, firstName, lastName, city, province, connection, community, ideas } = body;
 
-    if (!email || !firstName || !lastName) {
-      return jsonResponse({ error: 'Name and email are required' }, 400, origin);
+    if (checkHoneypot(body)) {
+      return jsonResponse({ success: true, contactId: 'ok' }, 200, origin);
+    }
+
+    const email = sanitize(body.email, 254);
+    const firstName = sanitize(body.firstName, 100);
+    const lastName = sanitize(body.lastName, 100);
+    const city = sanitize(body.city, 100);
+    const province = sanitize(body.province, 100);
+    const connection = sanitize(body.connection, 1000);
+    const community = sanitize(body.community, 1000);
+    const ideas = sanitize(body.ideas, 1000);
+
+    if (!isValidEmail(email)) {
+      return jsonResponse({ error: 'Please enter a valid email address' }, 400, origin);
+    }
+    if (!firstName || !lastName) {
+      return jsonResponse({ error: 'Name is required' }, 400, origin);
     }
 
     const contactId = await addContact(context.env, {
       email,
       firstName,
       lastName,
-      listId: '5', // Ambassador Applications list
-      tags: ['2'],  // ambassador tag
+      listId: '5',
+      tags: ['2'],
     });
-
-    // Note: city, province, connection, community, ideas are captured
-    // but AC custom fields need to be created in dashboard first.
-    // For now, the contact is tagged and listed — Victor follows up.
-    // TODO: Create custom fields in AC and map them here.
 
     return jsonResponse({ success: true, contactId }, 200, origin);
   } catch (err) {

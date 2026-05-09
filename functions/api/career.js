@@ -1,5 +1,5 @@
 // POST /api/career — Career application with file upload
-import { addContact, jsonResponse, corsHeaders } from './_shared.js';
+import { addContact, jsonResponse, corsHeaders, isValidEmail, sanitize, checkHoneypot, isAllowedFile } from './_shared.js';
 
 export async function onRequestOptions(context) {
   return new Response(null, { headers: corsHeaders(context.request.headers.get('Origin')) });
@@ -10,31 +10,43 @@ export async function onRequestPost(context) {
 
   try {
     const formData = await context.request.formData();
-    const email = formData.get('email');
-    const firstName = formData.get('firstName');
-    const lastName = formData.get('lastName');
-    const position = formData.get('position');
-    const message = formData.get('message');
-    const resume = formData.get('resume');
 
-    if (!email || !firstName || !lastName) {
-      return jsonResponse({ error: 'Name and email are required' }, 400, origin);
+    // Honeypot check (from form field)
+    if (formData.get('website') || formData.get('url_confirm')) {
+      return jsonResponse({ success: true, contactId: 'ok' }, 200, origin);
     }
 
-    // Upload resume to R2 if provided
+    const email = sanitize(formData.get('email'), 254);
+    const firstName = sanitize(formData.get('firstName'), 100);
+    const lastName = sanitize(formData.get('lastName'), 100);
+    const position = sanitize(formData.get('position'), 200);
+    const message = sanitize(formData.get('message'), 2000);
+    const resume = formData.get('resume');
+
+    if (!isValidEmail(email)) {
+      return jsonResponse({ error: 'Please enter a valid email address' }, 400, origin);
+    }
+    if (!firstName || !lastName) {
+      return jsonResponse({ error: 'Name is required' }, 400, origin);
+    }
+
+    // File validation
     let resumeUrl = null;
     if (resume && resume.size > 0) {
-      const maxSize = 5 * 1024 * 1024; // 5MB
+      if (!isAllowedFile(resume)) {
+        return jsonResponse({ error: 'Only PDF, DOC, or DOCX files are accepted' }, 400, origin);
+      }
+
+      const maxSize = 5 * 1024 * 1024;
       if (resume.size > maxSize) {
         return jsonResponse({ error: 'File too large. Max 5MB.' }, 400, origin);
       }
 
       const timestamp = Date.now();
       const safeName = `${firstName}-${lastName}-${timestamp}`.replace(/[^a-zA-Z0-9-]/g, '_');
-      const ext = resume.name?.split('.').pop() || 'pdf';
+      const ext = resume.name?.split('.').pop()?.toLowerCase() || 'pdf';
       const key = `careers/${safeName}.${ext}`;
 
-      // Store in R2 bucket (configured as binding in Cloudflare Pages)
       if (context.env.CAREER_UPLOADS) {
         await context.env.CAREER_UPLOADS.put(key, resume.stream(), {
           httpMetadata: { contentType: resume.type },
@@ -44,13 +56,12 @@ export async function onRequestPost(context) {
       }
     }
 
-    // Add contact to ActiveCampaign
     const contactId = await addContact(context.env, {
       email,
       firstName,
       lastName,
-      listId: '8', // Career Applications list
-      tags: ['17'], // career-applicant tag
+      listId: '8',
+      tags: ['17'],
     });
 
     return jsonResponse({ success: true, contactId, resumeUrl }, 200, origin);

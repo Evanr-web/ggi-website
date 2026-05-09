@@ -69,6 +69,10 @@ const base = import.meta.env.BASE_URL;
           A free monthly guide to the Catholic intellectual life — curated essays, event invitations, and reading recommendations from the Gregory the Great Institute.
         </p>
         <form class="article__newsletter-form" id="article-subscribe-form">
+          <div aria-hidden="true" style="position:absolute;left:-9999px;top:-9999px;height:0;width:0;overflow:hidden;">
+            <label for="article-hp-website">Website</label>
+            <input type="text" name="website" id="article-hp-website" tabindex="-1" autocomplete="off" />
+          </div>
           <input type="email" name="email" placeholder="Your email" required aria-label="Email address" />
           <button type="submit">Subscribe</button>
         </form>
@@ -364,6 +368,12 @@ const base = import.meta.env.BASE_URL;
     form.addEventListener('submit', function(e) {
       e.preventDefault();
       var email = form.querySelector('input[name="email"]').value;
+      var hpVal = form.querySelector('input[name="website"]')?.value;
+      if (hpVal) {
+        form.style.display = 'none';
+        document.getElementById('article-subscribe-confirm').style.display = 'block';
+        return;
+      }
       var base = document.querySelector('link[rel="canonical"]')?.href?.replace(/\/library\/.*/, '') || '';
       fetch(base + '/api/subscribe', {
         method: 'POST',
