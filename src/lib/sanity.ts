@@ -1,4 +1,5 @@
 import { sanityClient } from 'sanity:client';
+import { createClient } from '@sanity/client';
 import imageUrlBuilder from '@sanity/image-url';
 import type { SanityImageSource } from '@sanity/image-url/lib/types/types';
 
@@ -6,6 +7,27 @@ import type { SanityImageSource } from '@sanity/image-url/lib/types/types';
 const builder = imageUrlBuilder(sanityClient);
 export function urlFor(source: SanityImageSource) {
   return builder.image(source);
+}
+
+// === Preview Client (fetches drafts) ===
+let _previewClient: ReturnType<typeof createClient> | null = null;
+export function getPreviewClient() {
+  if (!_previewClient) {
+    _previewClient = createClient({
+      projectId: 'dhzbvx7r',
+      dataset: 'production',
+      useCdn: false,
+      token: import.meta.env.SANITY_PREVIEW_TOKEN,
+      perspective: 'previewDrafts',
+      apiVersion: '2024-01-01',
+    });
+  }
+  return _previewClient;
+}
+
+// Preview-aware fetch: uses draft client when preview=true
+export async function previewFetch(query: string, params?: Record<string, any>) {
+  return getPreviewClient().fetch(query, params || {});
 }
 
 // === GROQ Queries ===

@@ -2,19 +2,69 @@ import { defineConfig } from 'sanity';
 import { createElement } from 'react';
 import { structureTool } from 'sanity/structure';
 import type { StructureBuilder } from 'sanity/structure';
+import { Iframe } from 'sanity-plugin-iframe-pane';
 import { schemaTypes } from './schemas';
+
+// Preview URL base — points at the Astro dev server
+const PREVIEW_BASE = 'http://localhost:4321';
+const PREVIEW_SECRET = 'ggi-preview-2026';
+
+// Map document types to preview URL paths
+function resolvePreviewUrl(doc: any) {
+  const slug = doc?.slug?.current;
+
+  switch (doc._type) {
+    case 'libraryItem':
+      return slug ? `${PREVIEW_BASE}/preview/library/${slug}/?secret=${PREVIEW_SECRET}` : null;
+    case 'event':
+      return slug ? `${PREVIEW_BASE}/preview/events/${slug}/?secret=${PREVIEW_SECRET}` : null;
+    case 'program':
+      return slug ? `${PREVIEW_BASE}/preview/programs/${slug}/?secret=${PREVIEW_SECRET}` : null;
+    case 'magnaliaIssue':
+      return slug ? `${PREVIEW_BASE}/preview/magnalia/${slug}/?secret=${PREVIEW_SECRET}` : null;
+    case 'careerPosting':
+      return slug ? `${PREVIEW_BASE}/preview/careers/${slug}/?secret=${PREVIEW_SECRET}` : null;
+    case 'homepage':
+      return `${PREVIEW_BASE}/preview/homepage/?secret=${PREVIEW_SECRET}`;
+    case 'siteSettings':
+      return `${PREVIEW_BASE}/preview/site-settings/?secret=${PREVIEW_SECRET}`;
+    default:
+      return null;
+  }
+}
+
+// Helper to build a document view with editor + preview pane
+function documentViewsWithPreview(S: StructureBuilder) {
+  return [
+    S.view.form(),
+    S.view.component(Iframe as any).options({
+      url: (doc: any) => resolvePreviewUrl(doc),
+      reload: { button: true, revision: true },
+    }).title('Preview'),
+  ];
+}
 
 const structure = (S: StructureBuilder) =>
   S.list()
     .title('Content')
     .items([
-      // Singletons
+      // Singletons — with preview
       S.listItem()
         .title('⚙️ Site Settings')
-        .child(S.document().schemaType('siteSettings').documentId('siteSettings')),
+        .child(
+          S.document()
+            .schemaType('siteSettings')
+            .documentId('siteSettings')
+            .views(documentViewsWithPreview(S))
+        ),
       S.listItem()
         .title('🏠 Homepage')
-        .child(S.document().schemaType('homepage').documentId('homepage')),
+        .child(
+          S.document()
+            .schemaType('homepage')
+            .documentId('homepage')
+            .views(documentViewsWithPreview(S))
+        ),
 
       S.divider(),
 
@@ -31,6 +81,12 @@ const structure = (S: StructureBuilder) =>
                   S.documentTypeList('libraryItem')
                     .title('All Library Items')
                     .defaultOrdering([{ field: 'publishDate', direction: 'desc' }])
+                    .child((documentId: string) =>
+                      S.document()
+                        .documentId(documentId)
+                        .schemaType('libraryItem')
+                        .views(documentViewsWithPreview(S))
+                    )
                 ),
               S.listItem()
                 .title('Essays')
@@ -39,6 +95,12 @@ const structure = (S: StructureBuilder) =>
                     .title('Essays')
                     .filter('_type == "libraryItem" && category == "essay"')
                     .defaultOrdering([{ field: 'publishDate', direction: 'desc' }])
+                    .child((documentId: string) =>
+                      S.document()
+                        .documentId(documentId)
+                        .schemaType('libraryItem')
+                        .views(documentViewsWithPreview(S))
+                    )
                 ),
               S.listItem()
                 .title('Videos & Lectures')
@@ -47,6 +109,12 @@ const structure = (S: StructureBuilder) =>
                     .title('Videos & Lectures')
                     .filter('_type == "libraryItem" && category == "video"')
                     .defaultOrdering([{ field: 'publishDate', direction: 'desc' }])
+                    .child((documentId: string) =>
+                      S.document()
+                        .documentId(documentId)
+                        .schemaType('libraryItem')
+                        .views(documentViewsWithPreview(S))
+                    )
                 ),
               S.listItem()
                 .title('Resources')
@@ -55,6 +123,12 @@ const structure = (S: StructureBuilder) =>
                     .title('Resources')
                     .filter('_type == "libraryItem" && category == "resource"')
                     .defaultOrdering([{ field: 'publishDate', direction: 'desc' }])
+                    .child((documentId: string) =>
+                      S.document()
+                        .documentId(documentId)
+                        .schemaType('libraryItem')
+                        .views(documentViewsWithPreview(S))
+                    )
                 ),
               S.listItem()
                 .title('⭐ Featured')
@@ -63,6 +137,12 @@ const structure = (S: StructureBuilder) =>
                     .title('Featured Items')
                     .filter('_type == "libraryItem" && featured == true')
                     .defaultOrdering([{ field: 'publishDate', direction: 'desc' }])
+                    .child((documentId: string) =>
+                      S.document()
+                        .documentId(documentId)
+                        .schemaType('libraryItem')
+                        .views(documentViewsWithPreview(S))
+                    )
                 ),
               S.divider(),
               S.listItem()
@@ -71,24 +151,48 @@ const structure = (S: StructureBuilder) =>
             ])
         ),
 
-      // Programs
+      // Programs — with preview
       S.listItem()
         .title('🎓 Programs')
-        .child(S.documentTypeList('program').title('Programs')),
+        .child(
+          S.documentTypeList('program')
+            .title('Programs')
+            .child((documentId: string) =>
+              S.document()
+                .documentId(documentId)
+                .schemaType('program')
+                .views(documentViewsWithPreview(S))
+            )
+        ),
 
-      // Events
+      // Events — with preview
       S.listItem()
         .title('📅 Events')
         .child(
           S.documentTypeList('event')
             .title('Events')
             .defaultOrdering([{ field: 'startDate', direction: 'desc' }])
+            .child((documentId: string) =>
+              S.document()
+                .documentId(documentId)
+                .schemaType('event')
+                .views(documentViewsWithPreview(S))
+            )
         ),
 
-      // Magnalia
+      // Magnalia — with preview
       S.listItem()
         .title('📖 Magnalia Issues')
-        .child(S.documentTypeList('magnaliaIssue').title('Magnalia Issues')),
+        .child(
+          S.documentTypeList('magnaliaIssue')
+            .title('Magnalia Issues')
+            .child((documentId: string) =>
+              S.document()
+                .documentId(documentId)
+                .schemaType('magnaliaIssue')
+                .views(documentViewsWithPreview(S))
+            )
+        ),
 
       S.divider(),
 
@@ -122,10 +226,19 @@ const structure = (S: StructureBuilder) =>
         .title('💰 Giving Tiers')
         .child(S.documentTypeList('givingTier').title('Giving Tiers')),
 
-      // Careers
+      // Careers — with preview
       S.listItem()
         .title('💼 Career Postings')
-        .child(S.documentTypeList('careerPosting').title('Career Postings')),
+        .child(
+          S.documentTypeList('careerPosting')
+            .title('Career Postings')
+            .child((documentId: string) =>
+              S.document()
+                .documentId(documentId)
+                .schemaType('careerPosting')
+                .views(documentViewsWithPreview(S))
+            )
+        ),
     ]);
 
 const GoldG = () =>

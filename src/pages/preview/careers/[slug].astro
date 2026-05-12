@@ -1,0 +1,152 @@
+---
+export const prerender = false;
+
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { previewFetch } from '../../../lib/sanity';
+import { renderPortableText } from '../../../lib/portable-text';
+
+const { slug } = Astro.params;
+const secret = Astro.url.searchParams.get('secret');
+
+if (secret !== import.meta.env.SANITY_PREVIEW_SECRET) {
+  return new Response('Unauthorized', { status: 401 });
+}
+
+const posting = await previewFetch(
+  `*[_type == "careerPosting" && slug.current == $slug][0]{
+    title,
+    type,
+    location,
+    compensation,
+    deadline,
+    startDate,
+    active,
+    summary,
+    description[]{
+      ...,
+      _type == "image" => { "url": asset->url, "alt": alt }
+    },
+    externalPdfUrl,
+    "detailsPdfUrl": detailsPdf.asset->url,
+    contactEmail
+  }`,
+  { slug }
+);
+
+if (!posting) {
+  return new Response('Career posting not found', { status: 404 });
+}
+
+const pageTitle = 'Preview: ' + (posting.title || 'Untitled Position');
+const postingTitle = posting.title || 'Untitled Position';
+const descHtml = renderPortableText(posting.description);
+const hasDesc = descHtml.length > 0;
+
+const formatDate = (dateStr: string) => {
+  if (!dateStr) return '';
+  const dt = new Date(dateStr + 'T12:00:00');
+  return dt.toLocaleDateString('en-CA', { year: 'numeric', month: 'long', day: 'numeric' });
+};
+---
+
+<BaseLayout title={pageTitle}>
+  <div class="preview-banner">
+    PREVIEW MODE — Career Posting draft. Click reload to see latest changes.
+  </div>
+
+  <section class="section">
+    <div class="container career-preview">
+      <span class="label text-gold">{posting.active !== false ? 'Active' : 'Inactive'}</span>
+      <h1 class="career-title">{postingTitle}</h1>
+
+      <div class="career-meta">
+        {posting.type && (
+          <div class="career-meta-item">
+            <strong>Type</strong>
+            <span>{posting.type}</span>
+          </div>
+        )}
+        {posting.location && (
+          <div class="career-meta-item">
+            <strong>Location</strong>
+            <span>{posting.location}</span>
+          </div>
+        )}
+        {posting.compensation && (
+          <div class="career-meta-item">
+            <strong>Compensation</strong>
+            <span>{posting.compensation}</span>
+          </div>
+        )}
+        {posting.deadline && (
+          <div class="career-meta-item">
+            <strong>Deadline</strong>
+            <span>{formatDate(posting.deadline)}</span>
+          </div>
+        )}
+        {posting.startDate && (
+          <div class="career-meta-item">
+            <strong>Start Date</strong>
+            <span>{formatDate(posting.startDate)}</span>
+          </div>
+        )}
+      </div>
+
+      {posting.summary && (
+        <div class="career-summary">
+          <p>{posting.summary}</p>
+        </div>
+      )}
+
+      {hasDesc ? (
+        <div class="career-body article__body" set:html={descHtml} />
+      ) : (
+        <p class="preview-placeholder">Add a description in the editor to see it here.</p>
+      )}
+
+      {posting.contactEmail && (
+        <p class="career-contact">Contact: {posting.contactEmail}</p>
+      )}
+
+      <div class="career-links">
+        {posting.externalPdfUrl && (
+          <a href={posting.externalPdfUrl} class="career-link">View External PDF</a>
+        )}
+        {posting.detailsPdfUrl && (
+          <a href={posting.detailsPdfUrl} class="career-link">Download Details PDF</a>
+        )}
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .preview-banner {
+    background: #b89a47;
+    color: #0e3352;
+    text-align: center;
+    padding: 10px 16px;
+    font-family: system-ui, sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    position: sticky;
+    top: 0;
+    z-index: 9999;
+  }
+  .preview-placeholder { font-style: italic; color: #999; margin-top: 24px; }
+  .career-preview { max-width: 680px; }
+  .career-title { font-family: var(--font-display); font-size: 2rem; color: var(--color-navy, #0e3352); line-height: 1.2; margin: 8px 0 20px; }
+  .career-meta { display: flex; flex-wrap: wrap; gap: 24px; margin-bottom: 24px; padding: 16px; background: var(--color-linen, #f8ebd9); border-radius: 4px; }
+  .career-meta-item strong { display: block; font-family: var(--font-ui); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--color-gold, #b89a47); margin-bottom: 4px; }
+  .career-meta-item span { font-family: var(--font-body); font-size: 0.95rem; color: var(--color-navy, #0e3352); }
+  .career-summary { margin-bottom: 24px; padding-bottom: 24px; border-bottom: 1px solid rgba(90,90,110,0.1); }
+  .career-summary p { font-family: var(--font-body); font-size: 1.05rem; line-height: 1.85; color: var(--color-gray, #555); }
+  .career-body :global(p) { font-family: var(--font-body); font-size: 1.05rem; line-height: 1.85; color: var(--color-gray, #555); margin-bottom: 16px; }
+  .career-body :global(h2) { font-family: var(--font-display); font-size: 1.3rem; color: var(--color-navy); margin-top: 32px; margin-bottom: 12px; }
+  .career-body :global(ul), .career-body :global(ol) { padding-left: 24px; margin-bottom: 16px; }
+  .career-body :global(li) { font-family: var(--font-body); font-size: 1rem; line-height: 1.75; color: var(--color-gray); margin-bottom: 4px; }
+  .career-contact { font-family: var(--font-ui); font-size: 0.9rem; color: var(--color-navy); margin-top: 24px; }
+  .career-links { display: flex; gap: 12px; margin-top: 16px; }
+  .career-link { display: inline-block; padding: 10px 20px; background: var(--color-gold, #b89a47); color: var(--color-navy, #0e3352); border-radius: 3px; text-decoration: none; font-weight: 600; font-size: 0.88rem; }
+  .career-link:hover { background: #a88a3a; }
+</style>

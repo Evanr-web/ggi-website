@@ -1,0 +1,177 @@
+---
+export const prerender = false;
+
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { previewFetch } from '../../../lib/sanity';
+import { renderPortableText } from '../../../lib/portable-text';
+
+const { slug } = Astro.params;
+const secret = Astro.url.searchParams.get('secret');
+
+if (secret !== import.meta.env.SANITY_PREVIEW_SECRET) {
+  return new Response('Unauthorized', { status: 401 });
+}
+
+// Fetch by issue number (slug = issue number)
+const issue = await previewFetch(
+  `*[_type == "magnaliaIssue" && (slug.current == $slug || issueNumber == $num)][0]{
+    issueNumber,
+    title,
+    "coverImage": coverImage.asset->url,
+    publishDate,
+    pageCount,
+    current,
+    whatYoullFind,
+    tableOfContents,
+    editorsNote,
+    sampleArticle{
+      title,
+      author,
+      body[]{
+        ...,
+        _type == "image" => { "url": asset->url, "alt": alt }
+      }
+    },
+    contributors[]{
+      name,
+      "photo": photo.asset->url,
+      bio,
+      credentials,
+      contribution
+    },
+    pullQuote,
+    endorsements
+  }`,
+  { slug, num: parseInt(slug) || 0 }
+);
+
+if (!issue) {
+  return new Response('Magnalia issue not found', { status: 404 });
+}
+
+const pageTitle = 'Preview: Magnalia ' + (issue.title || 'Issue ' + issue.issueNumber);
+const issueTitle = issue.title || 'Magnalia Issue ' + issue.issueNumber;
+const sampleHtml = issue.sampleArticle?.body ? renderPortableText(issue.sampleArticle.body) : '';
+
+const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const d = issue.publishDate ? new Date(issue.publishDate) : null;
+const dateStr = d ? months[d.getMonth()] + ' ' + d.getFullYear() : 'Draft';
+---
+
+<BaseLayout title={pageTitle}>
+  <div class="preview-banner">
+    PREVIEW MODE — Magnalia Issue draft. Click reload to see latest changes.
+  </div>
+
+  <section class="section">
+    <div class="container magnalia-preview">
+      <div class="magnalia-header">
+        {issue.coverImage && (
+          <div class="magnalia-cover">
+            <img src={issue.coverImage} alt={issueTitle} />
+          </div>
+        )}
+        <div class="magnalia-info">
+          <span class="label text-gold">{issue.current ? 'Current Issue' : 'Past Issue'}</span>
+          <h1>{issueTitle}</h1>
+          <p class="magnalia-meta">{dateStr}{issue.pageCount ? ' · ' + issue.pageCount + ' pages' : ''}</p>
+          {issue.pullQuote && (
+            <blockquote class="magnalia-quote">{issue.pullQuote}</blockquote>
+          )}
+        </div>
+      </div>
+
+      {issue.whatYoullFind && (
+        <div class="magnalia-section">
+          <h2>What You'll Find</h2>
+          <p>{issue.whatYoullFind}</p>
+        </div>
+      )}
+
+      {issue.tableOfContents && issue.tableOfContents.length > 0 && (
+        <div class="magnalia-section">
+          <h2>Table of Contents</h2>
+          <ul>
+            {issue.tableOfContents.map((item: string) => <li>{item}</li>)}
+          </ul>
+        </div>
+      )}
+
+      {issue.editorsNote && (
+        <div class="magnalia-section">
+          <h2>Editor's Note</h2>
+          <p>{issue.editorsNote}</p>
+        </div>
+      )}
+
+      {issue.sampleArticle && (
+        <div class="magnalia-section">
+          <h2>Sample Article: {issue.sampleArticle.title || 'Untitled'}</h2>
+          {issue.sampleArticle.author && <p class="magnalia-meta">By {issue.sampleArticle.author}</p>}
+          {sampleHtml ? (
+            <div class="article__body" set:html={sampleHtml} />
+          ) : (
+            <p class="preview-placeholder">No sample article body yet.</p>
+          )}
+        </div>
+      )}
+
+      {issue.contributors && issue.contributors.length > 0 && (
+        <div class="magnalia-section">
+          <h2>Contributors</h2>
+          <div class="contributors-grid">
+            {issue.contributors.map((c: any) => (
+              <div class="contributor">
+                {c.photo && <img src={c.photo} alt={c.name} class="contributor-photo" />}
+                <div>
+                  <strong>{c.name}</strong>
+                  {c.credentials && <span class="contributor-creds">{c.credentials}</span>}
+                  {c.contribution && <p class="contributor-role">{c.contribution}</p>}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .preview-banner {
+    background: #b89a47;
+    color: #0e3352;
+    text-align: center;
+    padding: 10px 16px;
+    font-family: system-ui, sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    position: sticky;
+    top: 0;
+    z-index: 9999;
+  }
+  .preview-placeholder { font-style: italic; color: #999; }
+  .magnalia-preview { max-width: 800px; }
+  .magnalia-header { display: flex; gap: 32px; margin-bottom: 36px; align-items: flex-start; }
+  .magnalia-cover { flex-shrink: 0; width: 220px; }
+  .magnalia-cover img { width: 100%; border-radius: 4px; box-shadow: 0 4px 16px rgba(0,0,0,0.15); }
+  .magnalia-info h1 { font-family: var(--font-display); font-size: 1.8rem; color: var(--color-navy, #0e3352); margin: 8px 0 12px; }
+  .magnalia-meta { font-family: var(--font-ui); font-size: 0.85rem; color: var(--color-gray, #555); }
+  .magnalia-quote { border-left: 3px solid var(--color-gold, #b89a47); padding-left: 16px; margin-top: 16px; font-style: italic; color: var(--color-navy, #0e3352); font-size: 1rem; line-height: 1.6; }
+  .magnalia-section { margin-bottom: 32px; padding-bottom: 24px; border-bottom: 1px solid rgba(90,90,110,0.1); }
+  .magnalia-section h2 { font-family: var(--font-display); font-size: 1.2rem; color: var(--color-navy); margin-bottom: 12px; }
+  .magnalia-section p { font-family: var(--font-body); font-size: 1rem; line-height: 1.75; color: var(--color-gray, #555); }
+  .magnalia-section ul { list-style: disc; padding-left: 24px; }
+  .magnalia-section li { font-family: var(--font-body); font-size: 0.95rem; line-height: 1.7; color: var(--color-gray); margin-bottom: 4px; }
+  .contributors-grid { display: flex; flex-wrap: wrap; gap: 20px; }
+  .contributor { display: flex; gap: 12px; align-items: flex-start; }
+  .contributor-photo { width: 56px; height: 56px; border-radius: 50%; object-fit: cover; flex-shrink: 0; }
+  .contributor strong { display: block; font-family: var(--font-display); font-size: 0.9rem; color: var(--color-navy); }
+  .contributor-creds { font-family: var(--font-ui); font-size: 0.78rem; color: var(--color-gray); }
+  .contributor-role { font-size: 0.82rem; color: var(--color-gray); margin-top: 2px; }
+  .article__body :global(p) { font-family: var(--font-body); font-size: 1.05rem; line-height: 1.85; color: var(--color-gray); margin-bottom: 16px; }
+  @media (max-width: 640px) {
+    .magnalia-header { flex-direction: column; }
+    .magnalia-cover { width: 160px; }
+  }
+</style>

@@ -1,0 +1,155 @@
+---
+export const prerender = false;
+
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { previewFetch } from '../../lib/sanity';
+
+const secret = Astro.url.searchParams.get('secret');
+if (secret !== import.meta.env.SANITY_PREVIEW_SECRET) {
+  return new Response('Unauthorized', { status: 401 });
+}
+
+const settings = await previewFetch(
+  `*[_type == "siteSettings"][0]{
+    ribbonBanner,
+    flyinPopup,
+    socialLinks,
+    contactEmail,
+    mailingAddress,
+    footerTagline,
+    footerMission,
+    charitableRegistration,
+    "logo": logo.asset->url
+  }`
+);
+
+const hasRibbon = settings?.ribbonBanner?.enabled && settings?.ribbonBanner?.text;
+const hasFlyin = settings?.flyinPopup?.enabled && settings?.flyinPopup?.text;
+---
+
+<BaseLayout title="Preview: Site Settings">
+  <div class="preview-banner">
+    PREVIEW MODE — Site Settings draft. Click reload to see latest changes.
+  </div>
+
+  <div class="settings-preview">
+    <div class="container">
+      <h1 class="settings-title">Site Settings Preview</h1>
+      <p class="settings-subtitle">This page shows how your global settings will appear across the site.</p>
+
+      <div class="settings-section">
+        <h2>Ribbon Banner</h2>
+        {hasRibbon ? (
+          <div class="ribbon-preview">
+            <div class="ribbon-demo" style={'background:' + (settings.ribbonBanner.color || '#84292d')}>
+              <span>{settings.ribbonBanner.text}</span>
+              {settings.ribbonBanner.linkUrl && (
+                <a href={settings.ribbonBanner.linkUrl} class="ribbon-link">
+                  {settings.ribbonBanner.linkText || 'Learn more'}
+                </a>
+              )}
+            </div>
+            <p class="settings-note">This banner appears at the top of every page.</p>
+          </div>
+        ) : (
+          <p class="settings-disabled">Ribbon banner is disabled or has no text.</p>
+        )}
+      </div>
+
+      <div class="settings-section">
+        <h2>Fly-in Popup</h2>
+        {hasFlyin ? (
+          <div class="flyin-preview">
+            <div class="flyin-demo">
+              <strong>{settings.flyinPopup.heading || 'Popup'}</strong>
+              <p>{settings.flyinPopup.text}</p>
+              {settings.flyinPopup.ctaText && (
+                <a href={settings.flyinPopup.ctaUrl || '#'} class="flyin-cta">{settings.flyinPopup.ctaText}</a>
+              )}
+            </div>
+            <p class="settings-note">This popup slides in from the bottom-right after a delay.</p>
+          </div>
+        ) : (
+          <p class="settings-disabled">Fly-in popup is disabled or has no text.</p>
+        )}
+      </div>
+
+      <div class="settings-section">
+        <h2>Footer</h2>
+        <div class="footer-preview">
+          {settings?.logo && <img src={settings.logo} alt="Logo" class="footer-logo" />}
+          <div class="footer-field">
+            <strong>Tagline:</strong>
+            <span>{settings?.footerTagline || '(not set)'}</span>
+          </div>
+          <div class="footer-field">
+            <strong>Mission:</strong>
+            <span>{settings?.footerMission || '(not set)'}</span>
+          </div>
+          <div class="footer-field">
+            <strong>Contact Email:</strong>
+            <span>{settings?.contactEmail || '(not set)'}</span>
+          </div>
+          <div class="footer-field">
+            <strong>Mailing Address:</strong>
+            <span>{settings?.mailingAddress || '(not set)'}</span>
+          </div>
+          <div class="footer-field">
+            <strong>Charitable Registration:</strong>
+            <span>{settings?.charitableRegistration || '(not set)'}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="settings-section">
+        <h2>Social Links</h2>
+        {settings?.socialLinks ? (
+          <div class="social-preview">
+            {Object.entries(settings.socialLinks).filter(([k, v]) => v && k !== '_type').map(([key, url]) => (
+              <div class="footer-field">
+                <strong>{key}:</strong>
+                <span>{url as string}</span>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <p class="settings-disabled">No social links configured.</p>
+        )}
+      </div>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .preview-banner {
+    background: #b89a47;
+    color: #0e3352;
+    text-align: center;
+    padding: 10px 16px;
+    font-family: system-ui, sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    position: sticky;
+    top: 0;
+    z-index: 9999;
+  }
+  .settings-preview { padding: 40px 0 60px; }
+  .settings-title { font-family: var(--font-display); font-size: 2rem; color: var(--color-navy, #0e3352); margin-bottom: 8px; }
+  .settings-subtitle { font-family: var(--font-body); font-size: 1rem; color: var(--color-gray, #555); margin-bottom: 36px; }
+  .settings-section { margin-bottom: 36px; padding-bottom: 24px; border-bottom: 1px solid rgba(90,90,110,0.1); }
+  .settings-section h2 { font-family: var(--font-display); font-size: 1.2rem; color: var(--color-navy, #0e3352); margin-bottom: 12px; }
+  .settings-note { font-size: 0.82rem; color: #999; margin-top: 8px; font-style: italic; }
+  .settings-disabled { font-style: italic; color: #bbb; }
+  .ribbon-demo { color: white; text-align: center; padding: 8px 16px; font-size: 0.85rem; border-radius: 3px; }
+  .ribbon-link { color: white; text-decoration: underline; margin-left: 8px; }
+  .flyin-demo { background: var(--color-linen, #f8ebd9); padding: 20px; border-radius: 4px; max-width: 320px; box-shadow: 0 4px 16px rgba(0,0,0,0.1); }
+  .flyin-demo strong { display: block; font-family: var(--font-display); color: var(--color-navy); margin-bottom: 8px; }
+  .flyin-demo p { font-size: 0.9rem; color: var(--color-gray); margin-bottom: 12px; }
+  .flyin-cta { display: inline-block; background: var(--color-gold, #b89a47); color: var(--color-navy, #0e3352); padding: 8px 16px; border-radius: 3px; text-decoration: none; font-size: 0.85rem; font-weight: 600; }
+  .footer-preview { background: var(--color-linen, #f8ebd9); padding: 20px; border-radius: 4px; }
+  .footer-logo { height: 48px; margin-bottom: 12px; }
+  .footer-field { margin-bottom: 8px; font-size: 0.9rem; }
+  .footer-field strong { color: var(--color-navy, #0e3352); margin-right: 8px; }
+  .footer-field span { color: var(--color-gray, #555); }
+  .social-preview { background: var(--color-linen, #f8ebd9); padding: 16px; border-radius: 4px; }
+</style>

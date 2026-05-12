@@ -1,0 +1,127 @@
+---
+export const prerender = false;
+
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { previewFetch } from '../../../lib/sanity';
+import { renderPortableText } from '../../../lib/portable-text';
+
+const { slug } = Astro.params;
+const secret = Astro.url.searchParams.get('secret');
+
+if (secret !== import.meta.env.SANITY_PREVIEW_SECRET) {
+  return new Response('Unauthorized', { status: 401 });
+}
+
+const event = await previewFetch(
+  `*[_type == "event" && slug.current == $slug][0]{
+    title,
+    date,
+    endDate,
+    location,
+    locationAddress,
+    cost,
+    template,
+    shortDescription,
+    registrationUrl,
+    ctaText,
+    "headerImage": headerImage.asset->url,
+    body[]{
+      ...,
+      _type == "image" => { "url": asset->url, "alt": alt }
+    }
+  }`,
+  { slug }
+);
+
+if (!event) {
+  return new Response('Event not found', { status: 404 });
+}
+
+const bodyHtml = renderPortableText(event.body);
+const hasBody = bodyHtml.length > 0;
+const pageTitle = 'Preview: ' + (event.title || 'Untitled Event');
+const eventTitle = event.title || 'Untitled Event';
+const tag = event.template ? event.template.charAt(0).toUpperCase() + event.template.slice(1) : 'Event';
+
+const formatDate = (dateStr: string) => {
+  const dt = new Date(dateStr + 'T12:00:00');
+  return dt.toLocaleDateString('en-CA', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+};
+
+const now = new Date();
+const eventDate = event.date ? new Date(event.date) : now;
+const isPast = eventDate < now;
+---
+
+<BaseLayout title={pageTitle}>
+  <div class="preview-banner">
+    PREVIEW MODE — This is a draft. Click reload to see latest changes.
+  </div>
+
+  {event.headerImage && (
+    <div class="event-hero">
+      <img src={event.headerImage} alt={eventTitle} class="event-hero__img" />
+    </div>
+  )}
+
+  <section class="section">
+    <div class="container event-detail">
+      <div class="event-detail__header">
+        <span class="label text-gold">{tag}</span>
+        {isPast && <span class="event-detail__past-badge">Past Event</span>}
+        <h1>{eventTitle}</h1>
+      </div>
+
+      <div class="event-meta-grid">
+        <div class="event-meta-item">
+          <strong>Date</strong>
+          <span>{event.date ? formatDate(event.date) : 'TBD'}{event.endDate ? ' – ' + formatDate(event.endDate) : ''}</span>
+        </div>
+        <div class="event-meta-item">
+          <strong>Location</strong>
+          <span>{event.location || 'TBD'}</span>
+        </div>
+        {event.cost && (
+          <div class="event-meta-item">
+            <strong>Cost</strong>
+            <span>{event.cost}</span>
+          </div>
+        )}
+      </div>
+
+      {event.shortDescription && (
+        <p class="event-description">{event.shortDescription}</p>
+      )}
+
+      {hasBody ? (
+        <div class="event-body" set:html={bodyHtml} />
+      ) : (
+        <p class="preview-placeholder">Add body content in the editor to see it here.</p>
+      )}
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .preview-banner {
+    background: #b89a47;
+    color: #0e3352;
+    text-align: center;
+    padding: 10px 16px;
+    font-family: system-ui, sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    position: sticky;
+    top: 0;
+    z-index: 9999;
+  }
+  .preview-placeholder { font-style: italic; color: #999; margin-top: 24px; }
+  .event-hero { width: 100%; height: 300px; overflow: hidden; }
+  .event-hero__img { width: 100%; height: 100%; object-fit: cover; }
+  .event-meta-grid { display: flex; flex-wrap: wrap; gap: 24px; margin: 20px 0 24px; padding: 16px; background: var(--color-linen, #f8ebd9); border-radius: 4px; }
+  .event-meta-item strong { display: block; font-family: var(--font-ui); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--color-gold, #b89a47); margin-bottom: 4px; }
+  .event-meta-item span { font-family: var(--font-body); font-size: 0.95rem; color: var(--color-navy, #0e3352); }
+  .event-description { font-family: var(--font-body); font-size: 1.05rem; line-height: 1.85; color: var(--color-gray, #555); margin-bottom: 24px; }
+  .event-body :global(p) { font-family: var(--font-body); font-size: 1.05rem; line-height: 1.85; color: var(--color-gray, #555); margin-bottom: 16px; }
+  .event-body :global(h2) { font-family: var(--font-display); font-size: 1.3rem; color: var(--color-navy, #0e3352); margin-top: 32px; margin-bottom: 12px; }
+</style>

@@ -20,6 +20,10 @@ pnpm-debug.log*
 # macOS-specific files
 .DS_Store
 
+# Sanity backups
+backups/
+sanity/backups/
+
 # jetbrains setting folder
 .idea/
 dist/
