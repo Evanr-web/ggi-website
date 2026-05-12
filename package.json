@@ -7,7 +7,7 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build && pagefind --site dist --root-selector main",
+    "build": "astro build && pagefind --site dist/client --root-selector main",
     "preview": "astro preview",
     "astro": "astro"
   },
