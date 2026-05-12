@@ -88,10 +88,15 @@ export default defineType({
       description: 'For resource items (PDFs, study guides)',
     }),
     defineField({
-      name: 'substackUrl',
-      title: 'Substack URL',
-      type: 'url',
-      description: 'If also published on Substack',
+      name: 'crossPostSubstack',
+      title: 'Substack Cross-Post',
+      type: 'object',
+      description: 'Track cross-posting status to Substack.',
+      fields: [
+        { name: 'posted', title: 'Cross-posted to Substack', type: 'boolean', initialValue: false, description: 'Check this after you\'ve manually published the article on Substack.' },
+        { name: 'url', title: 'Substack URL', type: 'url', description: 'Link to the Substack version of this article.' },
+        { name: 'postedDate', title: 'Date Cross-posted', type: 'date', description: 'When it was posted to Substack.' },
+      ],
     }),
     defineField({
       name: 'featured',
@@ -120,10 +125,11 @@ export default defineType({
     { title: 'Publish Date (Newest)', name: 'publishDateDesc', by: [{ field: 'publishDate', direction: 'desc' }] },
   ],
   preview: {
-    select: { title: 'title', subtitle: 'category', date: 'publishDate', media: 'featuredImage' },
-    prepare({ title, subtitle, date }) {
+    select: { title: 'title', subtitle: 'category', date: 'publishDate', media: 'featuredImage', substack: 'crossPostSubstack.posted' },
+    prepare({ title, subtitle, date, substack }) {
       const d = date ? new Date(date + 'T00:00:00').toLocaleDateString('en-CA', { month: 'short', day: 'numeric', year: 'numeric' }) : '';
-      return { title, subtitle: `${subtitle?.toUpperCase() || ''} — ${d}` };
+      const sub = substack ? ' ✉️' : '';
+      return { title: title + sub, subtitle: `${subtitle?.toUpperCase() || ''} — ${d}` };
     },
   },
 });
