@@ -343,3 +343,24 @@ button:focus:not(:focus-visible) {
 
 /* Tagline cross ornaments */
 .tagline-cross { font-size: 0.7em; opacity: 0.5; vertical-align: 0.12em; }
+
+/* Zeffy popup modal overrides */
+body > div[style*="z-index: 10000"][style*="background-color"] {
+  background-color: rgba(14, 51, 82, 0.6) !important;
+  backdrop-filter: blur(4px);
+}
+
+body > div[style*="z-index: 10000"]:not([style*="background-color"]) {
+  border-radius: 12px !important;
+  overflow: hidden;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.3) !important;
+}
+
+@media (min-width: 769px) {
+  body > div[style*="z-index: 10000"]:not([style*="background-color"]) {
+    top: 8% !important;
+    bottom: 8% !important;
+    left: 20% !important;
+    right: 20% !important;
+  }
+}

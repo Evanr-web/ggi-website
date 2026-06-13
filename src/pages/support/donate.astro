@@ -1,6 +1,5 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import Button from '../../components/Button.astro';
 const base = import.meta.env.BASE_URL;
 ---
 
@@ -11,13 +10,9 @@ const base = import.meta.env.BASE_URL;
       <div class="donate-page__icon">
         <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color: var(--color-gold);"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
       </div>
-      <h1 data-pagefind-weight="10">Online Giving Coming Soon</h1>
+      <h1 data-pagefind-weight="10">Support the Mission</h1>
       <p class="donate-page__body">
-        We're finalizing our secure online payment system. In the meantime, we'd love to hear from you — reach out and we'll get you set up personally.
-      </p>
-      <Button href={`${base}contact/`} variant="primary">Contact Us to Give</Button>
-      <p class="donate-page__email">
-        Or email us directly at <a href="mailto:info@gregorythegreat.ca">info@gregorythegreat.ca</a>
+        Your generosity equips Christians to renew culture in the light of faith and reason — through formation programs, the Magnalia Journal, book studies, and our annual conference.
       </p>
 
       <div class="donate-page__tiers">
@@ -40,34 +35,33 @@ const base = import.meta.env.BASE_URL;
         </div>
       </div>
 
-      <!-- Honor / Memorial -->
-      <div class="donate-page__tribute">
-        <p class="label text-gold">Give in Honor or Memory</p>
-        <p class="tribute-desc">
-          Honor someone who shaped your faith or remember a loved one with a gift to the Institute.
-          We'll send a personal note to the person or family you designate.
-        </p>
-        <p class="tribute-desc">
-          When you contact us to give, let us know:
-        </p>
-        <div class="tribute-fields">
-          <div class="tribute-field">
-            <span class="tribute-field__label">Type</span>
-            <span class="tribute-field__value">In Honor of / In Memory of</span>
-          </div>
-          <div class="tribute-field">
-            <span class="tribute-field__label">Honoree name</span>
-            <span class="tribute-field__value">The person you're honoring or remembering</span>
-          </div>
-          <div class="tribute-field">
-            <span class="tribute-field__label">Notify</span>
-            <span class="tribute-field__value">Name and email of someone to notify (optional)</span>
+      <!-- Zeffy Donation Embed -->
+      <div class="donate-page__embed">
+        <div data-zeffy-embed data-form-url="/embed/donation-form/support-the-gregory-the-great-institute"></div>
+        <div data-zeffy-embed-fallback style="display:none;">
+          <div style="position:relative;overflow:hidden;height:450px;width:100%;">
+            <iframe
+              title="Donation form powered by Zeffy"
+              style="position:absolute;border:0;top:0;left:0;bottom:0;right:0;width:100%;height:100%"
+              data-zeffy-embed-src="https://www.zeffy.com/embed/donation-form/support-the-gregory-the-great-institute"
+              allowpaymentrequest
+              allowTransparency="true"
+            ></iframe>
           </div>
         </div>
-        <p class="tribute-note">
-          When online giving is live, these fields will be part of the donation form.
-        </p>
+        <script
+          src="https://www.zeffy.com/embed/v2/zeffy-embed.js"
+          onerror="document.querySelectorAll('[data-zeffy-embed-fallback]').forEach(function(el){el.style.display='block';el.querySelectorAll('iframe[data-zeffy-embed-src]').forEach(function(f){f.src=f.getAttribute('data-zeffy-embed-src');});});">
+        </script>
       </div>
+
+      <p class="donate-page__email">
+        Prefer to give another way? Email us at <a href="mailto:info@gregorythegreat.ca">info@gregorythegreat.ca</a>
+      </p>
+
+      <p class="donate-page__note">
+        Tax-deductible donations processed through Catholic Voices Canada. Charitable registration pending.
+      </p>
 
       <a href={`${base}support/`} class="back-link">← Back to Support</a>
     </div>
@@ -76,7 +70,7 @@ const base = import.meta.env.BASE_URL;
 
 <style>
   .donate-page {
-    max-width: 520px;
+    max-width: 640px;
     margin-inline: auto;
     text-align: center;
   }
@@ -99,27 +93,11 @@ const base = import.meta.env.BASE_URL;
     margin-bottom: 24px;
   }
 
-  .donate-page__email {
-    font-family: var(--font-ui);
-    font-size: 0.88rem;
-    color: var(--color-gray);
-    margin-top: 12px;
-  }
-
-  .donate-page__email a {
-    color: var(--color-gold);
-    text-decoration: none;
-  }
-
-  .donate-page__email a:hover {
-    color: var(--color-crimson);
-  }
-
   .donate-page__tiers {
-    margin-top: 40px;
-    padding-top: 32px;
-    border-top: 1px solid rgba(90, 90, 110, 0.1);
+    padding-bottom: 32px;
+    border-bottom: 1px solid rgba(90, 90, 110, 0.1);
     text-align: left;
+    margin-bottom: 32px;
   }
 
   .donate-page__tiers-label {
@@ -143,55 +121,28 @@ const base = import.meta.env.BASE_URL;
     color: var(--color-gray);
   }
 
-  /* Tribute / Honor-Memorial */
-  .donate-page__tribute {
-    margin-top: 40px;
-    padding-top: 32px;
-    border-top: 1px solid rgba(90, 90, 110, 0.1);
-    text-align: left;
+  .donate-page__embed {
+    margin: 0 auto 32px;
+    max-width: 100%;
   }
 
-  .tribute-desc {
-    font-family: var(--font-body);
-    font-size: 0.95rem;
-    color: var(--color-gray);
-    line-height: 1.6;
-    margin-bottom: 12px;
-  }
-
-  .tribute-fields {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    margin: 16px 0;
-    padding: 16px;
-    background-color: var(--color-linen);
-    border-radius: 3px;
-  }
-
-  .tribute-field {
-    display: flex;
-    gap: 12px;
-    align-items: baseline;
-  }
-
-  .tribute-field__label {
+  .donate-page__email {
     font-family: var(--font-ui);
-    font-size: 0.8rem;
-    font-weight: 600;
-    color: var(--color-navy);
-    min-width: 100px;
-    flex-shrink: 0;
-  }
-
-  .tribute-field__value {
-    font-family: var(--font-body);
     font-size: 0.88rem;
     color: var(--color-gray);
-    font-style: italic;
+    margin-top: 12px;
   }
 
-  .tribute-note {
+  .donate-page__email a {
+    color: var(--color-gold);
+    text-decoration: none;
+  }
+
+  .donate-page__email a:hover {
+    color: var(--color-crimson);
+  }
+
+  .donate-page__note {
     font-family: var(--font-ui);
     font-size: 0.78rem;
     color: var(--color-gray);

@@ -1,0 +1,78 @@
+# 301 Redirects — Wix → New Site
+# Cloudflare Pages _redirects format: [source] [destination] [status]
+# Ref: https://developers.cloudflare.com/pages/configuration/redirects/
+
+# ── Main Pages ──
+/coming-events          /events/            301
+/join-us                /support/           301
+/mission                /about/             301
+/what-we-do             /programs/          301
+/leadership             /about/leadership   301
+/courses                /programs/          301
+/our-story              /about/             301
+/donate                 /support/donate/    301
+/donate-1               /support/donate/    301
+/contact-8              /contact/           301
+/privacy-policy         /privacy/           301
+/latest                 /library/           301
+/magnalia               /magnalia/          301
+/summer-interns         /careers/           301
+/summer-internship      /careers/           301
+/book-online            /contact/           301
+/general-6              /contact/           301
+/pdf                    /magnalia/          301
+/journals-and-merchandise  /magnalia/subscribe/  301
+/2025-impact-report     /about/impact       301
+/novena-for-archbishop-hero  /library/      301
+
+# ── Store ──
+/product-page/gregory-the-great-journal  /magnalia/subscribe/  301
+/product-page-1         /magnalia/subscribe/  301
+
+# ── Blog Posts → Library (matched where equivalent exists) ──
+/post/medicine-forgets-its-vocation-alberta-places-guardrails  /library/medicine-forgets-vocation/  301
+/post/the-abolition-of-man-webinar             /library/abolition-of-man-guide/  301
+/post/stewardship-and-freedom-lessons-from-personal-finances-101  /library/personal-finances/  301
+/post/master-your-money-serve-your-vocation-finance-101  /library/personal-finances/  301
+/post/fine-gathering-in-ottawa-and-national-prayer-breakfast  /library/fine-gathering-ottawa/  301
+/post/faith-and-reason-seminar-2025            /programs/faith-and-reason/  301
+/post/st-gregory-s-inklings-book-studies       /programs/book-studies/  301
+/post/st-gregory-folk-music-camp               /events/music-camp-2026/  301
+/post/why-classical-education-now              /library/  301
+/post/rekindling-the-hearth-a-joyful-st-valentine-s-marriage-retreat  /events/  301
+/post/a-reflection-on-rekindling-the-heart-marriage-retreat  /events/  301
+/post/first-renewing-culture-conference-cardinal-collins-and-upcoming-journal  /events/conference-2025/  301
+/post/charlie-kirk-and-cultural-renewal-with-victor-carpay  /library/  301
+/post/leading-newman-scholars-discuss-the-impact-of-newman-as-newman-becomes-a-doctor-of-the-church  /library/  301
+/post/renewal-of-culture-podcast-with-brett-powell-and-dr-topping  /library/  301
+/post/annual-keith-cassidy-lecture-cardinal-newman-among-the-doctors  /library/  301
+/post/ggi-at-provincial-prayer-breakfast       /events/prayer-breakfast-2026/  301
+/post/dr-topping-delivers-a-lecture-in-ontario-at-the-fellowship-of-catholic-scholars  /library/  301
+/post/coming-soon                              /  301
+/post/cyeg-and-ggi-pilgrimage-lecture-and-bbq  /events/  301
+/post/take-her-word-for-it-our-mother-knows    /library/  301
+
+# ── Catch-all: blog posts without a match → Library ──
+/post/*                 /library/           301
+
+# ── Wix Event Details → Events ──
+/event-details/master-class-personal-finances-101-1  /events/finances-101/  301
+/event-details/st-gregorys-folk-music-camp     /events/music-camp-2026/  301
+/event-details/st-gregorys-music-and-leadership-camp-1  /events/music-camp-2026/  301
+/event-details/st-gregorys-leadership-and-music-camp-save-the-date  /events/music-camp-2026/  301
+/event-details/st-gregorys-inkling-book-club   /programs/book-studies/  301
+/event-details/st-gregorys-inkling-book-club-1 /programs/book-studies/  301
+/event-details/2026-book-studies-1             /programs/book-studies/  301
+/event-details/first-annual-renewing-culture-conference    /events/conference-2025/  301
+/event-details/first-annual-renewing-culture-conference-1  /events/conference-2025/  301
+/event-details/first-annual-renewing-culture-conference-2  /events/conference-2025/  301
+/event-details/renewing-culture-conference-save-the-date   /events/conference-2026/  301
+/event-details/faith-and-reason-seminar        /programs/faith-and-reason/  301
+/event-details/rekindling-the-hearth-a-st-valentines-marriage-retreat  /events/  301
+/event-details/october-webinar                 /events/  301
+/event-details/march-for-life                  /events/  301
+/event-details/supporter-events                /events/  301
+/event-details/why-classical-education-now-raising-children-who-can-think-discern-and-believe  /library/  301
+
+# ── Catch-all: event details without a match → Events ──
+/event-details/*        /events/            301

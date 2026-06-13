@@ -28,6 +28,13 @@ export async function onRequestPost(context) {
       firstName,
       listId: '4',
       tags: ['1'],
+      utmData: {
+        utm_source: body.utm_source,
+        utm_medium: body.utm_medium,
+        utm_campaign: body.utm_campaign,
+        utm_content: body.utm_content,
+        signup_page: body.signup_page,
+      },
     });
 
     return jsonResponse({ success: true, contactId }, 200, origin);

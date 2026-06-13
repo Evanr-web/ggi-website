@@ -1,4 +1,4 @@
-// POST /api/ambassador — Ambassador application
+// POST /api/leadership — Leadership Circle inquiry form
 import { addContact, jsonResponse, corsHeaders, isValidEmail, sanitize, checkHoneypot, logError } from './_shared.js';
 
 export async function onRequestOptions(context) {
@@ -18,25 +18,27 @@ export async function onRequestPost(context) {
     const email = sanitize(body.email, 254);
     const firstName = sanitize(body.firstName, 100);
     const lastName = sanitize(body.lastName, 100);
-    const city = sanitize(body.city, 100);
-    const province = sanitize(body.province, 100);
-    const connection = sanitize(body.connection, 1000);
-    const community = sanitize(body.community, 1000);
-    const ideas = sanitize(body.ideas, 1000);
+    const phone = sanitize(body.phone, 30);
+    const message = sanitize(body.message, 2000);
 
     if (!isValidEmail(email)) {
       return jsonResponse({ error: 'Please enter a valid email address' }, 400, origin);
     }
     if (!firstName || !lastName) {
-      return jsonResponse({ error: 'Name is required' }, 400, origin);
+      return jsonResponse({ error: 'Full name is required' }, 400, origin);
     }
 
+    // Tags: leadership inquiry + source
+    const tags = ['27', '19']; // leadership:inquiry, source:website-form
+
+    // List 3 = Master Contact List
     const contactId = await addContact(context.env, {
       email,
       firstName,
       lastName,
-      listId: '5',
-      tags: ['2'],
+      listId: '3',
+      tags,
+      fields: {},
       utmData: {
         utm_source: body.utm_source,
         utm_medium: body.utm_medium,
@@ -48,7 +50,7 @@ export async function onRequestPost(context) {
 
     return jsonResponse({ success: true, contactId }, 200, origin);
   } catch (err) {
-    logError('ambassador', err, { email: email ? 'present' : 'missing' });
-    return jsonResponse({ error: 'Failed to submit application' }, 500, origin);
+    logError('leadership', err);
+    return jsonResponse({ error: 'Failed to submit' }, 500, origin);
   }
 }

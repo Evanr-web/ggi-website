@@ -2,11 +2,22 @@
 document.addEventListener('DOMContentLoaded', () => {
   // Inject honeypot field into every AC form (hidden from humans, bots fill it)
   document.querySelectorAll('form[data-ac-endpoint]').forEach((form) => {
+    // Inject honeypot field (hidden from humans, bots fill it)
     const hp = document.createElement('div');
     hp.setAttribute('aria-hidden', 'true');
     hp.style.cssText = 'position:absolute;left:-9999px;top:-9999px;height:0;width:0;overflow:hidden;';
     hp.innerHTML = '<label for="website">Website</label><input type="text" name="website" id="website" tabindex="-1" autocomplete="off" />';
     form.prepend(hp);
+
+    // Inject hidden UTM fields — populated from sessionStorage
+    var utmKeys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'signup_page'];
+    utmKeys.forEach(function (key) {
+      var input = document.createElement('input');
+      input.type = 'hidden';
+      input.name = key;
+      input.value = sessionStorage.getItem(key) || '';
+      form.appendChild(input);
+    });
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();

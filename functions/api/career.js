@@ -62,6 +62,13 @@ export async function onRequestPost(context) {
       lastName,
       listId: '8',
       tags: ['17'],
+      utmData: {
+        utm_source: formData.get('utm_source') || '',
+        utm_medium: formData.get('utm_medium') || '',
+        utm_campaign: formData.get('utm_campaign') || '',
+        utm_content: formData.get('utm_content') || '',
+        signup_page: formData.get('signup_page') || '',
+      },
     });
 
     return jsonResponse({ success: true, contactId, resumeUrl }, 200, origin);

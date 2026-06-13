@@ -1,14 +1,13 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Button from '../../components/Button.astro';
-import SectionDivider from '../../components/SectionDivider.astro';
 const base = import.meta.env.BASE_URL;
 ---
 
-<BaseLayout title="Become a Friend of the Institute — Gregory the Great Institute" description="Join the Friends sustaining Catholic cultural renewal in Canada. From $10/month.">
+<BaseLayout title="Become a Friend of the Institute — Gregory the Great Institute" description="Join the Friends sustaining Catholic cultural renewal in Canada. From $15/month.">
 
-  <!-- Hero -->
-  <section class="section">
+  <!-- Hero + Zeffy Embed Side-by-Side -->
+  <section class="section" id="give">
     <div class="container friend-hero reveal">
       <div class="friend-hero__text">
         <p class="label text-gold">An Invitation</p>
@@ -18,20 +17,41 @@ const base = import.meta.env.BASE_URL;
         </p>
         <p class="friend-hero__body">
           Friends of the Institute are the foundation — the growing community of Canadians who believe
-          that faith, reason, and beauty still have something to say to our country. Your monthly gift,
-          at whatever level fits your life, sustains the programs, publications, and gatherings that are
-          renewing Catholic intellectual life from coast to coast.
+          that faith, reason, and beauty still have something to say to our country. Your monthly gift
+          sustains the programs, publications, and gatherings that are renewing Catholic intellectual
+          life from coast to coast.
         </p>
-        <div class="friend-hero__cta">
-          <div class="friend-hero__price-block">
-            <span class="friend-hero__price">$15+/month</span>
-            <span class="friend-hero__price-annual">($180+/year)</span>
-          </div>
-          <Button href={`${base}support/donate/`} variant="primary">Become a Friend</Button>
+        <div class="friend-hero__price-block">
+          <span class="friend-hero__price">$15+<span class="friend-hero__period">/month</span></span>
+          <span class="friend-hero__price-annual">($180+/year)</span>
         </div>
+        <p class="friend-hero__social-proof">
+          Join <strong>150+ supporters</strong> already sustaining this mission.
+        </p>
       </div>
-      <div class="friend-hero__seal">
-        <img src={`${base}images/branding/ggi-seal.png`} alt="GGI Seal" class="friend-hero__img" />
+      <div class="friend-hero__form-wrapper">
+        <div class="friend-hero__form">
+          <div data-zeffy-embed data-form-url="/embed/donation-form/draft-friend-of-the-institute"></div>
+          <div data-zeffy-embed-fallback style="display:none;">
+            <div style="position:relative;overflow:hidden;height:600px;width:100%;">
+              <iframe
+                title="Donation form powered by Zeffy"
+                style="position:absolute;border:0;top:0;left:0;bottom:0;right:0;width:100%;height:100%"
+                data-zeffy-embed-src="https://www.zeffy.com/embed/donation-form/draft-friend-of-the-institute"
+                allowpaymentrequest
+                allowTransparency="true"
+              ></iframe>
+            </div>
+          </div>
+          <script
+            src="https://www.zeffy.com/embed/v2/zeffy-embed.js"
+            onerror="document.querySelectorAll('[data-zeffy-embed-fallback]').forEach(function(el){el.style.display='block';el.querySelectorAll('iframe[data-zeffy-embed-src]').forEach(function(f){f.src=f.getAttribute('data-zeffy-embed-src');});});"
+          ></script>
+        </div>
+        <p class="friend-hero__trust">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          Secure · Tax-deductible · Zero platform fees
+        </p>
       </div>
     </div>
   </section>
@@ -42,7 +62,7 @@ const base = import.meta.env.BASE_URL;
       <h2 class="friend-impact__title">What Your Gift Sustains</h2>
       <div class="friend-impact__grid reveal-stagger">
         <div class="friend-impact__card reveal">
-          <span class="friend-impact__number">$10</span>
+          <span class="friend-impact__number">$15</span>
           <span class="friend-impact__per">/month</span>
           <p>Funds one student's access to a Book Study series — putting the Great Books in the hands of the next generation.</p>
         </div>
@@ -52,7 +72,7 @@ const base = import.meta.env.BASE_URL;
           <p>Covers the cost of printing and mailing Magnalia to a Catholic bishop or seminary rector in Canada.</p>
         </div>
         <div class="friend-impact__card reveal">
-          <span class="friend-impact__number">$49</span>
+          <span class="friend-impact__number">$45</span>
           <span class="friend-impact__per">/month</span>
           <p>Sustains a full scholarship seat at the Renewing Culture Conference — so no one is turned away for cost.</p>
         </div>
@@ -66,35 +86,40 @@ const base = import.meta.env.BASE_URL;
       <h2>What You Receive</h2>
       <div class="friend-benefits__list reveal-stagger">
         <div class="friend-benefit reveal">
-          <div class="friend-benefit__accent"></div>
+          <div class="friend-benefit__icon">
+            <!-- Cross -->
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="2" x2="12" y2="22"/><line x1="5" y1="8" x2="19" y2="8"/></svg>
+          </div>
           <div class="friend-benefit__body">
             <h3>Monthly Prayer Inclusion</h3>
             <p>Your intentions are held in prayer by the Institute community each month.</p>
           </div>
         </div>
         <div class="friend-benefit reveal">
-          <div class="friend-benefit__accent"></div>
+          <div class="friend-benefit__icon">
+            <!-- Book -->
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+          </div>
           <div class="friend-benefit__body">
-            <h3>Magnalia Letter</h3>
-            <p>Our free curated monthly guide to the Catholic intellectual life — you'll receive it first.</p>
+            <h3>Magnalia — Letter & Digital Journal</h3>
+            <p>Receive the free monthly Magnalia Letter first, plus the full digital PDF of every Magnalia Journal issue on publication day.</p>
           </div>
         </div>
         <div class="friend-benefit reveal">
-          <div class="friend-benefit__accent"></div>
-          <div class="friend-benefit__body">
-            <h3>Magnalia Digital Edition</h3>
-            <p>Full PDF of every Magnalia issue, delivered to your inbox on publication day.</p>
+          <div class="friend-benefit__icon">
+            <!-- Calendar -->
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
           </div>
-        </div>
-        <div class="friend-benefit reveal">
-          <div class="friend-benefit__accent"></div>
           <div class="friend-benefit__body">
-            <h3>Early Event Registration</h3>
+            <h3>Early Event Access</h3>
             <p>First access to Conference tickets, Book Studies, and masterclass signups before public announcement.</p>
           </div>
         </div>
         <div class="friend-benefit reveal">
-          <div class="friend-benefit__accent"></div>
+          <div class="friend-benefit__icon">
+            <!-- People -->
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
           <div class="friend-benefit__body">
             <h3>Named Recognition</h3>
             <p>Listed as a Friend of the Institute on our website — a public witness to the mission.</p>
@@ -104,45 +129,50 @@ const base = import.meta.env.BASE_URL;
     </div>
   </section>
 
-  <SectionDivider />
-
-  <!-- CTA -->
-  <section class="section section--dark friend-cta-section">
+  <!-- Bottom CTA -->
+  <section class="section section--dark">
     <div class="container friend-cta">
-      <h2>Join the Friends</h2>
+      <h2>Ready for More?</h2>
       <p>
-        Over 150 supporters already sustain this work. Catholic culture in Canada is being rebuilt —
-        not by institutions alone, but by the people who believe it matters enough to show up monthly.
+        Patrons are the backbone of the Institute — sustaining the Magnalia Journal, underwriting
+        conference scholarships, and ensuring this work endures for generations.
       </p>
-      <div class="friend-cta__price">
-        <span class="friend-cta__amount">$15+</span>
-        <span class="friend-cta__period">/month</span>
-      </div>
-      <Button href={`${base}support/donate/`} variant="primary">Become a Friend</Button>
-      <p class="friend-cta__upgrade">
-        Ready for a deeper commitment? <a href={`${base}magnalia/patron/`}>Become a Patron →</a>
-      </p>
+      <Button href={`${base}magnalia/patron/`} variant="primary">Become a Patron — $50+/month</Button>
+      <a href={`${base}support/`} class="friend-cta__back">← Back to All Giving Options</a>
     </div>
   </section>
 
-  <section style="text-align: center; padding: 24px 0 48px;">
-    <a href={`${base}support/`} class="back-link">← Back to All Giving Options</a>
-  </section>
+  <!-- Magnalia CTA strip -->
+  <div class="page-cta-strip">
+    <div class="container page-cta-strip__inner">
+      <p class="page-cta-strip__text">Subscribe to the Magnalia Journal — the voice of Catholic cultural renewal</p>
+      <a href={`${base}magnalia/subscribe/`} class="page-cta-strip__btn">Subscribe</a>
+    </div>
+  </div>
 
 </BaseLayout>
 
 <style>
-  /* Hero */
+  /* Hero — side-by-side: pitch left, Zeffy form right */
   .friend-hero {
-    display: flex;
-    gap: 40px;
-    align-items: center;
-    max-width: 900px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: start;
+    max-width: 1050px;
     margin-inline: auto;
   }
 
   .friend-hero__text {
-    flex: 1;
+    padding-top: 8px;
+  }
+
+  .friend-hero__seal {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    margin-bottom: 12px;
+    opacity: 0.7;
   }
 
   .friend-hero__text h1 {
@@ -154,7 +184,7 @@ const base = import.meta.env.BASE_URL;
 
   .friend-hero__lead {
     font-family: var(--font-display);
-    font-size: 1.25rem;
+    font-size: 1.2rem;
     font-style: italic;
     color: var(--color-crimson);
     margin-bottom: 16px;
@@ -163,56 +193,94 @@ const base = import.meta.env.BASE_URL;
 
   .friend-hero__body {
     font-family: var(--font-body);
-    font-size: 1.02rem;
+    font-size: 1rem;
     color: var(--color-gray);
     line-height: 1.8;
-  }
-
-  .friend-hero__cta {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    margin-top: 20px;
   }
 
   .friend-hero__price-block {
     display: flex;
     flex-direction: column;
+    margin-top: 28px;
+    padding: 16px 20px;
+    background: var(--color-linen);
+    border-left: 4px solid var(--color-gold);
+    border-radius: 0 4px 4px 0;
+    display: inline-flex;
   }
 
   .friend-hero__price {
     font-family: var(--font-display);
-    font-size: 1.3rem;
+    font-size: 2rem;
     font-weight: 700;
     color: var(--color-navy);
     line-height: 1.2;
   }
 
-  .friend-hero__price-annual {
-    font-family: var(--font-ui);
-    font-size: 0.8rem;
+  .friend-hero__period {
+    font-size: 1rem;
+    font-weight: 400;
     color: var(--color-gray);
   }
 
-  .friend-hero__seal {
+  .friend-hero__price-annual {
+    font-family: var(--font-ui);
+    font-size: 0.82rem;
+    color: var(--color-gray);
+    margin-top: 2px;
+  }
+
+  .friend-hero__social-proof {
+    font-family: var(--font-ui);
+    font-size: 0.88rem;
+    color: var(--color-gray);
+    margin-top: 16px;
+  }
+
+  .friend-hero__social-proof strong {
+    color: var(--color-navy);
+  }
+
+  .friend-hero__form-wrapper {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .friend-hero__form {
+    background: var(--color-linen);
+    border-radius: 6px;
+    padding: 16px;
+    border: 1px solid rgba(90, 90, 110, 0.1);
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+  }
+
+  .friend-hero__trust {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    font-family: var(--font-ui);
+    font-size: 0.76rem;
+    color: var(--color-gray);
+    margin-top: 12px;
+    letter-spacing: 0.02em;
+  }
+
+  .friend-hero__trust svg {
+    color: var(--color-gold);
     flex-shrink: 0;
   }
 
-  .friend-hero__img {
-    width: 180px;
-    height: 180px;
-    border-radius: 50%;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
-  }
-
-  @media (max-width: 640px) {
+  @media (max-width: 768px) {
     .friend-hero {
-      flex-direction: column;
-      text-align: center;
+      grid-template-columns: 1fr;
+      gap: 32px;
     }
+    .friend-hero__text { text-align: center; }
+    .friend-hero__seal { margin-inline: auto; }
     .friend-hero__text h1 { font-size: 1.8rem; }
-    .friend-hero__cta { justify-content: center; }
-    .friend-hero__img { width: 120px; height: 120px; }
+    .friend-hero__price-block { align-self: center; }
+    .friend-hero__social-proof { text-align: center; }
   }
 
   /* Impact */
@@ -233,10 +301,11 @@ const base = import.meta.env.BASE_URL;
   }
 
   .friend-impact__card {
-    padding: 24px;
+    padding: 28px 24px;
     background-color: white;
-    border-radius: 3px;
+    border-radius: 4px;
     border-top: 3px solid var(--color-gold);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
   }
 
   .friend-impact__number {
@@ -284,38 +353,43 @@ const base = import.meta.env.BASE_URL;
 
   .friend-benefit {
     display: flex;
+    align-items: center;
+    gap: 20px;
     background-color: var(--color-linen);
     border: 1px solid rgba(90, 90, 110, 0.08);
-    border-radius: 3px;
-    overflow: hidden;
+    border-radius: 4px;
+    padding: 20px 24px;
   }
 
-  .friend-benefit__accent {
-    width: 5px;
+  .friend-benefit__icon {
     flex-shrink: 0;
-    background-color: var(--color-gold);
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-gold);
+    background: white;
+    border-radius: 50%;
+    border: 1px solid rgba(184, 154, 71, 0.2);
   }
 
-  .friend-benefit__body {
-    padding: 20px;
-  }
-
-  .friend-benefit h3 {
+  .friend-benefit__body h3 {
     font-family: var(--font-display);
-    font-size: 1.05rem;
+    font-size: 1.02rem;
     font-weight: 600;
     color: var(--color-navy);
     margin-bottom: 4px;
   }
 
-  .friend-benefit p {
+  .friend-benefit__body p {
     font-family: var(--font-body);
     font-size: 0.9rem;
     line-height: 1.6;
     color: var(--color-gray);
   }
 
-  /* CTA */
+  /* Bottom CTA */
   .friend-cta {
     text-align: center;
     max-width: 520px;
@@ -332,24 +406,7 @@ const base = import.meta.env.BASE_URL;
     font-size: 1.05rem;
     color: rgba(245, 239, 229, 0.85);
     line-height: 1.6;
-    margin-bottom: 20px;
-  }
-
-  .friend-cta__price {
     margin-bottom: 24px;
-  }
-
-  .friend-cta__amount {
-    font-family: var(--font-display);
-    font-size: 3rem;
-    font-weight: 700;
-    color: var(--color-text-on-dark);
-  }
-
-  .friend-cta__period {
-    font-family: var(--font-ui);
-    font-size: 1rem;
-    color: rgba(245, 239, 229, 0.6);
   }
 
   .friend-cta__upgrade {
@@ -364,15 +421,61 @@ const base = import.meta.env.BASE_URL;
     text-decoration: none;
   }
 
-  .back-link {
+  .friend-cta__back {
+    display: inline-block;
+    margin-top: 24px;
     font-family: var(--font-ui);
-    font-size: 0.9rem;
-    color: var(--color-gold);
+    font-size: 0.85rem;
+    color: rgba(245, 239, 229, 0.4);
     text-decoration: none;
-    font-weight: 500;
+    transition: color var(--transition-fast);
   }
 
-  .back-link:hover { color: var(--color-crimson); }
+  .friend-cta__back:hover {
+    color: var(--color-gold);
+  }
 
   .section--linen { background-color: var(--color-linen); }
+
+  /* Hide the default footer CTA strip — replaced by page-level strip */
+  :global(.footer-cta-strip) { display: none; }
+
+  .page-cta-strip {
+    background-color: var(--color-parchment);
+    border-top: 1px solid var(--color-gold);
+    border-bottom: 1px solid rgba(14, 51, 82, 0.08);
+    padding: 16px 0;
+  }
+
+  .page-cta-strip__inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+
+  .page-cta-strip__text {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--color-navy);
+  }
+
+  .page-cta-strip__btn {
+    font-family: var(--font-display);
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--color-parchment);
+    background-color: var(--color-gold);
+    padding: 8px 24px;
+    border-radius: 3px;
+    text-decoration: none;
+    transition: background-color var(--transition-fast);
+  }
+
+  .page-cta-strip__btn:hover {
+    background-color: #a08638;
+    color: var(--color-parchment);
+  }
 </style>

@@ -1,9 +1,55 @@
 // Shared utilities for Cloudflare Pages Functions
 // ActiveCampaign API helper
 
-export async function addContact(env, { email, firstName, lastName, listId, tags = [], fields = {} }) {
+// UTM custom field ID mapping — update these after creating fields in ActiveCampaign
+// To find IDs: AC dashboard → Settings → Custom Fields, or GET /api/3/fields
+const UTM_FIELD_IDS = {
+  first_source: '2',
+  first_medium: '3',
+  first_campaign: '4',
+  last_source: '5',
+  last_medium: '6',
+  last_campaign: '7',
+  signup_page: '8',
+};
+
+export async function addContact(env, { email, firstName, lastName, listId, tags = [], fields = {}, utmData = {} }) {
   const AC_URL = env.AC_API_URL;
   const AC_KEY = env.AC_API_KEY;
+
+  // Build field values from explicit fields + UTM data
+  const fieldValues = Object.entries(fields).map(([field, value]) => ({ field, value }));
+
+  // Append UTM fields if we have field IDs configured
+  // first_* fields: set only on first contact creation (AC handles via "overwrite: 0" below)
+  // last_* fields: always overwrite
+  if (utmData.utm_source) {
+    if (UTM_FIELD_IDS.first_source) {
+      fieldValues.push({ field: UTM_FIELD_IDS.first_source, value: utmData.utm_source, overwrite: 0 });
+    }
+    if (UTM_FIELD_IDS.last_source) {
+      fieldValues.push({ field: UTM_FIELD_IDS.last_source, value: utmData.utm_source });
+    }
+  }
+  if (utmData.utm_medium) {
+    if (UTM_FIELD_IDS.first_medium) {
+      fieldValues.push({ field: UTM_FIELD_IDS.first_medium, value: utmData.utm_medium, overwrite: 0 });
+    }
+    if (UTM_FIELD_IDS.last_medium) {
+      fieldValues.push({ field: UTM_FIELD_IDS.last_medium, value: utmData.utm_medium });
+    }
+  }
+  if (utmData.utm_campaign) {
+    if (UTM_FIELD_IDS.first_campaign) {
+      fieldValues.push({ field: UTM_FIELD_IDS.first_campaign, value: utmData.utm_campaign, overwrite: 0 });
+    }
+    if (UTM_FIELD_IDS.last_campaign) {
+      fieldValues.push({ field: UTM_FIELD_IDS.last_campaign, value: utmData.utm_campaign });
+    }
+  }
+  if (utmData.signup_page && UTM_FIELD_IDS.signup_page) {
+    fieldValues.push({ field: UTM_FIELD_IDS.signup_page, value: utmData.signup_page, overwrite: 0 });
+  }
 
   // 1. Create or update contact
   const contactRes = await fetch(`${AC_URL}/api/3/contact/sync`, {
@@ -17,7 +63,7 @@ export async function addContact(env, { email, firstName, lastName, listId, tags
         email,
         firstName: firstName || '',
         lastName: lastName || '',
-        fieldValues: Object.entries(fields).map(([field, value]) => ({ field, value })),
+        fieldValues,
       },
     }),
   });

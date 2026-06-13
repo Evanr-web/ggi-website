@@ -1,40 +1,161 @@
-# GGI Website Launch Checklist
+# GGI Launch Checklist — Weekend Sequence
 
-## DNS & Hosting
-- [ ] Deploy to Cloudflare Pages
-- [ ] Point `gregorythegreat.ca` DNS to Cloudflare
-- [ ] Verify SSL certificate active
-- [ ] Set up 301 redirects from old Wix URLs
+## PHASE 1: Pre-Flight (Friday Night / Saturday Morning)
+*Everything before you touch DNS*
 
-## ActiveCampaign
-- [ ] Verify sender domain (`gregorythegreat.ca`) — add SPF, DKIM, DMARC records to Cloudflare DNS
-- [ ] Set Cloudflare Pages env vars: `AC_API_URL`, `AC_API_KEY`
-- [ ] **Replace image URLs in all AC email templates:** find `https://evanr-web.github.io/ggi-website/` → replace `https://gregorythegreat.ca/`
-- [ ] Build 4 automations in AC dashboard (copy from `ACTIVECAMPAIGN-SETUP.md`)
-- [ ] Re-scan Brand Kit with `https://gregorythegreat.ca/`
-- [ ] Send test emails — check rendering in Gmail, Apple Mail, Outlook
-- [ ] Ryan/Victor review welcome sequence copy
+### 1.1 — Get Access from Ryan
+- [ ] GoDaddy login credentials (or delegate access to your account)
+- [ ] ActiveCampaign live API key + URL
+- [ ] Confirm: email is Google Workspace, managed in GoDaddy DNS
+- [ ] Ask Ryan for any Wix URLs they've shared publicly (social posts, printed materials, email signatures)
 
-## Forms
-- [ ] Test all 11 forms on live site (subscribe, contact, ambassador)
-- [ ] Verify contacts appear in correct AC lists with correct tags
+### 1.2 — Snapshot & Backup
+- [ ] Take a manual Sanity backup (`scripts/backup-sanity.sh`)
+- [ ] Screenshot the current Wix site homepage (rollback reference)
+- [ ] Log into GoDaddy → screenshot ALL current DNS records (MX, TXT, CNAME, A, everything) — your insurance policy
 
-## Content
-- [ ] Fill Email 3 curated selection placeholders (articles, book, video, beauty)
-- [ ] Host reading list PDF and update `%%READING_LIST_URL%%` in Email 1 and Email 2
-- [ ] Magnalia sample article ("Irrigating the New Deserts") live in Library
+### 1.3 — Set Up Cloudflare
+- [ ] Create Cloudflare account (use an institute email, or your email — discuss with Ryan who owns it)
+- [ ] Add `gregorythegreat.ca` to Cloudflare (free plan)
+- [ ] Cloudflare will auto-scan DNS — **verify it imported everything**, especially:
+  - [ ] MX records (Google Workspace mail)
+  - [ ] SPF TXT record (`v=spf1 include:_spf.google.com ~all` or similar)
+  - [ ] DKIM TXT record(s) (Google-generated `google._domainkey`)
+  - [ ] DMARC TXT record (`_dmarc`)
+  - [ ] Any other TXT/CNAME records (Zeffy verification, etc.)
+- [ ] Add Cloudflare Pages project — connect to `Evanr-web/ggi-website` repo
+- [ ] Set build config: Node 22, `npm run build`, output `dist/client`
+- [ ] Set environment variables: `SITE=https://gregorythegreat.ca` (no `BASE` needed on production)
+- [ ] Add `SANITY_READ_TOKEN` as env var in Cloudflare Pages
+- [ ] Trigger a test build — confirm it succeeds
+- [ ] Set custom domain on Cloudflare Pages: `gregorythegreat.ca` + `www.gregorythegreat.ca`
 
-## Sanity CMS
-- [ ] Wire remaining pages to Sanity (people, programs, tiers)
-- [ ] Confirm Studio accessible for Victor
-- [ ] Upgrade Sanity Studio to v4 (required by July 15, 2026 — `npm update sanity` + `npx sanity deploy`)
+### 1.4 — Wire ActiveCampaign
+- [ ] Add AC API key + URL as Cloudflare environment variables
+- [ ] Set up AC lists and tags per `docs/FORMS-AND-AC-ARCHITECTURE.md`
+- [ ] Test all 4 existing form endpoints on the Cloudflare preview URL:
+  - [ ] `/api/subscribe` — newsletter signup
+  - [ ] `/api/contact` — contact form
+  - [ ] `/api/ambassador` — ambassador signup
+  - [ ] `/api/career` — career application (with file upload)
+- [ ] Confirm submissions land in AC with correct lists/tags
 
-## GitHub
-- [ ] Transfer repo to GGI org (or keep under Evanr-web — decide)
+### 1.4b — Fix & Build Missing Forms (see `FORMS-AND-AC-ARCHITECTURE.md`)
+- [ ] Wire footer newsletter form to `/api/subscribe` (currently dead)
+- [ ] Fix Book Study form — new `/api/book-study` endpoint (currently dumps into Magnalia Letter list)
+- [ ] Build `/api/event-interest` endpoint (conference notify, event registration)
+- [ ] Build `/api/leadership` endpoint (Leadership Circle inquiry form)
+- [ ] Create Zeffy checkout pages for all payment forms:
+  - [ ] General donation
+  - [ ] Friend ($15+/mo)
+  - [ ] Magnalia Single Issue ($45)
+  - [ ] Magnalia Annual ($80/yr)
+  - [ ] Magnalia Patron ($600/yr)
+  - [ ] Music Camp registration
+- [ ] Swap all placeholder `/contact/` links with Zeffy URLs on payment pages
 
-## Final Checks
-- [ ] Pagefind search working (hard refresh + test)
-- [ ] Media logos on founding director page
-- [ ] OG images rendering on social shares
-- [ ] RSS feed (`/rss.xml`) validates
-- [ ] Mobile test all pages (375px)
+### 1.4c — Analytics & UTM Attribution (see `ANALYTICS-AND-UTM-ARCHITECTURE.md`)
+- [ ] Create GA4 property at [analytics.google.com](https://analytics.google.com)
+- [ ] Add GA4 script tag to `BaseLayout.astro`
+- [ ] Write UTM capture script (reads URL params → `sessionStorage`, runs on every page)
+- [ ] Add hidden UTM fields to all forms (`utm_source`, `utm_medium`, `utm_campaign`, `utm_content`, `signup_page`)
+- [ ] Update `_shared.js` `addContact()` to pass UTM values to AC as custom fields
+- [ ] Create AC custom fields: `first_source`, `first_medium`, `first_campaign`, `last_source`, `last_medium`, `last_campaign`, `signup_page`
+- [ ] Verify end-to-end: visit site with UTM params → fill form → check AC contact has UTM fields populated
+
+### 1.5 — 301 Redirects
+- [ ] Create `public/_redirects` file mapping old Wix URLs to new paths
+- [ ] At minimum: homepage, about, programs, events, contact, donate
+- [ ] Add a catch-all fallback: `/old-wix-path/* /404 404`
+
+### 1.6 — Full Site Smoke Test
+- [ ] Click through all 42 pages on the Cloudflare preview URL
+- [ ] Test on mobile (phone browser)
+- [ ] Verify Pagefind search works
+- [ ] Verify Sanity content loads (events, library, magnalia)
+- [ ] Check all external links (Zeffy donate, social media, etc.)
+- [ ] Verify security headers are present (DevTools → Network → Response Headers)
+
+---
+
+## PHASE 2: Cutover (Saturday Morning)
+*Do this when you have the full day ahead of you*
+
+### 2.1 — Flip DNS
+- [ ] In GoDaddy: change nameservers to Cloudflare's (Cloudflare will give you 2 nameservers to enter)
+- [ ] Start a timer — propagation begins now
+- [ ] Check [dnschecker.org](https://dnschecker.org) for `gregorythegreat.ca` periodically
+
+### 2.2 — Verify During Propagation (check every 30 min)
+- [ ] Site loads on `gregorythegreat.ca`
+- [ ] HTTPS works (padlock icon)
+- [ ] Forms submit successfully
+- [ ] Email still works — have Ryan send/receive a test email
+- [ ] Search works on production domain
+
+### 2.3 — Cloudflare Hardening (once DNS is active)
+- [ ] **WAF rate limiting:** Security → WAF → Rate Limiting Rules
+  - Rule: `/api/*` — limit to 10 requests per minute per IP
+- [ ] **Turnstile CAPTCHA:** add to contact + subscribe forms
+  - Cloudflare dashboard → Turnstile → create site key
+  - Add widget to form pages, validate token server-side in Cloudflare Functions
+- [ ] **Bot protection:** Security → Bots → enable Bot Fight Mode (free)
+- [ ] **SSL mode:** SSL/TLS → set to "Full (strict)"
+
+---
+
+## PHASE 3: Post-Launch (Saturday Afternoon / Sunday)
+*Confirm everything is solid*
+
+### 3.1 — Update References
+- [ ] Update GitHub Actions workflow: add Cloudflare Pages deploy (or remove GitHub Pages if no longer needed as preview)
+- [ ] Update health check cron (`ce73454f`) to check `gregorythegreat.ca` instead of GitHub Pages URL
+- [ ] Update `OPS-RUNBOOK.md` with the live Cloudflare dashboard link
+- [ ] CORS in Sanity: confirm `gregorythegreat.ca` is already listed ✅
+
+### 3.2 — SEO & Indexing
+- [ ] Submit `gregorythegreat.ca` sitemap to Google Search Console
+- [ ] Verify `robots.txt` is accessible
+- [ ] Check OG tags render correctly (paste a link in Telegram/Twitter/Facebook to preview)
+
+### 3.3 — Notify Stakeholders
+- [ ] Tell Ryan: site is live, here's what changed, here's who to call if something breaks
+- [ ] Tell Victor: CMS workflow is unchanged, content updates work the same way
+- [ ] Send Ryan the Ops Runbook + CMS Guide links
+
+### 3.4 — Safety Net
+- [ ] **DO NOT cancel Wix for 2-4 weeks**
+- [ ] If anything breaks: flip GoDaddy nameservers back → instant rollback to Wix
+- [ ] Monitor health check alerts (already running 3x/day)
+
+---
+
+## PHASE 4: Post-Launch (Next Week)
+
+### 4.1 — Zeffy → ActiveCampaign Webhook
+- [ ] Build `/api/zeffy-webhook` Cloudflare Worker
+- [ ] Configure Zeffy outbound webhook → `https://gregorythegreat.ca/api/zeffy-webhook`
+- [ ] Implement webhook signature verification
+- [ ] Map Zeffy payment types to AC giving tier tags
+- [ ] Test end-to-end: Zeffy test payment → AC contact created with correct tags
+
+### 4.2 — Analytics Phase 2
+- [ ] Set up GA4 conversion events (form submissions, Zeffy link clicks)
+- [ ] Create UTM link template/spreadsheet for Ryan and Victor
+- [ ] Add Google Tag Manager container (migrate GA4 into it)
+- [ ] Tag all YouTube video description links with UTMs
+- [ ] Tag all Substack cross-post links
+- [ ] Tag social media bio links
+
+### 4.3 — AC Automations
+- [ ] Welcome email series (7 templates already in `docs/welcome-series/`)
+- [ ] Upgrade nudge automations (Friend → Patron, etc.)
+- [ ] Event follow-up sequences
+
+---
+
+## Rollback Plan (if needed)
+1. Log into GoDaddy
+2. Change nameservers back to Wix's original nameservers (that's why you screenshot them in 1.2)
+3. Wait 1-4 hours
+4. You're back on Wix. Fix the issue. Try again.
