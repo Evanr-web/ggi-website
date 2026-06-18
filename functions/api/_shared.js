@@ -168,6 +168,35 @@ export function jsonResponse(data, status = 200, origin) {
   });
 }
 
+// --- Turnstile verification ---
+export async function verifyTurnstile(request, env, body) {
+  const token = typeof body?.get === 'function'
+    ? body.get('cf-turnstile-response')
+    : body?.['cf-turnstile-response'];
+
+  if (!token) {
+    return { success: false, error: 'CAPTCHA verification required' };
+  }
+
+  const ip = request.headers.get('CF-Connecting-IP');
+  const verification = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      secret: env.TURNSTILE_SECRET_KEY,
+      response: token,
+      remoteip: ip,
+    }),
+  });
+  const result = await verification.json();
+
+  if (!result.success) {
+    return { success: false, error: 'CAPTCHA verification failed' };
+  }
+
+  return { success: true };
+}
+
 // --- Error logging ---
 export function logError(endpoint, err, context = {}) {
   console.error(`[${endpoint}] ${err.message}`, {

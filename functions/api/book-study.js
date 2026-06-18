@@ -1,5 +1,5 @@
 // POST /api/book-study — Inklings Club / Book Study signup
-import { addContact, jsonResponse, corsHeaders, isValidEmail, sanitize, checkHoneypot, logError } from './_shared.js';
+import { addContact, jsonResponse, corsHeaders, isValidEmail, sanitize, checkHoneypot, logError, verifyTurnstile } from './_shared.js';
 
 export async function onRequestOptions(context) {
   return new Response(null, { headers: corsHeaders(context.request.headers.get('Origin')) });
@@ -10,6 +10,12 @@ export async function onRequestPost(context) {
 
   try {
     const body = await context.request.json();
+
+    // Turnstile verification
+    const turnstile = await verifyTurnstile(context.request, context.env, body);
+    if (!turnstile.success) {
+      return jsonResponse({ error: turnstile.error }, 403, origin);
+    }
 
     if (checkHoneypot(body)) {
       return jsonResponse({ success: true, contactId: 'ok' }, 200, origin);

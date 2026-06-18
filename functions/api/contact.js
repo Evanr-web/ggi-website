@@ -1,5 +1,5 @@
 // POST /api/contact — General contact form
-import { addContact, jsonResponse, corsHeaders, isValidEmail, sanitize, checkHoneypot, logError } from './_shared.js';
+import { addContact, jsonResponse, corsHeaders, isValidEmail, sanitize, checkHoneypot, logError, verifyTurnstile } from './_shared.js';
 
 const SUBJECT_TAGS = {
   general: '3',
@@ -20,6 +20,12 @@ export async function onRequestPost(context) {
 
   try {
     const body = await context.request.json();
+
+    // Turnstile verification
+    const turnstile = await verifyTurnstile(context.request, context.env, body);
+    if (!turnstile.success) {
+      return jsonResponse({ error: turnstile.error }, 403, origin);
+    }
 
     if (checkHoneypot(body)) {
       return jsonResponse({ success: true, contactId: 'ok' }, 200, origin);

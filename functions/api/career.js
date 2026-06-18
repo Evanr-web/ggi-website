@@ -1,5 +1,5 @@
 // POST /api/career — Career application with file upload
-import { addContact, jsonResponse, corsHeaders, isValidEmail, sanitize, checkHoneypot, isAllowedFile, logError } from './_shared.js';
+import { addContact, jsonResponse, corsHeaders, isValidEmail, sanitize, checkHoneypot, isAllowedFile, logError, verifyTurnstile } from './_shared.js';
 
 export async function onRequestOptions(context) {
   return new Response(null, { headers: corsHeaders(context.request.headers.get('Origin')) });
@@ -10,6 +10,12 @@ export async function onRequestPost(context) {
 
   try {
     const formData = await context.request.formData();
+
+    // Turnstile verification
+    const turnstile = await verifyTurnstile(context.request, context.env, formData);
+    if (!turnstile.success) {
+      return jsonResponse({ error: turnstile.error }, 403, origin);
+    }
 
     // Honeypot check (from form field)
     if (formData.get('website') || formData.get('url_confirm')) {

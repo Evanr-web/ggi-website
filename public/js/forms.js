@@ -41,6 +41,11 @@ document.addEventListener('DOMContentLoaded', () => {
       } else {
         const formData = new FormData(form);
         const data = Object.fromEntries(formData.entries());
+        // Include Turnstile token
+        const turnstileInput = form.querySelector('[name="cf-turnstile-response"]');
+        if (turnstileInput) {
+          data['cf-turnstile-response'] = turnstileInput.value;
+        }
         fetchOptions = {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },

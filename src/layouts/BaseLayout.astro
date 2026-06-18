@@ -79,6 +79,9 @@ const ogImageUrl = ogImage.startsWith('http') ? ogImage : `${siteUrl}${base}${og
     <!-- UTM capture (must load before forms) -->
     <script src={`${base}js/utm.js`}></script>
 
+    <!-- Cloudflare Turnstile -->
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+
     <!-- Form handler -->
     <script src={`${base}js/forms.js`} defer></script>
 
