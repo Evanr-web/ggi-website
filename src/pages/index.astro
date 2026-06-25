@@ -9,13 +9,23 @@ import DarkSection from '../components/DarkSection.astro';
 import EventCard from '../components/EventCard.astro';
 import GivingTier from '../components/GivingTier.astro';
 import EndorsementCard from '../components/EndorsementCard.astro';
-import { getHomepage } from '../lib/sanity';
+import { getHomepage, getUpcomingEvents, getLatestLibraryItems } from '../lib/sanity';
 
 const base = import.meta.env.BASE_URL;
 
 // Try Sanity for homepage data
 let cms: any = null;
 try { cms = await getHomepage(); } catch (e) { /* fallback */ }
+
+// Upcoming events (auto-populated)
+let upcomingEvents: any[] = [];
+try { upcomingEvents = await getUpcomingEvents(3) || []; } catch (e) { /* fallback */ }
+
+// Library items: use featured picks from CMS, fallback to most recent
+let libraryItems: any[] = cms?.featuredLibraryItems?.length ? cms.featuredLibraryItems : [];
+if (!libraryItems.length) {
+  try { libraryItems = await getLatestLibraryItems(3) || []; } catch (e) { /* fallback */ }
+}
 
 // Resolved values
 const heroHeadline = cms?.heroHeadline || 'Inspiring Canadian Catholic Culture';
@@ -53,8 +63,8 @@ const videoId = cms?.videoUrl ? cms.videoUrl.match(/(?:v=|youtu\.be\/)([^&]+)/)?
   <section class="section section--tight">
     <div class="container">
       <QuoteBlock
-        quote="A faith that does not become culture is not fully accepted, not entirely thought out, not faithfully lived."
-        attribution="Pope St. John Paul II"
+        quote={cms?.quoteText || "A faith that does not become culture is not fully accepted, not entirely thought out, not faithfully lived."}
+        attribution={cms?.quoteAttribution || "Pope St. John Paul II"}
         variant="light"
       />
     </div>
@@ -68,33 +78,45 @@ const videoId = cms?.videoUrl ? cms.videoUrl.match(/(?:v=|youtu\.be\/)([^&]+)/)?
   <section class="section">
     <div class="container reveal">
       <div class="section-header">
-        <p class="label text-gold">What We Do</p>
-        <h2>Formation, Courses, Publications</h2>
+        <p class="label text-gold">{cms?.pillarsLabel || 'What We Do'}</p>
+        <h2>{cms?.pillarsHeading || 'Formation, Courses, Publications'}</h2>
         <p class="section-header__sub">
-          Through courses, formation programs, and publications, the Gregory the Great Institute
-          helps believers transform contemporary culture in the light of faith and reason.
+          {cms?.pillarsDescription || 'Through courses, formation programs, and publications, the Gregory the Great Institute helps believers transform contemporary culture in the light of faith and reason.'}
         </p>
       </div>
 
       <div class="pillars">
-        <a href={`${import.meta.env.BASE_URL}programs/`} class="pillar">
-          <img src={`${import.meta.env.BASE_URL}images/art/Bodleian-Library-Oxford.jpg`} alt="Classical library" class="pillar__img art-filter" />
-          <h3 class="pillar__title">Formation</h3>
-          <p class="pillar__desc">Intensive Great Books seminars, music and leadership camps, and reading groups that form the whole person — mind, soul, and community.</p>
-          <span class="pillar__link">View Programs →</span>
-        </a>
-        <a href={`${import.meta.env.BASE_URL}programs/masterclasses/`} class="pillar">
-          <img src={`${import.meta.env.BASE_URL}images/art/vanitas-still-life-painting.jpg`} alt="Classical still life" class="pillar__img art-filter" />
-          <h3 class="pillar__title">Courses</h3>
-          <p class="pillar__desc">Short courses in the Philosophy of Aquinas, Virtuous Leadership, Christian Beauty and Art, and Classical Education for Teachers.</p>
-          <span class="pillar__link">Browse Courses →</span>
-        </a>
-        <a href={`${import.meta.env.BASE_URL}magnalia/`} class="pillar">
-          <img src={`${import.meta.env.BASE_URL}images/branding/Magnalia_Cover.jpg`} alt="Magnalia journal cover" class="pillar__img art-filter" />
-          <h3 class="pillar__title">Publications</h3>
-          <p class="pillar__desc">Magnalia — the journal of Catholic cultural renewal in Canada. 60 pages of letters, essays, and art in every issue.</p>
-          <span class="pillar__link">Read Magnalia →</span>
-        </a>
+        {(cms?.pillars && cms.pillars.length > 0) ? (
+          cms.pillars.map((pillar: any) => (
+            <a href={pillar.linkUrl?.startsWith('/') ? `${base}${pillar.linkUrl.replace(/^\//, '')}` : pillar.linkUrl} class="pillar">
+              <img src={pillar.image || `${base}images/art/Bodleian-Library-Oxford.jpg`} alt={pillar.imageAlt || pillar.title} class="pillar__img art-filter" />
+              <h3 class="pillar__title">{pillar.title}</h3>
+              <p class="pillar__desc">{pillar.description}</p>
+              <span class="pillar__link">{pillar.linkText || `Learn More →`}</span>
+            </a>
+          ))
+        ) : (
+          <>
+            <a href={`${base}programs/`} class="pillar">
+              <img src={`${base}images/art/Bodleian-Library-Oxford.jpg`} alt="Classical library" class="pillar__img art-filter" />
+              <h3 class="pillar__title">Formation</h3>
+              <p class="pillar__desc">Intensive Great Books seminars, music and leadership camps, and reading groups that form the whole person — mind, soul, and community.</p>
+              <span class="pillar__link">View Programs →</span>
+            </a>
+            <a href={`${base}programs/masterclasses/`} class="pillar">
+              <img src={`${base}images/art/vanitas-still-life-painting.jpg`} alt="Classical still life" class="pillar__img art-filter" />
+              <h3 class="pillar__title">Courses</h3>
+              <p class="pillar__desc">Short courses in the Philosophy of Aquinas, Virtuous Leadership, Christian Beauty and Art, and Classical Education for Teachers.</p>
+              <span class="pillar__link">Browse Courses →</span>
+            </a>
+            <a href={`${base}magnalia/`} class="pillar">
+              <img src={`${base}images/branding/Magnalia_Cover.jpg`} alt="Magnalia journal cover" class="pillar__img art-filter" />
+              <h3 class="pillar__title">Publications</h3>
+              <p class="pillar__desc">Magnalia — the journal of Catholic cultural renewal in Canada. 60 pages of letters, essays, and art in every issue.</p>
+              <span class="pillar__link">Read Magnalia →</span>
+            </a>
+          </>
+        )}
       </div>
     </div>
   </section>
@@ -157,36 +179,26 @@ const videoId = cms?.videoUrl ? cms.videoUrl.match(/(?:v=|youtu\.be\/)([^&]+)/)?
       </div>
 
       <div class="events-grid reveal">
-        <EventCard
-          title="Bringing Back Sunday — Renewing Culture Conference"
-          month="Oct"
-          day="2"
-          date="2026-10-02"
-          location="Mt Carmel Spirituality Centre"
-          description="2nd Annual Renewing Culture Conference. Reflections on Josef Pieper's Leisure: The Basis of Culture."
-          href={`${import.meta.env.BASE_URL}events/conference-2026/`}
-          programTag="Conference"
-        />
-        <EventCard
-          title="St. Gregory's Music & Leadership Camp"
-          month="Jul"
-          day="12"
-          date="2026-07-12"
-          location="Solara Water's Edge, Parkland County, AB"
-          description="Four nights of fiddle, penny whistle, voice, games, prayer, and leadership for youth ages 12–18."
-          href={`${import.meta.env.BASE_URL}events/music-camp-2026/`}
-          programTag="Camp"
-        />
-        <EventCard
-          title="Personal Finances 101"
-          month="Apr"
-          day="25"
-          date="2026-04-25"
-          location="Concordia University of Edmonton"
-          description="Master your money, serve your vocation. Financial literacy as stewardship and Catholic formation."
-          href={`${import.meta.env.BASE_URL}events/finances-101/`}
-          programTag="Masterclass"
-        />
+        {upcomingEvents.length > 0 ? (
+          upcomingEvents.map((event: any) => {
+            const d = new Date(event.startDate);
+            const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+            return (
+              <EventCard
+                title={event.title}
+                month={months[d.getMonth()]}
+                day={String(d.getDate())}
+                date={event.startDate}
+                location={event.location || ''}
+                description={event.shortDescription || event.tagline || ''}
+                href={`${base}events/${event.slug?.current || ''}/`}
+                programTag={event.template || event.programTag || ''}
+              />
+            );
+          })
+        ) : (
+          <p class="text-center" style="grid-column: 1 / -1; opacity: 0.7;">No upcoming events — check back soon!</p>
+        )}
       </div>
 
       <div class="section-footer" style="margin-bottom: -32px;">
@@ -229,34 +241,54 @@ const videoId = cms?.videoUrl ? cms.videoUrl.match(/(?:v=|youtu\.be\/)([^&]+)/)?
     <div class="container">
       <div class="section-header">
         <p class="label text-gold">From the Library</p>
-        <h2>The Latest</h2>
+        <h2>Worth Reading</h2>
       </div>
 
       <div class="card-grid">
-        <Card
-          title="FINE Gathering in Ottawa and National Prayer Breakfast"
-          description="Dr. Topping and Victor invited to FINE Gathering and National Prayer Breakfast by MP Shuv Majumbar."
-          meta="Article · Apr 14, 2026"
-          href={`${base}library/fine-gathering-ottawa/`}
-          image={`${base}images/art/parliament-hill-ottawa.jpg`}
-          imageAlt="Parliament Hill, Ottawa"
-        />
-        <Card
-          title="Medicine Forgets Its Vocation: Alberta Places Guardrails"
-          description="On MAID and hospital chaplains counselling traumatized healthcare professionals."
-          meta="Essay · Mar 20, 2026"
-          href={`${base}library/medicine-forgets-vocation/`}
-          image={`${base}images/art/raphael-resurrection.jpg`}
-          imageAlt="Resurrection of Christ by Raphael"
-        />
-        <Card
-          title="Master Your Money, Serve Your Vocation"
-          description="64% of Canadians never learned money management. Financial literacy as stewardship."
-          meta="Article · Apr 9, 2026"
-          href={`${base}library/personal-finances/`}
-          image={`${base}images/events/finances-placeholder.jpg`}
-          imageAlt="The Moneylender and His Wife by Quentin Matsys"
-        />
+        {libraryItems.length > 0 ? (
+          libraryItems.map((item: any) => {
+            const d = item.publishDate ? new Date(item.publishDate) : null;
+            const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+            const meta = d ? `${item.category || 'Article'} · ${months[d.getMonth()]} ${d.getDate()}, ${d.getFullYear()}` : (item.category || 'Article');
+            return (
+              <Card
+                title={item.title}
+                description={item.excerpt || ''}
+                meta={meta}
+                href={`${base}library/${item.slug?.current || ''}/`}
+                image={item.image || `${base}images/art/Bodleian-Library-Oxford.jpg`}
+                imageAlt={item.title}
+              />
+            );
+          })
+        ) : (
+          <>
+            <Card
+              title="FINE Gathering in Ottawa and National Prayer Breakfast"
+              description="Dr. Topping and Victor invited to FINE Gathering and National Prayer Breakfast by MP Shuv Majumbar."
+              meta="Article · Apr 14, 2026"
+              href={`${base}library/fine-gathering-ottawa/`}
+              image={`${base}images/art/parliament-hill-ottawa.jpg`}
+              imageAlt="Parliament Hill, Ottawa"
+            />
+            <Card
+              title="Medicine Forgets Its Vocation: Alberta Places Guardrails"
+              description="On MAID and hospital chaplains counselling traumatized healthcare professionals."
+              meta="Essay · Mar 20, 2026"
+              href={`${base}library/medicine-forgets-vocation/`}
+              image={`${base}images/art/raphael-resurrection.jpg`}
+              imageAlt="Resurrection of Christ by Raphael"
+            />
+            <Card
+              title="Master Your Money, Serve Your Vocation"
+              description="64% of Canadians never learned money management. Financial literacy as stewardship."
+              meta="Article · Apr 9, 2026"
+              href={`${base}library/personal-finances/`}
+              image={`${base}images/events/finances-placeholder.jpg`}
+              imageAlt="The Moneylender and His Wife by Quentin Matsys"
+            />
+          </>
+        )}
       </div>
 
       <div class="section-footer">

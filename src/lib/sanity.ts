@@ -55,9 +55,63 @@ export async function getHomepage() {
     "heroImage": heroImage.asset->url,
     heroCta,
     heroSecondaryCta,
+    quoteText,
+    quoteAttribution,
+    pillarsLabel,
+    pillarsHeading,
+    pillarsDescription,
+    pillars[]{
+      title,
+      description,
+      "image": image.asset->url,
+      imageAlt,
+      linkUrl,
+      linkText
+    },
     videoUrl,
-    videoCaption
+    videoCaption,
+    featuredLibraryItems[]->{
+      _id,
+      title,
+      slug,
+      category,
+      publishDate,
+      author,
+      excerpt,
+      "image": featuredImage.asset->url
+    }
   }`);
+}
+
+// Upcoming events (next 3 by date)
+export async function getUpcomingEvents(limit = 3) {
+  const today = new Date().toISOString().split('T')[0];
+  return sanityClient.fetch(`*[_type == "event" && startDate >= $today] | order(startDate asc) [0...$limit]{
+    _id,
+    title,
+    slug,
+    startDate,
+    location,
+    shortDescription,
+    tagline,
+    programTag,
+    template,
+    "headerImage": headerImage.asset->url
+  }`, { today, limit });
+}
+
+// Latest library items (fallback when no featured picks)
+export async function getLatestLibraryItems(limit = 3) {
+  return sanityClient.fetch(`*[_type == "libraryItem"] | order(publishDate desc) [0...$limit]{
+    _id,
+    title,
+    slug,
+    category,
+    publishDate,
+    author,
+    excerpt,
+    "image": featuredImage.asset->url
+  }`, { limit });
 }
 
 // Events

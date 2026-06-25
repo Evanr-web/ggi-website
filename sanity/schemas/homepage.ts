@@ -6,7 +6,10 @@ export default defineType({
   type: 'document',
   groups: [
     { name: 'hero', title: '🏔️ Hero' },
+    { name: 'quote', title: '✝️ Quote' },
+    { name: 'pillars', title: '🏛️ What We Do' },
     { name: 'video', title: '🎬 Video' },
+    { name: 'library', title: '📚 Library' },
   ],
   fields: [
     // === Hero ===
@@ -55,6 +58,71 @@ export default defineType({
       ],
     }),
 
+    // === Quote ===
+    defineField({
+      name: 'quoteText',
+      title: 'Quote Text',
+      type: 'text',
+      rows: 3,
+      group: 'quote',
+      description: 'The featured quote shown below the hero.',
+    }),
+    defineField({
+      name: 'quoteAttribution',
+      title: 'Quote Attribution',
+      type: 'string',
+      group: 'quote',
+      description: 'Who said it. e.g. "Pope St. John Paul II"',
+    }),
+
+    // === What We Do Pillars ===
+    defineField({
+      name: 'pillarsLabel',
+      title: 'Section Label',
+      type: 'string',
+      group: 'pillars',
+      description: 'Small gold text above the heading. Default: "What We Do"',
+    }),
+    defineField({
+      name: 'pillarsHeading',
+      title: 'Section Heading',
+      type: 'string',
+      group: 'pillars',
+      description: 'Default: "Formation, Courses, Publications"',
+    }),
+    defineField({
+      name: 'pillarsDescription',
+      title: 'Section Description',
+      type: 'text',
+      rows: 3,
+      group: 'pillars',
+      description: 'The paragraph below the heading.',
+    }),
+    defineField({
+      name: 'pillars',
+      title: 'Pillar Cards',
+      type: 'array',
+      group: 'pillars',
+      description: 'The three main offering cards. Recommended: exactly 3.',
+      of: [
+        {
+          type: 'object',
+          fields: [
+            { name: 'title', title: 'Title', type: 'string' },
+            { name: 'description', title: 'Description', type: 'text', rows: 3 },
+            { name: 'image', title: 'Image', type: 'image', options: { hotspot: true } },
+            { name: 'imageAlt', title: 'Image Alt Text', type: 'string' },
+            { name: 'linkUrl', title: 'Link URL', type: 'string' },
+            { name: 'linkText', title: 'Link Text', type: 'string', description: 'e.g. "View Programs →"' },
+          ],
+          preview: {
+            select: { title: 'title', media: 'image' },
+          },
+        },
+      ],
+      validation: (Rule) => Rule.max(4),
+    }),
+
     // === Video ===
     defineField({
       name: 'videoUrl',
@@ -69,6 +137,22 @@ export default defineType({
       type: 'string',
       group: 'video',
       description: 'Text shown below the video.',
+    }),
+
+    // === Library ===
+    defineField({
+      name: 'featuredLibraryItems',
+      title: 'Featured Library Items',
+      type: 'array',
+      group: 'library',
+      description: 'Manually pick items to feature on the homepage. If empty, the 3 most recent items are shown automatically.',
+      of: [
+        {
+          type: 'reference',
+          to: [{ type: 'libraryItem' }],
+        },
+      ],
+      validation: (Rule) => Rule.max(3),
     }),
 
     // Magnalia feature section is hand-designed — content comes from the Magnalia Issue document
