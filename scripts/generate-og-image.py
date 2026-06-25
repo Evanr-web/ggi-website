@@ -37,7 +37,7 @@ NAVY = (14, 51, 82)        # #0e3352
 GOLD = (184, 154, 71)      # #b89a47
 WHITE = (255, 255, 255)
 OVERLAY_OPACITY = 0.65
-SEAL_OPACITY = 0.3
+SEAL_OPACITY = 0.55
 
 # Fonts (macOS paths)
 FONT_TITLE = "/System/Library/Fonts/Supplemental/Georgia Bold.ttf"
@@ -175,7 +175,7 @@ def generate_og_image(bg_path: str, title: str, output_path: str = None):
     # --- Seal (bottom-right, subtle) ---
     if SEAL_PATH.exists():
         seal = Image.open(SEAL_PATH).convert("RGBA")
-        seal_size = 80
+        seal_size = 100
         seal = seal.resize((seal_size, seal_size), Image.LANCZOS)
 
         # Apply opacity
