@@ -131,6 +131,20 @@ const structure = (S: StructureBuilder) =>
                     )
                 ),
               S.listItem()
+                .title('News & Updates')
+                .child(
+                  S.documentList()
+                    .title('News & Updates')
+                    .filter('_type == "libraryItem" && category == "news"')
+                    .defaultOrdering([{ field: 'publishDate', direction: 'desc' }])
+                    .child((documentId: string) =>
+                      S.document()
+                        .documentId(documentId)
+                        .schemaType('libraryItem')
+                        .views(documentViewsWithPreview(S))
+                    )
+                ),
+              S.listItem()
                 .title('⭐ Featured')
                 .child(
                   S.documentList()
@@ -145,6 +159,20 @@ const structure = (S: StructureBuilder) =>
                     )
                 ),
               S.divider(),
+              S.listItem()
+                .title('✉️ Pending Substack')
+                .child(
+                  S.documentList()
+                    .title('Pending Substack Cross-Post')
+                    .filter('_type == "libraryItem" && crossPostSubstack.syndicate == true && crossPostSubstack.posted != true')
+                    .defaultOrdering([{ field: 'publishDate', direction: 'desc' }])
+                    .child((documentId: string) =>
+                      S.document()
+                        .documentId(documentId)
+                        .schemaType('libraryItem')
+                        .views(documentViewsWithPreview(S))
+                    )
+                ),
               S.listItem()
                 .title('🏷️ Manage Tags')
                 .child(S.documentTypeList('tag').title('Tags')),

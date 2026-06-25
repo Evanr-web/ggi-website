@@ -38,6 +38,7 @@ export default defineType({
       options: {
         list: [
           { title: 'Essay', value: 'essay' },
+          { title: 'News', value: 'news' },
           { title: 'Video / Lecture', value: 'video' },
           { title: 'Resource', value: 'resource' },
         ],
@@ -91,9 +92,10 @@ export default defineType({
       name: 'crossPostSubstack',
       title: 'Substack Cross-Post',
       type: 'object',
-      description: 'Track cross-posting status to Substack.',
+      description: 'Manage Substack syndication for this item.',
       fields: [
-        { name: 'posted', title: 'Cross-posted to Substack', type: 'boolean', initialValue: false, description: 'Check this after you\'ve manually published the article on Substack.' },
+        { name: 'syndicate', title: 'Syndicate to Substack', type: 'boolean', initialValue: false, description: 'Mark this item for cross-posting to Substack. Use for essays and academic work — not news or internal updates.' },
+        { name: 'posted', title: 'Cross-posted', type: 'boolean', initialValue: false, description: 'Check this after the article has been published on Substack.' },
         { name: 'url', title: 'Substack URL', type: 'url', description: 'Link to the Substack version of this article.' },
         { name: 'postedDate', title: 'Date Cross-posted', type: 'date', description: 'When it was posted to Substack.' },
       ],
