@@ -28,3 +28,4 @@ sanity/backups/
 .idea/
 dist/
 .astro/
+.wrangler/

@@ -6,8 +6,8 @@ import { Iframe } from 'sanity-plugin-iframe-pane';
 import { schemaTypes } from './schemas';
 
 // Preview URL base — points at the Astro dev server
-const PREVIEW_BASE = 'http://localhost:4321';
-const PREVIEW_SECRET = 'ggi-preview-2026';
+const PREVIEW_BASE = 'https://ggi-website.pages.dev';
+const PREVIEW_SECRET = 'renewing-culture';
 
 // Map document types to preview URL paths
 function resolvePreviewUrl(doc: any) {
