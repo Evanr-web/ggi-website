@@ -14,6 +14,10 @@ const UTM_FIELD_IDS = {
 };
 
 export async function addContact(env, { email, firstName, lastName, listId, tags = [], fields = {}, utmData = {} }) {
+  if (!env.AC_API_URL || !env.AC_API_KEY) {
+    throw new Error('ActiveCampaign environment variables (AC_API_URL, AC_API_KEY) are not configured');
+  }
+
   const AC_URL = env.AC_API_URL;
   const AC_KEY = env.AC_API_KEY;
 
@@ -117,6 +121,7 @@ const ALLOWED_ORIGINS = [
   'https://gregorythegreat.ca',
   'https://www.gregorythegreat.ca',
   'https://evanr-web.github.io',
+  'https://ggi-website.pages.dev',
 ];
 
 export function corsHeaders(origin) {
@@ -173,6 +178,10 @@ export async function verifyTurnstile(request, env, body) {
   const token = typeof body?.get === 'function'
     ? body.get('cf-turnstile-response')
     : body?.['cf-turnstile-response'];
+
+  if (!env.TURNSTILE_SECRET_KEY) {
+    return { success: false, error: 'CAPTCHA service is not configured' };
+  }
 
   if (!token) {
     return { success: false, error: 'CAPTCHA verification required' };

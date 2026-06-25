@@ -10,6 +10,7 @@ interface RelatedArticle {
 
 interface Props {
   title: string;
+  description?: string;
   author: string;
   date: string;
   category: string;
@@ -20,12 +21,12 @@ interface Props {
   authorImage?: string;
 }
 
-const { title, author, date, category, image, imageAlt = '', readTime, related = [], authorImage } = Astro.props;
+const { title, description, author, date, category, image, imageAlt = '', readTime, related = [], authorImage } = Astro.props;
 const authorImg = authorImage || '/images/branding/ggi-seal.png';
 const base = import.meta.env.BASE_URL;
 ---
 
-<BaseLayout title={`${title} — Gregory the Great Institute`}>
+<BaseLayout title={`${title} — Gregory the Great Institute`} description={description}>
   <article class="article">
     {image && (
       <div class="article__hero">

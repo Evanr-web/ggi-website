@@ -29,3 +29,6 @@ sanity/backups/
 dist/
 .astro/
 .wrangler/
+
+# Generated OG images
+output/

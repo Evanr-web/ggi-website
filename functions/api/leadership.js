@@ -37,12 +37,12 @@ export async function onRequestPost(context) {
     // Tags: leadership inquiry + source
     const tags = ['27', '19']; // leadership:inquiry, source:website-form
 
-    // List 3 = Master Contact List
+    // List 12 = Leadership Inquiries
     const contactId = await addContact(context.env, {
       email,
       firstName,
       lastName,
-      listId: '3',
+      listId: '12',
       tags,
       fields: {},
       utmData: {
