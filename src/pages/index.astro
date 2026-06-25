@@ -30,7 +30,7 @@ if (!libraryItems.length) {
 // Resolved values
 const heroHeadline = cms?.heroHeadline || 'Inspiring Canadian Catholic Culture';
 const heroSubtitle = cms?.heroSubtitle || 'Forming leaders. Teaching the tradition. Publishing research.';
-const heroImage = cms?.heroImage || `${base}images/art/school-of-athens.jpg`;
+const heroImage = cms?.heroImage || `${base}images/art/disputation-holy-sacrament.jpg`;
 const rawPrimaryCta = cms?.heroCta || { text: 'Subscribe to the Magnalia Letter', url: `/magnalia/letter/` };
 const primaryCta = { text: rawPrimaryCta.text, url: rawPrimaryCta.url?.startsWith(base) ? rawPrimaryCta.url : `${base}${rawPrimaryCta.url?.replace(/^\//, '')}` };
 const rawSecondaryCta = cms?.heroSecondaryCta?.text && cms?.heroSecondaryCta?.url ? cms.heroSecondaryCta : { text: 'Explore Our Programs', url: `/programs/` };

@@ -19,7 +19,7 @@ export default defineType({
       type: 'image',
       options: { hotspot: true },
       group: 'hero',
-      description: 'Recommended: 1920×1080px or larger, landscape orientation. The image will be darkened with an overlay — high contrast images work best.',
+      description: 'Minimum: 1920×1080px (16:9 landscape). Ideal: 2400×1350px. Keep the subject centered — edges are cropped on mobile. The image is darkened with a navy overlay, so high-contrast images work best.',
     }),
     defineField({
       name: 'heroHeadline',
