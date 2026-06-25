@@ -1,18 +1,9 @@
-name: Deploy to GitHub Pages
+name: Build & Verify
 
 on:
   push:
     branches: [main]
   workflow_dispatch:
-
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
-concurrency:
-  group: pages
-  cancel-in-progress: true
 
 jobs:
   build:
@@ -25,31 +16,17 @@ jobs:
       - run: npm ci
       - run: npm run build
         env:
-          SITE: https://evanr-web.github.io
-          BASE: /ggi-website
-      - uses: actions/upload-pages-artifact@v3
-        with:
-          path: dist/client
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - id: deployment
-        uses: actions/deploy-pages@v4
+          SITE: https://gregorythegreat.ca
 
   verify:
-    needs: deploy
+    needs: build
     runs-on: ubuntu-latest
     steps:
-      - name: Wait for Pages CDN propagation
-        run: sleep 30
+      - name: Wait for Cloudflare Pages deployment
+        run: sleep 60
       - name: Smoke test
         run: |
-          STATUS=$(curl -s -o /dev/null -w "%{http_code}" https://evanr-web.github.io/ggi-website/)
+          STATUS=$(curl -s -o /dev/null -w "%{http_code}" https://ggi-website.pages.dev/)
           if [ "$STATUS" != "200" ]; then
             echo "❌ Site returned $STATUS"
             exit 1
