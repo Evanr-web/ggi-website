@@ -147,9 +147,9 @@ const hasCmsPostings = cmsPostings.length > 0;
       <h2>No Current Openings</h2>
       <p class="cta-desc" style="line-height: 1.7;">
         We don't have any positions open right now, but we're always interested in hearing from
-        talented people. Subscribe to the Magnalia Letter to hear about future opportunities.
+        talented people. Subscribe to our newsletter to hear about future opportunities.
       </p>
-      <Button href={`${base}magnalia/letter/`} variant="primary">Subscribe to the Letter</Button>
+      <a href="#" class="cta-modal-btn" data-newsletter-modal>Subscribe to Our Newsletter</a>
     </div>
   </section>
   -->
@@ -514,4 +514,23 @@ const hasCmsPostings = cmsPostings.length > 0;
   .back-link:hover { color: var(--color-crimson); }
 
   .section--linen { background-color: var(--color-linen); }
+
+  .cta-modal-btn {
+    display: inline-block;
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-parchment);
+    background-color: var(--color-crimson);
+    padding: 14px 32px;
+    border-radius: 3px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+  }
+
+  .cta-modal-btn:hover {
+    background-color: #6b2124;
+    color: var(--color-parchment);
+  }
 </style>

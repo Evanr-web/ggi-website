@@ -115,9 +115,9 @@ import SectionDivider from '../../components/SectionDivider.astro';
     <div class="container container--xs">
       <h2 class="cta-heading">Stay Connected</h2>
       <p class="cta-desc">
-        Subscribe to the Magnalia Letter for free monthly essays and Institute news.
+        Subscribe to our newsletter for Institute news, event invitations, and program updates.
       </p>
-      <Button href={`${import.meta.env.BASE_URL}magnalia/letter/`} variant="secondary" size="small">Subscribe Free</Button>
+      <a href="#" class="cta-modal-btn" data-newsletter-modal>Subscribe Free</a>
     </div>
   </section>
 
@@ -279,5 +279,25 @@ import SectionDivider from '../../components/SectionDivider.astro';
 
   .section--linen {
     background-color: var(--color-linen);
+  }
+
+  .cta-modal-btn {
+    display: inline-block;
+    font-family: var(--font-display);
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-gold);
+    background: transparent;
+    border: 1.5px solid var(--color-gold);
+    padding: 8px 22px;
+    border-radius: 3px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+  }
+
+  .cta-modal-btn:hover {
+    background-color: var(--color-gold);
+    color: var(--color-navy);
   }
 </style>

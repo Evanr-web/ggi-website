@@ -3,6 +3,7 @@ import Navigation from '../components/Navigation.astro';
 import Footer from '../components/Footer.astro';
 import RibbonBanner from '../components/RibbonBanner.astro';
 import FlyinPopup from '../components/FlyinPopup.astro';
+import NewsletterModal from '../components/NewsletterModal.astro';
 import '../styles/global.css';
 
 interface Props {
@@ -72,6 +73,7 @@ const ogImageUrl = ogImage.startsWith('http') ? ogImage : `${siteUrl}${base}${og
     </main>
     <Footer />
     <FlyinPopup />
+    <NewsletterModal />
 
     <!-- Zeffy popup embed script -->
     <script src="https://zeffy-scripts.s3.ca-central-1.amazonaws.com/embed-form-script.min.js" defer></script>

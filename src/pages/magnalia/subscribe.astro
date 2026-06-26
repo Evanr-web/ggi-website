@@ -76,9 +76,9 @@ const base = import.meta.env.BASE_URL;
     <div class="container" style="max-width: 500px;">
       <h2 style="margin-bottom: 12px;">Not Ready to Subscribe?</h2>
       <p style="font-family: var(--font-body); color: var(--color-gray); margin-bottom: 20px; line-height: 1.6;">
-        Sign up for the free Magnalia Letter — monthly essays, event invitations, and reading recommendations.
+        Sign up for our newsletter — Institute news, event invitations, and program updates.
       </p>
-      <Button href={`${base}magnalia/letter/`} variant="secondary" size="small">Subscribe to the Free Letter</Button>
+      <a href="#" class="cta-modal-btn" data-newsletter-modal>Subscribe to Newsletter</a>
     </div>
   </section>
 
@@ -318,5 +318,25 @@ const base = import.meta.env.BASE_URL;
     .subscribe-page__header h1 {
       font-size: 1.8rem;
     }
+  }
+
+  .cta-modal-btn {
+    display: inline-block;
+    font-family: var(--font-display);
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-gold);
+    background: transparent;
+    border: 1.5px solid var(--color-gold);
+    padding: 8px 22px;
+    border-radius: 3px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+  }
+
+  .cta-modal-btn:hover {
+    background-color: var(--color-gold);
+    color: var(--color-navy);
   }
 </style>

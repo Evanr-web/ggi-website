@@ -11,7 +11,7 @@ const navLinks = [
 
 const secondaryLinks = [
   { label: 'Contact & Speaker Booking', href: `${base}contact/` },
-  { label: 'For Clergy & Institutions', href: `${base}magnalia/subscribe/#institutional` },
+  { label: 'For Clergy & Institutions', href: `${base}contact/` },
   { label: 'Careers & Opportunities', href: `${base}careers/` },
   { label: 'Privacy Policy', href: `${base}privacy/` },
   { label: 'Image Credits', href: `${base}credits/` },
@@ -72,8 +72,8 @@ const currentYear = new Date().getFullYear();
 
       <!-- Column 4: Newsletter -->
       <div class="footer__col">
-        <p class="footer__heading">Magnalia Letter</p>
-        <p class="footer__newsletter-desc">Free monthly essays, event invitations, and reading recommendations.</p>
+        <p class="footer__heading">Newsletter</p>
+        <p class="footer__newsletter-desc">Stay up to date on Institute news, events, and programs.</p>
         <form class="footer__form" data-ac-endpoint="/api/subscribe" data-ac-success="You're subscribed! Welcome aboard.">
           <input type="text" name="firstName" placeholder="First name" class="footer__input" required aria-label="First name" />
           <input type="email" name="email" placeholder="Email address" class="footer__input" required aria-label="Email address" />

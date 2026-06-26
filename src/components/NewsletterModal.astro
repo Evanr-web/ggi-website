@@ -1,0 +1,185 @@
+---
+/**
+ * Newsletter signup modal.
+ * Opens when any element with [data-newsletter-modal] is clicked.
+ * Submits to /api/subscribe via the data-ac-endpoint pattern (forms.js handles it).
+ */
+---
+
+<div class="nl-modal-backdrop" id="newsletter-modal" aria-hidden="true" role="dialog" aria-label="Newsletter signup">
+  <div class="nl-modal-card">
+    <button type="button" class="nl-modal-close" aria-label="Close">&times;</button>
+    <h2 class="nl-modal-heading">Stay Connected</h2>
+    <p class="nl-modal-sub">Get Institute news, event invitations, and program updates.</p>
+    <form class="nl-modal-form" data-ac-endpoint="/api/subscribe" data-ac-success="You're subscribed! Welcome aboard." method="POST">
+      <input type="text" name="firstName" placeholder="First name" class="nl-modal-input" required aria-label="First name" />
+      <input type="email" name="email" placeholder="Email address" class="nl-modal-input" required aria-label="Email address" />
+      <div class="cf-turnstile" data-sitekey="0x4AAAAAADm6eYaBvIIwZNRm" data-size="compact"></div>
+      <button type="submit" class="nl-modal-submit">Subscribe</button>
+    </form>
+  </div>
+</div>
+
+<style>
+  .nl-modal-backdrop {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: rgba(14, 51, 82, 0.75);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+
+  .nl-modal-backdrop.nl-modal--open {
+    display: flex;
+  }
+
+  .nl-modal-card {
+    position: relative;
+    background: var(--color-parchment, #f5efe5);
+    border-radius: 4px;
+    padding: 40px 36px 36px;
+    max-width: 420px;
+    width: 100%;
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.35);
+    border-top: 3px solid var(--color-gold, #b89a47);
+    animation: nl-modal-in 0.25s ease-out;
+  }
+
+  @keyframes nl-modal-in {
+    from { opacity: 0; transform: translateY(16px) scale(0.97); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  .nl-modal-close {
+    position: absolute;
+    top: 12px;
+    right: 14px;
+    background: none;
+    border: none;
+    font-size: 1.6rem;
+    color: var(--color-gray, #5a5a6e);
+    cursor: pointer;
+    line-height: 1;
+    padding: 4px 8px;
+    transition: color 0.15s;
+  }
+
+  .nl-modal-close:hover {
+    color: var(--color-crimson, #8b2500);
+  }
+
+  .nl-modal-heading {
+    font-family: var(--font-display, Georgia, serif);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-navy, #1B2A4A);
+    margin-bottom: 6px;
+    text-align: center;
+  }
+
+  .nl-modal-sub {
+    font-family: var(--font-body, 'Source Serif 4', Georgia, serif);
+    font-size: 0.95rem;
+    color: var(--color-gray, #5a5a6e);
+    line-height: 1.6;
+    text-align: center;
+    margin-bottom: 24px;
+  }
+
+  .nl-modal-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .nl-modal-input {
+    font-family: var(--font-ui, 'Inter', sans-serif);
+    font-size: 0.9rem;
+    padding: 12px 14px;
+    border: 1px solid rgba(90, 90, 110, 0.2);
+    border-radius: 3px;
+    background: var(--color-linen, #faf7f2);
+    color: var(--color-ink, #2a2a2a);
+    outline: none;
+    transition: border-color 0.15s;
+  }
+
+  .nl-modal-input:focus {
+    border-color: var(--color-gold, #b89a47);
+    box-shadow: 0 0 0 3px rgba(184, 154, 71, 0.15);
+  }
+
+  .nl-modal-input::placeholder {
+    color: var(--color-gray, #5a5a6e);
+  }
+
+  .nl-modal-submit {
+    font-family: var(--font-display, Georgia, serif);
+    font-size: 1rem;
+    font-weight: 600;
+    padding: 14px 28px;
+    background-color: var(--color-crimson, #8b2500);
+    color: var(--color-parchment, #f5efe5);
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.15s;
+    margin-top: 4px;
+  }
+
+  .nl-modal-submit:hover {
+    background-color: #6b1d00;
+  }
+
+  @media (max-width: 480px) {
+    .nl-modal-card {
+      padding: 32px 24px 28px;
+    }
+  }
+</style>
+
+<script is:inline>
+  (function () {
+    var modal = document.getElementById('newsletter-modal');
+    if (!modal) return;
+
+    function openModal() {
+      modal.classList.add('nl-modal--open');
+      modal.setAttribute('aria-hidden', 'false');
+      var firstInput = modal.querySelector('input');
+      if (firstInput) firstInput.focus();
+    }
+
+    function closeModal() {
+      modal.classList.remove('nl-modal--open');
+      modal.setAttribute('aria-hidden', 'true');
+    }
+
+    // Open on click of any [data-newsletter-modal]
+    document.addEventListener('click', function (e) {
+      if (e.target.closest('[data-newsletter-modal]')) {
+        e.preventDefault();
+        openModal();
+      }
+    });
+
+    // Close button
+    var closeBtn = modal.querySelector('.nl-modal-close');
+    if (closeBtn) closeBtn.addEventListener('click', closeModal);
+
+    // Close on backdrop click
+    modal.addEventListener('click', function (e) {
+      if (e.target === modal) closeModal();
+    });
+
+    // Close on Escape
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && modal.classList.contains('nl-modal--open')) closeModal();
+    });
+  })();
+</script>
