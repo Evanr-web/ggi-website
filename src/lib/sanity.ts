@@ -199,8 +199,19 @@ export async function getPrograms() {
     dates,
     location,
     cost,
-    registrationUrl
+    registrationUrl,
+    enabled
   }`);
+}
+
+// Program visibility map — returns { slug: enabled } for all programs
+export async function getProgramVisibility(): Promise<Record<string, boolean>> {
+  const results = await sanityClient.fetch(`*[_type == "program"]{ "slug": slug.current, enabled }`);
+  const map: Record<string, boolean> = {};
+  for (const r of results || []) {
+    if (r.slug) map[r.slug] = r.enabled !== false; // default true if field not set
+  }
+  return map;
 }
 
 export async function getProgram(slug: string) {
@@ -216,7 +227,7 @@ export async function getProgram(slug: string) {
 }
 
 export async function getAllProgramSlugs() {
-  return sanityClient.fetch(`*[_type == "program"]{ "slug": slug.current }`);
+  return sanityClient.fetch(`*[_type == "program"]{ "slug": slug.current, enabled }`);
 }
 
 // Magnalia — current issue

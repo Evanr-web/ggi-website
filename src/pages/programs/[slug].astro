@@ -17,7 +17,7 @@ export async function getStaticPaths() {
   }
 
   return programs
-    .filter((p: any) => p.slug && !staticSlugs.includes(p.slug))
+    .filter((p: any) => p.slug && !staticSlugs.includes(p.slug) && p.enabled !== false)
     .map((p: any) => ({ params: { slug: p.slug } }));
 }
 

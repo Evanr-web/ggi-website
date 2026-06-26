@@ -2,7 +2,13 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Button from '../../components/Button.astro';
 import Testimonials from '../../components/Testimonials.astro';
-import { getProgram } from '../../lib/sanity';
+import { getProgram, getProgramVisibility } from '../../lib/sanity';
+
+// Check if this program is enabled in Sanity
+try {
+  const vis = await getProgramVisibility();
+  if (vis['faith-and-reason'] === false) return Astro.redirect('/programs/');
+} catch (e) { /* Sanity unreachable — show page */ }
 const base = import.meta.env.BASE_URL;
 const program = await getProgram('faith-and-reason');
 const testimonials = program?.testimonials || [];

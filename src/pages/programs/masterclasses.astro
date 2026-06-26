@@ -3,6 +3,13 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Button from '../../components/Button.astro';
 import SectionDivider from '../../components/SectionDivider.astro';
 import Testimonials from '../../components/Testimonials.astro';
+import { getProgramVisibility } from '../../lib/sanity';
+
+// Check if this program is enabled in Sanity
+try {
+  const vis = await getProgramVisibility();
+  if (vis['masterclasses'] === false) return Astro.redirect('/programs/');
+} catch (e) { /* Sanity unreachable — show page */ }
 import { getProgram } from '../../lib/sanity';
 const program = await getProgram('masterclasses');
 const testimonials = program?.testimonials || [];

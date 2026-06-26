@@ -2,6 +2,22 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Button from '../../components/Button.astro';
 import SectionDivider from '../../components/SectionDivider.astro';
+import { getProgramVisibility } from '../../lib/sanity';
+
+// Fetch enabled/disabled status from Sanity CMS
+let visibility: Record<string, boolean> = {};
+try {
+  visibility = await getProgramVisibility();
+} catch (e) {
+  // If Sanity is unreachable, show all programs by default
+}
+
+// Helper: returns true if a program should be shown
+// Programs default to visible unless explicitly disabled in Sanity
+function isVisible(slug: string): boolean {
+  if (Object.keys(visibility).length === 0) return true; // Sanity unreachable fallback
+  return visibility[slug] !== false;
+}
 ---
 
 <BaseLayout title="Programs" description="Formation programs, courses, and community offerings from the Gregory the Great Institute.">
@@ -21,7 +37,9 @@ import SectionDivider from '../../components/SectionDivider.astro';
   <section class="section">
     <div class="container">
 
-      <!-- Conference -->
+      {/* Conference — uses "conference" slug in Sanity for visibility */}
+      {isVisible('conference') && (
+      <>
       <div class="program-card reveal">
         <div class="program-card__image">
           <a href={`${import.meta.env.BASE_URL}events/conference-2026/`}><img src={`${import.meta.env.BASE_URL}images/art/school-of-athens.jpg`} alt="The School of Athens by Raphael — Renewing Culture Conference"  class="art-filter" /></a>
@@ -43,10 +61,13 @@ import SectionDivider from '../../components/SectionDivider.astro';
           <Button href={`${import.meta.env.BASE_URL}events/conference-2026/`} variant="primary" size="small">Learn More</Button>
         </div>
       </div>
-
       <SectionDivider />
+      </>
+      )}
 
-      <!-- Music Camp -->
+      {/* Music Camp — uses "music-camp" slug in Sanity for visibility */}
+      {isVisible('music-camp') && (
+      <>
       <div class="program-card program-card--reverse reveal">
         <div class="program-card__image">
           <a href={`${import.meta.env.BASE_URL}events/music-camp-2026/`}><img src={`${import.meta.env.BASE_URL}images/events/music-camp-hero-outdoor.jpeg`} alt="St. Gregory's Music Camp" /></a>
@@ -68,10 +89,13 @@ import SectionDivider from '../../components/SectionDivider.astro';
           <Button href={`${import.meta.env.BASE_URL}events/music-camp-2026/`} variant="primary" size="small">Register</Button>
         </div>
       </div>
-
       <SectionDivider />
+      </>
+      )}
 
-      <!-- Book Studies -->
+      {/* Book Studies */}
+      {isVisible('book-studies') && (
+      <>
       <div class="program-card reveal">
         <div class="program-card__image">
           <a href={`${import.meta.env.BASE_URL}programs/book-studies/`}><img src={`${import.meta.env.BASE_URL}images/events/2026-book-studies-reading-list.jpg`} alt="2026 Book Studies"  class="art-filter" /></a>
@@ -93,10 +117,13 @@ import SectionDivider from '../../components/SectionDivider.astro';
           <Button href={`${import.meta.env.BASE_URL}programs/book-studies/`} variant="primary" size="small">Join a Book Study</Button>
         </div>
       </div>
-
       <SectionDivider />
+      </>
+      )}
 
-      <!-- Faith & Reason -->
+      {/* Faith & Reason */}
+      {isVisible('faith-and-reason') && (
+      <>
       <div class="program-card program-card--reverse reveal">
         <div class="program-card__image">
           <a href={`${import.meta.env.BASE_URL}programs/faith-and-reason/`}><img src={`${import.meta.env.BASE_URL}images/art/vanitas-still-life-painting.jpg`} alt="Faith and Reason Seminar"  class="art-filter" /></a>
@@ -117,10 +144,12 @@ import SectionDivider from '../../components/SectionDivider.astro';
           <Button href={`${import.meta.env.BASE_URL}programs/faith-and-reason/`} variant="primary" size="small">Learn More</Button>
         </div>
       </div>
-
       <SectionDivider />
+      </>
+      )}
 
-      <!-- Masterclasses -->
+      {/* Masterclasses */}
+      {isVisible('masterclasses') && (
       <div class="program-card reveal">
         <div class="program-card__image">
           <a href={`${import.meta.env.BASE_URL}programs/masterclasses/`}><img src={`${import.meta.env.BASE_URL}images/art/St-Gregory-Great-painting-dove.jpg`} alt="Masterclasses" class="art-filter" style="object-position: center 25%;" /></a>
@@ -141,6 +170,7 @@ import SectionDivider from '../../components/SectionDivider.astro';
           <Button href={`${import.meta.env.BASE_URL}programs/masterclasses/`} variant="primary" size="small">Browse Courses</Button>
         </div>
       </div>
+      )}
 
     </div>
   </section>

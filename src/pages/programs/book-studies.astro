@@ -3,6 +3,13 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Button from '../../components/Button.astro';
 import CanadaGroupMap from '../../components/CanadaGroupMap.astro';
 import BookStudyForm from '../../components/BookStudyForm.astro';
+import { getProgramVisibility } from '../../lib/sanity';
+
+// Check if this program is enabled in Sanity
+try {
+  const vis = await getProgramVisibility();
+  if (vis['book-studies'] === false) return Astro.redirect('/programs/');
+} catch (e) { /* Sanity unreachable — show page */ }
 import Testimonials from '../../components/Testimonials.astro';
 import { getProgram, getBookStudies, getReadingGroups } from '../../lib/sanity';
 const base = import.meta.env.BASE_URL;
