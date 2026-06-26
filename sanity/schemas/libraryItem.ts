@@ -1,4 +1,5 @@
 import { defineType, defineField } from 'sanity';
+import { EnabledToggle } from '../components/EnabledToggle';
 
 export default defineType({
   name: 'libraryItem',
@@ -13,10 +14,11 @@ export default defineType({
     }),
     defineField({
       name: 'enabled',
-      title: '🟢 Show on Website',
+      title: 'Show on Website',
       type: 'boolean',
-      description: 'ON = visible on the site. OFF = hidden from all pages. Use this to draft content before publishing.',
+      description: 'Toggle to control visibility on the live site.',
       initialValue: true,
+      components: { input: EnabledToggle },
     }),
     defineField({
       name: 'slug',
