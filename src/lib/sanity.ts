@@ -154,9 +154,10 @@ export async function getLibraryArticles() {
     slug,
     category,
     publishDate,
-    author,
+    "author": author->name,
     excerpt,
-    "image": image.asset->url
+    featured,
+    "image": featuredImage.asset->url
   }`);
 }
 
