@@ -39,9 +39,7 @@
 - [ ] Build dedicated capture page that tags `source:lead-magnet` on subscribe
 
 ## Email Template Maintenance
-- [ ] When site goes live on gregorythegreat.ca: find/replace all image URLs in AC templates
-  - Find: `https://evanr-web.github.io/ggi-website/`
-  - Replace: `https://gregorythegreat.ca/`
-- [ ] Re-scan AC Brand Kit with `https://gregorythegreat.ca/`
+- [x] AC Brand Kit scanned with `https://gregorythegreat.ca/`
+- [ ] Verify all AC email template image URLs point to `https://gregorythegreat.ca/` (not the old GitHub Pages preview URL)
 - [ ] Fill Email 3 curated selection placeholders with real content
 - [ ] Ryan reviews Email 2 (Founder's Story) biographical details for accuracy

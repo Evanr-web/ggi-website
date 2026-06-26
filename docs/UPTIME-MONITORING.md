@@ -62,23 +62,16 @@ Click **Create Monitor** for each of the following. For each one:
 
 #### Recommended Monitors
 
-Set up these monitors for the **current GitHub Pages preview** site:
+Set up these monitors for the production site:
 
 | Monitor Name | URL |
 |---|---|
-| GGI — Homepage | `https://evanr-web.github.io/ggi-website/` |
-| GGI — Contact Page | `https://evanr-web.github.io/ggi-website/contact/` |
-| GGI — Magnalia Letter | `https://evanr-web.github.io/ggi-website/magnalia-letter/` |
-| GGI — Careers | `https://evanr-web.github.io/ggi-website/careers/` |
+| GGI — Homepage | `https://gregorythegreat.ca/` |
+| GGI — Contact Page | `https://gregorythegreat.ca/contact/` |
+| GGI — Magnalia Letter | `https://gregorythegreat.ca/magnalia/` |
+| GGI — Careers | `https://gregorythegreat.ca/careers/` |
 
-**After migrating to Cloudflare Pages**, update or duplicate the monitors with production URLs:
-
-| Monitor Name | URL |
-|---|---|
-| GGI — Homepage (Prod) | `https://gregorythegreat.ca/` |
-| GGI — Contact Page (Prod) | `https://gregorythegreat.ca/contact/` |
-| GGI — Magnalia Letter (Prod) | `https://gregorythegreat.ca/magnalia-letter/` |
-| GGI — Careers (Prod) | `https://gregorythegreat.ca/careers/` |
+The GitHub Pages preview (`evanr-web.github.io/ggi-website/`) can optionally be monitored as a fallback.
 
 > You'll use 4–8 of your 10 free monitors, leaving room for future additions (e.g., API endpoints, Sanity Studio).
 
@@ -136,6 +129,5 @@ If you don't expect external users to check site status independently, skip this
 Better Stack is largely set-and-forget:
 
 - **If you add new important pages**, add monitors for them
-- **When you migrate to Cloudflare Pages**, update the URLs in your monitors from `evanr-web.github.io` to `gregorythegreat.ca`
 - **Review the incident history monthly** (part of the monthly checklist in the Ops Runbook) — look for patterns (e.g., brief outages at the same time each day)
 - **If you start getting false positive alerts**, increase the confirmation period to 2 or 3 (requires more consecutive failures before alerting)

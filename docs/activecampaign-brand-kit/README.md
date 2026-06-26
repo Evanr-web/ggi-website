@@ -3,11 +3,9 @@
 ## Quick Setup (Auto-Import)
 
 1. Go to **Settings → Brand Kit** in ActiveCampaign
-2. Enter URL: `https://evanr-web.github.io/ggi-website/`
+2. Enter URL: `https://gregorythegreat.ca`
 3. AC will scan and pull colors, fonts, and logo automatically
 4. **Review and correct** using the values below (auto-import often misses secondary colors)
-
-Once the site is live on `gregorythegreat.ca`, re-scan with that URL.
 
 ---
 
@@ -36,8 +34,7 @@ Enter these in **Brand Kit → Colors**:
 ### Logo
 
 **Primary logo (seal):**
-- Current URL: `https://evanr-web.github.io/ggi-website/images/branding/ggi-seal.png`
-- Future URL: `https://gregorythegreat.ca/images/branding/ggi-seal.png`
+- URL: `https://gregorythegreat.ca/images/branding/ggi-seal.png`
 - Use: Email headers, 48-64px circle with 50% border-radius
 - Background: works on both navy and white backgrounds
 

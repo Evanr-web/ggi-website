@@ -4,15 +4,15 @@
 *Everything before you touch DNS*
 
 ### 1.1 — Get Access from Ryan
-- [ ] GoDaddy login credentials (or delegate access to your account)
-- [ ] ActiveCampaign live API key + URL
-- [ ] Confirm: email is Google Workspace, managed in GoDaddy DNS
+- [x] WHC.ca login credentials (domain registrar)
+- [x] ActiveCampaign live API key + URL
+- [ ] Confirm: email is Google Workspace, managed in Cloudflare DNS
 - [ ] Ask Ryan for any Wix URLs they've shared publicly (social posts, printed materials, email signatures)
 
 ### 1.2 — Snapshot & Backup
 - [ ] Take a manual Sanity backup (`scripts/backup-sanity.sh`)
 - [ ] Screenshot the current Wix site homepage (rollback reference)
-- [ ] Log into GoDaddy → screenshot ALL current DNS records (MX, TXT, CNAME, A, everything) — your insurance policy
+- [ ] Log into WHC.ca → screenshot ALL current DNS records (MX, TXT, CNAME, A, everything) — your insurance policy
 
 ### 1.3 — Set Up Cloudflare
 - [ ] Create Cloudflare account (use an institute email, or your email — discuss with Ryan who owns it)
@@ -82,7 +82,7 @@
 *Do this when you have the full day ahead of you*
 
 ### 2.1 — Flip DNS
-- [ ] In GoDaddy: change nameservers to Cloudflare's (Cloudflare will give you 2 nameservers to enter)
+- [ ] In WHC.ca: change nameservers to Cloudflare's (`pearl.ns.cloudflare.com` / `phil.ns.cloudflare.com`)
 - [ ] Start a timer — propagation begins now
 - [ ] Check [dnschecker.org](https://dnschecker.org) for `gregorythegreat.ca` periodically
 
@@ -96,10 +96,9 @@
 ### 2.3 — Cloudflare Hardening (once DNS is active)
 - [ ] **WAF rate limiting:** Security → WAF → Rate Limiting Rules
   - Rule: `/api/*` — limit to 10 requests per minute per IP
-- [ ] **Turnstile CAPTCHA:** add to contact + subscribe forms
-  - Cloudflare dashboard → Turnstile → create site key
-  - Add widget to form pages, validate token server-side in Cloudflare Functions
-- [ ] **Bot protection:** Security → Bots → enable Bot Fight Mode (free)
+- [x] **Turnstile CAPTCHA:** Added to all 14 forms (site key `0x4AAAAAADm6eYaBvIIwZNRm`)
+- [x] **Bot protection:** Bot Fight Mode enabled
+- [x] **Honeypot fields:** Invisible `website` field on all forms
 - [ ] **SSL mode:** SSL/TLS → set to "Full (strict)"
 
 ---
@@ -125,7 +124,7 @@
 
 ### 3.4 — Safety Net
 - [ ] **DO NOT cancel Wix for 2-4 weeks**
-- [ ] If anything breaks: flip GoDaddy nameservers back → instant rollback to Wix
+- [ ] If anything breaks: flip WHC.ca nameservers back → instant rollback to Wix
 - [ ] Monitor health check alerts (already running 3x/day)
 
 ---
@@ -155,7 +154,7 @@
 ---
 
 ## Rollback Plan (if needed)
-1. Log into GoDaddy
+1. Log into WHC.ca
 2. Change nameservers back to Wix's original nameservers (that's why you screenshot them in 1.2)
 3. Wait 1-4 hours
 4. You're back on Wix. Fix the issue. Try again.

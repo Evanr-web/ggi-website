@@ -51,16 +51,16 @@ The sidebar organizes all your content into sections:
 | Sidebar Item | What It Manages | Where It Appears on the Site |
 |---|---|---|
 | ⚙️ Site Settings | Global info (contact, social links, banner) | Every page (footer, header) |
-| 🏠 Homepage | Hero text, CTA buttons, video | [Homepage](https://evanr-web.github.io/ggi-website/) |
-| 📚 Library | Articles, essays, videos, resources | [Library page](https://evanr-web.github.io/ggi-website/library/) |
-| 🎓 Programs | Program descriptions and details | [Programs page](https://evanr-web.github.io/ggi-website/programs/) |
-| 📅 Events | Conferences, book studies, camps | [Events page](https://evanr-web.github.io/ggi-website/events/) |
-| 📖 Magnalia Issues | Magazine issues, covers, content | [Magnalia page](https://evanr-web.github.io/ggi-website/magnalia/) |
-| 📕 Book Studies | This year's reading list | [Book Studies page](https://evanr-web.github.io/ggi-website/programs/book-studies/) |
-| 🗺️ Reading Groups | Cities and group counts (map data) | [Book Studies map](https://evanr-web.github.io/ggi-website/programs/book-studies/) |
-| 👤 People | Board, staff, contributors | [Leadership page](https://evanr-web.github.io/ggi-website/about/leadership/) |
-| 💰 Giving Tiers | Friend, Patron, Leadership pricing | [Support page](https://evanr-web.github.io/ggi-website/support/) |
-| 💼 Career Postings | Job listings | [Careers page](https://evanr-web.github.io/ggi-website/careers/) |
+| 🏠 Homepage | Hero text, CTA buttons, video | [Homepage](https://gregorythegreat.ca/) |
+| 📚 Library | Articles, essays, videos, resources | [Library page](https://gregorythegreat.ca/library/) |
+| 🎓 Programs | Program descriptions and details | [Programs page](https://gregorythegreat.ca/programs/) |
+| 📅 Events | Conferences, book studies, camps | [Events page](https://gregorythegreat.ca/events/) |
+| 📖 Magnalia Issues | Magazine issues, covers, content | [Magnalia page](https://gregorythegreat.ca/magnalia/) |
+| 📕 Book Studies | This year's reading list | [Book Studies page](https://gregorythegreat.ca/programs/book-studies/) |
+| 🗺️ Reading Groups | Cities and group counts (map data) | [Book Studies map](https://gregorythegreat.ca/programs/book-studies/) |
+| 👤 People | Board, staff, contributors | [Leadership page](https://gregorythegreat.ca/about/leadership/) |
+| 💰 Giving Tiers | Friend, Patron, Leadership pricing | [Support page](https://gregorythegreat.ca/support/) |
+| 💼 Career Postings | Job listings | [Careers page](https://gregorythegreat.ca/careers/) |
 
 ---
 

@@ -60,12 +60,12 @@ ELSE → Send email-5-invitation.html
 
 All templates reference the GGI seal at:
 ```
-https://evanr-web.github.io/ggi-website/images/branding/ggi-seal.png
+https://gregorythegreat.ca/images/branding/ggi-seal.png
 ```
 
-When the site moves to `gregorythegreat.ca`, update to:
+Fallback (GitHub Pages preview):
 ```
-https://gregorythegreat.ca/images/branding/ggi-seal.png
+https://evanr-web.github.io/ggi-website/images/branding/ggi-seal.png
 ```
 
 ## Testing
