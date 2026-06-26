@@ -1,0 +1,84 @@
+---
+import ArticleLayout from '../../layouts/ArticleLayout.astro';
+import { getLibraryArticle, getLibraryArticles } from '../../lib/sanity';
+import { toHTML } from '@portabletext/to-html';
+
+export async function getStaticPaths() {
+  const articles = await getLibraryArticles();
+
+  // Static pages that already have their own .astro files — skip these slugs
+  const staticSlugs = [
+    'abolition-of-man-guide',
+    'christmas-books-2025',
+    'easter-family',
+    'fine-gathering-ottawa',
+    'medicine-forgets-vocation',
+    'personal-finances',
+  ];
+
+  return (articles || [])
+    .filter((a: any) => a.slug?.current && !staticSlugs.includes(a.slug.current))
+    .map((a: any) => ({
+      params: { slug: a.slug.current },
+    }));
+}
+
+const { slug } = Astro.params;
+const article = await getLibraryArticle(slug as string);
+
+if (!article) {
+  return Astro.redirect('/404');
+}
+
+const base = import.meta.env.BASE_URL;
+
+// Format date
+const pubDate = article.publishDate ? new Date(article.publishDate) : null;
+const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+const dateStr = pubDate ? `${months[pubDate.getMonth()]} ${pubDate.getDate()}, ${pubDate.getFullYear()}` : '';
+
+// Get author name — could be a reference or inline
+const authorName = typeof article.author === 'string' ? article.author : (article.author?.name || 'Gregory the Great Institute');
+
+// Get image URL
+const imageUrl = article.featuredImage?.asset?.url || article.image || '';
+
+// Category
+const category = article.category || 'News';
+
+// Render body from Portable Text
+const bodyHtml = article.body ? toHTML(article.body, {
+  components: {
+    types: {
+      image: ({value}: any) => `<figure class="article__figure"><img src="${value.url || value.asset?.url || ''}" alt="" class="article__inline-img" loading="lazy" /></figure>`,
+    },
+    block: {
+      blockquote: ({children}: any) => `<blockquote class="article__pullquote"><p>${children}</p></blockquote>`,
+      h2: ({children}: any) => `<h2>${children}</h2>`,
+      h3: ({children}: any) => `<h3>${children}</h3>`,
+    },
+  },
+}) : '';
+
+// Estimate read time
+const wordCount = article.body?.reduce((acc: number, block: any) => {
+  if (block._type === 'block' && block.children) {
+    return acc + block.children.reduce((a: number, c: any) => a + (c.text?.split(/\s+/).length || 0), 0);
+  }
+  return acc;
+}, 0) || 0;
+const readTime = `${Math.max(1, Math.ceil(wordCount / 250))} min read`;
+---
+
+<ArticleLayout
+  title={article.title}
+  description={article.excerpt || ''}
+  author={authorName}
+  date={dateStr}
+  category={category}
+  readTime={readTime}
+  image={imageUrl}
+  imageAlt={article.title}
+>
+  <Fragment set:html={bodyHtml} />
+</ArticleLayout>

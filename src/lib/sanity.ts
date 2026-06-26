@@ -164,7 +164,8 @@ export async function getLibraryArticles() {
 export async function getLibraryArticle(slug: string) {
   return sanityClient.fetch(`*[_type == "libraryItem" && slug.current == $slug][0]{
     ...,
-    "image": image.asset->url,
+    "image": featuredImage.asset->url,
+    featuredImage { asset-> },
     body[]{
       ...,
       _type == "image" => { "url": asset->url }
