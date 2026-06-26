@@ -1,15 +1,16 @@
 export const prerender = false;
 
+import { env } from 'cloudflare:workers';
 import { addContact, jsonResponse, corsHeaders, isValidEmail, sanitize, checkHoneypot, logError, verifyTurnstile } from '../../lib/api-shared.js';
 
 export async function OPTIONS({ request }) {
   return new Response(null, { headers: corsHeaders(request.headers.get('Origin')) });
 }
 
-export async function POST({ request, locals }) {
-  const env = locals.runtime.env;
+export async function POST({ request }) {
   const origin = request.headers.get('Origin');
 
+  let email;
   try {
     const body = await request.json();
 
@@ -22,7 +23,7 @@ export async function POST({ request, locals }) {
       return jsonResponse({ success: true, contactId: 'ok' }, 200, origin);
     }
 
-    const email = sanitize(body.email, 254);
+    email = sanitize(body.email, 254);
     const firstName = sanitize(body.firstName, 100);
 
     if (!isValidEmail(email)) {

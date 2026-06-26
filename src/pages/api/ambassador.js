@@ -1,13 +1,13 @@
 export const prerender = false;
 
+import { env } from 'cloudflare:workers';
 import { addContact, jsonResponse, corsHeaders, isValidEmail, sanitize, checkHoneypot, logError, verifyTurnstile } from '../../lib/api-shared.js';
 
 export async function OPTIONS({ request }) {
   return new Response(null, { headers: corsHeaders(request.headers.get('Origin')) });
 }
 
-export async function POST({ request, locals }) {
-  const env = locals.runtime.env;
+export async function POST({ request }) {
   const origin = request.headers.get('Origin');
   let email;
 

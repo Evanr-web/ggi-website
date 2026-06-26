@@ -8,6 +8,7 @@ export async function onRequestOptions(context) {
 export async function onRequestPost(context) {
   const origin = context.request.headers.get('Origin');
 
+  let email;
   try {
     const formData = await context.request.formData();
 
@@ -22,7 +23,7 @@ export async function onRequestPost(context) {
       return jsonResponse({ success: true, contactId: 'ok' }, 200, origin);
     }
 
-    const email = sanitize(formData.get('email'), 254);
+    email = sanitize(formData.get('email'), 254);
     const firstName = sanitize(formData.get('firstName'), 100);
     const lastName = sanitize(formData.get('lastName'), 100);
     const position = sanitize(formData.get('position'), 200);

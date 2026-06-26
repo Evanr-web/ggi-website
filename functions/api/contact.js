@@ -18,6 +18,7 @@ export async function onRequestOptions(context) {
 export async function onRequestPost(context) {
   const origin = context.request.headers.get('Origin');
 
+  let email;
   try {
     const body = await context.request.json();
 
@@ -31,7 +32,7 @@ export async function onRequestPost(context) {
       return jsonResponse({ success: true, contactId: 'ok' }, 200, origin);
     }
 
-    const email = sanitize(body.email, 254);
+    email = sanitize(body.email, 254);
     const firstName = sanitize(body.firstName, 100);
     const lastName = sanitize(body.lastName, 100);
     const subject = sanitize(body.subject, 50);
