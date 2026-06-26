@@ -1,4 +1,4 @@
-import { defineConfig, type DocumentActionComponent } from 'sanity';
+import { defineConfig } from 'sanity';
 import { createElement } from 'react';
 import { structureTool } from 'sanity/structure';
 import type { StructureBuilder } from 'sanity/structure';
@@ -199,7 +199,7 @@ const structure = (S: StructureBuilder) =>
         .child(
           S.documentTypeList('event')
             .title('Events')
-            .defaultOrdering([{ field: 'startDate', direction: 'desc' }])
+            .defaultOrdering([{ field: 'date', direction: 'desc' }])
             .child((documentId: string) =>
               S.document()
                 .documentId(documentId)
@@ -292,12 +292,12 @@ export default defineConfig({
     types: schemaTypes,
   },
   document: {
-    actions: (prev: DocumentActionComponent[], context) => {
+    actions: (prev, context) => {
       // Singletons shouldn't be duplicated or deleted
       const singletons = ['siteSettings', 'homepage'];
       if (singletons.includes(context.schemaType)) {
         return prev.filter(
-          (action) => !['duplicate', 'delete'].includes(action.action || '')
+          (action: any) => !['duplicate', 'delete'].includes(action.action || '')
         );
       }
       return prev;
