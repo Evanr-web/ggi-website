@@ -1,10 +1,12 @@
 ---
 import Navigation from '../components/Navigation.astro';
 import Footer from '../components/Footer.astro';
+import BackToTop from '../components/BackToTop.astro';
 import RibbonBanner from '../components/RibbonBanner.astro';
 import FlyinPopup from '../components/FlyinPopup.astro';
 import NewsletterModal from '../components/NewsletterModal.astro';
 import EventInterestModal from '../components/EventInterestModal.astro';
+import BackToTop from '../components/BackToTop.astro';
 import '../styles/global.css';
 
 interface Props {
@@ -73,6 +75,8 @@ const ogImageUrl = ogImage.startsWith('http') ? ogImage : `${siteUrl}${base}${og
       <slot />
     </main>
     <Footer />
+    <BackToTop />
+    <BackToTop />
     <FlyinPopup />
     <NewsletterModal />
     <EventInterestModal />

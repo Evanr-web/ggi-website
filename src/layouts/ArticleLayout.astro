@@ -1,6 +1,7 @@
 ---
 import BaseLayout from './BaseLayout.astro';
 import Button from '../components/Button.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
 
 interface RelatedArticle {
   title: string;
@@ -34,6 +35,11 @@ const base = import.meta.env.BASE_URL;
       </div>
     )}
     <div class="article__container container">
+      <Breadcrumbs items={[
+        { label: 'Home', href: base },
+        { label: 'Library', href: `${base}library/` },
+        { label: title },
+      ]} />
       <div class="article__meta-bar">
         <span class="article__category">{category}</span>
       </div>

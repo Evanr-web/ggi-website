@@ -16,6 +16,7 @@ const cmsEvents = sanityEvents.map((e: any) => {
     title: e.title,
     month: months[d.getMonth()],
     day: String(d.getDate()),
+    year: String(d.getFullYear()),
     date: e.startDate,
     location: e.location || '',
     description: e.shortDescription || '',
@@ -30,7 +31,7 @@ const cmsEvents = sanityEvents.map((e: any) => {
 const fallbackEvents = [
   {
     title: "2026 Book Study — Searching for and Maintaining Peace",
-    month: "Feb", day: "1", date: "2026-02-01",
+    month: "Feb", day: "1", year: "2026", date: "2026-02-01",
     location: "Locations across Canada",
     description: "Fr. Jacques Philippe's beloved guide to interior peace. Join a local reading group or follow along online.",
     href: `${base}events/book-study-feb-2026/`,
@@ -40,7 +41,7 @@ const fallbackEvents = [
   },
   {
     title: "GGI at Provincial Prayer Breakfast",
-    month: "Mar", day: "18", date: "2026-03-18",
+    month: "Mar", day: "18", year: "2026", date: "2026-03-18",
     location: "Edmonton, AB",
     description: "The GGI team attended the annual Premier's Prayer Breakfast in Alberta.",
     href: `${base}events/prayer-breakfast-2026/`,
@@ -50,7 +51,7 @@ const fallbackEvents = [
   },
   {
     title: "Personal Finances 101",
-    month: "Apr", day: "25", date: "2026-04-25",
+    month: "Apr", day: "25", year: "2026", date: "2026-04-25",
     location: "Concordia University of Edmonton",
     description: "Master your money, serve your vocation. Financial literacy as stewardship and Catholic formation. Led by Jesse Underwood.",
     href: `${base}events/finances-101/`,
@@ -60,7 +61,7 @@ const fallbackEvents = [
   },
   {
     title: "2026 Book Study — Animal Farm",
-    month: "May", day: "1", date: "2026-05-01",
+    month: "May", day: "1", year: "2026", date: "2026-05-01",
     location: "Locations across Canada",
     description: "George Orwell's classic political fable, read through the lens of Catholic social teaching.",
     href: `${base}events/book-study-may-2026/`,
@@ -70,7 +71,7 @@ const fallbackEvents = [
   },
   {
     title: "St. Gregory's Music & Leadership Camp",
-    month: "Jul", day: "12", date: "2026-07-12",
+    month: "Jul", day: "12", year: "2026", date: "2026-07-12",
     location: "Solara Water's Edge, Parkland County, AB",
     description: "Four nights of fiddle, penny whistle, voice, games, prayer, and leadership for youth ages 12–18. $350/child, family discounts available.",
     href: `${base}events/music-camp-2026/`,
@@ -80,7 +81,7 @@ const fallbackEvents = [
   },
   {
     title: "2026 Book Study — Leisure: The Basis of Culture",
-    month: "Sep", day: "1", date: "2026-09-01",
+    month: "Sep", day: "1", year: "2026", date: "2026-09-01",
     location: "Locations across Canada",
     description: "Josef Pieper's masterwork on why contemplation — not productivity — is the foundation of civilization.",
     href: `${base}events/book-study-sep-2026/`,
@@ -90,7 +91,7 @@ const fallbackEvents = [
   },
   {
     title: "Bringing Back Sunday — Renewing Culture Conference",
-    month: "Oct", day: "2", date: "2026-10-02",
+    month: "Oct", day: "2", year: "2026", date: "2026-10-02",
     location: "Mt Carmel Spirituality Centre",
     description: "2nd Annual Renewing Culture Conference. Two days of speakers, seminars, prayer, and fellowship reflecting on Pieper's Leisure.",
     href: `${base}events/conference-2026/`,
@@ -100,7 +101,7 @@ const fallbackEvents = [
   },
   {
     title: "1st Annual Renewing Culture Conference",
-    month: "Oct", day: "4", date: "2025-10-04",
+    month: "Oct", day: "4", year: "2025", date: "2025-10-04",
     location: "Newman Theological College",
     description: "Inaugural conference featuring Dr. Ryan Topping and guests. Socratic seminars on Newman, Chesterton, and the renewal of Catholic culture.",
     href: `${base}events/conference-2025/`,
@@ -152,6 +153,7 @@ const years = Object.keys(byYear).sort((a, b) => b.localeCompare(a)); // newest 
                 title={e.title}
                 month={e.month}
                 day={e.day}
+                year={e.year}
                 date={e.date}
                 location={e.location}
                 description={e.description}

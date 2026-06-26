@@ -10,15 +10,17 @@ interface Props {
   programTag?: string;
   thumbnail?: string;
   thumbnailAlt?: string;
+  year?: string;
 }
 
-const { title, date, month, day, location, description, href, programTag, thumbnail, thumbnailAlt = '' } = Astro.props;
+const { title, date, month, day, location, description, href, programTag, thumbnail, thumbnailAlt = '', year } = Astro.props;
 ---
 
 <article class="event-card">
   <div class="event-card__date-badge">
     <span class="event-card__month">{month}</span>
     <span class="event-card__day">{day}</span>
+    {year && <span class="event-card__year">{year}</span>}
   </div>
   {thumbnail && (
     <a href={href} class="event-card__thumb">
@@ -81,6 +83,14 @@ const { title, date, month, day, location, description, href, programTag, thumbn
     font-size: 1.3rem;
     font-weight: 700;
     color: var(--color-text-on-dark);
+    line-height: 1;
+  }
+
+  .event-card__year {
+    font-family: var(--font-ui);
+    font-size: 0.55rem;
+    color: rgba(245, 239, 229, 0.6);
+    letter-spacing: 0.05em;
     line-height: 1;
   }
 

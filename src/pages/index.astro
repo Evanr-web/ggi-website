@@ -192,6 +192,7 @@ const videoId = cms?.videoUrl ? cms.videoUrl.match(/(?:v=|youtu\.be\/)([^&]+)/)?
                 title={event.title}
                 month={months[d.getMonth()]}
                 day={String(d.getDate())}
+                year={String(d.getFullYear())}
                 date={event.startDate}
                 location={event.location || ''}
                 description={event.shortDescription || event.tagline || ''}

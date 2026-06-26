@@ -5,6 +5,7 @@ import GoogleMap from '../components/GoogleMap.astro';
 import ShareBar from '../components/ShareBar.astro';
 import AddToCalendar from '../components/AddToCalendar.astro';
 import EventNotifyForm from '../components/EventNotifyForm.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
 
 interface Props {
   title: string;
@@ -47,6 +48,11 @@ const formatDate = (d: string) => {
 
   <section class="section">
     <div class="container event-detail">
+      <Breadcrumbs items={[
+        { label: 'Home', href: base },
+        { label: 'Events', href: `${base}events/` },
+        { label: title },
+      ]} />
       <div class="event-detail__header">
         <span class="label text-gold">{tag}</span>
         {past && <span class="event-detail__past-badge">Past Event</span>}
