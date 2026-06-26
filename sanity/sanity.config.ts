@@ -1,4 +1,4 @@
-import { defineConfig } from 'sanity';
+import { defineConfig, type DocumentActionComponent } from 'sanity';
 import { createElement } from 'react';
 import { structureTool } from 'sanity/structure';
 import type { StructureBuilder } from 'sanity/structure';
@@ -290,5 +290,17 @@ export default defineConfig({
   plugins: [structureTool({ structure })],
   schema: {
     types: schemaTypes,
+  },
+  document: {
+    actions: (prev: DocumentActionComponent[], context) => {
+      // Singletons shouldn't be duplicated or deleted
+      const singletons = ['siteSettings', 'homepage'];
+      if (singletons.includes(context.schemaType)) {
+        return prev.filter(
+          (action) => !['duplicate', 'delete'].includes(action.action || '')
+        );
+      }
+      return prev;
+    },
   },
 });
