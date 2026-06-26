@@ -55,24 +55,6 @@ const categories = ["All", "News", "Essays", "Videos", "Resources"];
     </div>
   </section>
 
-  <!-- Featured -->
-  <section class="section">
-    <div class="container">
-      <a href={`${import.meta.env.BASE_URL}library/${entries[2].href}/`} class="featured-essay">
-        <div class="featured-essay__image">
-          <img src={`${import.meta.env.BASE_URL}images/art/raphael-resurrection.jpg`} alt="Resurrection of Christ by Raphael" class="art-filter" />
-        </div>
-        <div class="featured-essay__body">
-          <span class="label text-gold">Featured Essay</span>
-          <h2>{entries[2].title}</h2>
-          <p class="featured-essay__meta">By {entries[2].author} · {entries[2].date}</p>
-          <p class="featured-essay__excerpt">{entries[2].excerpt}</p>
-          <span class="featured-essay__link">Read →</span>
-        </div>
-      </a>
-    </div>
-  </section>
-
   <!-- Filter Bar -->
   <section class="filter-section">
     <div class="container">
@@ -85,23 +67,42 @@ const categories = ["All", "News", "Essays", "Videos", "Resources"];
     </div>
   </section>
 
-  <!-- Content Grid -->
+  <!-- Editorial Layout: Alternating Featured + Grid -->
   <section class="section">
-    <div class="container">
-      <div class="library-grid" id="library-grid">
-        {entries.map((entry) => (
-          <div class="library-card" data-category={entry.category.toLowerCase()}>
-            <Card
-              title={entry.title}
-              description={entry.excerpt}
-              meta={`${entry.category} · ${entry.date}`}
-              href={`${import.meta.env.BASE_URL}library/${entry.href}/`}
-              image={entry.image}
-              imageAlt=""
-            />
+    <div class="container" id="library-grid">
+      {entries.map((entry, i) => {
+        const entryUrl = `${import.meta.env.BASE_URL}library/${entry.href}/`;
+        const isFeature = i === 0 || i === 3;
+        const isReverse = i === 3;
+
+        return isFeature ? (
+          <div class={`lib-feature ${isReverse ? 'lib-feature--reverse' : ''} library-card reveal`} data-category={entry.category.toLowerCase()}>
+            <a href={entryUrl} class="lib-feature__image">
+              <img src={entry.image} alt="" class="art-filter" loading={i === 0 ? 'eager' : 'lazy'} />
+            </a>
+            <div class="lib-feature__body">
+              <span class="label text-gold">{entry.category} · {entry.date}</span>
+              <h2><a href={entryUrl}>{entry.title}</a></h2>
+              <p class="lib-feature__meta">By {entry.author}</p>
+              <p class="lib-feature__excerpt">{entry.excerpt}</p>
+              <a href={entryUrl} class="lib-feature__read">Read →</a>
+            </div>
           </div>
-        ))}
-      </div>
+        ) : (
+          <div class="lib-card library-card reveal" data-category={entry.category.toLowerCase()}>
+            <a href={entryUrl} class="lib-card__inner">
+              <div class="lib-card__image">
+                <img src={entry.image} alt="" loading="lazy" />
+              </div>
+              <div class="lib-card__body">
+                <span class="lib-card__meta label">{entry.category} · {entry.date}</span>
+                <h3>{entry.title}</h3>
+                <p class="lib-card__excerpt">{entry.excerpt}</p>
+              </div>
+            </a>
+          </div>
+        );
+      })}
     </div>
   </section>
 
@@ -155,52 +156,57 @@ const categories = ["All", "News", "Essays", "Videos", "Resources"];
     padding-block: 60px;
   }
 
-  /* Featured Essay */
-  .featured-essay {
+  /* === Featured Article (full-width, image + text side by side) === */
+  .lib-feature {
     display: grid;
     grid-template-columns: 1fr;
-    gap: var(--space-component);
+    gap: 32px;
     align-items: center;
-    text-decoration: none;
-    color: inherit;
-    transition: opacity var(--transition-fast);
+    margin-bottom: 48px;
+    padding-bottom: 48px;
+    border-bottom: 1px solid rgba(90, 90, 110, 0.08);
   }
 
-  .featured-essay:hover h2 {
-    color: var(--color-gold);
-  }
-
-  .featured-essay__link {
-    font-family: var(--font-ui);
-    font-size: 0.88rem;
-    font-weight: 600;
-    color: var(--color-gold);
-    transition: color var(--transition-fast);
-  }
-
-  .featured-essay:hover .featured-essay__link {
-    color: var(--color-crimson);
-  }
-
-  .featured-essay__image img {
-    width: 100%;
-    height: 300px;
-    object-fit: cover;
+  .lib-feature__image {
+    display: block;
+    overflow: hidden;
     border-radius: 3px;
   }
 
-  .featured-essay__body h2 {
-    margin: 8px 0 8px;
+  .lib-feature__image img {
+    width: 100%;
+    height: 320px;
+    object-fit: cover;
+    transition: transform var(--transition-base);
   }
 
-  .featured-essay__meta {
+  .lib-feature:hover .lib-feature__image img {
+    transform: scale(1.03);
+  }
+
+  .lib-feature__body h2 {
+    margin: 8px 0 8px;
+    line-height: 1.25;
+  }
+
+  .lib-feature__body h2 a {
+    color: inherit;
+    text-decoration: none;
+    transition: color var(--transition-fast);
+  }
+
+  .lib-feature:hover h2 a {
+    color: var(--color-gold);
+  }
+
+  .lib-feature__meta {
     font-family: var(--font-ui);
     font-size: 0.82rem;
     color: var(--color-gray);
     margin-bottom: 12px;
   }
 
-  .featured-essay__excerpt {
+  .lib-feature__excerpt {
     font-family: var(--font-body);
     font-size: 1rem;
     line-height: 1.7;
@@ -208,10 +214,108 @@ const categories = ["All", "News", "Essays", "Videos", "Resources"];
     margin-bottom: 16px;
   }
 
+  .lib-feature__read {
+    font-family: var(--font-ui);
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--color-gold);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+  }
+
+  .lib-feature__read:hover {
+    color: var(--color-crimson);
+  }
+
   @media (min-width: 768px) {
-    .featured-essay {
-      grid-template-columns: 1fr 1.2fr;
+    .lib-feature {
+      grid-template-columns: 1.1fr 1fr;
     }
+
+    .lib-feature--reverse {
+      grid-template-columns: 1fr 1.1fr;
+    }
+
+    .lib-feature--reverse .lib-feature__image {
+      order: 2;
+    }
+
+    .lib-feature__image img {
+      height: 360px;
+    }
+  }
+
+  /* === Grid Cards (smaller, 2-3 per row between features) === */
+  .lib-card {
+    margin-bottom: 24px;
+    display: inline-block;
+    width: 100%;
+  }
+
+  .lib-card__inner {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    background: var(--color-linen);
+    border: 1px solid rgba(90, 90, 110, 0.1);
+    border-radius: 3px;
+    overflow: hidden;
+    transition: box-shadow var(--transition-base), border-color var(--transition-base);
+  }
+
+  .lib-card__inner:hover {
+    border-color: var(--color-gold);
+    box-shadow: 0 4px 20px rgba(14, 51, 82, 0.08);
+  }
+
+  .lib-card__image {
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+  }
+
+  .lib-card__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--transition-base);
+  }
+
+  .lib-card__inner:hover .lib-card__image img {
+    transform: scale(1.03);
+  }
+
+  .lib-card__body {
+    padding: 20px 24px 24px;
+  }
+
+  .lib-card__meta {
+    color: var(--color-gray);
+    margin-bottom: 6px;
+  }
+
+  .lib-card__body h3 {
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--color-navy);
+    line-height: 1.3;
+    margin-bottom: 10px;
+    transition: color var(--transition-fast);
+  }
+
+  .lib-card__inner:hover h3 {
+    color: var(--color-gold);
+  }
+
+  .lib-card__excerpt {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--color-gray);
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
 
   /* Filter Bar */
@@ -263,22 +367,28 @@ const categories = ["All", "News", "Essays", "Videos", "Resources"];
     color: var(--color-gold);
   }
 
-  /* Library Grid */
-  .library-grid {
+  /* Library container: features span full width, cards flow into grid rows */
+  #library-grid {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 24px;
+    gap: 0;
+  }
+
+  .lib-feature {
+    grid-column: 1 / -1;
   }
 
   @media (min-width: 640px) {
-    .library-grid {
+    #library-grid {
       grid-template-columns: repeat(2, 1fr);
+      column-gap: 24px;
     }
   }
 
   @media (min-width: 1024px) {
-    .library-grid {
+    #library-grid {
       grid-template-columns: repeat(3, 1fr);
+      column-gap: 28px;
     }
   }
 
