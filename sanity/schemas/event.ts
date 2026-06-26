@@ -141,6 +141,27 @@ export default defineType({
       initialValue: 'upcoming',
     }),
     defineField({
+      name: 'ctaStatus',
+      title: 'CTA Button Status',
+      type: 'string',
+      description: 'Controls the main action button on the event page. "Active" shows a clickable registration link, "Closed" shows a greyed-out button, "Notify" shows a "Get Notified" button.',
+      options: {
+        list: [
+          { title: 'Active — Registration Open', value: 'active' },
+          { title: 'Closed — Registration Closed', value: 'closed' },
+          { title: 'Notify — Get Notified', value: 'notify' },
+        ],
+        layout: 'radio',
+      },
+      initialValue: 'active',
+    }),
+    defineField({
+      name: 'ctaLabel',
+      title: 'CTA Button Label (Override)',
+      type: 'string',
+      description: 'Optional. Override the default button text. Leave blank to use defaults: "Register" (active), "Registration Closed" (closed), "Get Notified" (notify).',
+    }),
+    defineField({
       name: 'seo',
       title: 'SEO',
       type: 'object',

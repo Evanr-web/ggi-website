@@ -1,0 +1,353 @@
+---
+/**
+ * Event interest / "Get Notified" modal.
+ * Opens when any element with [data-event-interest-modal] is clicked.
+ * Fetches upcoming events from Sanity at build time for checkbox selection.
+ * Submits to /api/event-interest as JSON.
+ */
+import { sanityClient } from 'sanity:client';
+
+let events: { _id: string; title: string; slug: { current: string } }[] = [];
+try {
+  events = await sanityClient.fetch(
+    `*[_type == "event" && status == "upcoming"] | order(date asc) { _id, title, slug }`
+  );
+} catch {
+  // Sanity fetch failed — fall through to fallback
+}
+
+const fallbackEvents = [
+  { slug: { current: 'book-study-sep-2026' }, title: 'Book Study — Leisure: The Basis of Culture (Sep 2026)', _id: 'fb-book-study-sep' },
+  { slug: { current: 'conference-2026' }, title: 'Renewing Culture Conference (Oct 2026)', _id: 'fb-conference' },
+];
+
+const displayEvents = events.length > 0 ? events : fallbackEvents;
+---
+
+<div class="ei-modal-backdrop" id="event-interest-modal" aria-hidden="true" role="dialog" aria-label="Event interest signup">
+  <div class="ei-modal-card">
+    <button type="button" class="ei-modal-close" aria-label="Close">&times;</button>
+    <h2 class="ei-modal-heading">Get Notified</h2>
+    <p class="ei-modal-sub">Select the events you're interested in and we'll let you know when registration opens.</p>
+    <form class="ei-modal-form" id="event-interest-form" method="POST" novalidate>
+      <input type="text" name="firstName" placeholder="First name" class="ei-modal-input" required aria-label="First name" />
+      <input type="email" name="email" placeholder="Email address" class="ei-modal-input" required aria-label="Email address" />
+
+      <fieldset class="ei-modal-events">
+        <legend class="ei-modal-events-legend">I'm interested in:</legend>
+        {displayEvents.map((ev) => (
+          <label class="ei-modal-event-option">
+            <input type="checkbox" name="events" value={ev.slug.current} />
+            <span>{ev.title}</span>
+          </label>
+        ))}
+      </fieldset>
+
+      <!-- Honeypot -->
+      <input type="text" name="website" style="display:none" tabindex="-1" autocomplete="off" />
+
+      <div class="cf-turnstile" data-sitekey="0x4AAAAAADm6eYaBvIIwZNRm" data-size="compact"></div>
+      <button type="submit" class="ei-modal-submit">Notify Me</button>
+      <div class="ei-modal-message" id="ei-modal-message" aria-live="polite"></div>
+    </form>
+  </div>
+</div>
+
+<style>
+  .ei-modal-backdrop {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: rgba(14, 51, 82, 0.75);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+
+  .ei-modal-backdrop.ei-modal--open {
+    display: flex;
+  }
+
+  .ei-modal-card {
+    position: relative;
+    background: var(--color-parchment, #f5efe5);
+    border-radius: 4px;
+    padding: 40px 36px 36px;
+    max-width: 480px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.35);
+    border-top: 3px solid var(--color-gold, #b89a47);
+    animation: ei-modal-in 0.25s ease-out;
+  }
+
+  @keyframes ei-modal-in {
+    from { opacity: 0; transform: translateY(16px) scale(0.97); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  .ei-modal-close {
+    position: absolute;
+    top: 12px;
+    right: 14px;
+    background: none;
+    border: none;
+    font-size: 1.6rem;
+    color: var(--color-gray, #5a5a6e);
+    cursor: pointer;
+    line-height: 1;
+    padding: 4px 8px;
+    transition: color 0.15s;
+  }
+
+  .ei-modal-close:hover {
+    color: var(--color-crimson, #8b2500);
+  }
+
+  .ei-modal-heading {
+    font-family: var(--font-display, Georgia, serif);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-navy, #1B2A4A);
+    margin-bottom: 6px;
+    text-align: center;
+  }
+
+  .ei-modal-sub {
+    font-family: var(--font-body, 'Source Serif 4', Georgia, serif);
+    font-size: 0.95rem;
+    color: var(--color-gray, #5a5a6e);
+    line-height: 1.6;
+    text-align: center;
+    margin-bottom: 24px;
+  }
+
+  .ei-modal-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .ei-modal-input {
+    font-family: var(--font-ui, 'Inter', sans-serif);
+    font-size: 0.9rem;
+    padding: 12px 14px;
+    border: 1px solid rgba(90, 90, 110, 0.2);
+    border-radius: 3px;
+    background: var(--color-linen, #faf7f2);
+    color: var(--color-ink, #2a2a2a);
+    outline: none;
+    transition: border-color 0.15s;
+  }
+
+  .ei-modal-input:focus {
+    border-color: var(--color-gold, #b89a47);
+    box-shadow: 0 0 0 3px rgba(184, 154, 71, 0.15);
+  }
+
+  .ei-modal-input::placeholder {
+    color: var(--color-gray, #5a5a6e);
+  }
+
+  .ei-modal-events {
+    border: 1px solid rgba(90, 90, 110, 0.15);
+    border-radius: 3px;
+    padding: 14px 16px;
+    margin: 4px 0;
+    background: var(--color-linen, #faf7f2);
+  }
+
+  .ei-modal-events-legend {
+    font-family: var(--font-ui, 'Inter', sans-serif);
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-gold, #b89a47);
+    padding: 0 4px;
+  }
+
+  .ei-modal-event-option {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 6px 0;
+    font-family: var(--font-body, 'Source Serif 4', Georgia, serif);
+    font-size: 0.9rem;
+    color: var(--color-ink, #2a2a2a);
+    cursor: pointer;
+    line-height: 1.4;
+  }
+
+  .ei-modal-event-option input[type="checkbox"] {
+    margin-top: 3px;
+    accent-color: var(--color-gold, #b89a47);
+    flex-shrink: 0;
+  }
+
+  .ei-modal-submit {
+    font-family: var(--font-display, Georgia, serif);
+    font-size: 1rem;
+    font-weight: 600;
+    padding: 14px 28px;
+    background-color: var(--color-gold, #b89a47);
+    color: var(--color-navy, #1B2A4A);
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.15s;
+    margin-top: 4px;
+  }
+
+  .ei-modal-submit:hover {
+    background-color: #a08838;
+  }
+
+  .ei-modal-submit:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  .ei-modal-message {
+    font-family: var(--font-ui, 'Inter', sans-serif);
+    font-size: 0.85rem;
+    text-align: center;
+    min-height: 1.2em;
+  }
+
+  .ei-modal-message--success {
+    color: #2d7a3a;
+  }
+
+  .ei-modal-message--error {
+    color: var(--color-crimson, #8b2500);
+  }
+
+  @media (max-width: 480px) {
+    .ei-modal-card {
+      padding: 32px 24px 28px;
+    }
+  }
+</style>
+
+<script is:inline>
+  (function () {
+    var modal = document.getElementById('event-interest-modal');
+    var form = document.getElementById('event-interest-form');
+    var msgEl = document.getElementById('ei-modal-message');
+    if (!modal || !form || !msgEl) return;
+
+    function openModal() {
+      modal.classList.add('ei-modal--open');
+      modal.setAttribute('aria-hidden', 'false');
+      var firstInput = modal.querySelector('input[name="firstName"]');
+      if (firstInput) firstInput.focus();
+    }
+
+    function closeModal() {
+      modal.classList.remove('ei-modal--open');
+      modal.setAttribute('aria-hidden', 'true');
+    }
+
+    // Open on click of any [data-event-interest-modal]
+    document.addEventListener('click', function (e) {
+      if (e.target.closest('[data-event-interest-modal]')) {
+        e.preventDefault();
+        openModal();
+      }
+    });
+
+    // Close button
+    var closeBtn = modal.querySelector('.ei-modal-close');
+    if (closeBtn) closeBtn.addEventListener('click', closeModal);
+
+    // Close on backdrop click
+    modal.addEventListener('click', function (e) {
+      if (e.target === modal) closeModal();
+    });
+
+    // Close on Escape
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && modal.classList.contains('ei-modal--open')) closeModal();
+    });
+
+    // Form submission
+    form.addEventListener('submit', async function (e) {
+      e.preventDefault();
+      msgEl.textContent = '';
+      msgEl.className = 'ei-modal-message';
+
+      var submitBtn = form.querySelector('.ei-modal-submit');
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Sending…';
+
+      try {
+        var firstName = form.querySelector('input[name="firstName"]').value.trim();
+        var email = form.querySelector('input[name="email"]').value.trim();
+        var website = form.querySelector('input[name="website"]').value;
+
+        // Collect checked events
+        var checked = form.querySelectorAll('input[name="events"]:checked');
+        var events = [];
+        checked.forEach(function (cb) { events.push(cb.value); });
+
+        // Get Turnstile token
+        var turnstileInput = form.querySelector('input[name="cf-turnstile-response"]');
+        var token = turnstileInput ? turnstileInput.value : '';
+
+        // Get UTM data
+        var utmData = {};
+        try {
+          var stored = sessionStorage.getItem('ggi_utm');
+          if (stored) utmData = JSON.parse(stored);
+        } catch (_) {}
+
+        var payload = {
+          firstName: firstName,
+          email: email,
+          website: website,
+          events: events,
+          interestType: 'notify',
+          'cf-turnstile-response': token,
+          utm_source: utmData.utm_source || '',
+          utm_medium: utmData.utm_medium || '',
+          utm_campaign: utmData.utm_campaign || '',
+          utm_content: utmData.utm_content || '',
+          signup_page: window.location.pathname
+        };
+
+        var resp = await fetch('/api/event-interest', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        var data = await resp.json();
+
+        if (resp.ok && data.success) {
+          msgEl.textContent = "You're on the list! We'll be in touch.";
+          msgEl.className = 'ei-modal-message ei-modal-message--success';
+          form.reset();
+          // Reset Turnstile
+          if (window.turnstile) {
+            var widget = form.querySelector('.cf-turnstile');
+            if (widget) window.turnstile.reset(widget);
+          }
+        } else {
+          msgEl.textContent = data.error || 'Something went wrong. Please try again.';
+          msgEl.className = 'ei-modal-message ei-modal-message--error';
+        }
+      } catch (err) {
+        msgEl.textContent = 'Network error. Please try again.';
+        msgEl.className = 'ei-modal-message ei-modal-message--error';
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Notify Me';
+      }
+    });
+  })();
+</script>

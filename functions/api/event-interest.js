@@ -24,7 +24,6 @@ export async function onRequestPost(context) {
     const email = sanitize(body.email, 254);
     const firstName = sanitize(body.firstName, 100);
     const lastName = sanitize(body.lastName, 100);
-    const eventName = sanitize(body.event, 200);
     const interestType = sanitize(body.interestType, 50); // 'notify' | 'register'
     const message = sanitize(body.message, 1000);
 
@@ -44,10 +43,25 @@ export async function onRequestPost(context) {
       'music-camp-2026': '12',  // event-music-camp-2026
       'finances-101': '13',     // event-finances-101
       'masterclass': '23',      // interest:masterclass
+      'book-study-sep-2026': '14',  // book-study tag
+      'book-study-feb-2026': '14',
+      'book-study-may-2026': '14',
+      'prayer-breakfast-2026': '21', // source:event tag
     };
 
-    if (eventTagMap[eventName]) {
-      tags.push(eventTagMap[eventName]);
+    // Support both single event (backward compat) and multiple events
+    const events = Array.isArray(body.events) ? body.events : (body.event ? [body.event] : []);
+
+    for (const eventSlug of events) {
+      const slug = sanitize(eventSlug, 100);
+      if (eventTagMap[slug]) {
+        tags.push(eventTagMap[slug]);
+      }
+    }
+
+    // Always add source:event tag as fallback
+    if (!tags.includes('21')) {
+      tags.push('21');
     }
 
     // List 6 = Event Attendees
