@@ -49,7 +49,7 @@ const shareText = text || `Check out "${title}" from the Gregory the Great Insti
 <div class="share-toast" id="share-toast" aria-live="polite" hidden>Link copied!</div>
 
 <script>
-  document.addEventListener('astro:page-load', () => {
+  document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.share-bar').forEach((bar) => {
       const el = bar as HTMLElement;
       const title = el.dataset.shareTitle || '';

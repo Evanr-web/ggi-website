@@ -31,6 +31,7 @@ export default defineType({
           { title: 'Masterclasses (short courses)', value: 'masterclasses' },
           { title: 'Seminar / Intensive (Faith & Reason)', value: 'seminar' },
           { title: 'Camp (residential youth)', value: 'camp' },
+          { title: 'Standard (general-purpose)', value: 'standard' },
         ],
       },
       initialValue: 'conference',
@@ -119,6 +120,90 @@ export default defineType({
           ],
         },
       ],
+    }),
+    defineField({
+      name: 'label',
+      title: 'Label',
+      type: 'string',
+      description: 'Short label shown above the title, e.g. "Intensive Formation", "Youth Program", "Short Course"',
+    }),
+    defineField({
+      name: 'highlights',
+      title: 'Highlights',
+      type: 'array',
+      description: 'Feature cards shown in a grid — e.g. "What You\'ll Experience", "What\'s Included". Leave empty to hide this section.',
+      of: [
+        {
+          type: 'object',
+          name: 'highlight',
+          fields: [
+            { name: 'title', title: 'Title', type: 'string', validation: (Rule: any) => Rule.required() },
+            { name: 'description', title: 'Description', type: 'text', rows: 3 },
+          ],
+          preview: {
+            select: { title: 'title', subtitle: 'description' },
+          },
+        },
+      ],
+    }),
+    defineField({
+      name: 'schedule',
+      title: 'Schedule / Timeline',
+      type: 'array',
+      description: 'Schedule items like "Day 1: Arrival & Orientation". Leave empty to hide.',
+      of: [
+        {
+          type: 'object',
+          name: 'scheduleItem',
+          fields: [
+            { name: 'label', title: 'Label', type: 'string', description: 'e.g. "Day 1", "Week 1-2", "Morning"' },
+            { name: 'content', title: 'Content', type: 'text', rows: 2 },
+          ],
+          preview: {
+            select: { title: 'label', subtitle: 'content' },
+          },
+        },
+      ],
+    }),
+    defineField({
+      name: 'whoItsFor',
+      title: 'Who It\'s For',
+      type: 'array',
+      description: 'Bullet points for "Is This For You?" section. Leave empty to hide.',
+      of: [{ type: 'string' }],
+    }),
+    defineField({
+      name: 'ctaStatus',
+      title: 'CTA Button Status',
+      type: 'string',
+      description: 'Controls the main action button. "Active" links to registration, "Interest List" shows a signup form, "Closed" shows greyed-out button.',
+      options: {
+        list: [
+          { title: 'Active — Registration Open', value: 'active' },
+          { title: 'Interest List — Collect Signups', value: 'interest' },
+          { title: 'Closed — Not Currently Available', value: 'closed' },
+        ],
+        layout: 'radio',
+      },
+      initialValue: 'interest',
+    }),
+    defineField({
+      name: 'ctaLabel',
+      title: 'CTA Button Label',
+      type: 'string',
+      description: 'Override default button text. Defaults: "Register Now" (active), "Join the Interest List" (interest), "Registration Closed" (closed).',
+    }),
+    defineField({
+      name: 'location',
+      title: 'Location',
+      type: 'string',
+      description: 'e.g. "Mt Carmel Spirituality Centre, Alberta" or "Online"',
+    }),
+    defineField({
+      name: 'dates',
+      title: 'Dates',
+      type: 'string',
+      description: 'Human-readable date string, e.g. "October 2-3, 2026" or "Year-round"',
     }),
     defineField({
       name: 'order',

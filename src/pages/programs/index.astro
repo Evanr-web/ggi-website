@@ -24,11 +24,11 @@ import SectionDivider from '../../components/SectionDivider.astro';
       <!-- Conference -->
       <div class="program-card reveal">
         <div class="program-card__image">
-          <img src={`${import.meta.env.BASE_URL}images/art/school-of-athens.jpg`} alt="The School of Athens by Raphael — Renewing Culture Conference"  class="art-filter" />
+          <a href={`${import.meta.env.BASE_URL}events/conference-2026/`}><img src={`${import.meta.env.BASE_URL}images/art/school-of-athens.jpg`} alt="The School of Athens by Raphael — Renewing Culture Conference"  class="art-filter" /></a>
         </div>
         <div class="program-card__body">
           <p class="label text-gold">Annual Flagship Gathering</p>
-          <h2>Renewing Culture Conference</h2>
+          <h2><a href={`${import.meta.env.BASE_URL}events/conference-2026/`}>Renewing Culture Conference</a></h2>
           <p class="program-card__desc">
             Join Christians from across Western Canada as renowned speakers explore cutting-edge topics
             through the lens of a great tradition text. The 2026 conference — <em>Bringing Back Sunday</em> —
@@ -49,11 +49,11 @@ import SectionDivider from '../../components/SectionDivider.astro';
       <!-- Music Camp -->
       <div class="program-card program-card--reverse reveal">
         <div class="program-card__image">
-          <img src={`${import.meta.env.BASE_URL}images/events/music-camp-hero-outdoor.jpeg`} alt="St. Gregory's Music Camp" />
+          <a href={`${import.meta.env.BASE_URL}events/music-camp-2026/`}><img src={`${import.meta.env.BASE_URL}images/events/music-camp-hero-outdoor.jpeg`} alt="St. Gregory's Music Camp" /></a>
         </div>
         <div class="program-card__body">
           <p class="label text-gold">Youth Formation</p>
-          <h2>St. Gregory's Music & Leadership Camp</h2>
+          <h2><a href={`${import.meta.env.BASE_URL}events/music-camp-2026/`}>St. Gregory's Music & Leadership Camp</a></h2>
           <p class="program-card__desc">
             A four-night residential camp for youth ages 12–18. Instruction in fiddle, penny whistle,
             and voice, exploring sacred and folk music traditions. Daily prayer, leadership sessions,
@@ -74,11 +74,11 @@ import SectionDivider from '../../components/SectionDivider.astro';
       <!-- Book Studies -->
       <div class="program-card reveal">
         <div class="program-card__image">
-          <img src={`${import.meta.env.BASE_URL}images/events/2026-book-studies-reading-list.jpg`} alt="2026 Book Studies"  class="art-filter" />
+          <a href={`${import.meta.env.BASE_URL}programs/book-studies/`}><img src={`${import.meta.env.BASE_URL}images/events/2026-book-studies-reading-list.jpg`} alt="2026 Book Studies"  class="art-filter" /></a>
         </div>
         <div class="program-card__body">
           <p class="label text-gold">Free · Year-Round · Nationwide</p>
-          <h2>Book Studies — Inklings Clubs</h2>
+          <h2><a href={`${import.meta.env.BASE_URL}programs/book-studies/`}>Book Studies — Inklings Clubs</a></h2>
           <p class="program-card__desc">
             Free small-group reading clubs across Canada. Study guides, webinars, and discounts for
             participants. Dive into the treasures of culture while building community in your city.
@@ -99,11 +99,11 @@ import SectionDivider from '../../components/SectionDivider.astro';
       <!-- Faith & Reason -->
       <div class="program-card program-card--reverse reveal">
         <div class="program-card__image">
-          <img src={`${import.meta.env.BASE_URL}images/art/vanitas-still-life-painting.jpg`} alt="Faith and Reason Seminar"  class="art-filter" />
+          <a href={`${import.meta.env.BASE_URL}programs/faith-and-reason/`}><img src={`${import.meta.env.BASE_URL}images/art/vanitas-still-life-painting.jpg`} alt="Faith and Reason Seminar"  class="art-filter" /></a>
         </div>
         <div class="program-card__body">
           <p class="label text-gold">Intensive Formation</p>
-          <h2>Faith & Reason Seminar</h2>
+          <h2><a href={`${import.meta.env.BASE_URL}programs/faith-and-reason/`}>Faith & Reason Seminar</a></h2>
           <p class="program-card__desc">
             An intensive 3-day Great Books immersion for Catholic leaders. Socratic seminars, cultural
             formation, prayer, and renewal. Unique in Western Canada — designed for those ready to go deeper
@@ -123,11 +123,11 @@ import SectionDivider from '../../components/SectionDivider.astro';
       <!-- Masterclasses -->
       <div class="program-card reveal">
         <div class="program-card__image">
-          <img src={`${import.meta.env.BASE_URL}images/art/St-Gregory-Great-painting-dove.jpg`} alt="Masterclasses" class="art-filter" style="object-position: center 25%;" />
+          <a href={`${import.meta.env.BASE_URL}programs/masterclasses/`}><img src={`${import.meta.env.BASE_URL}images/art/St-Gregory-Great-painting-dove.jpg`} alt="Masterclasses" class="art-filter" style="object-position: center 25%;" /></a>
         </div>
         <div class="program-card__body">
           <p class="label text-gold">Short Courses</p>
-          <h2>Masterclasses</h2>
+          <h2><a href={`${import.meta.env.BASE_URL}programs/masterclasses/`}>Masterclasses</a></h2>
           <p class="program-card__desc">
             Short courses on the great themes of Catholic intellectual life: Philosophy of Aquinas,
             Virtuous Leadership, Christian Beauty and Art, Classical Education for Teachers.
@@ -225,6 +225,19 @@ import SectionDivider from '../../components/SectionDivider.astro';
 
   .program-card__body h2 {
     margin: 8px 0 12px;
+  }
+
+  .program-card__body h2 a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .program-card__body h2 a:hover {
+    color: var(--color-gold);
+  }
+
+  .program-card__image a {
+    display: block;
   }
 
   .program-card__desc {

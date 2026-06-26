@@ -1,0 +1,701 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Button from '../../components/Button.astro';
+import Testimonials from '../../components/Testimonials.astro';
+import ShareBar from '../../components/ShareBar.astro';
+import SectionDivider from '../../components/SectionDivider.astro';
+import { getProgram, getAllProgramSlugs } from '../../lib/sanity';
+
+export async function getStaticPaths() {
+  const staticSlugs = ['book-studies', 'faith-and-reason', 'masterclasses'];
+
+  let programs: any[] = [];
+  try {
+    programs = await getAllProgramSlugs() || [];
+  } catch (e) {
+    return [];
+  }
+
+  return programs
+    .filter((p: any) => p.slug && !staticSlugs.includes(p.slug))
+    .map((p: any) => ({ params: { slug: p.slug } }));
+}
+
+const { slug } = Astro.params;
+const program = await getProgram(slug!);
+
+if (!program) {
+  return Astro.redirect('/programs/');
+}
+
+const base = import.meta.env.BASE_URL;
+const title = program.title || 'Program';
+const description = program.seo?.metaDescription || program.description || '';
+const heroImage = program.headerImage;
+const label = program.label || '';
+const audience = program.audience || '';
+const format = program.format || '';
+const frequency = program.frequency || '';
+const pricing = program.pricing || '';
+const location = program.location || '';
+const dates = program.dates || '';
+const highlights = program.highlights || [];
+const schedule = program.schedule || [];
+const whoItsFor = program.whoItsFor || [];
+const testimonials = program.testimonials || [];
+const ctaStatus = program.ctaStatus || 'interest';
+const ctaLabel = program.ctaLabel || '';
+const registrationUrl = program.registrationUrl || '';
+
+// CTA defaults
+const ctaDefaults: Record<string, string> = {
+  active: 'Register Now',
+  interest: 'Join the Interest List',
+  closed: 'Registration Closed',
+};
+const ctaText = ctaLabel || ctaDefaults[ctaStatus] || 'Learn More';
+
+// Detail items — only show if populated
+const details = [
+  audience && { label: 'Audience', value: audience },
+  format && { label: 'Format', value: format },
+  frequency && { label: 'Frequency', value: frequency },
+  dates && { label: 'Dates', value: dates },
+  location && { label: 'Location', value: location },
+  pricing && { label: 'Cost', value: pricing },
+].filter(Boolean) as Array<{ label: string; value: string }>;
+
+const ogImage = program.seoOgImage || heroImage || '';
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  ogImage={ogImage}
+>
+
+  <!-- Hero -->
+  <section class="prog-hero section--dark">
+    {heroImage && (
+      <div class="prog-hero__bg" style={`background-image: url(${heroImage})`}></div>
+    )}
+    <div class="prog-hero__overlay"></div>
+    <div class="prog-hero__content container">
+      {label && <p class="label text-gold">{label}</p>}
+      {!label && <p class="label text-gold">Programs</p>}
+      <h1 data-pagefind-weight="10" class="display">{title}</h1>
+      {program.tagline && <p class="prog-hero__subtitle">{program.tagline}</p>}
+    </div>
+  </section>
+
+  <!-- Details Sidebar + Body -->
+  <section class="section">
+    <div class="container prog-layout">
+
+      <!-- Main Body -->
+      <div class="prog-body">
+        {program.body && program.body.length > 0 && (
+          <div class="prog-body__content reveal">
+            {program.body.map((block: any) => {
+              if (block._type === 'block') {
+                if (block.style === 'h2') return <h2>{block.children?.map((c: any) => c.text).join('')}</h2>;
+                if (block.style === 'h3') return <h3>{block.children?.map((c: any) => c.text).join('')}</h3>;
+                if (block.style === 'h4') return <h4>{block.children?.map((c: any) => c.text).join('')}</h4>;
+                if (block.style === 'blockquote') return <blockquote>{block.children?.map((c: any) => c.text).join('')}</blockquote>;
+                return <p>{block.children?.map((c: any) => c.text).join('')}</p>;
+              }
+              return null;
+            })}
+          </div>
+        )}
+      </div>
+
+      <!-- Details Sidebar -->
+      {details.length > 0 && (
+        <aside class="prog-details reveal">
+          <div class="prog-details__card">
+            <h3 class="prog-details__heading">Program Details</h3>
+            {details.map((d) => (
+              <div class="prog-details__item">
+                <span class="prog-details__label">{d.label}</span>
+                <span class="prog-details__value">{d.value}</span>
+              </div>
+            ))}
+            {ctaStatus === 'active' && registrationUrl && (
+              <div class="prog-details__cta">
+                <Button href={registrationUrl} variant="primary">{ctaText}</Button>
+              </div>
+            )}
+          </div>
+        </aside>
+      )}
+    </div>
+  </section>
+
+  <!-- Highlights -->
+  {highlights.length > 0 && (
+    <>
+      <SectionDivider />
+      <section class="section section--linen">
+        <div class="container">
+          <div class="highlights-grid reveal-stagger">
+            {highlights.map((h: any) => (
+              <div class="highlight-card reveal">
+                <div class="highlight-card__accent"></div>
+                <div class="highlight-card__body">
+                  <h3>{h.title}</h3>
+                  {h.description && <p>{h.description}</p>}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    </>
+  )}
+
+  <!-- Schedule -->
+  {schedule.length > 0 && (
+    <>
+      <SectionDivider />
+      <section class="section section--linen">
+        <div class="container">
+          <div class="section-header">
+            <p class="label text-gold">Schedule</p>
+            <h2>Timeline</h2>
+          </div>
+          <div class="schedule-list reveal">
+            {schedule.map((item: any, i: number) => (
+              <div class="schedule-item">
+                <div class="schedule-item__marker">
+                  <span class="schedule-item__dot"></span>
+                  {i < schedule.length - 1 && <span class="schedule-item__line"></span>}
+                </div>
+                <div class="schedule-item__content">
+                  {item.label && <strong class="schedule-item__label">{item.label}</strong>}
+                  {item.content && <p class="schedule-item__text">{item.content}</p>}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    </>
+  )}
+
+  <!-- Who It's For -->
+  {whoItsFor.length > 0 && (
+    <>
+      <SectionDivider />
+      <section class="section section--parchment">
+        <div class="container who-section">
+          <div class="section-header">
+            <p class="label text-gold">Audience</p>
+            <h2>Is This for You?</h2>
+          </div>
+          <ul class="who-list reveal">
+            {whoItsFor.map((item: string) => (
+              <li>{item}</li>
+            ))}
+          </ul>
+        </div>
+      </section>
+    </>
+  )}
+
+  <!-- Testimonials -->
+  {testimonials.length > 0 && (
+    <Testimonials testimonials={testimonials} heading="What People Are Saying" />
+  )}
+
+  <!-- CTA Section -->
+  <section class="section prog-cta-section" style="text-align: center;">
+    <div class="container">
+      {ctaStatus === 'active' && registrationUrl && (
+        <>
+          <h2>{ctaText}</h2>
+          <p class="prog-cta-sub">Secure your spot today.</p>
+          <div class="cta-buttons">
+            <Button href={registrationUrl} variant="primary">{ctaText}</Button>
+            <Button href={`${base}programs/`} variant="secondary">← Back to Programs</Button>
+          </div>
+        </>
+      )}
+
+      {ctaStatus === 'interest' && (
+        <>
+          <h2>Join the Interest List</h2>
+          <p class="prog-cta-sub">We'll let you know when registration opens.</p>
+          <form class="interest-form" method="POST" action="/api/event-interest" data-program-slug={slug}>
+            <input type="hidden" name="programSlug" value={slug} />
+            <div class="interest-form__fields">
+              <input
+                type="text"
+                name="firstName"
+                placeholder="First name"
+                required
+                class="interest-form__input"
+              />
+              <input
+                type="email"
+                name="email"
+                placeholder="Email address"
+                required
+                class="interest-form__input"
+              />
+            </div>
+            <div class="interest-form__turnstile cf-turnstile" data-sitekey="0x4AAAAAABDm_yBnJSEP6yKN"></div>
+            <button type="submit" class="interest-form__submit">{ctaText}</button>
+            <p class="interest-form__note">No spam. Unsubscribe anytime.</p>
+          </form>
+          <div style="margin-top: 16px;">
+            <Button href={`${base}programs/`} variant="secondary">← Back to Programs</Button>
+          </div>
+        </>
+      )}
+
+      {ctaStatus === 'closed' && (
+        <>
+          <h2>Registration Closed</h2>
+          <p class="prog-cta-sub">This program is not currently accepting registrations.</p>
+          <div class="cta-buttons">
+            <span class="btn-disabled">{ctaText}</span>
+            <Button href={`${base}programs/`} variant="secondary">← Back to Programs</Button>
+          </div>
+        </>
+      )}
+    </div>
+  </section>
+
+  <SectionDivider />
+
+  <!-- Share -->
+  <section class="section">
+    <div class="container" style="max-width: 740px; margin-inline: auto;">
+      <ShareBar title={title} />
+    </div>
+  </section>
+
+</BaseLayout>
+
+<script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+
+<style>
+  /* ===== Hero ===== */
+  .prog-hero {
+    position: relative;
+    min-height: 380px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  .prog-hero__bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center 30%;
+  }
+
+  .prog-hero__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(14, 51, 82, 0.72), rgba(14, 51, 82, 0.88));
+  }
+
+  .prog-hero__content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    max-width: 700px;
+    margin-inline: auto;
+    padding-block: 60px;
+  }
+
+  .prog-hero__content h1 {
+    color: var(--color-text-on-dark, #f5efe5);
+    margin: 8px 0 12px;
+  }
+
+  .prog-hero__subtitle {
+    font-family: var(--font-body);
+    font-size: 1.1rem;
+    color: rgba(245, 239, 229, 0.85);
+    line-height: 1.6;
+    font-style: italic;
+  }
+
+  /* ===== Layout: Body + Sidebar ===== */
+  .prog-layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 40px;
+    max-width: 1000px;
+    margin-inline: auto;
+  }
+
+  @media (min-width: 768px) {
+    .prog-layout {
+      grid-template-columns: 1fr 300px;
+    }
+  }
+
+  /* ===== Body ===== */
+  .prog-body__content {
+    max-width: 740px;
+  }
+
+  .prog-body__content h2 {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    color: var(--color-navy);
+    margin: 32px 0 12px;
+  }
+
+  .prog-body__content h3 {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    color: var(--color-navy);
+    margin: 24px 0 8px;
+  }
+
+  .prog-body__content h4 {
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    color: var(--color-navy);
+    margin: 20px 0 8px;
+  }
+
+  .prog-body__content p {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    line-height: 1.75;
+    color: var(--color-gray);
+    margin-bottom: 14px;
+  }
+
+  .prog-body__content blockquote {
+    border-left: 3px solid var(--color-gold);
+    padding-left: 20px;
+    margin: 24px 0;
+    font-style: italic;
+    color: var(--color-gray);
+    font-family: var(--font-body);
+    font-size: 1rem;
+    line-height: 1.75;
+  }
+
+  /* ===== Details Sidebar ===== */
+  .prog-details__card {
+    background-color: var(--color-linen);
+    border: 1px solid rgba(90, 90, 110, 0.08);
+    border-radius: 3px;
+    padding: 28px 24px;
+    position: sticky;
+    top: 100px;
+  }
+
+  .prog-details__heading {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-navy);
+    margin: 0 0 20px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--color-gold);
+  }
+
+  .prog-details__item {
+    margin-bottom: 16px;
+  }
+
+  .prog-details__label {
+    display: block;
+    font-family: var(--font-ui);
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-gold);
+    margin-bottom: 3px;
+  }
+
+  .prog-details__value {
+    font-family: var(--font-body);
+    font-size: 0.92rem;
+    color: var(--color-ink, #2c2c2c);
+    line-height: 1.5;
+  }
+
+  .prog-details__cta {
+    margin-top: 24px;
+    text-align: center;
+  }
+
+  /* ===== Highlights ===== */
+  .highlights-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    max-width: 900px;
+    margin-inline: auto;
+  }
+
+  @media (min-width: 640px) {
+    .highlights-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .highlight-card {
+    display: flex;
+    background-color: var(--color-parchment);
+    border: 1px solid rgba(90, 90, 110, 0.08);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .highlight-card__accent {
+    width: 5px;
+    flex-shrink: 0;
+    background-color: var(--color-gold);
+  }
+
+  .highlight-card__body {
+    padding: 28px 24px;
+  }
+
+  .highlight-card__body h3 {
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--color-navy);
+    margin: 0 0 8px;
+  }
+
+  .highlight-card__body p {
+    font-family: var(--font-body);
+    font-size: 0.92rem;
+    line-height: 1.65;
+    color: var(--color-gray);
+    margin: 0;
+  }
+
+  /* ===== Schedule ===== */
+  .section-header {
+    text-align: center;
+    margin-bottom: var(--space-component, 32px);
+  }
+
+  .section-header h2 {
+    margin-top: 8px;
+  }
+
+  .schedule-list {
+    max-width: 640px;
+    margin-inline: auto;
+  }
+
+  .schedule-item {
+    display: flex;
+    gap: 20px;
+    position: relative;
+  }
+
+  .schedule-item__marker {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-shrink: 0;
+    width: 20px;
+  }
+
+  .schedule-item__dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: var(--color-gold);
+    flex-shrink: 0;
+    margin-top: 6px;
+  }
+
+  .schedule-item__line {
+    width: 2px;
+    flex: 1;
+    background-color: rgba(184, 154, 71, 0.3);
+    margin-top: 4px;
+  }
+
+  .schedule-item__content {
+    padding-bottom: 28px;
+  }
+
+  .schedule-item__label {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    color: var(--color-navy);
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .schedule-item__text {
+    font-family: var(--font-body);
+    font-size: 0.92rem;
+    color: var(--color-gray);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  /* ===== Who It's For ===== */
+  .section--parchment {
+    background-color: var(--color-parchment);
+  }
+
+  .who-section {
+    max-width: 640px;
+    margin-inline: auto;
+  }
+
+  .who-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .who-list li {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    line-height: 1.65;
+    color: var(--color-ink, #2c2c2c);
+    padding: 10px 0 10px 28px;
+    position: relative;
+    border-bottom: 1px solid rgba(90, 90, 110, 0.06);
+  }
+
+  .who-list li::before {
+    content: '✦';
+    position: absolute;
+    left: 0;
+    color: var(--color-gold);
+    font-size: 0.85rem;
+  }
+
+  .who-list li:last-child {
+    border-bottom: none;
+  }
+
+  /* ===== CTA ===== */
+  .prog-cta-section {
+    background-color: var(--color-linen);
+  }
+
+  .prog-cta-section h2 {
+    margin-bottom: 8px;
+  }
+
+  .prog-cta-sub {
+    max-width: 560px;
+    margin-inline: auto;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--color-gray);
+    margin-bottom: 24px;
+  }
+
+  .cta-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+  }
+
+  .btn-disabled {
+    display: inline-block;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1rem;
+    color: #999;
+    background-color: #e0e0e0;
+    padding: 14px 32px;
+    border-radius: 3px;
+    cursor: not-allowed;
+    user-select: none;
+  }
+
+  /* ===== Interest Form ===== */
+  .interest-form {
+    max-width: 440px;
+    margin-inline: auto;
+  }
+
+  .interest-form__fields {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  @media (min-width: 480px) {
+    .interest-form__fields {
+      flex-direction: row;
+    }
+  }
+
+  .interest-form__input {
+    flex: 1;
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    padding: 12px 16px;
+    border: 1px solid rgba(14, 51, 82, 0.2);
+    border-radius: 3px;
+    background: white;
+    color: var(--color-ink, #2c2c2c);
+    outline: none;
+    transition: border-color 0.2s ease;
+  }
+
+  .interest-form__input:focus {
+    border-color: var(--color-gold);
+  }
+
+  .interest-form__input::placeholder {
+    color: #aaa;
+  }
+
+  .interest-form__turnstile {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 16px;
+  }
+
+  .interest-form__submit {
+    display: inline-block;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1rem;
+    color: var(--color-parchment);
+    background-color: var(--color-crimson);
+    padding: 14px 32px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+
+  .interest-form__submit:hover {
+    background-color: #6b2124;
+  }
+
+  .interest-form__note {
+    font-family: var(--font-ui);
+    font-size: 0.75rem;
+    color: #999;
+    margin-top: 12px;
+  }
+
+  /* ===== Section Linen ===== */
+  .section--linen {
+    background-color: var(--color-linen);
+  }
+</style>

@@ -207,8 +207,16 @@ export async function getProgram(slug: string) {
   return sanityClient.fetch(`*[_type == "program" && slug.current == $slug][0]{
     ...,
     "headerImage": headerImage.asset->url,
-    testimonials
+    testimonials,
+    highlights,
+    schedule,
+    whoItsFor,
+    "seoOgImage": seo.ogImage.asset->url
   }`, { slug });
+}
+
+export async function getAllProgramSlugs() {
+  return sanityClient.fetch(`*[_type == "program"]{ "slug": slug.current }`);
 }
 
 // Magnalia — current issue
