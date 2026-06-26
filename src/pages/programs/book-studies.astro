@@ -123,7 +123,9 @@ const sanityGroups = await getReadingGroups();
           const statusLabel = isCurrent ? 'Current Study' : isCompleted ? 'Completed' : study.month;
           const statusClass = isCurrent ? 'bs-book__status--current' : isCompleted ? 'bs-book__status--past' : 'bs-book__status--upcoming';
           const btnVariant = isCurrent ? 'primary' : 'secondary';
-          const btnText = isCurrent ? 'Join This Study' : isCompleted ? 'View Study' : 'Preview Study';
+          const hasCurrentStudy = studies.some((s: any) => s.status === 'current');
+          const isNextUpcoming = !hasCurrentStudy && study.status === 'upcoming' && studies.filter((s: any) => s.status === 'upcoming').indexOf(study) === 0;
+          const btnText = isCurrent ? 'Join This Study' : isCompleted ? 'View Study' : isNextUpcoming ? 'Find Next Book Study' : 'Preview Study';
           const eventUrl = study.eventPage?.startsWith('/') ? `${base}${study.eventPage.slice(1)}` : study.eventPage;
           return (
             <div class={`bs-book ${isCurrent ? 'bs-book--current' : ''}`}>
