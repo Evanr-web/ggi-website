@@ -4,6 +4,7 @@ import Button from '../components/Button.astro';
 import GoogleMap from '../components/GoogleMap.astro';
 import ShareBar from '../components/ShareBar.astro';
 import AddToCalendar from '../components/AddToCalendar.astro';
+import EventNotifyForm from '../components/EventNotifyForm.astro';
 
 interface Props {
   title: string;
@@ -103,6 +104,20 @@ const formatDate = (d: string) => {
       {!past && ctaStatus === 'closed' && (
         <div class="event-detail__share-bottom">
           <p class="event-detail__share-prompt event-detail__share-prompt--closed">Registration for this event is closed.</p>
+          <div class="event-detail__notify">
+            <h3>Interested in future events?</h3>
+            <EventNotifyForm />
+          </div>
+          <ShareBar title={title} />
+        </div>
+      )}
+      {past && (
+        <div class="event-detail__share-bottom">
+          <p class="event-detail__share-prompt event-detail__share-prompt--closed">This event has ended.</p>
+          <div class="event-detail__notify">
+            <h3>Interested in future events?</h3>
+            <EventNotifyForm />
+          </div>
           <ShareBar title={title} />
         </div>
       )}
@@ -258,6 +273,19 @@ const formatDate = (d: string) => {
 
   .event-detail__share-bottom :global(.share-bar) {
     justify-content: center;
+  }
+
+  .event-detail__notify {
+    margin: 32px 0;
+    padding-top: 24px;
+    border-top: 1px solid rgba(90, 90, 110, 0.1);
+  }
+
+  .event-detail__notify h3 {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    color: var(--color-navy);
+    margin-bottom: 20px;
   }
 
   .event-detail__share-prompt {

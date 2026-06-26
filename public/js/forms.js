@@ -40,7 +40,16 @@ document.addEventListener('DOMContentLoaded', () => {
         };
       } else {
         const formData = new FormData(form);
-        const data = Object.fromEntries(formData.entries());
+        const data = {};
+        // Handle multiple values (e.g. checkboxes) as arrays
+        for (const [key, value] of formData.entries()) {
+          if (data[key] !== undefined) {
+            if (!Array.isArray(data[key])) data[key] = [data[key]];
+            data[key].push(value);
+          } else {
+            data[key] = value;
+          }
+        }
         // Include Turnstile token
         const turnstileInput = form.querySelector('[name="cf-turnstile-response"]');
         if (turnstileInput) {
