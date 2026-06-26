@@ -365,8 +365,3 @@ body > div[style*="z-index: 10000"]:not([style*="background-color"]) {
   }
 }
 
-/* Turnstile CAPTCHA widget — prevent stretching form layouts */
-.cf-turnstile {
-  align-self: flex-start;
-  max-width: 300px;
-}
