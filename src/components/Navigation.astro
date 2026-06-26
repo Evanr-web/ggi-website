@@ -186,14 +186,14 @@ const navItems = [
 
   .nav__dropdown {
     position: absolute;
-    top: calc(100% + 8px);
+    top: calc(100% + 4px);
     left: -12px;
     background: var(--color-navy);
     border-radius: 3px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
     opacity: 0;
     visibility: hidden;
-    transition: opacity 0.15s ease, visibility 0s linear 0.8s;
+    transition: opacity 0.15s ease, visibility 0s linear 0.4s;
     pointer-events: none;
   }
 
@@ -201,20 +201,22 @@ const navItems = [
   .nav__dropdown::before {
     content: '';
     position: absolute;
-    top: -16px;
-    left: -16px;
-    right: -16px;
-    height: 24px;
+    top: -20px;
+    left: -24px;
+    right: -24px;
+    height: 28px;
   }
 
-  .nav__dropdown-wrap:hover .nav__dropdown {
+  .nav__dropdown-wrap:hover .nav__dropdown,
+  .nav__dropdown-wrap.dropdown--open .nav__dropdown {
     opacity: 1;
     visibility: visible;
     pointer-events: auto;
     transition: opacity 0.15s ease, visibility 0s linear 0s;
   }
 
-  .nav__dropdown-wrap:hover .nav__chevron {
+  .nav__dropdown-wrap:hover .nav__chevron,
+  .nav__dropdown-wrap.dropdown--open .nav__chevron {
     transform: rotate(180deg);
   }
 
@@ -414,5 +416,29 @@ const navItems = [
     hamburger.setAttribute('aria-expanded', String(!isOpen));
     if (mobileMenu) mobileMenu.setAttribute('aria-hidden', String(isOpen));
     nav?.classList.toggle('nav--menu-open', !isOpen);
+  });
+
+  // Dropdown hover intent — generous 400ms leave delay prevents flicker
+  document.querySelectorAll('.nav__dropdown-wrap').forEach(wrap => {
+    let leaveTimer: ReturnType<typeof setTimeout> | null = null;
+
+    wrap.addEventListener('mouseenter', () => {
+      if (leaveTimer) { clearTimeout(leaveTimer); leaveTimer = null; }
+      wrap.classList.add('dropdown--open');
+    });
+
+    wrap.addEventListener('mouseleave', () => {
+      leaveTimer = setTimeout(() => {
+        wrap.classList.remove('dropdown--open');
+        leaveTimer = null;
+      }, 400);
+    });
+
+    // Close on Escape key
+    wrap.addEventListener('keydown', (e: Event) => {
+      if ((e as KeyboardEvent).key === 'Escape') {
+        wrap.classList.remove('dropdown--open');
+      }
+    });
   });
 </script>
