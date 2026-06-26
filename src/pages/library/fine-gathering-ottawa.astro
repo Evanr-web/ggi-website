@@ -1,5 +1,12 @@
 ---
 import ArticleLayout from '../../layouts/ArticleLayout.astro';
+import { getLibraryArticle } from '../../lib/sanity';
+
+// Check if this article is disabled in Sanity CMS
+const sanityArticle = await getLibraryArticle('fine-gathering-ottawa');
+if (sanityArticle?.enabled === false) {
+  return Astro.redirect('/404');
+}
 ---
 
 <ArticleLayout

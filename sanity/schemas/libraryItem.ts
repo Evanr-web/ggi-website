@@ -13,9 +13,9 @@ export default defineType({
     }),
     defineField({
       name: 'enabled',
-      title: 'Enabled',
+      title: '🟢 Show on Website',
       type: 'boolean',
-      description: 'When unchecked, this item is hidden from the Library page and its detail page is not generated.',
+      description: 'ON = visible on the site. OFF = hidden from all pages. Use this to draft content before publishing.',
       initialValue: true,
     }),
     defineField({

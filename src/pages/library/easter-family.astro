@@ -1,6 +1,13 @@
 ---
 import ArticleLayout from '../../layouts/ArticleLayout.astro';
 const base = import.meta.env.BASE_URL;
+import { getLibraryArticle } from '../../lib/sanity';
+
+// Check if this article is disabled in Sanity CMS
+const sanityArticle = await getLibraryArticle('easter-family');
+if (sanityArticle?.enabled === false) {
+  return Astro.redirect('/404');
+}
 ---
 
 <ArticleLayout

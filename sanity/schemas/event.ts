@@ -12,6 +12,13 @@ export default defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: 'enabled',
+      title: '🟢 Show on Website',
+      type: 'boolean',
+      description: 'ON = visible on the site. OFF = hidden from all pages. Use this to draft content before publishing.',
+      initialValue: true,
+    }),
+    defineField({
       name: 'slug',
       title: 'Slug',
       type: 'slug',
