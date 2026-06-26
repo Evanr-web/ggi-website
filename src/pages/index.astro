@@ -354,10 +354,14 @@ const videoId = cms?.videoUrl ? cms.videoUrl.match(/(?:v=|youtu\.be\/)([^&]+)/)?
       <h2 class="newsletter-section__title">Stay Connected</h2>
       <p class="newsletter-section__desc">Get Institute news, event invitations, and program updates delivered to your inbox.</p>
       <form class="newsletter-section__form" data-ac-endpoint="/api/subscribe" data-ac-success="You're subscribed! Welcome aboard." method="POST">
-        <input type="text" name="firstName" placeholder="First name" class="newsletter-section__input" required aria-label="First name" />
-        <input type="email" name="email" placeholder="Email address" class="newsletter-section__input" required aria-label="Email address" />
-        <div class="cf-turnstile" data-sitekey="0x4AAAAAADm6eYaBvIIwZNRm" data-size="compact"></div>
-        <button type="submit" class="newsletter-section__btn">Subscribe</button>
+        <div class="newsletter-section__inputs">
+          <input type="text" name="firstName" placeholder="First name" class="newsletter-section__input" required aria-label="First name" />
+          <input type="email" name="email" placeholder="Email address" class="newsletter-section__input" required aria-label="Email address" />
+        </div>
+        <div class="newsletter-section__actions">
+          <div class="cf-turnstile" data-sitekey="0x4AAAAAADm6eYaBvIIwZNRm" data-size="compact"></div>
+          <button type="submit" class="newsletter-section__btn">Subscribe</button>
+        </div>
       </form>
     </div>
   </section>
@@ -890,15 +894,24 @@ const videoId = cms?.videoUrl ? cms.videoUrl.match(/(?:v=|youtu\.be\/)([^&]+)/)?
 
   .newsletter-section__form {
     display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
+    gap: 16px;
   }
 
-  .newsletter-section__form .cf-turnstile {
-    flex-basis: 100%;
+  .newsletter-section__inputs {
     display: flex;
+    gap: 8px;
+    width: 100%;
+    max-width: 480px;
+    justify-content: center;
+  }
+
+  .newsletter-section__actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
     justify-content: center;
   }
 
@@ -928,7 +941,8 @@ const videoId = cms?.videoUrl ? cms.videoUrl.match(/(?:v=|youtu\.be\/)([^&]+)/)?
     font-family: var(--font-display);
     font-size: 0.95rem;
     font-weight: 600;
-    padding: 12px 28px;
+    padding: 16px 36px;
+    align-self: center;
     background-color: var(--color-gold);
     color: var(--color-navy);
     border: none;
