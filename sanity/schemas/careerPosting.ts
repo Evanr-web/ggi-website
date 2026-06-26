@@ -13,6 +13,13 @@ export default defineType({
       description: 'e.g. "Communications Intern — Canada Summer Jobs 2026"',
     }),
     defineField({
+      name: 'enabled',
+      title: 'Enabled',
+      type: 'boolean',
+      description: 'When unchecked, this posting is hidden from the Careers page and its detail page is not generated.',
+      initialValue: true,
+    }),
+    defineField({
       name: 'slug',
       title: 'Slug',
       type: 'slug',

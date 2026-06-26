@@ -97,7 +97,7 @@ Outbound link (UTM tagged)
 | `signup_page` | 8 | SIGNUP_PAGE | Text | Page path where they first converted |
 
 *Field IDs created 2026-06-12. Referenced in `functions/api/_shared.js` → `UTM_FIELD_IDS`.*
-*AC account: evanropp.activehosted.com | API: evanropp.api-us1.com*
+*AC account: gregorythegreat.activehosted.com | API: gregorythegreat.api-us1.com*
 
 ---
 

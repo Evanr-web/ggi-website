@@ -102,7 +102,7 @@ export async function getUpcomingEvents(limit = 3) {
 
 // Latest library items (fallback when no featured picks)
 export async function getLatestLibraryItems(limit = 3) {
-  return sanityClient.fetch(`*[_type == "libraryItem"] | order(publishDate desc) [0...$limit]{
+  return sanityClient.fetch(`*[_type == "libraryItem" && enabled != false] | order(publishDate desc) [0...$limit]{
     _id,
     title,
     slug,
@@ -148,7 +148,7 @@ export async function getEvent(slug: string) {
 
 // Library Articles
 export async function getLibraryArticles() {
-  return sanityClient.fetch(`*[_type == "libraryItem"] | order(publishDate desc) {
+  return sanityClient.fetch(`*[_type == "libraryItem" && enabled != false] | order(publishDate desc) {
     _id,
     title,
     slug,
@@ -291,7 +291,7 @@ export async function getGivingTiers() {
 
 // Career Postings
 export async function getActiveCareerPostings() {
-  return sanityClient.fetch(`*[_type == "careerPosting" && active == true] | order(deadline asc) {
+  return sanityClient.fetch(`*[_type == "careerPosting" && active == true && enabled != false] | order(deadline asc) {
     _id,
     title,
     slug,

@@ -11,7 +11,7 @@ try { sanityArticles = await getLibraryArticles() || []; } catch (e) { /* fallba
 
 // Map Sanity articles to our format
 const cmsEntries = sanityArticles
-  .filter((a: any) => !a._id.startsWith('drafts.'))  // exclude draft duplicates
+  .filter((a: any) => !a._id.startsWith('drafts.') && a.enabled !== false)  // exclude drafts and disabled items
   .map((a: any) => {
   const d = a.publishDate ? new Date(a.publishDate) : null;
   const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];

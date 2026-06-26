@@ -12,6 +12,13 @@ export default defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: 'enabled',
+      title: 'Enabled',
+      type: 'boolean',
+      description: 'When unchecked, this item is hidden from the Library page and its detail page is not generated.',
+      initialValue: true,
+    }),
+    defineField({
       name: 'slug',
       title: 'Slug',
       type: 'slug',

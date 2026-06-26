@@ -201,7 +201,7 @@ Name: [FIRST_NAME] [LAST_NAME]
 Email: [EMAIL]
 
 Log in to ActiveCampaign to view their full profile and follow up:
-https://evanropp.activehosted.com/app/contacts
+https://gregorythegreat.activehosted.com/app/contacts
 
 Note: City, province, and application details are captured in the contact record.
 ```
@@ -250,7 +250,7 @@ Email: [EMAIL]
 Tags: [TAGS]
 
 Log in to ActiveCampaign to view details and respond:
-https://evanropp.activehosted.com/app/contacts
+https://gregorythegreat.activehosted.com/app/contacts
 ```
 
 ### Email 2: Immediate — Auto-reply to contact
@@ -315,7 +315,7 @@ For the welcome sequence, the flow looks like:
 When deploying, add these in **Cloudflare Pages → Settings → Environment Variables**:
 
 ```
-AC_API_URL = https://evanropp.api-us1.com
+AC_API_URL = https://gregorythegreat.api-us1.com
 AC_API_KEY = [your API key — do not commit to code]
 ```
 

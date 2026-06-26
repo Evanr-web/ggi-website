@@ -12,6 +12,13 @@ export default defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: 'enabled',
+      title: 'Enabled',
+      type: 'boolean',
+      description: 'When unchecked, this program is hidden from the Programs overview page and its detail page is not generated.',
+      initialValue: true,
+    }),
+    defineField({
       name: 'slug',
       title: 'Slug',
       type: 'slug',
@@ -204,13 +211,6 @@ export default defineType({
       title: 'Dates',
       type: 'string',
       description: 'Human-readable date string, e.g. "October 2-3, 2026" or "Year-round"',
-    }),
-    defineField({
-      name: 'enabled',
-      title: 'Enabled',
-      type: 'boolean',
-      description: 'When unchecked, this program is hidden from the Programs overview page and its detail page is not generated.',
-      initialValue: true,
     }),
     defineField({
       name: 'order',
