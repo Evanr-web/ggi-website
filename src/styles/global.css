@@ -66,6 +66,7 @@ html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 body {
@@ -74,6 +75,9 @@ body {
   line-height: 1.7;
   color: var(--color-ink);
   background-color: var(--color-parchment);
+  overflow-x: hidden;
+  position: relative;
+  width: 100%;
 }
 
 /* --- Typography --- */
