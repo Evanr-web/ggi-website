@@ -80,9 +80,13 @@ const base = import.meta.env.BASE_URL;
             <label for="article-hp-website">Website</label>
             <input type="text" name="website" id="article-hp-website" tabindex="-1" autocomplete="off" />
           </div>
-          <input type="email" name="email" placeholder="Your email" required aria-label="Email address" />
-          <div class="cf-turnstile" data-sitekey="0x4AAAAAADm6eYaBvIIwZNRm" data-size="compact"></div>
-          <button type="submit">Subscribe</button>
+          <div class="article__newsletter-row">
+            <input type="email" name="email" placeholder="Your email" required aria-label="Email address" />
+            <button type="submit">Subscribe</button>
+          </div>
+          <div class="article__newsletter-captcha">
+            <div class="cf-turnstile" data-sitekey="0x4AAAAAADm6eYaBvIIwZNRm" data-size="compact"></div>
+          </div>
         </form>
         <p class="article__newsletter-confirm" id="article-subscribe-confirm" style="display:none;">
           ✓ You're subscribed! We'll keep you posted.
@@ -298,9 +302,21 @@ const base = import.meta.env.BASE_URL;
 
   .article__newsletter-form {
     display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .article__newsletter-row {
+    display: flex;
     gap: 8px;
     justify-content: center;
     flex-wrap: wrap;
+  }
+
+  .article__newsletter-captcha {
+    display: flex;
+    justify-content: center;
   }
 
   .article__newsletter-form input {
