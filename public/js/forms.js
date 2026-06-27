@@ -1,6 +1,5 @@
 // Form handler — submits to Cloudflare Pages Functions
 document.addEventListener('DOMContentLoaded', () => {
-  // Inject honeypot field into every AC form (hidden from humans, bots fill it)
   document.querySelectorAll('form[data-ac-endpoint]').forEach((form) => {
     // Inject honeypot field (hidden from humans, bots fill it)
     const hp = document.createElement('div');
@@ -9,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     hp.innerHTML = '<label for="website">Website</label><input type="text" name="website" id="website" tabindex="-1" autocomplete="off" />';
     form.prepend(hp);
 
-    // Inject hidden UTM fields — populated from sessionStorage
+    // Inject hidden UTM fields from sessionStorage
     var utmKeys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'signup_page'];
     utmKeys.forEach(function (key) {
       var input = document.createElement('input');
@@ -30,10 +29,62 @@ document.addEventListener('DOMContentLoaded', () => {
       const endpoint = form.dataset.acEndpoint;
       const hasFile = form.querySelector('input[type="file"]');
 
+      // Get Turnstile token — handle invisible mode
+      let turnstileToken = '';
+      const turnstileInput = form.querySelector('[name="cf-turnstile-response"]');
+      const turnstileWidget = form.querySelector('.cf-turnstile');
+
+      if (turnstileWidget && window.turnstile) {
+        // For invisible mode, we need to execute and wait for the token
+        if (turnstileInput && turnstileInput.value) {
+          turnstileToken = turnstileInput.value;
+        } else {
+          // Execute invisible turnstile and wait for token
+          try {
+            turnstileToken = await new Promise((resolve, reject) => {
+              const widgetId = turnstileWidget.getAttribute('data-turnstile-widget-id') ||
+                turnstileWidget.querySelector('input[name="cf-turnstile-response"]')?.closest('[data-turnstile-widget-id]')?.getAttribute('data-turnstile-widget-id');
+
+              if (widgetId) {
+                // Reset and re-execute existing widget
+                window.turnstile.reset(widgetId);
+                window.turnstile.execute(widgetId, {
+                  callback: resolve,
+                  'error-callback': reject,
+                  'timeout-callback': () => reject(new Error('Turnstile timeout')),
+                });
+              } else {
+                // Render a new invisible widget
+                window.turnstile.render(turnstileWidget, {
+                  sitekey: turnstileWidget.getAttribute('data-sitekey'),
+                  size: 'invisible',
+                  callback: resolve,
+                  'error-callback': reject,
+                  'timeout-callback': () => reject(new Error('Turnstile timeout')),
+                });
+              }
+
+              // Fallback timeout
+              setTimeout(() => reject(new Error('Turnstile timeout')), 10000);
+            });
+          } catch (err) {
+            btn.textContent = 'Verification failed — try again';
+            btn.disabled = false;
+            setTimeout(() => { btn.textContent = originalText; }, 3000);
+            return;
+          }
+        }
+      } else if (turnstileInput) {
+        turnstileToken = turnstileInput.value;
+      }
+
       let fetchOptions;
 
       if (hasFile) {
         const formData = new FormData(form);
+        if (turnstileToken) {
+          formData.set('cf-turnstile-response', turnstileToken);
+        }
         fetchOptions = {
           method: 'POST',
           body: formData,
@@ -41,7 +92,6 @@ document.addEventListener('DOMContentLoaded', () => {
       } else {
         const formData = new FormData(form);
         const data = {};
-        // Handle multiple values (e.g. checkboxes) as arrays
         for (const [key, value] of formData.entries()) {
           if (data[key] !== undefined) {
             if (!Array.isArray(data[key])) data[key] = [data[key]];
@@ -50,10 +100,9 @@ document.addEventListener('DOMContentLoaded', () => {
             data[key] = value;
           }
         }
-        // Include Turnstile token
-        const turnstileInput = form.querySelector('[name="cf-turnstile-response"]');
-        if (turnstileInput) {
-          data['cf-turnstile-response'] = turnstileInput.value;
+        // Set the turnstile token
+        if (turnstileToken) {
+          data['cf-turnstile-response'] = turnstileToken;
         }
         fetchOptions = {
           method: 'POST',
