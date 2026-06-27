@@ -25,6 +25,7 @@ export async function onRequestPost(context) {
 
     email = sanitize(body.email, 254);
     const firstName = sanitize(body.firstName, 100);
+    const lastName = sanitize(body.lastName, 100);
 
     if (!isValidEmail(email)) {
       return jsonResponse({ error: 'Please enter a valid email address' }, 400, origin);
@@ -33,6 +34,7 @@ export async function onRequestPost(context) {
     const contactId = await addContact(context.env, {
       email,
       firstName,
+      lastName,
       listId: '4',
       tags: ['1'],
       utmData: {

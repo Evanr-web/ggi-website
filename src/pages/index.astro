@@ -356,9 +356,10 @@ const videoId = cms?.videoUrl ? cms.videoUrl.match(/(?:v=|youtu\.be\/)([^&]+)/)?
       <form class="newsletter-section__form" data-ac-endpoint="/api/subscribe" data-ac-success="You're subscribed! Welcome aboard." method="POST">
         <div class="newsletter-section__inputs">
           <input type="text" name="firstName" placeholder="First name" class="newsletter-section__input" required aria-label="First name" />
+          <input type="text" name="lastName" placeholder="Last name" class="newsletter-section__input" aria-label="Last name" />
           <input type="email" name="email" placeholder="Email address" class="newsletter-section__input" required aria-label="Email address" />
         </div>
-        <div class="cf-turnstile" data-sitekey="0x4AAAAAADm6eYaBvIIwZNRm" data-size="invisible"></div>
+        <div class="cf-turnstile" data-sitekey="0x4AAAAAADm6eYaBvIIwZNRm" data-size="compact"></div>
         <button type="submit" class="newsletter-section__btn">Subscribe</button>
       </form>
     </div>

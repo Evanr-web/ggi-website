@@ -29,62 +29,21 @@ document.addEventListener('DOMContentLoaded', () => {
       const endpoint = form.dataset.acEndpoint;
       const hasFile = form.querySelector('input[type="file"]');
 
-      // Get Turnstile token — handle invisible mode
-      let turnstileToken = '';
+      // Get Turnstile token
       const turnstileInput = form.querySelector('[name="cf-turnstile-response"]');
-      const turnstileWidget = form.querySelector('.cf-turnstile');
+      const turnstileToken = turnstileInput ? turnstileInput.value : '';
 
-      if (turnstileWidget && window.turnstile) {
-        // For invisible mode, we need to execute and wait for the token
-        if (turnstileInput && turnstileInput.value) {
-          turnstileToken = turnstileInput.value;
-        } else {
-          // Execute invisible turnstile and wait for token
-          try {
-            turnstileToken = await new Promise((resolve, reject) => {
-              const widgetId = turnstileWidget.getAttribute('data-turnstile-widget-id') ||
-                turnstileWidget.querySelector('input[name="cf-turnstile-response"]')?.closest('[data-turnstile-widget-id]')?.getAttribute('data-turnstile-widget-id');
-
-              if (widgetId) {
-                // Reset and re-execute existing widget
-                window.turnstile.reset(widgetId);
-                window.turnstile.execute(widgetId, {
-                  callback: resolve,
-                  'error-callback': reject,
-                  'timeout-callback': () => reject(new Error('Turnstile timeout')),
-                });
-              } else {
-                // Render a new invisible widget
-                window.turnstile.render(turnstileWidget, {
-                  sitekey: turnstileWidget.getAttribute('data-sitekey'),
-                  size: 'invisible',
-                  callback: resolve,
-                  'error-callback': reject,
-                  'timeout-callback': () => reject(new Error('Turnstile timeout')),
-                });
-              }
-
-              // Fallback timeout
-              setTimeout(() => reject(new Error('Turnstile timeout')), 10000);
-            });
-          } catch (err) {
-            btn.textContent = 'Verification failed — try again';
-            btn.disabled = false;
-            setTimeout(() => { btn.textContent = originalText; }, 3000);
-            return;
-          }
-        }
-      } else if (turnstileInput) {
-        turnstileToken = turnstileInput.value;
+      if (!turnstileToken && form.querySelector('.cf-turnstile')) {
+        btn.textContent = 'Please complete verification first';
+        btn.disabled = false;
+        setTimeout(() => { btn.textContent = originalText; }, 3000);
+        return;
       }
 
       let fetchOptions;
 
       if (hasFile) {
         const formData = new FormData(form);
-        if (turnstileToken) {
-          formData.set('cf-turnstile-response', turnstileToken);
-        }
         fetchOptions = {
           method: 'POST',
           body: formData,
@@ -100,10 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
             data[key] = value;
           }
         }
-        // Set the turnstile token
-        if (turnstileToken) {
-          data['cf-turnstile-response'] = turnstileToken;
-        }
+        data['cf-turnstile-response'] = turnstileToken;
         fetchOptions = {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -130,11 +86,20 @@ document.addEventListener('DOMContentLoaded', () => {
           btn.textContent = result.error || 'Something went wrong — try again';
           btn.disabled = false;
           setTimeout(() => { btn.textContent = originalText; }, 3000);
+          // Reset Turnstile for retry
+          if (window.turnstile) {
+            var widget = form.querySelector('.cf-turnstile');
+            if (widget) window.turnstile.reset(widget);
+          }
         }
       } catch (err) {
         btn.textContent = 'Connection error — try again';
         btn.disabled = false;
         setTimeout(() => { btn.textContent = originalText; }, 3000);
+        if (window.turnstile) {
+          var widget = form.querySelector('.cf-turnstile');
+          if (widget) window.turnstile.reset(widget);
+        }
       }
     });
   });
