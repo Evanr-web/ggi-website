@@ -365,3 +365,15 @@ body > div[style*="z-index: 10000"]:not([style*="background-color"]) {
   }
 }
 
+/* Prevent iOS auto-zoom on input focus (requires >= 16px font) */
+@media screen and (max-width: 768px) {
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  input[type="password"],
+  textarea,
+  select {
+    font-size: 16px !important;
+  }
+}
+

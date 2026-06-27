@@ -148,12 +148,20 @@
     .nl-modal-backdrop {
       padding: 16px;
       align-items: flex-start;
-      padding-top: 60px;
+      padding-top: 40px;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
     }
 
     .nl-modal-card {
       padding: 28px 20px 24px;
       max-width: 100%;
+      margin-bottom: 40px;
+    }
+
+    .nl-modal-name-row {
+      flex-direction: column;
+      gap: 10px;
     }
 
     .nl-modal-heading {
@@ -165,12 +173,12 @@
     }
 
     .nl-modal-input {
-      font-size: 0.85rem;
+      font-size: 16px;
       padding: 10px 12px;
     }
 
     .nl-modal-submit {
-      font-size: 0.9rem;
+      font-size: 16px;
       padding: 12px 24px;
     }
   }
@@ -191,6 +199,13 @@
     function closeModal() {
       modal.classList.remove('nl-modal--open');
       modal.setAttribute('aria-hidden', 'true');
+      // Reset iOS viewport zoom
+      var viewport = document.querySelector('meta[name="viewport"]');
+      if (viewport) {
+        viewport.setAttribute('content', 'width=device-width, initial-scale=1, maximum-scale=5');
+      }
+      // Blur any focused inputs to dismiss keyboard
+      if (document.activeElement) document.activeElement.blur();
     }
 
     // Open on click of any [data-newsletter-modal]
