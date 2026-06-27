@@ -7,7 +7,7 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build && npx esbuild dist/server/entry.mjs --bundle --format=esm --outfile=dist/client/_worker.js --conditions=workerd --platform=neutral '--external:node:*' '--external:cloudflare:*' && npx pagefind --site dist/client --root-selector main",
+    "build": "astro build && npx esbuild worker-wrapper.js --bundle --format=esm --outfile=dist/client/_worker.js --conditions=workerd --platform=neutral '--external:node:*' '--external:cloudflare:*' && npx pagefind --site dist/client --root-selector main",
     "preview": "astro preview",
     "astro": "astro"
   },
