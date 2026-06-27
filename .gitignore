@@ -32,3 +32,7 @@ dist/
 
 # Generated OG images
 output/
+
+# Glass Break credentials — NEVER commit
+docs/GLASS-BREAK-CREDENTIALS.md
+GLASS-BREAK-CREDENTIALS.*

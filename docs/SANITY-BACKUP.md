@@ -94,9 +94,11 @@ A backup script is included in the repository at **`scripts/backup-sanity.sh`**.
    - Deletes any backups older than the 5 most recent
    - Prints a summary of what's in the backups folder
 
-### Setting Up a Monthly Reminder
+### Automated Monthly Backup
 
-You don't need to automate this on a cron job — a monthly calendar reminder is fine for a site of this scale. Just set a recurring reminder: **"Back up GGI Sanity CMS — run `bash scripts/backup-sanity.sh` from the project root."**
+A cron job runs the backup automatically on the **1st of each month at 7 AM MST**. It exports the production dataset and keeps the last 5 backups. You don't need to do anything — just verify backups exist periodically by checking the `sanity/backups/` directory.
+
+If you need to run a backup manually (e.g., before a major content migration), use the script above.
 
 ---
 

@@ -32,13 +32,10 @@ Last updated: April 2026
 Sanity Studio is the editing dashboard for the GGI website. It's where you add events, articles, people, book studies, and more — without touching any code.
 
 **To open Sanity Studio:**
-```
-cd ~/GGI-Website/ggi-website/sanity
-npx sanity dev
-```
-Then open **http://localhost:3333** in your browser.
 
-> **Future:** Once hosted online, you'll just visit a URL like `studio.gregorythegreat.ca` — no terminal needed.
+Visit **[gregorythegreat.sanity.studio](https://gregorythegreat.sanity.studio/)** in your browser and log in with your Sanity account.
+
+> **For local development:** You can also run the studio locally with `cd sanity && npx sanity dev` (opens at http://localhost:3333, requires Node 22).
 
 ---
 
@@ -372,24 +369,29 @@ If left blank, the system uses sensible defaults (the content title and descript
 
 ## 16. Publishing Changes
 
-After editing content in Sanity, the changes need to be **deployed** to appear on the live site.
+After editing content in Sanity, changes are **deployed automatically** to the live site.
 
-### Current process (staging):
+### How it works:
 1. Edit content in Sanity Studio
-2. Ask the developer to rebuild and push
+2. Click **Publish**
+3. A webhook automatically triggers a site rebuild on Cloudflare Pages
+4. Your changes appear on the live site within **1-2 minutes**
 
-### Future process (production on Cloudflare):
-1. Edit content in Sanity Studio
-2. Changes deploy automatically within 2 minutes (via webhook)
+**You don't need to do anything else.** Just publish and wait a couple of minutes.
 
-**Important:** The site is "statically built" — this means it's incredibly fast and secure, but content changes aren't instant. There's always a short rebuild step. This is a feature, not a limitation — it's what makes the site load so quickly.
+**If changes aren't appearing after 5 minutes:**
+- Try a hard refresh (Cmd+Shift+R on Mac, Ctrl+Shift+R on Windows)
+- Try an incognito/private browser window
+- If still not showing, contact the developer
+
+**Important:** The site is "statically built" — this means it's incredibly fast and secure, but content changes aren't instant. There's always a short rebuild step (~1-2 minutes). This is a feature, not a limitation — it's what makes the site load so quickly.
 
 ---
 
 ## 17. Common Tasks
 
 ### "I need to add a new event"
-📅 Events → **+** → fill in details → Publish → request rebuild
+📅 Events → **+** → fill in details → Publish (site rebuilds automatically)
 
 ### "I need to update this year's book list"
 📕 Book Studies → edit existing or add new → update Status field → Publish

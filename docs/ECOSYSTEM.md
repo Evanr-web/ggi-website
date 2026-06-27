@@ -1,7 +1,7 @@
 # GGI Digital Ecosystem — Internal Reference
 
 **Gregory the Great Institute**
-Last updated: April 2026 | Prepared for: Executive Director, Board, Operations
+Last updated: June 2026 | Prepared for: Executive Director, Board, Operations
 
 ---
 
@@ -32,7 +32,7 @@ The GGI digital ecosystem is a set of interconnected tools that handle the Insti
 │                        PUBLIC WEBSITE                           │
 │              gregorythegreat.ca (Astro + Cloudflare)            │
 │                                                                 │
-│  46 pages · Static HTML · Full-text search · Print-ready PDFs   │
+│  50+ pages · Static HTML · Full-text search · Print-ready PDFs  │
 │  Newsletter signup · Contact forms · Event registration         │
 │  Giving tiers · Ambassador applications · Career postings       │
 └───────┬──────────────────┬──────────────────┬───────────────────┘
@@ -42,9 +42,9 @@ The GGI digital ecosystem is a set of interconnected tools that handle the Insti
 │  Sanity CMS   │  │ ActiveCampaign│  │   Stripe / Zeffy  │
 │               │  │               │  │                   │
 │ Content mgmt  │  │ Email lists   │  │ Donation & giving │
-│ 9 schemas     │  │ Automations   │  │ tier processing   │
+│ 12 schemas    │  │ Automations   │  │ tier processing   │
 │ 35+ documents │  │ Welcome series│  │ Tax receipts      │
-│ Studio: 3333  │  │ 8 lists       │  │                   │
+│ Hosted Studio │  │ 8 lists       │  │                   │
 └───────────────┘  │ 18 tags       │  └───────────────────┘
                    └───────────────┘
                           │
@@ -71,42 +71,48 @@ The GGI digital ecosystem is a set of interconnected tools that handle the Insti
 |-------|-----------|---------|
 | Framework | **Astro 6** | Static site generator — builds fast, secure HTML |
 | CMS | **Sanity** (project `dhzbvx7r`) | Headless content management |
-| Hosting | **Cloudflare Pages** (planned) | CDN, edge functions, DDoS protection |
-| Staging | **GitHub Pages** (`evanr-web.github.io/ggi-website/`) | Current preview/staging |
+| Hosting | **Cloudflare Pages** | CDN, edge functions, DDoS protection |
+| Preview | **GitHub Pages** (`evanr-web.github.io/ggi-website/`) | Preview/staging |
 | Search | **Pagefind** | Client-side full-text search (no server needed) |
 | Sitemap | **@astrojs/sitemap** | Auto-generated XML sitemap for SEO |
 | Forms | **Cloudflare Functions** | Server-side form processing |
 | Repository | **GitHub** (`Evanr-web/ggi-website`) | Source control, CI/CD |
 
-### Pages (46 total)
+### Pages (46 static + CMS-generated dynamic pages + 7 preview routes)
 
-**Core:**
+**Core (4):**
 - Homepage, 404, Privacy, Credits
 
 **About (5):**
 - Mission & Vision, Leadership, Founding Director, Impact Report, Media & Press
 
-**Magnalia (5):**
+**Magnalia (6):**
 - Overview, Letter (newsletter), Patron, Subscribe, Contributors, Issue One
 
-**Programs (3):**
+**Programs (4 static + dynamic [slug]):**
 - Overview, Book Studies, Faith & Reason, Masterclasses
+- Dynamic pages generated from Sanity CMS program documents
 
-**Events (8):**
+**Events (9):**
 - Overview, Archive, Conference 2025, Conference 2026, Book Studies (Feb/May/Sep), Music Camp, Prayer Breakfast, Finances 101
 
-**Library (7):**
+**Library (7 static + dynamic [slug]):**
 - Overview, Abolition of Man Guide, Christmas Books 2025, Easter Family, Fine Gathering Ottawa, Medicine & Vocation, Personal Finances
+- Dynamic pages generated from Sanity CMS library items
 
 **Support (6):**
 - Overview, Case Statement (print-ready prospectus), Donate, Friend Tier, Leadership Tier, Ambassadors
 
-**Other:**
+**Other (2):**
 - Contact, Careers
 
-### Components (18)
+**Preview Routes (7, internal):**
+- Homepage, Library, Events, Programs, Magnalia, Careers, Site Settings
+- Used for Sanity Studio live preview (split-screen draft editing)
 
-AddToCalendar, BookStudyForm, Button, CanadaGroupMap, Card, DarkSection, EndorsementCard, EventCard, FlyinPopup, Footer, GivingTier, GoogleMap, Hero, Navigation, QuoteBlock, RibbonBanner, Search, SectionDivider, ShareBar
+### Components (25)
+
+AddToCalendar, BackToTop, BookStudyForm, Breadcrumbs, Button, CanadaGroupMap, Card, DarkSection, EndorsementCard, EventCard, EventInterestModal, EventNotifyForm, FlyinPopup, Footer, GivingTier, GoogleMap, Hero, Navigation, NewsletterModal, QuoteBlock, RibbonBanner, Search, SectionDivider, ShareBar, Testimonials
 
 ### Design System
 
@@ -131,35 +137,41 @@ AddToCalendar, BookStudyForm, Button, CanadaGroupMap, Card, DarkSection, Endorse
 
 Sanity is a headless CMS — a web-based dashboard where non-technical team members can edit content (events, people, articles, homepage text) without touching code. Changes in Sanity are pulled into the website at build time.
 
-### Schemas (9)
+### Schemas (12)
 
 | Schema | What It Manages | Examples |
 |--------|----------------|----------|
 | `siteSettings` | Global settings | Ribbon banner, popup, contact info, social links, CRA number |
-| `homepage` | Homepage content | Hero headline, subtitle, CTA buttons, video |
+| `homepage` | Homepage content | Hero headline, subtitle, CTA buttons, video, featured items, pillars |
 | `event` | Events | Conferences, book studies, prayer breakfasts |
-| `program` | Programs | Book studies, Faith & Reason, masterclasses |
+| `program` | Programs | Book studies, Faith & Reason, masterclasses (has enabled toggle) |
 | `person` | People | Board, staff, contributors (photos, bios, credentials) |
-| `libraryItem` | Library articles | Essays, guides, reading lists |
+| `libraryItem` | Library articles | Essays, guides, reading lists (has featured toggle) |
 | `magnaliaIssue` | Magnalia issues | Cover, table of contents, sample article, contributors |
 | `givingTier` | Giving tiers | Friend, Patron, Leadership — pricing, benefits |
 | `careerPosting` | Job postings | Title, description, deadline, PDF upload |
+| `bookStudy` | Reading group books | Book title, author, month, year, status |
+| `readingGroup` | Map data | Province, city, group count (feeds CanadaGroupMap) |
+| `tag` | Library topic tags | Aquinas, Education, Beauty, Liturgy, etc. |
 
 ### Access
 
-- **Studio URL:** `http://localhost:3333` (requires Node 22, run locally)
+- **Hosted Studio:** https://gregorythegreat.sanity.studio/
+- **Local Studio:** `http://localhost:3333` (run `cd sanity && npx sanity dev`, requires Node 22)
 - **Project ID:** `dhzbvx7r`
 - **Dataset:** `production`
 - **Who can edit:** Anyone with a Sanity account added to the project
+- **Project members:** Managed at https://www.sanity.io/manage/project/dhzbvx7r/members
 
 ### How to Update Content
 
-1. Open Sanity Studio (locally or hosted)
+1. Open Sanity Studio (hosted URL or locally)
 2. Edit the relevant document (e.g., change an event date, add a person)
-3. Publish the changes in Sanity
-4. Rebuild the website (`npm run build`) and deploy
+3. Click **Publish** in Sanity
+4. A webhook automatically triggers a Cloudflare Pages rebuild (~1-2 minutes)
+5. The updated content is live
 
-> **Note:** Because the site is statically built, content changes in Sanity don't appear instantly. A rebuild + deploy is required. On Cloudflare Pages, this happens automatically when code is pushed to GitHub. A manual "Deploy Hook" can also trigger rebuilds without code changes.
+> **Note:** Because the site is statically built, content changes in Sanity don't appear instantly. Publishing triggers an automatic rebuild via webhook. The site updates within 1-2 minutes.
 
 ---
 
@@ -196,6 +208,9 @@ Every form on the website submits to a Cloudflare Function (`/api/*`) which writ
 | Contact form | `/api/contact` | General Contact | varies by subject |
 | Ambassador application | `/api/ambassador` | Ambassador Network | `ambassador` |
 | Career application | `/api/career` | Career Applications | `career-applicant` |
+| Book study registration | `/api/book-study` | Book Study participants | — |
+| Event interest/notify | `/api/event-interest` | Event interest | — |
+| Leadership circle | `/api/leadership` | Leadership Circle | — |
 
 ### Welcome Email Series (5 emails, 21 days)
 
@@ -209,12 +224,12 @@ Templates are built and ready for import into ActiveCampaign (`docs/welcome-seri
 | 14 | Community & programs | Designed (3 variants by entry point) |
 | 21 | Magnalia subscription + Friend tier invite | Designed |
 
-### Required Setup
+### Setup Status
 
-- [ ] Verify sender domain (`gregorythegreat.ca`) in AC — requires DNS records (SPF, DKIM, DMARC)
+- [x] Verify sender domain (`gregorythegreat.ca`) in AC — DKIM/SPF DNS records configured
+- [x] Set up AC environment variables in Cloudflare (`AC_API_URL`, `AC_API_KEY`)
 - [ ] Import HTML templates into AC automations
 - [ ] Create the 10-book reading list PDF (lead magnet)
-- [ ] Set up AC environment variables in Cloudflare (`AC_API_URL`, `AC_API_KEY`)
 
 See `docs/ACTIVECAMPAIGN-SETUP.md` for step-by-step instructions.
 
@@ -308,39 +323,48 @@ Sunday 11 PM (planned cron)
 
 ## 7. Hosting & Deployment
 
-### Current (Staging)
+### Production
 
 | Component | Host | URL |
 |-----------|------|-----|
-| GGI Website | GitHub Pages | `evanr-web.github.io/ggi-website/` |
+| GGI Website | Cloudflare Pages | `gregorythegreat.ca` (also `ggi-website.pages.dev`) |
+| API Functions | Cloudflare Functions | `gregorythegreat.ca/api/*` |
+| Sanity Studio | Sanity Cloud | `gregorythegreat.sanity.studio` |
 | Curation Board | GitHub Pages | `evanr-web.github.io/magnalia-curation/` |
-| Sanity Studio | Local | `localhost:3333` |
 
-### Planned (Production)
+### Preview / Staging
 
 | Component | Host | URL |
 |-----------|------|-----|
-| GGI Website | **Cloudflare Pages** | `gregorythegreat.ca` |
-| API Functions | **Cloudflare Functions** | `gregorythegreat.ca/api/*` |
-| Curation Board | GitHub Pages or Cloudflare | `curation.gregorythegreat.ca` or current URL |
-| Sanity Studio | Sanity Cloud or Cloudflare | `studio.gregorythegreat.ca` |
+| GGI Website (preview) | GitHub Pages | `evanr-web.github.io/ggi-website/` |
+| Sanity Studio (local) | Local dev | `localhost:3333` |
 
 ### Deployment Process
 
-1. Code changes are pushed to GitHub (`Evanr-web/ggi-website`, `main` branch)
-2. Cloudflare Pages automatically detects the push and rebuilds the site
-3. Build command: `npm run build` (Astro build + Pagefind indexing)
-4. New version is deployed globally to Cloudflare's CDN (200+ edge locations)
-5. Typical deploy time: 1-2 minutes
+Two triggers cause a deploy:
 
-### DNS (to be configured)
+1. **Code push:** Pushing to the `main` branch on GitHub auto-triggers a Cloudflare Pages build
+2. **Content publish:** Publishing in Sanity Studio fires a webhook that triggers a Cloudflare Pages build
 
-| Record | Type | Value |
-|--------|------|-------|
-| `gregorythegreat.ca` | CNAME | Cloudflare Pages |
-| `www` | CNAME | redirect to root |
-| `_dmarc` | TXT | DMARC policy |
-| SPF/DKIM | TXT | ActiveCampaign sender verification |
+Build pipeline: `astro build` → `esbuild` (bundles Cloudflare Worker) → `pagefind` (indexes content)
+
+New version is deployed globally to Cloudflare's CDN (200+ edge locations). Typical deploy time: 1-2 minutes.
+
+A GitHub Actions workflow also deploys to GitHub Pages (preview/staging) with a post-deploy smoke test that verifies the homepage returns HTTP 200.
+
+### DNS (configured in Cloudflare)
+
+| Record | Type | Value | Status |
+|--------|------|-------|--------|
+| `@` | CNAME | `ggi-website.pages.dev` (proxied) | ✅ Live |
+| `www` | CNAME | `ggi-website.pages.dev` (proxied) | ✅ Live |
+| `_dmarc` | TXT | DMARC policy (`p=none`, monitor mode) | ✅ Active |
+| Google DKIM | TXT | Google Workspace email auth | ✅ Passing |
+| Google SPF | TXT | Google Workspace sender verification | ✅ Passing |
+| AC DKIM/SPF | TXT | ActiveCampaign sender verification | ✅ Configured |
+
+**Nameservers:** `pearl.ns.cloudflare.com` / `phil.ns.cloudflare.com`
+**Domain registrar:** WHC.ca
 
 ---
 
@@ -375,8 +399,11 @@ Sunday 11 PM (planned cron)
 | **CORS protection** | ✅ API endpoints check request origin |
 | **No admin panel on the web** | ✅ Sanity CMS is a separate service with its own auth |
 | **PCI compliance** | ✅ Handled entirely by Zeffy/Stripe — GGI never touches payment data |
-| **Content Security Policy** | ⬜ To be configured on Cloudflare |
-| **Rate limiting on forms** | ⬜ To be configured on Cloudflare |
+| **Content Security Policy** | ✅ Configured in `public/_headers` (CSP, HSTS, X-Frame-Options DENY, nosniff) |
+| **Turnstile CAPTCHA** | ✅ On all 14 forms + 7 API endpoints |
+| **Bot Fight Mode** | ✅ Enabled in Cloudflare |
+| **Honeypot fields** | ✅ Invisible field on all forms, silent bot rejection |
+| **Rate limiting on forms** | ⬜ Paid feature — skipped (Turnstile + honeypots sufficient) |
 
 ### Privacy Compliance
 
@@ -413,37 +440,39 @@ If a security issue is discovered:
 
 ### Rebuilding the Site
 
-After content changes in Sanity, the site needs a rebuild:
+After content changes in Sanity, the site rebuilds automatically:
 
-**Automatic (once on Cloudflare):**
-- Push any commit to `main` branch → triggers rebuild
-- Or use a Deploy Hook URL (can be triggered manually or by Sanity webhook)
+**Automatic (production):**
+- Publishing in Sanity triggers a webhook → Cloudflare Pages rebuilds (~1-2 min)
+- Pushing code to `main` branch on GitHub → Cloudflare Pages rebuilds
 
-**Manual (current staging setup):**
-```bash
-cd ggi-website
-SITE=https://evanr-web.github.io PATH="/opt/homebrew/opt/node@22/bin:$PATH" npm run build
-git add -A && git commit -m "Rebuild" && git push origin main
-```
+**Manual rebuild (if webhook fails):**
+- Cloudflare dashboard → Pages → ggi-website → Deployments → "Retry deployment" on the latest
+- Or push an empty commit: `git commit --allow-empty -m "trigger rebuild" && git push`
 
 ### Sanity Studio
 
-To run the CMS editing interface locally:
+**Hosted (production):** https://gregorythegreat.sanity.studio/ — accessible from any browser, no setup required.
+
+**Local (development):**
 ```bash
 cd ggi-website/sanity
-PATH="/opt/homebrew/opt/node@22/bin:$PATH" npm run dev
+npx sanity dev
 # Opens at http://localhost:3333
+# Requires Node 22
 ```
-
-> **Future improvement:** Host Sanity Studio on the web so non-technical team members can edit content from any browser without running anything locally.
 
 ### Dependency Updates
 
-The site uses 5 core dependencies:
-- `astro` — framework (update quarterly)
-- `@sanity/astro` + `@sanity/client` — CMS integration
-- `@astrojs/sitemap` — SEO
-- `pagefind` — search
+The site uses these core dependencies:
+- `astro` ^6.1.9 — framework (update quarterly)
+- `@astrojs/cloudflare` ^13.7.0 — Cloudflare Pages adapter
+- `@sanity/astro` ^3.3.1 + `@sanity/client` ^7.22.0 — CMS integration
+- `@astrojs/sitemap` ^3.7.2 — SEO
+- `pagefind` ^1.5.2 — search
+- `wrangler` ^4.104.0 — Cloudflare Workers CLI
+
+**⚠️ Node 22 required.** Node 25 has a broken `simdjson` dependency. Pinned via `.nvmrc` and `package.json` engines field.
 
 Run `npm outdated` to check for updates. Test thoroughly before deploying.
 
@@ -574,23 +603,31 @@ The current architecture supports these extensions without major rebuilds:
 ```
 ggi-website/
 ├── src/
-│   ├── pages/          → 46 Astro page files
-│   ├── components/     → 18 reusable UI components
+│   ├── pages/          → 46 static + dynamic page files + 7 preview routes
+│   ├── components/     → 25 reusable UI components
 │   ├── layouts/        → BaseLayout, ArticleLayout, EventLayout
 │   ├── styles/         → global.css (design system)
-│   └── lib/            → sanity.ts (CMS queries)
-├── functions/api/      → 5 Cloudflare Functions (subscribe, contact, ambassador, career, _shared)
-├── public/images/      → Branding, art, event photos
+│   └── lib/            → sanity.ts (346 lines, all CMS queries)
+├── functions/api/      → 7 Cloudflare Functions + _shared.js utilities
+│                         (subscribe, contact, ambassador, career,
+│                          book-study, event-interest, leadership)
+├── public/
+│   ├── _headers        → Cloudflare security headers (CSP, HSTS, etc.)
+│   ├── docs/           → Static PDFs (impact report, etc.)
+│   ├── fonts/          → Web fonts (Goudy Initialen)
+│   └── images/         → Branding, art, event photos
 ├── sanity/
-│   ├── schemas/        → 9 content schemas
-│   ├── seed.mjs        → Database seeding script
+│   ├── schemas/        → 12 content schemas
+│   ├── backups/        → Sanity export backups (gitignored)
 │   └── sanity.config   → Studio configuration
-├── docs/
+├── scripts/
+│   └── backup-sanity.sh → Automated backup (keeps last 5)
+├── docs/               → All documentation (15+ guides)
 │   ├── ECOSYSTEM.md    → This document
-│   ├── ACTIVECAMPAIGN-SETUP.md
-│   ├── GIVING-STRUCTURE.md
-│   ├── welcome-series.md
-│   └── welcome-series/ → 7 HTML email templates
+│   ├── GLASS-BREAK-HANDOFF.md → Developer handoff (bus test)
+│   ├── OPS-RUNBOOK.md  → Non-technical operations guide
+│   ├── cms-guide/      → CMS guide with 25+ screenshots
+│   └── ...             → AC setup, forms architecture, analytics, etc.
 └── astro.config.mjs    → Build configuration
 
 magnalia-curation/
