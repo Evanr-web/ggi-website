@@ -63,6 +63,15 @@ const ogImageUrl = ogImage.startsWith('http') ? ogImage : `${siteUrl}${base}${og
     <!-- Theme -->
     <meta name="theme-color" content="#1B2A4A" />
 
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FD5E9YZP23"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-FD5E9YZP23');
+    </script>
+
     <title>{siteTitle}</title>
   </head>
   <body>
