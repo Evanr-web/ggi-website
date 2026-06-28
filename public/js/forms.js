@@ -72,6 +72,25 @@ document.addEventListener('DOMContentLoaded', () => {
         const result = await res.json();
 
         if (res.ok && result.success) {
+          // Fire GA4 conversion event
+          if (typeof gtag === 'function') {
+            var eventMap = {
+              '/api/subscribe': 'newsletter_signup',
+              '/api/contact': 'contact_form',
+              '/api/ambassador': 'ambassador_application',
+              '/api/book-study': 'book_study_registration',
+              '/api/event-interest': 'event_interest',
+              '/api/leadership': 'leadership_inquiry',
+              '/api/career': 'career_application'
+            };
+            var eventName = eventMap[endpoint] || 'form_submission';
+            gtag('event', eventName, {
+              event_category: 'engagement',
+              event_label: document.title,
+              page_path: window.location.pathname
+            });
+          }
+
           form.innerHTML = `
             <div style="text-align: center; padding: 20px;">
               <p style="font-family: var(--font-display); font-size: 1.3rem; color: var(--color-navy); margin-bottom: 8px;">

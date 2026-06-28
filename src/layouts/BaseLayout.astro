@@ -69,7 +69,21 @@ const ogImageUrl = ogImage.startsWith('http') ? ogImage : `${siteUrl}${base}${og
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-      gtag('config', 'G-FD5E9YZP23');
+
+      // Content grouping by site section
+      var path = window.location.pathname;
+      var section = 'Other';
+      if (path === '/') section = 'Homepage';
+      else if (path.startsWith('/programs')) section = 'Programs';
+      else if (path.startsWith('/library')) section = 'Library';
+      else if (path.startsWith('/events')) section = 'Events';
+      else if (path.startsWith('/support')) section = 'Support';
+      else if (path.startsWith('/about')) section = 'About';
+      else if (path.startsWith('/magnalia')) section = 'Magnalia';
+
+      gtag('config', 'G-FD5E9YZP23', {
+        content_group: section
+      });
     </script>
 
     <title>{siteTitle}</title>
@@ -101,6 +115,21 @@ const ogImageUrl = ogImage.startsWith('http') ? ogImage : `${siteUrl}${base}${og
 
     <!-- Form handler -->
     <script src={`${base}js/forms.js`} defer></script>
+
+    <!-- Zeffy outbound click tracking -->
+    <script is:inline>
+      document.addEventListener('click', function(e) {
+        var link = e.target.closest('a[href*="zeffy.com"], [zeffy-form-link]');
+        if (link && typeof gtag === 'function') {
+          var label = link.textContent.trim().substring(0, 50) || 'Zeffy Link';
+          gtag('event', 'zeffy_click', {
+            event_category: 'outbound',
+            event_label: label,
+            page_path: window.location.pathname
+          });
+        }
+      });
+    </script>
 
     <!-- Scroll reveal animations -->
     <script>
