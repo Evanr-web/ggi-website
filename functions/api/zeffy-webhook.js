@@ -1,82 +1,123 @@
-// POST /api/zeffy-webhook — Receives Zeffy payment webhooks, syncs contacts to ActiveCampaign
+// POST /api/zeffy-webhook — Receives Zeffy payment.completed webhooks, syncs contacts to ActiveCampaign
+//
+// Zeffy PaymentCompletedEvent schema:
+// {
+//   id: uuid,
+//   type: "payment.completed",
+//   version: 1,
+//   dispatchedAt: ISO-8601,
+//   data: Payment {
+//     buyer: { email, first_name, last_name, is_corporate, company_name },
+//     description: "Campaign title",
+//     campaign_category: "auction|donation|event|raffle|membership|peer_to_peer|shop|custom",
+//     campaign_id: uuid,
+//     amount: cents,
+//     items: [{ type: "donation|ticket|additional_donation", amount, recurrence_interval }],
+//     recurring: { ... } | null,
+//     ...
+//   }
+// }
+
 import { addContact, logError } from './_shared.js';
 
-// Map Zeffy form names (partial match) to AC tags
-// UPDATE THESE TAG IDS after creating them in ActiveCampaign
-const FORM_TAG_MAP = {
-  'conference': [],      // TODO: add AC tag ID for conference-2026
-  'magnalia-patron': [], // TODO: add AC tag ID for magnalia-patron
-  'magnalia-journal-single': [],  // TODO: add AC tag ID for magnalia-buyer
-  'magnalia-journal-annual': [],  // TODO: add AC tag ID for magnalia-subscriber
-  'magnalia-journal-bulk': [],    // TODO: add AC tag ID for magnalia-bulk
-  'donation': [],        // TODO: add AC tag ID for donor
+// Map campaign descriptions (partial match, lowercase) to AC tag IDs
+// TODO: Create these tags in AC and fill in the IDs
+const CAMPAIGN_TAG_MAP = {
+  'conference': [],                    // conference-2026
+  'magnalia-patron': [],               // magnalia-patron
+  'magnalia-journal-single': [],       // magnalia-buyer
+  'magnalia-journal-annual': [],       // magnalia-subscriber
+  'magnalia-journal-bulk': [],         // magnalia-bulk
 };
 
-// AC list for Zeffy contacts (set to your main list or a dedicated one)
-// TODO: update this to the correct AC list ID
-const ZEFFY_LIST_ID = '4'; // default: Magnalia Letter list
+// Fallback tags by campaign_category
+const CATEGORY_TAG_MAP = {
+  'donation': [],   // general donor tag
+  'event': [],      // event registrant tag
+};
 
-function matchFormTags(formName) {
-  if (!formName) return [];
-  const lower = formName.toLowerCase();
-  for (const [key, tags] of Object.entries(FORM_TAG_MAP)) {
-    if (lower.includes(key)) return tags;
+// AC list for Zeffy contacts
+// TODO: update to correct AC list ID (or create a dedicated Zeffy list)
+const ZEFFY_LIST_ID = '4';
+
+function getTagsForPayment(payment) {
+  const tags = [];
+  const description = (payment.description || '').toLowerCase();
+
+  // Try matching campaign description first (most specific)
+  for (const [key, tagIds] of Object.entries(CAMPAIGN_TAG_MAP)) {
+    if (description.includes(key)) {
+      tags.push(...tagIds);
+      return tags; // return on first match
+    }
   }
-  return [];
-}
 
-// Extract contact info from Zeffy payload (best-effort — logs raw payload for tuning)
-function extractContact(data) {
-  // Zeffy may nest data differently — try common patterns
-  const payment = data.payment || data.transaction || data.data || data;
-  const payer = payment.payer || payment.buyer || payment.contact || payment.donor || payment;
+  // Fall back to campaign category
+  const category = payment.campaign_category || '';
+  const categoryTags = CATEGORY_TAG_MAP[category] || [];
+  tags.push(...categoryTags);
 
-  const email = payer.email || payment.email || data.email || '';
-  const firstName = payer.firstName || payer.first_name || payment.firstName || data.firstName || '';
-  const lastName = payer.lastName || payer.last_name || payment.lastName || data.lastName || '';
-  const amount = payment.amount || payment.total || data.amount || 0;
-  const formName = payment.formName || payment.form_name || payment.campaignName ||
-                   payment.campaign_name || data.formName || data.form_name || '';
-  const formType = payment.formType || payment.form_type || payment.type || data.type || '';
-
-  return { email, firstName, lastName, amount, formName, formType };
+  return tags;
 }
 
 export async function onRequestPost(context) {
   try {
     const rawBody = await context.request.text();
 
-    // Log the raw payload so we can see exactly what Zeffy sends
+    // Log raw payload for debugging (visible in Cloudflare dashboard → Functions → Logs)
     console.log('[zeffy-webhook] Raw payload:', rawBody);
 
-    let data;
+    let event;
     try {
-      data = JSON.parse(rawBody);
+      event = JSON.parse(rawBody);
     } catch (e) {
-      console.error('[zeffy-webhook] Failed to parse JSON:', e.message);
+      console.error('[zeffy-webhook] Invalid JSON:', e.message);
       return new Response(JSON.stringify({ error: 'Invalid JSON' }), {
         status: 400,
         headers: { 'Content-Type': 'application/json' },
       });
     }
 
-    console.log('[zeffy-webhook] Parsed payload:', JSON.stringify(data, null, 2));
-
-    const { email, firstName, lastName, amount, formName, formType } = extractContact(data);
-
-    if (!email || !email.includes('@')) {
-      console.warn('[zeffy-webhook] No valid email found in payload');
-      // Still return 200 so Zeffy doesn't retry
-      return new Response(JSON.stringify({ success: true, note: 'No email found, skipped AC sync' }), {
+    // Validate event structure
+    if (event.type !== 'payment.completed' || !event.data) {
+      console.log('[zeffy-webhook] Ignoring event type:', event.type);
+      return new Response(JSON.stringify({ success: true, note: 'Event type ignored' }), {
         status: 200,
         headers: { 'Content-Type': 'application/json' },
       });
     }
 
-    // Determine tags based on form name
-    const tags = matchFormTags(formName);
+    const payment = event.data;
+    const buyer = payment.buyer || {};
 
-    console.log('[zeffy-webhook] Syncing to AC:', { email, firstName, lastName, amount, formName, formType, tags });
+    const email = buyer.email || '';
+    const firstName = buyer.first_name || '';
+    const lastName = buyer.last_name || '';
+
+    if (!email || !email.includes('@')) {
+      console.warn('[zeffy-webhook] No valid email in buyer:', JSON.stringify(buyer));
+      return new Response(JSON.stringify({ success: true, note: 'No email, skipped AC sync' }), {
+        status: 200,
+        headers: { 'Content-Type': 'application/json' },
+      });
+    }
+
+    const tags = getTagsForPayment(payment);
+    const amountDollars = (payment.amount || 0) / 100;
+    const isRecurring = !!payment.recurring;
+    const campaignCategory = payment.campaign_category || 'unknown';
+    const campaignTitle = payment.description || 'Unknown';
+
+    console.log('[zeffy-webhook] Syncing to AC:', {
+      email,
+      firstName,
+      lastName,
+      amount: amountDollars,
+      campaign: campaignTitle,
+      category: campaignCategory,
+      recurring: isRecurring,
+      tags,
+    });
 
     const contactId = await addContact(context.env, {
       email,
@@ -94,16 +135,16 @@ export async function onRequestPost(context) {
     });
   } catch (err) {
     logError('zeffy-webhook', err);
-    // Return 200 anyway to prevent Zeffy from retrying on our errors
-    return new Response(JSON.stringify({ success: true, note: 'Error logged, will investigate' }), {
+    // Return 200 to prevent Zeffy from retrying on our errors
+    return new Response(JSON.stringify({ success: true, note: 'Error logged' }), {
       status: 200,
       headers: { 'Content-Type': 'application/json' },
     });
   }
 }
 
-// Accept GET for webhook verification if Zeffy requires it
-export async function onRequestGet(context) {
+// GET for health check / webhook verification
+export async function onRequestGet() {
   return new Response(JSON.stringify({ status: 'ok', service: 'ggi-zeffy-webhook' }), {
     status: 200,
     headers: { 'Content-Type': 'application/json' },
