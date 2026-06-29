@@ -15,7 +15,6 @@ export const EXACT_REDIRECTS = {
   '/donate-1': '/support/',
   '/contact-8': '/contact/',
   '/general-6': '/contact/',
-  '/magnalia': '/magnalia/',
   '/journals-and-merchandise': '/magnalia/subscribe/',
   '/product-page-1': '/magnalia/subscribe/',
   '/privacy-policy': '/privacy/',
