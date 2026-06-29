@@ -1,4 +1,6 @@
 User-agent: *
 Allow: /
+Disallow: /preview/
+Disallow: /api/
 
 Sitemap: https://gregorythegreat.ca/sitemap-index.xml
