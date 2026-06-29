@@ -91,16 +91,12 @@ document.addEventListener('DOMContentLoaded', () => {
             });
           }
 
-          form.innerHTML = `
-            <div style="text-align: center; padding: 20px;">
-              <p style="font-family: var(--font-display); font-size: 1.3rem; color: var(--color-navy); margin-bottom: 8px;">
-                ✓ Thank you!
-              </p>
-              <p style="font-family: var(--font-body); font-size: 0.95rem; color: var(--color-gray);">
-                ${form.dataset.acSuccess || 'Your submission has been received.'}
-              </p>
-            </div>
-          `;
+          // Phase 2 enrichment for newsletter subscribe forms
+          if (endpoint === '/api/subscribe' && result.contactId && form.dataset.acPhase2 !== 'false') {
+            showPhase2(form, result.contactId);
+          } else {
+            showThankYou(form);
+          }
         } else {
           btn.textContent = result.error || 'Something went wrong — try again';
           btn.disabled = false;
@@ -122,4 +118,192 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   });
+
+  // --- Phase 2 enrichment form ---
+  function showPhase2(formEl, contactId) {
+    // Detect context: footer (compact), modal, or section (full)
+    var isFooter = formEl.closest('.footer');
+    var isModal = formEl.closest('.nl-modal-card');
+
+    formEl.innerHTML = buildPhase2HTML(contactId, isFooter);
+    formEl.removeAttribute('data-ac-endpoint');
+
+    // Animate in
+    var phase2 = formEl.querySelector('.phase2');
+    if (phase2) {
+      phase2.style.opacity = '0';
+      phase2.style.transform = 'translateY(8px)';
+      requestAnimationFrame(function () {
+        phase2.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+        phase2.style.opacity = '1';
+        phase2.style.transform = 'translateY(0)';
+      });
+    }
+
+    // Render Turnstile widget in phase 2
+    var turnstileContainer = formEl.querySelector('.phase2-form .cf-turnstile');
+    if (turnstileContainer && window.turnstile) {
+      window.turnstile.render(turnstileContainer, {
+        sitekey: turnstileContainer.dataset.sitekey,
+        size: 'compact',
+      });
+    }
+
+    // Wire up phase 2 submit
+    var phase2Form = formEl.querySelector('.phase2-form');
+    if (phase2Form) {
+      phase2Form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        submitPhase2(formEl, phase2Form, contactId);
+      });
+    }
+
+    // Wire up skip
+    var skipBtn = formEl.querySelector('.phase2-skip');
+    if (skipBtn) {
+      skipBtn.addEventListener('click', function (e) {
+        e.preventDefault();
+        showThankYou(formEl);
+      });
+    }
+
+    // Wire up province → show/hide postal code hint
+    var provinceSelect = formEl.querySelector('[name="province"]');
+    if (provinceSelect) {
+      provinceSelect.addEventListener('change', function () {
+        var postalGroup = formEl.querySelector('.phase2-postal-group');
+        if (postalGroup) postalGroup.style.display = this.value ? '' : '';
+      });
+    }
+  }
+
+  function buildPhase2HTML(contactId, isCompact) {
+    var provinces = [
+      'Alberta', 'British Columbia', 'Manitoba', 'New Brunswick',
+      'Newfoundland and Labrador', 'Northwest Territories', 'Nova Scotia',
+      'Nunavut', 'Ontario', 'Prince Edward Island', 'Quebec', 'Saskatchewan', 'Yukon'
+    ];
+    var provinceOptions = '<option value="">Province</option>' +
+      provinces.map(function (p) { return '<option value="' + p + '">' + p + '</option>'; }).join('');
+
+    return '<div class="phase2">' +
+      '<div class="phase2-header">' +
+        '<p class="phase2-check">✓ You\'re in!</p>' +
+        '<p class="phase2-prompt">Help us tailor what we send you:</p>' +
+      '</div>' +
+      '<form class="phase2-form">' +
+        '<input type="hidden" name="contactId" value="' + contactId + '" />' +
+
+        // Last name
+        '<input type="text" name="lastName" placeholder="Last name" class="phase2-input" aria-label="Last name" />' +
+
+        // Interests
+        '<fieldset class="phase2-interests">' +
+          '<legend class="phase2-legend">I\'m interested in:</legend>' +
+          '<label class="phase2-check-label"><input type="checkbox" name="interests" value="magnalia-journal" /> Magnalia Journal</label>' +
+          '<label class="phase2-check-label"><input type="checkbox" name="interests" value="events" /> Events &amp; Conferences</label>' +
+          '<label class="phase2-check-label"><input type="checkbox" name="interests" value="book-studies" /> Book Studies</label>' +
+          '<label class="phase2-check-label"><input type="checkbox" name="interests" value="news" /> Institute News &amp; Resources</label>' +
+        '</fieldset>' +
+
+        // Mailing address
+        '<fieldset class="phase2-address">' +
+          '<legend class="phase2-legend">Mailing address <span class="phase2-optional">(optional — for printed materials)</span></legend>' +
+          '<input type="text" name="streetAddress" placeholder="Street address" class="phase2-input" aria-label="Street address" />' +
+          '<div class="phase2-row">' +
+            '<input type="text" name="city" placeholder="City" class="phase2-input" aria-label="City" />' +
+            '<select name="province" class="phase2-input phase2-select" aria-label="Province">' + provinceOptions + '</select>' +
+          '</div>' +
+          '<input type="text" name="postalCode" placeholder="Postal code" class="phase2-input phase2-input--short" aria-label="Postal code" />' +
+        '</fieldset>' +
+
+        // Turnstile for phase 2
+        '<div class="cf-turnstile" data-sitekey="0x4AAAAAADm6eYaBvIIwZNRm" data-size="compact"></div>' +
+
+        '<div class="phase2-actions">' +
+          '<button type="submit" class="phase2-submit">Save Preferences</button>' +
+          '<a href="#" class="phase2-skip">Skip for now</a>' +
+        '</div>' +
+      '</form>' +
+    '</div>';
+  }
+
+  async function submitPhase2(formEl, phase2Form, contactId) {
+    var btn = phase2Form.querySelector('.phase2-submit');
+    var originalText = btn.textContent;
+    btn.textContent = 'Saving...';
+    btn.disabled = true;
+
+    // Collect data
+    var data = {
+      contactId: contactId,
+      lastName: (phase2Form.querySelector('[name="lastName"]')?.value || '').trim(),
+      streetAddress: (phase2Form.querySelector('[name="streetAddress"]')?.value || '').trim(),
+      city: (phase2Form.querySelector('[name="city"]')?.value || '').trim(),
+      province: (phase2Form.querySelector('[name="province"]')?.value || '').trim(),
+      postalCode: (phase2Form.querySelector('[name="postalCode"]')?.value || '').trim(),
+      interests: [],
+    };
+
+    // Collect checked interests
+    phase2Form.querySelectorAll('input[name="interests"]:checked').forEach(function (cb) {
+      data.interests.push(cb.value);
+    });
+
+    // Turnstile token
+    var turnstileInput = phase2Form.querySelector('[name="cf-turnstile-response"]');
+    data['cf-turnstile-response'] = turnstileInput ? turnstileInput.value : '';
+
+    try {
+      var res = await fetch('/api/subscribe-enrich', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+      var result = await res.json();
+
+      if (res.ok && result.success) {
+        if (typeof gtag === 'function') {
+          gtag('event', 'newsletter_enrichment', {
+            event_category: 'engagement',
+            event_label: 'phase2_complete',
+            page_path: window.location.pathname
+          });
+        }
+        showThankYou(formEl, true);
+      } else {
+        btn.textContent = result.error || 'Something went wrong';
+        btn.disabled = false;
+        setTimeout(function () { btn.textContent = originalText; }, 3000);
+        if (window.turnstile) {
+          var widget = phase2Form.querySelector('.cf-turnstile');
+          if (widget) window.turnstile.reset(widget);
+        }
+      }
+    } catch (err) {
+      btn.textContent = 'Connection error — try again';
+      btn.disabled = false;
+      setTimeout(function () { btn.textContent = originalText; }, 3000);
+      if (window.turnstile) {
+        var widget = phase2Form.querySelector('.cf-turnstile');
+        if (widget) window.turnstile.reset(widget);
+      }
+    }
+  }
+
+  function showThankYou(formEl, enriched) {
+    var message = enriched
+      ? 'Your preferences have been saved. Welcome to the GGI community!'
+      : 'Welcome to the GGI community!';
+
+    formEl.innerHTML =
+      '<div style="text-align: center; padding: 20px;">' +
+        '<p style="font-family: var(--font-display); font-size: 1.3rem; color: var(--color-navy); margin-bottom: 8px;">' +
+          '✓ Thank you!' +
+        '</p>' +
+        '<p style="font-family: var(--font-body); font-size: 0.95rem; color: var(--color-gray);">' +
+          message +
+        '</p>' +
+      '</div>';
+  }
 });

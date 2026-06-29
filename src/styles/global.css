@@ -381,3 +381,200 @@ body > div[style*="z-index: 10000"]:not([style*="background-color"]) {
   }
 }
 
+/* ---- Phase 2 Enrichment Form ---- */
+.phase2 {
+  text-align: left;
+}
+
+.phase2-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.phase2-check {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--color-navy);
+  margin-bottom: 4px;
+}
+
+.phase2-prompt {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--color-gray);
+}
+
+.phase2-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.phase2-input {
+  font-family: var(--font-ui);
+  font-size: 0.9rem;
+  padding: 10px 14px;
+  border: 1px solid rgba(90, 90, 110, 0.2);
+  border-radius: 3px;
+  background: var(--color-linen, #faf7f2);
+  color: var(--color-ink, #2a2a2a);
+  outline: none;
+  width: 100%;
+  box-sizing: border-box;
+  transition: border-color 0.15s;
+}
+
+.phase2-input:focus {
+  border-color: var(--color-gold);
+  box-shadow: 0 0 0 3px rgba(184, 154, 71, 0.15);
+}
+
+.phase2-input::placeholder {
+  color: var(--color-gray);
+}
+
+.phase2-input--short {
+  max-width: 180px;
+}
+
+.phase2-select {
+  appearance: auto;
+  cursor: pointer;
+}
+
+.phase2-row {
+  display: flex;
+  gap: 8px;
+}
+
+.phase2-row .phase2-input {
+  flex: 1;
+  min-width: 0;
+}
+
+.phase2-interests,
+.phase2-address {
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+.phase2-legend {
+  font-family: var(--font-ui);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-navy);
+  margin-bottom: 8px;
+  display: block;
+}
+
+.phase2-optional {
+  font-weight: 400;
+  color: var(--color-gray);
+  font-size: 0.8rem;
+}
+
+.phase2-check-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  color: var(--color-ink);
+  padding: 4px 0;
+  cursor: pointer;
+}
+
+.phase2-check-label input[type="checkbox"] {
+  accent-color: var(--color-gold);
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+.phase2-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.phase2-submit {
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 600;
+  padding: 12px 28px;
+  background-color: var(--color-crimson, #84292d);
+  color: var(--color-parchment, #f8ebd9);
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background-color 0.15s;
+  width: 100%;
+}
+
+.phase2-submit:hover {
+  background-color: #6b1d00;
+}
+
+.phase2-skip {
+  font-family: var(--font-ui);
+  font-size: 0.82rem;
+  color: var(--color-gray);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+}
+
+.phase2-skip:hover {
+  color: var(--color-navy);
+}
+
+/* Footer-specific phase 2 adjustments */
+.footer .phase2-check {
+  color: var(--color-text-on-dark, #f5efe5);
+}
+
+.footer .phase2-prompt {
+  color: rgba(245, 239, 229, 0.7);
+}
+
+.footer .phase2-legend {
+  color: var(--color-text-on-dark, #f5efe5);
+}
+
+.footer .phase2-optional {
+  color: rgba(245, 239, 229, 0.5);
+}
+
+.footer .phase2-check-label {
+  color: rgba(245, 239, 229, 0.85);
+}
+
+.footer .phase2-skip {
+  color: rgba(245, 239, 229, 0.5);
+}
+
+.footer .phase2-skip:hover {
+  color: var(--color-text-on-dark);
+}
+
+@media (max-width: 480px) {
+  .phase2-row {
+    flex-direction: column;
+  }
+
+  .phase2-input--short {
+    max-width: 100%;
+  }
+
+  .phase2-input {
+    font-size: 16px;
+  }
+}
+
