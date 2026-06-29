@@ -171,6 +171,35 @@ export default defineType({
       description: 'Optional. Override the default button text. Leave blank to use defaults: "Register" (active), "Registration Closed" (closed), "Get Notified" (notify).',
     }),
     defineField({
+      name: 'registrationStatus',
+      title: 'Registration Status',
+      type: 'string',
+      description: 'Controls the registration section at the bottom of the event page.',
+      options: {
+        list: [
+          { title: 'Coming Soon — show "Get Notified" form', value: 'coming-soon' },
+          { title: 'Open — show Zeffy ticketing form', value: 'open' },
+          { title: 'Closed — show "Registration Closed" message', value: 'closed' },
+        ],
+        layout: 'radio',
+      },
+      initialValue: 'coming-soon',
+    }),
+    defineField({
+      name: 'zeffyFormUrl',
+      title: 'Zeffy Form URL',
+      type: 'string',
+      description: 'The Zeffy embed path, e.g. "/embed/ticketing/my-event-name". Required when Registration Status is "Open".',
+      hidden: ({ parent }) => parent?.registrationStatus !== 'open',
+    }),
+    defineField({
+      name: 'notifyTag',
+      title: 'Notify Email Tag',
+      type: 'string',
+      description: 'ActiveCampaign tag for "Get Notified" signups, e.g. "interest:conference-2026". Used when Registration Status is "Coming Soon".',
+      hidden: ({ parent }) => parent?.registrationStatus !== 'coming-soon',
+    }),
+    defineField({
       name: 'seo',
       title: 'SEO',
       type: 'object',
