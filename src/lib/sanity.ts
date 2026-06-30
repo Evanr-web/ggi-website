@@ -255,6 +255,16 @@ export async function getProgram(slug: string) {
     introDetails[]{ title, subtitle },
     readingListLabel,
     readingListHeading,
+    readings[]{ author, work },
+    readingListNote,
+    scheduleLabel,
+    scheduleHeading,
+    audienceLabel,
+    audienceHeading,
+    audienceCards[]{ title, description },
+    formLabel,
+    formHeading,
+    formSubtitle,
     "seoOgImage": seo.ogImage.asset->url
   }`, { slug });
 }

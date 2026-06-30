@@ -3,6 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Button from '../../components/Button.astro';
 import Testimonials from '../../components/Testimonials.astro';
 import { getProgram, getProgramVisibility } from '../../lib/sanity';
+import { renderPortableText } from '../../lib/portable-text';
 
 // Check if this program is enabled in Sanity
 try {
@@ -12,6 +13,52 @@ try {
 const base = import.meta.env.BASE_URL;
 const program = await getProgram('faith-and-reason');
 const testimonials = program?.testimonials || [];
+
+// CMS fields with fallbacks
+const introLabel = program?.introLabel || 'Intensive Formation';
+const introHeading = program?.introHeading || 'Go Deeper';
+const introDetails = program?.introDetails || [
+  { title: 'Format', subtitle: '3-day residential intensive' },
+  { title: 'Method', subtitle: 'Socratic seminar (discussion-based)' },
+  { title: 'Size', subtitle: '15–20 participants' },
+  { title: 'Frequency', subtitle: 'Once per year' },
+  { title: 'Location', subtitle: 'Alberta (venue TBA)' },
+  { title: 'Cost', subtitle: 'Includes lodging and meals' },
+];
+const readingListLabel = program?.readingListLabel || 'The Reading List';
+const readingListHeading = program?.readingListHeading || "What You'll Read";
+const readings = program?.readings || [
+  { author: 'St. Augustine', work: 'Confessions' },
+  { author: 'St. Thomas Aquinas', work: 'Summa Theologiae' },
+  { author: 'John Henry Newman', work: 'The Idea of a University' },
+  { author: 'G.K. Chesterton', work: 'Orthodoxy' },
+  { author: 'Josef Pieper', work: 'Leisure: The Basis of Culture' },
+  { author: 'Pope Benedict XVI', work: 'Regensburg Address' },
+];
+const readingListNote = program?.readingListNote || 'Reading packets provided in advance.';
+const scheduleLabel = program?.scheduleLabel || 'A Typical Day';
+const scheduleHeading = program?.scheduleHeading || 'The Experience';
+const scheduleItems = program?.schedule || [
+  { label: '7:30', content: 'Morning Prayer' },
+  { label: '8:00', content: 'Breakfast' },
+  { label: '9:00', content: 'Morning Seminar' },
+  { label: '12:00', content: 'Holy Mass' },
+  { label: '1:00', content: 'Lunch & Rest' },
+  { label: '3:00', content: 'Afternoon Seminar' },
+  { label: '5:30', content: 'Vespers' },
+  { label: '6:30', content: 'Dinner & Fellowship' },
+];
+const audienceLabel = program?.audienceLabel || "Who It's For";
+const audienceHeading = program?.audienceHeading || 'Is This for You?';
+const audienceCards = program?.audienceCards || [
+  { title: 'Parish Leaders', description: 'Pastors, DREs, and lay leaders who want to deepen their intellectual formation and bring it back to their communities.' },
+  { title: 'Catholic Professionals', description: 'Doctors, lawyers, teachers, and business owners who want to integrate faith and reason in their vocation.' },
+  { title: 'Seminarians & Religious', description: 'Those in formation who want an immersive encounter with the Great Books tradition beyond the classroom.' },
+  { title: 'Serious Seekers', description: 'Anyone drawn to the Catholic intellectual tradition — converts, reverts, and lifelong Catholics hungry for more.' },
+];
+const formLabel = program?.formLabel || 'Limited to 15–20 Participants';
+const formHeading = program?.formHeading || 'Join the Interest List';
+const formSubtitle = program?.formSubtitle || "Tell us about yourself and we'll notify you when registration opens for the next seminar.";
 ---
 
 <BaseLayout
@@ -37,35 +84,35 @@ const testimonials = program?.testimonials || [];
   <section class="section section--pb-tight">
     <div class="container fr-intro">
       <div class="fr-intro__text">
-        <h2>Go Deeper</h2>
-        <p>
-          For three days, a small group of Catholic leaders steps away from the noise and into
-          the company of the greatest minds in the tradition. Using the Socratic method, participants
-          read and discuss primary texts — Augustine, Aquinas, Newman, Chesterton, Pieper. No lectures.
-          No PowerPoints. Just the text, the table, and the conversation.
-        </p>
-        <p>
-          Structured around the rhythm of prayer, study, and fellowship, participants leave not
-          with a certificate but with a renewed mind and a deeper love for the tradition.
-        </p>
-        <Button href="#interest-form" variant="primary" size="small">Join the Interest List</Button>
+        <h2>{introHeading}</h2>
+        {program?.introText ? (
+          <Fragment set:html={renderPortableText(program.introText)} />
+        ) : (
+          <>
+            <p>
+              For three days, a small group of Catholic leaders steps away from the noise and into
+              the company of the greatest minds in the tradition. Using the Socratic method, participants
+              read and discuss primary texts — Augustine, Aquinas, Newman, Chesterton, Pieper. No lectures.
+              No PowerPoints. Just the text, the table, and the conversation.
+            </p>
+            <p>
+              Structured around the rhythm of prayer, study, and fellowship, participants leave not
+              with a certificate but with a renewed mind and a deeper love for the tradition.
+            </p>
+          </>
+        )}
+        <Button href="#interest-form" variant="primary" size="small">{formHeading}</Button>
       </div>
       <div class="fr-intro__sidebar">
         <div class="fr-detail-card">
           <h3>At a Glance</h3>
           <dl class="fr-details">
-            <dt>Format</dt>
-            <dd>3-day residential intensive</dd>
-            <dt>Method</dt>
-            <dd>Socratic seminar (discussion-based)</dd>
-            <dt>Size</dt>
-            <dd>15–20 participants</dd>
-            <dt>Frequency</dt>
-            <dd>Once per year</dd>
-            <dt>Location</dt>
-            <dd>Alberta (venue TBA)</dd>
-            <dt>Cost</dt>
-            <dd>Includes lodging and meals</dd>
+            {introDetails.map((d: any) => (
+              <>
+                <dt>{d.title}</dt>
+                <dd>{d.subtitle}</dd>
+              </>
+            ))}
           </dl>
         </div>
       </div>
@@ -78,35 +125,17 @@ const testimonials = program?.testimonials || [];
       <div class="fr-twin">
         <!-- Reading List -->
         <div class="fr-twin__col">
-          <p class="label text-gold">The Reading List</p>
-          <h3 class="fr-twin__heading">What You'll Read</h3>
+          <p class="label text-gold">{readingListLabel}</p>
+          <h3 class="fr-twin__heading">{readingListHeading}</h3>
           <div class="fr-readings">
-            <div class="fr-reading">
-              <span class="fr-reading__author">St. Augustine</span>
-              <span class="fr-reading__work">Confessions</span>
-            </div>
-            <div class="fr-reading">
-              <span class="fr-reading__author">St. Thomas Aquinas</span>
-              <span class="fr-reading__work">Summa Theologiae</span>
-            </div>
-            <div class="fr-reading">
-              <span class="fr-reading__author">John Henry Newman</span>
-              <span class="fr-reading__work">The Idea of a University</span>
-            </div>
-            <div class="fr-reading">
-              <span class="fr-reading__author">G.K. Chesterton</span>
-              <span class="fr-reading__work">Orthodoxy</span>
-            </div>
-            <div class="fr-reading">
-              <span class="fr-reading__author">Josef Pieper</span>
-              <span class="fr-reading__work">Leisure: The Basis of Culture</span>
-            </div>
-            <div class="fr-reading">
-              <span class="fr-reading__author">Pope Benedict XVI</span>
-              <span class="fr-reading__work">Regensburg Address</span>
-            </div>
+            {readings.map((r: any) => (
+              <div class="fr-reading">
+                <span class="fr-reading__author">{r.author}</span>
+                <span class="fr-reading__work">{r.work}</span>
+              </div>
+            ))}
           </div>
-          <p class="fr-twin__note">Reading packets provided in advance.</p>
+          {readingListNote && <p class="fr-twin__note">{readingListNote}</p>}
         </div>
 
         <!-- Divider -->
@@ -114,41 +143,15 @@ const testimonials = program?.testimonials || [];
 
         <!-- Schedule -->
         <div class="fr-twin__col">
-          <p class="label text-gold">A Typical Day</p>
-          <h3 class="fr-twin__heading">The Experience</h3>
+          <p class="label text-gold">{scheduleLabel}</p>
+          <h3 class="fr-twin__heading">{scheduleHeading}</h3>
           <div class="fr-schedule-light">
-            <div class="fr-sched">
-              <span class="fr-sched__time">7:30</span>
-              <span class="fr-sched__label">Morning Prayer</span>
-            </div>
-            <div class="fr-sched">
-              <span class="fr-sched__time">8:00</span>
-              <span class="fr-sched__label">Breakfast</span>
-            </div>
-            <div class="fr-sched">
-              <span class="fr-sched__time">9:00</span>
-              <span class="fr-sched__label">Morning Seminar</span>
-            </div>
-            <div class="fr-sched">
-              <span class="fr-sched__time">12:00</span>
-              <span class="fr-sched__label">Holy Mass</span>
-            </div>
-            <div class="fr-sched">
-              <span class="fr-sched__time">1:00</span>
-              <span class="fr-sched__label">Lunch & Rest</span>
-            </div>
-            <div class="fr-sched">
-              <span class="fr-sched__time">3:00</span>
-              <span class="fr-sched__label">Afternoon Seminar</span>
-            </div>
-            <div class="fr-sched">
-              <span class="fr-sched__time">5:30</span>
-              <span class="fr-sched__label">Vespers</span>
-            </div>
-            <div class="fr-sched">
-              <span class="fr-sched__time">6:30</span>
-              <span class="fr-sched__label">Dinner & Fellowship</span>
-            </div>
+            {scheduleItems.map((s: any) => (
+              <div class="fr-sched">
+                <span class="fr-sched__time">{s.label}</span>
+                <span class="fr-sched__label">{s.content}</span>
+              </div>
+            ))}
           </div>
         </div>
       </div>
@@ -159,26 +162,16 @@ const testimonials = program?.testimonials || [];
   <section class="section section--py-tight">
     <div class="container fr-audience">
       <div class="section-header" style="margin-bottom:var(--space-heading);">
-        <p class="label text-gold">Who It's For</p>
-        <h2>Is This for You?</h2>
+        <p class="label text-gold">{audienceLabel}</p>
+        <h2>{audienceHeading}</h2>
       </div>
       <div class="fr-audience__grid">
-        <div class="fr-audience__card">
-          <h3>Parish Leaders</h3>
-          <p>Pastors, DREs, and lay leaders who want to deepen their intellectual formation and bring it back to their communities.</p>
-        </div>
-        <div class="fr-audience__card">
-          <h3>Catholic Professionals</h3>
-          <p>Doctors, lawyers, teachers, and business owners who want to integrate faith and reason in their vocation.</p>
-        </div>
-        <div class="fr-audience__card">
-          <h3>Seminarians & Religious</h3>
-          <p>Those in formation who want an immersive encounter with the Great Books tradition beyond the classroom.</p>
-        </div>
-        <div class="fr-audience__card">
-          <h3>Serious Seekers</h3>
-          <p>Anyone drawn to the Catholic intellectual tradition — converts, reverts, and lifelong Catholics hungry for more.</p>
-        </div>
+        {audienceCards.map((card: any) => (
+          <div class="fr-audience__card">
+            <h3>{card.title}</h3>
+            <p>{card.description}</p>
+          </div>
+        ))}
       </div>
     </div>
   </section>
@@ -187,11 +180,9 @@ const testimonials = program?.testimonials || [];
   <section class="section" id="interest-form">
     <div class="container container--narrow">
       <div class="section-header" style="margin-bottom:var(--space-heading);">
-        <p class="label text-gold">Limited to 15–20 Participants</p>
-        <h2>Join the Interest List</h2>
-        <p class="subtitle--sm">
-          Tell us about yourself and we'll notify you when registration opens for the next seminar.
-        </p>
+        <p class="label text-gold">{formLabel}</p>
+        <h2>{formHeading}</h2>
+        <p class="subtitle--sm">{formSubtitle}</p>
       </div>
       <form class="fr-form" data-ac-endpoint="/api/contact" data-ac-success="Interest registered! We'll be in touch with details." method="POST">
         <div class="fr-form__row">
