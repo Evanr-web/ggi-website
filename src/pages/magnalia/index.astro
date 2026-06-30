@@ -13,7 +13,7 @@ try { issue = await getCurrentMagnaliaIssue(); } catch (e) { /* fallback */ }
 
 // Magnalia contributors from Sanity
 let contributors: any[] = [];
-try { contributors = await getMagnaliaContributors() || []; } catch (e) { /* fallback */ }
+try { contributors = (await getMagnaliaContributors() || []).slice(0, 4); } catch (e) { /* fallback */ }
 
 // Resolved values (CMS or hardcoded defaults)
 const coverImage = issue?.coverImage || `${base}images/branding/Magnalia_Cover.jpg`;
