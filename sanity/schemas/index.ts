@@ -1,5 +1,6 @@
 import siteSettings from './siteSettings';
 import homepage from './homepage';
+import programsOverview from './programsOverview';
 import person from './person';
 import program from './program';
 import event from './event';
@@ -15,6 +16,7 @@ export const schemaTypes = [
   // Singletons
   siteSettings,
   homepage,
+  programsOverview,
 
   // Documents
   person,

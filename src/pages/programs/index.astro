@@ -2,34 +2,34 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Button from '../../components/Button.astro';
 import SectionDivider from '../../components/SectionDivider.astro';
-import { getProgramVisibility } from '../../lib/sanity';
+import { getProgramsOverview } from '../../lib/sanity';
 
-// Fetch enabled/disabled status from Sanity CMS
-let visibility: Record<string, boolean> = {};
-try {
-  visibility = await getProgramVisibility();
-} catch (e) {
-  // If Sanity is unreachable, show all programs by default
-}
+// Fetch the programs overview singleton from Sanity
+const overview = await getProgramsOverview();
 
-// Helper: returns true if a program should be shown
-// Programs default to visible unless explicitly disabled in Sanity
-function isVisible(slug: string): boolean {
-  if (Object.keys(visibility).length === 0) return true; // Sanity unreachable fallback
-  return visibility[slug] !== false;
-}
+// Filter to enabled cards only
+const cards = (overview?.cards || []).filter((c: any) => c.enabled !== false);
+
+// Fallback values if Sanity document doesn't exist yet
+const heroImage = overview?.heroImage || `${import.meta.env.BASE_URL}images/art/Bodleian-Library-Oxford.jpg`;
+const heroHeadline = overview?.heroHeadline || 'Formation, Courses & Community';
+const heroQuote = overview?.heroQuote || '"Be who God meant you to be and you will set the world on fire."';
+const heroAttribution = overview?.heroAttribution || '— St. Catherine of Siena';
+const footerMessage = overview?.footerMessage || 'Every program is made possible by the faithful support of our Friends and Patrons.';
+const footerLinkText = overview?.footerLinkText || 'Join them →';
+const footerLinkUrl = overview?.footerLinkUrl || '/support/';
 ---
 
 <BaseLayout title="Programs" description="Formation programs, courses, and community offerings from the Gregory the Great Institute.">
 
   <!-- Hero -->
   <section class="hero-compact section--dark">
-    <div class="hero-compact__bg" style={`background-image: url(${import.meta.env.BASE_URL}images/art/Bodleian-Library-Oxford.jpg)`}></div>
+    <div class="hero-compact__bg" style={`background-image: url(${heroImage})`}></div>
     <div class="hero-compact__overlay"></div>
     <div class="hero-compact__content container">
-      <h1 data-pagefind-weight="10" class="display">Formation, Courses & Community</h1>
-      <p class="hero-compact__subtitle"><em>"Be who God meant you to be and you will set the world on fire."</em></p>
-      <p class="hero-compact__attr">— St. Catherine of Siena</p>
+      <h1 data-pagefind-weight="10" class="display">{heroHeadline}</h1>
+      {heroQuote && <p class="hero-compact__subtitle"><em>{heroQuote}</em></p>}
+      {heroAttribution && <p class="hero-compact__attr">{heroAttribution}</p>}
     </div>
   </section>
 
@@ -37,139 +37,49 @@ function isVisible(slug: string): boolean {
   <section class="section">
     <div class="container">
 
-      {/* Conference — uses "conference" slug in Sanity for visibility */}
-      {isVisible('conference') && (
-      <>
-      <div class="program-card reveal">
-        <div class="program-card__image">
-          <a href={`${import.meta.env.BASE_URL}events/conference-2026/`}><img src={`${import.meta.env.BASE_URL}images/art/school-of-athens.jpg`} alt="The School of Athens by Raphael — Renewing Culture Conference"  class="art-filter" /></a>
-        </div>
-        <div class="program-card__body">
-          <p class="label text-gold">Annual Flagship Gathering</p>
-          <h2><a href={`${import.meta.env.BASE_URL}events/conference-2026/`}>Renewing Culture Conference</a></h2>
-          <p class="program-card__desc">
-            Join Christians from across Western Canada as renowned speakers explore cutting-edge topics
-            through the lens of a great tradition text. The 2026 conference — <em>Bringing Back Sunday</em> —
-            takes up Josef Pieper's <em>Leisure: The Basis of Culture</em>.
-          </p>
-          <dl class="program-card__details">
-            <dt>Audience</dt><dd>All welcome</dd>
-            <dt>Format</dt><dd>2-day conference</dd>
-            <dt>Frequency</dt><dd>Annual — October</dd>
-            <dt>Next</dt><dd>October 2–3, 2026 · Mt Carmel Spirituality Centre</dd>
-          </dl>
-          <Button href={`${import.meta.env.BASE_URL}events/conference-2026/`} variant="primary" size="small">Learn More</Button>
-        </div>
-      </div>
-      <SectionDivider />
-      </>
-      )}
+      {cards.map((card: any, i: number) => {
+        const isReverse = i % 2 !== 0;
+        const isLast = i === cards.length - 1;
+        const imgClass = card.artFilter ? 'art-filter' : '';
 
-      {/* Music Camp — uses "music-camp" slug in Sanity for visibility */}
-      {isVisible('music-camp') && (
-      <>
-      <div class="program-card program-card--reverse reveal">
-        <div class="program-card__image">
-          <a href={`${import.meta.env.BASE_URL}events/music-camp-2026/`}><img src={`${import.meta.env.BASE_URL}images/events/music-camp-hero-outdoor.jpeg`} alt="St. Gregory's Music Camp" /></a>
-        </div>
-        <div class="program-card__body">
-          <p class="label text-gold">Youth Formation</p>
-          <h2><a href={`${import.meta.env.BASE_URL}events/music-camp-2026/`}>St. Gregory's Music & Leadership Camp</a></h2>
-          <p class="program-card__desc">
-            A four-night residential camp for youth ages 12–18. Instruction in fiddle, penny whistle,
-            and voice, exploring sacred and folk music traditions. Daily prayer, leadership sessions,
-            games, and community. Inspired by the von Trapp family singers' camp.
-          </p>
-          <dl class="program-card__details">
-            <dt>Audience</dt><dd>Ages 12–18 (Leader-in-Training stream for 16–18)</dd>
-            <dt>Format</dt><dd>4-night residential camp</dd>
-            <dt>Frequency</dt><dd>Annual — July</dd>
-            <dt>Cost</dt><dd>$350/child (family discounts available)</dd>
-          </dl>
-          <Button href={`${import.meta.env.BASE_URL}events/music-camp-2026/`} variant="primary" size="small">Register</Button>
-        </div>
-      </div>
-      <SectionDivider />
-      </>
-      )}
+        return (
+          <>
+            <div class={`program-card reveal${isReverse ? ' program-card--reverse' : ''}`}>
+              <div class="program-card__image">
+                <a href={card.ctaLink}>
+                  <img
+                    src={card.thumbnail}
+                    alt={card.thumbnailAlt || card.title}
+                    class={imgClass}
+                  />
+                </a>
+              </div>
+              <div class="program-card__body">
+                {card.label && <p class="label text-gold">{card.label}</p>}
+                <h2><a href={card.ctaLink}>{card.title}</a></h2>
+                <p class="program-card__desc">{card.description}</p>
+                {card.details && card.details.length > 0 && (
+                  <dl class="program-card__details">
+                    {card.details.map((d: any) => (
+                      <>
+                        <dt>{d.key}</dt>
+                        <dd>{d.value}</dd>
+                      </>
+                    ))}
+                  </dl>
+                )}
+                <Button href={card.ctaLink} variant="primary" size="small">{card.ctaText || 'Learn More'}</Button>
+              </div>
+            </div>
+            {!isLast && <SectionDivider />}
+          </>
+        );
+      })}
 
-      {/* Book Studies */}
-      {isVisible('book-studies') && (
-      <>
-      <div class="program-card reveal">
-        <div class="program-card__image">
-          <a href={`${import.meta.env.BASE_URL}programs/book-studies/`}><img src={`${import.meta.env.BASE_URL}images/events/2026-book-studies-reading-list.jpg`} alt="2026 Book Studies"  class="art-filter" /></a>
-        </div>
-        <div class="program-card__body">
-          <p class="label text-gold">Free · Year-Round · Nationwide</p>
-          <h2><a href={`${import.meta.env.BASE_URL}programs/book-studies/`}>Book Studies — Inklings Clubs</a></h2>
-          <p class="program-card__desc">
-            Free small-group reading clubs across Canada. Study guides, webinars, and discounts for
-            participants. Dive into the treasures of culture while building community in your city.
-            2026 reads: Fr. Jacques Philippe, George Orwell, and Josef Pieper.
-          </p>
-          <dl class="program-card__details">
-            <dt>Audience</dt><dd>All welcome</dd>
-            <dt>Format</dt><dd>Small group reading clubs</dd>
-            <dt>Frequency</dt><dd>Three studies per year (Feb, May, Sep)</dd>
-            <dt>Cost</dt><dd>Free</dd>
-          </dl>
-          <Button href={`${import.meta.env.BASE_URL}programs/book-studies/`} variant="primary" size="small">Join a Book Study</Button>
-        </div>
-      </div>
-      <SectionDivider />
-      </>
-      )}
-
-      {/* Faith & Reason */}
-      {isVisible('faith-and-reason') && (
-      <>
-      <div class="program-card program-card--reverse reveal">
-        <div class="program-card__image">
-          <a href={`${import.meta.env.BASE_URL}programs/faith-and-reason/`}><img src={`${import.meta.env.BASE_URL}images/art/vanitas-still-life-painting.jpg`} alt="Faith and Reason Seminar"  class="art-filter" /></a>
-        </div>
-        <div class="program-card__body">
-          <p class="label text-gold">Intensive Formation</p>
-          <h2><a href={`${import.meta.env.BASE_URL}programs/faith-and-reason/`}>Faith & Reason Seminar</a></h2>
-          <p class="program-card__desc">
-            An intensive 3-day Great Books immersion for Catholic leaders. Socratic seminars, cultural
-            formation, prayer, and renewal. Unique in Western Canada — designed for those ready to go deeper
-            into the intellectual and spiritual tradition.
-          </p>
-          <dl class="program-card__details">
-            <dt>Audience</dt><dd>Catholic leaders and serious seekers</dd>
-            <dt>Format</dt><dd>3-day residential intensive</dd>
-            <dt>Frequency</dt><dd>Annual</dd>
-          </dl>
-          <Button href={`${import.meta.env.BASE_URL}programs/faith-and-reason/`} variant="primary" size="small">Learn More</Button>
-        </div>
-      </div>
-      <SectionDivider />
-      </>
-      )}
-
-      {/* Masterclasses */}
-      {isVisible('masterclasses') && (
-      <div class="program-card reveal">
-        <div class="program-card__image">
-          <a href={`${import.meta.env.BASE_URL}programs/masterclasses/`}><img src={`${import.meta.env.BASE_URL}images/art/St-Gregory-Great-painting-dove.jpg`} alt="Masterclasses" class="art-filter" style="object-position: center 25%;" /></a>
-        </div>
-        <div class="program-card__body">
-          <p class="label text-gold">Short Courses</p>
-          <h2><a href={`${import.meta.env.BASE_URL}programs/masterclasses/`}>Masterclasses</a></h2>
-          <p class="program-card__desc">
-            Short courses on the great themes of Catholic intellectual life: Philosophy of Aquinas,
-            Virtuous Leadership, Christian Beauty and Art, Classical Education for Teachers.
-            Available online and in-person.
-          </p>
-          <dl class="program-card__details">
-            <dt>Audience</dt><dd>All welcome</dd>
-            <dt>Format</dt><dd>Short course (1 day or multi-session)</dd>
-            <dt>Frequency</dt><dd>Ongoing</dd>
-          </dl>
-          <Button href={`${import.meta.env.BASE_URL}programs/masterclasses/`} variant="primary" size="small">Browse Courses</Button>
-        </div>
-      </div>
+      {cards.length === 0 && (
+        <p class="text-center" style="padding: 60px 0; color: var(--color-gray);">
+          Programs coming soon. Check back for updates.
+        </p>
       )}
 
     </div>
@@ -179,8 +89,8 @@ function isVisible(slug: string): boolean {
   <section class="made-possible">
     <div class="container text-center">
       <p class="made-possible__text">
-        Every program is made possible by the faithful support of our Friends and Patrons.
-        <a href={`${import.meta.env.BASE_URL}support/`}>Join them →</a>
+        {footerMessage}
+        {' '}<a href={footerLinkUrl}>{footerLinkText}</a>
       </p>
     </div>
   </section>

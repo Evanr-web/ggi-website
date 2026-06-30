@@ -206,6 +206,31 @@ export async function getPrograms() {
   }`);
 }
 
+// Programs Overview (singleton — powers /programs/ index page)
+export async function getProgramsOverview() {
+  return sanityClient.fetch(`*[_type == "programsOverview"][0]{
+    "heroImage": heroImage.asset->url,
+    heroHeadline,
+    heroQuote,
+    heroAttribution,
+    cards[]{
+      title,
+      label,
+      "thumbnail": thumbnail.asset->url,
+      thumbnailAlt,
+      artFilter,
+      description,
+      details[]{ key, value },
+      ctaText,
+      ctaLink,
+      enabled
+    },
+    footerMessage,
+    footerLinkText,
+    footerLinkUrl
+  }`);
+}
+
 // Program visibility map — returns { slug: enabled } for all programs
 export async function getProgramVisibility(): Promise<Record<string, boolean>> {
   const results = await sanityClient.fetch(`*[_type == "program"]{ "slug": slug.current, enabled }`);

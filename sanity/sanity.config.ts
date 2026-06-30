@@ -65,6 +65,13 @@ const structure = (S: StructureBuilder) =>
             .documentId('homepage')
             .views(documentViewsWithPreview(S))
         ),
+      S.listItem()
+        .title('🎓 Programs Overview')
+        .child(
+          S.document()
+            .schemaType('programsOverview')
+            .documentId('programsOverview')
+        ),
 
       S.divider(),
 
@@ -294,7 +301,7 @@ export default defineConfig({
   document: {
     actions: (prev, context) => {
       // Singletons shouldn't be duplicated or deleted
-      const singletons = ['siteSettings', 'homepage'];
+      const singletons = ['siteSettings', 'homepage', 'programsOverview'];
       if (singletons.includes(context.schemaType)) {
         return prev.filter(
           (action: any) => !['duplicate', 'delete'].includes(action.action || '')
