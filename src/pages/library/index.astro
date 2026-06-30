@@ -167,6 +167,11 @@ const categories = ["All", "News", "Essays", "Videos", "Resources"];
     padding-block: 60px;
   }
 
+  /* Ensure hidden attribute works on cards (overrides display: grid/inline-block) */
+  .library-card[hidden] {
+    display: none !important;
+  }
+
   /* === Featured Article (full-width, image + text side by side) === */
   .lib-feature {
     display: grid;
