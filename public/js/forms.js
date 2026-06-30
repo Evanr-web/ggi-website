@@ -140,13 +140,25 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
-    // Render Turnstile widget in phase 2
+    // Render Turnstile widget in phase 2 (retry if script hasn't loaded yet)
     var turnstileContainer = formEl.querySelector('.phase2-form .cf-turnstile');
-    if (turnstileContainer && window.turnstile) {
-      window.turnstile.render(turnstileContainer, {
-        sitekey: turnstileContainer.dataset.sitekey,
-        size: 'compact',
-      });
+    if (turnstileContainer) {
+      var renderTurnstile = function () {
+        if (window.turnstile) {
+          window.turnstile.render(turnstileContainer, {
+            sitekey: turnstileContainer.dataset.sitekey,
+            size: 'compact',
+          });
+        } else {
+          // Script not loaded yet — retry up to 10 times
+          if (!renderTurnstile._attempts) renderTurnstile._attempts = 0;
+          renderTurnstile._attempts++;
+          if (renderTurnstile._attempts < 10) {
+            setTimeout(renderTurnstile, 500);
+          }
+        }
+      };
+      renderTurnstile();
     }
 
     // Wire up phase 2 submit
