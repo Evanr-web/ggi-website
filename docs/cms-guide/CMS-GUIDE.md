@@ -261,21 +261,83 @@ Mark one issue as **Current** to feature it on the Magnalia page.
 
 ![People in Sanity](images/studio-people.png)
 
-Manages everyone shown on the site — board members, staff, contributors.
+Manages everyone shown on the site. A single person document can appear on **multiple pages** — you control where with toggles and fields.
 
-**Fields:**
-- Name, role, short bio
-- Photo (recommended: square, 400×400px minimum)
-- Person Type (Board, Staff, Contributor, Advisor)
-- Credentials (degrees, titles)
-- Email (optional)
-- Published toggle (hide without deleting)
+### Where People Appear
 
-**Where it appears on the site:**
+People can show up in **three places** on the site:
 
-![About page on the site](images/site-about.png)
+| Page | URL | What Controls It |
+|------|-----|------------------|
+| **Leadership** | `/about/leadership/` | "Show on Leadership Page" toggle |
+| **Magnalia** (main) | `/magnalia/` | "Magnalia Contributor" toggle + Sort Order 1–4 |
+| **Magnalia Contributors** | `/magnalia/contributors/` | "Magnalia Contributor" toggle (all positions) |
+| **Library articles** | `/library/...` | When set as Author on a library item |
 
-People appear on the Leadership page, grouped by type.
+### Fields Reference
+
+#### 👤 Basics Tab
+
+| Field | What It Does | Used On |
+|-------|-------------|--------|
+| **Name** | Full name as displayed | All pages |
+| **Photo** | Headshot (square crop, 400×400px+) | Leadership, Magnalia, Contributors |
+| **Role / Title** | e.g. "Executive Director" or "Fellow · Calgary" | Leadership, Magnalia card subtitle |
+| **Person Type** | Staff, Board, Fellow, Advisory, Patron, Contributor | Leadership (controls which section) |
+| **Email** | Contact email | Leadership (Staff only) |
+| **Show on Leadership Page** | Toggle ON/OFF | Shows/hides on the Leadership page |
+| **Sort Order** | Display order within Leadership section (1 = first) | Leadership page |
+| **Magnalia Contributor** | Toggle ON/OFF | Shows/hides on Magnalia pages |
+| **Magnalia Sort Order** | **Positions 1–4** appear on the main Magnalia page. **Position 5+** appear on the Contributors page only. | Magnalia + Contributors pages |
+
+#### 📝 Details Tab
+
+| Field | What It Does | Used On |
+|-------|-------------|--------|
+| **Short Bio** | 1–2 sentences (under 150 characters) | Leadership cards, Magnalia index cards |
+| **Magnalia Contributor Bio** | 2–3 sentences (under 300 characters) | Contributors page only |
+| **Full Biography** | Rich text, extended bio | Founding Director page only (for now) |
+| **Credentials** | Academic credentials, e.g. "DPhil (Oxford)" | Shown after role where space allows |
+
+#### 📚 Publications Tab
+
+| Field | What It Does | Used On |
+|-------|-------------|--------|
+| **Publications / Books** | Title, year, publisher, URL, cover image | Founding Director page only (for now) |
+
+### How to Add a New Person
+
+1. Go to **People** in the Sanity sidebar
+2. Click **+** to create a new document
+3. Fill in **Name**, **Photo**, **Role**, and **Person Type**
+4. Choose where they should appear:
+   - **Leadership page?** → Toggle "Show on Leadership Page" ON, set Sort Order
+   - **Magnalia pages?** → Toggle "Magnalia Contributor" ON, set Magnalia Sort Order
+   - **Both?** → Toggle both ON
+5. Fill in the relevant bios (Short Bio for Leadership/Magnalia cards, Magnalia Contributor Bio for the Contributors page)
+6. Click **Publish**
+
+> **Tip:** The site rebuilds automatically when you publish. Changes appear in 1–2 minutes.
+
+### How to Remove Someone
+
+Don't delete the document — just toggle OFF whichever page you want to remove them from:
+- Toggle "Show on Leadership Page" OFF → gone from Leadership
+- Toggle "Magnalia Contributor" OFF → gone from both Magnalia pages
+
+This keeps their data intact in case you want to add them back later.
+
+### How to Reorder People
+
+- **Leadership page:** Change the **Sort Order** number (1 = first in their section)
+- **Magnalia pages:** Change the **Magnalia Sort Order** number
+  - Positions **1–4** show on the main `/magnalia/` page
+  - Positions **5+** only show on `/magnalia/contributors/`
+  - To move someone from Contributors-only to the main page, give them a number 1–4 and bump others accordingly
+
+### People as Library Authors
+
+When creating a Library article, the **Author** field is a reference to a Person document. The author's name appears on the article card and page. The person doesn't need any toggles turned on to be an author — they just need to exist as a Person document.
 
 ---
 
