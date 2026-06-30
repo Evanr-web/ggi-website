@@ -5,12 +5,19 @@ export default defineType({
   name: 'program',
   title: 'Program',
   type: 'document',
+  groups: [
+    { name: 'general', title: 'General', default: true },
+    { name: 'landing', title: '📄 Landing Page' },
+    { name: 'details', title: '📋 Details' },
+    { name: 'seo', title: '🔍 SEO' },
+  ],
   fields: [
     defineField({
       name: 'title',
       title: 'Title',
       type: 'string',
       validation: (Rule) => Rule.required(),
+      group: 'general',
     }),
     defineField({
       name: 'enabled',
@@ -19,6 +26,7 @@ export default defineType({
       description: 'Toggle to control visibility on the live site.',
       initialValue: true,
       components: { input: EnabledToggle },
+      group: 'general',
     }),
     defineField({
       name: 'slug',
@@ -27,6 +35,7 @@ export default defineType({
       description: 'Auto-generated from the title. This becomes the page URL (e.g. /programs/my-program/).',
       options: { source: 'title', maxLength: 96 },
       validation: (Rule) => Rule.required(),
+      group: 'general',
     }),
     defineField({
       name: 'template',
@@ -44,12 +53,14 @@ export default defineType({
         ],
       },
       initialValue: 'conference',
+      group: 'general',
     }),
     defineField({
       name: 'tagline',
       title: 'Tagline / Quote',
       type: 'text',
       rows: 2,
+      group: 'general',
     }),
     defineField({
       name: 'description',
@@ -57,6 +68,7 @@ export default defineType({
       type: 'text',
       rows: 3,
       description: 'Used on the Programs overview page cards',
+      group: 'general',
     }),
     defineField({
       name: 'body',
@@ -66,6 +78,7 @@ export default defineType({
         { type: 'block' },
         { type: 'image', options: { hotspot: true } },
       ],
+      group: 'general',
     }),
     defineField({
       name: 'headerImage',
@@ -73,24 +86,87 @@ export default defineType({
       type: 'image',
       options: { hotspot: true },
       description: 'Recommended: 1600×900px or larger, landscape. Shown at the top of the program page.',
+      group: 'general',
     }),
+
+    // === Landing Page Sections ===
+    defineField({
+      name: 'introLabel',
+      title: 'Intro Section Label',
+      type: 'string',
+      description: 'Small gold text above the heading, e.g. "What Are Inklings Clubs?"',
+      group: 'landing',
+    }),
+    defineField({
+      name: 'introHeading',
+      title: 'Intro Section Heading',
+      type: 'string',
+      description: 'e.g. "Read Great Books. Build Community."',
+      group: 'landing',
+    }),
+    defineField({
+      name: 'introText',
+      title: 'Intro Text',
+      type: 'array',
+      of: [{ type: 'block' }],
+      description: 'The main paragraphs in the intro section.',
+      group: 'landing',
+    }),
+    defineField({
+      name: 'introDetails',
+      title: 'Intro Quick Facts',
+      type: 'array',
+      description: 'Quick-fact cards shown alongside the intro text (e.g. "Three studies per year", "Always free").',
+      group: 'landing',
+      of: [
+        {
+          type: 'object',
+          name: 'introDetail',
+          fields: [
+            { name: 'title', title: 'Title', type: 'string', validation: (Rule: any) => Rule.required() },
+            { name: 'subtitle', title: 'Subtitle', type: 'string' },
+          ],
+          preview: {
+            select: { title: 'title', subtitle: 'subtitle' },
+          },
+        },
+      ],
+    }),
+    defineField({
+      name: 'readingListLabel',
+      title: 'Reading List Section Label',
+      type: 'string',
+      description: 'e.g. "2026 Reading List"',
+      group: 'landing',
+    }),
+    defineField({
+      name: 'readingListHeading',
+      title: 'Reading List Section Heading',
+      type: 'string',
+      description: 'e.g. "This Year\'s Books"',
+      group: 'landing',
+    }),
+    // === Details ===
     defineField({
       name: 'audience',
       title: 'Audience',
       type: 'string',
       description: 'e.g. "Ages 12–18", "Catholic leaders", "All welcome"',
+      group: 'details',
     }),
     defineField({
       name: 'format',
       title: 'Format',
       type: 'string',
       description: 'e.g. "4-night residential camp", "3-day intensive", "Monthly online"',
+      group: 'details',
     }),
     defineField({
       name: 'frequency',
       title: 'Frequency',
       type: 'string',
       description: 'e.g. "Annual — October", "Year-round", "Summer"',
+      group: 'details',
     }),
     defineField({
       name: 'pricing',
@@ -98,23 +174,27 @@ export default defineType({
       type: 'text',
       rows: 2,
       description: 'e.g. "$350/child" or "$50 early bird / $75 regular". Include family discounts or bursary info if available.',
+      group: 'details',
     }),
     defineField({
       name: 'registrationUrl',
       title: 'Registration URL',
       type: 'url',
+      group: 'details',
     }),
     defineField({
       name: 'contactPerson',
       title: 'Contact Person',
       type: 'reference',
       to: [{ type: 'person' }],
+      group: 'details',
     }),
     defineField({
       name: 'relatedEvents',
       title: 'Related Events',
       type: 'array',
       of: [{ type: 'reference', to: [{ type: 'event' }] }],
+      group: 'details',
     }),
     defineField({
       name: 'testimonials',
@@ -129,17 +209,20 @@ export default defineType({
           ],
         },
       ],
+      group: 'details',
     }),
     defineField({
       name: 'label',
       title: 'Label',
       type: 'string',
       description: 'Short label shown above the title, e.g. "Intensive Formation", "Youth Program", "Short Course"',
+      group: 'general',
     }),
     defineField({
       name: 'highlights',
       title: 'Highlights',
       type: 'array',
+      group: 'landing',
       description: 'Feature cards shown in a grid — e.g. "What You\'ll Experience", "What\'s Included". Leave empty to hide this section.',
       of: [
         {
@@ -159,6 +242,7 @@ export default defineType({
       name: 'schedule',
       title: 'Schedule / Timeline',
       type: 'array',
+      group: 'landing',
       description: 'Schedule items like "Day 1: Arrival & Orientation". Leave empty to hide.',
       of: [
         {
@@ -178,11 +262,13 @@ export default defineType({
       name: 'whoItsFor',
       title: 'Who It\'s For',
       type: 'array',
+      group: 'landing',
       description: 'Bullet points for "Is This For You?" section. Leave empty to hide.',
       of: [{ type: 'string' }],
     }),
     defineField({
       name: 'ctaStatus',
+      group: 'details',
       title: 'CTA Button Status',
       type: 'string',
       description: 'Controls the main action button. "Active" links to registration, "Interest List" shows a signup form, "Closed" shows greyed-out button.',
@@ -201,26 +287,31 @@ export default defineType({
       title: 'CTA Button Label',
       type: 'string',
       description: 'Override default button text. Defaults: "Register Now" (active), "Join the Interest List" (interest), "Registration Closed" (closed).',
+      group: 'details',
     }),
     defineField({
       name: 'location',
       title: 'Location',
       type: 'string',
       description: 'e.g. "Mt Carmel Spirituality Centre, Alberta" or "Online"',
+      group: 'details',
     }),
     defineField({
       name: 'dates',
       title: 'Dates',
       type: 'string',
       description: 'Human-readable date string, e.g. "October 2-3, 2026" or "Year-round"',
+      group: 'details',
     }),
     defineField({
       name: 'order',
       title: 'Sort Order',
       type: 'number',
+      group: 'general',
     }),
     defineField({
       name: 'seo',
+      group: 'seo',
       title: 'SEO',
       type: 'object',
       fields: [

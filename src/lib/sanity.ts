@@ -249,6 +249,12 @@ export async function getProgram(slug: string) {
     highlights,
     schedule,
     whoItsFor,
+    introLabel,
+    introHeading,
+    introText,
+    introDetails[]{ title, subtitle },
+    readingListLabel,
+    readingListHeading,
     "seoOgImage": seo.ogImage.asset->url
   }`, { slug });
 }

@@ -9,12 +9,25 @@ import { getProgramVisibility } from '../../lib/sanity';
 try {
   const vis = await getProgramVisibility();
   if (vis['book-studies'] === false) return Astro.redirect('/programs/');
-} catch (e) { /* Sanity unreachable — show page */ }
+} catch (e) { /* Sanity unreachable - show page */ }
 import Testimonials from '../../components/Testimonials.astro';
 import { getProgram, getBookStudies, getReadingGroups } from '../../lib/sanity';
+import { renderPortableText } from '../../lib/portable-text';
 const base = import.meta.env.BASE_URL;
 const program = await getProgram('book-studies');
 const testimonials = program?.testimonials || [];
+
+// Landing page CMS fields with fallbacks
+const introLabel = program?.introLabel || 'What Are Inklings Clubs?';
+const introHeading = program?.introHeading || 'Read Great Books. Build Community.';
+const introDetails = program?.introDetails || [
+  { title: 'Three studies per year', subtitle: 'February · May · September' },
+  { title: 'Always free', subtitle: 'No cost to join, ever' },
+  { title: 'Local groups + online', subtitle: 'Join in your city or from home' },
+  { title: 'Study guides provided', subtitle: 'Written by GGI Fellows' },
+];
+const readingListLabel = program?.readingListLabel || '2026 Reading List';
+const readingListHeading = program?.readingListHeading || "This Year's Books";
 
 // Fetch book studies from Sanity (current year)
 const currentYear = new Date().getFullYear();
@@ -22,9 +35,9 @@ const sanityStudies = await getBookStudies(currentYear);
 
 // Fallback to hardcoded data if Sanity is empty
 const fallbackStudies = [
-  { title: 'Searching for and Maintaining Peace', author: 'Fr. Jacques Philippe', description: 'A beloved guide to interior peace — short, profound, and one of the most widely read spiritual books of the past generation. How to find and keep peace of heart in the midst of life\'s trials.', month: 'February', year: 2026, status: 'completed', eventPage: '/events/book-study-feb-2026/' },
+  { title: 'Searching for and Maintaining Peace', author: 'Fr. Jacques Philippe', description: 'A beloved guide to interior peace - short, profound, and one of the most widely read spiritual books of the past generation. How to find and keep peace of heart in the midst of life\'s trials.', month: 'February', year: 2026, status: 'completed', eventPage: '/events/book-study-feb-2026/' },
   { title: 'Animal Farm', author: 'George Orwell', description: 'Orwell\'s classic political fable, read through the lens of Catholic social teaching. What does the barnyard revolution reveal about power, ideology, and the dignity of the human person?', month: 'May', year: 2026, status: 'current', eventPage: '/events/book-study-may-2026/' },
-  { title: 'Leisure: The Basis of Culture', author: 'Josef Pieper', description: 'Pieper\'s masterwork on why contemplation — not productivity — is the foundation of civilization. Prepares readers for the October Renewing Culture Conference, which takes up Pieper\'s vision in depth.', month: 'September', year: 2026, status: 'upcoming', eventPage: '/events/book-study-sep-2026/' },
+  { title: 'Leisure: The Basis of Culture', author: 'Josef Pieper', description: 'Pieper\'s masterwork on why contemplation - not productivity - is the foundation of civilization. Prepares readers for the October Renewing Culture Conference, which takes up Pieper\'s vision in depth.', month: 'September', year: 2026, status: 'upcoming', eventPage: '/events/book-study-sep-2026/' },
 ];
 const studies = sanityStudies?.length > 0 ? sanityStudies : fallbackStudies;
 
@@ -38,8 +51,8 @@ const sanityGroups = await getReadingGroups();
 ---
 
 <BaseLayout
-  title="Inklings Book Studies — Free Reading Clubs Across Canada"
-  description="Join a free Inklings reading club near you. Small groups across Canada reading great books together — with study guides, monthly webinars, and a growing community of 1,500+ members."
+  title="Inklings Book Studies - Free Reading Clubs Across Canada"
+  description="Join a free Inklings reading club near you. Small groups across Canada reading great books together - with study guides, monthly webinars, and a growing community of 1,500+ members."
   ogImage="/images/og/book-studies-og.jpg"
 >
 
@@ -60,50 +73,36 @@ const sanityGroups = await getReadingGroups();
   <section class="section">
     <div class="container bs-intro">
       <div class="bs-intro__text">
-        <p class="label text-gold">What Are Inklings Clubs?</p>
-        <h2>Read Great Books. Build Community.</h2>
-        <p>
-          Named after the famous Oxford circle of C.S. Lewis, J.R.R. Tolkien, and Charles Williams,
-          Inklings Clubs are free small-group reading communities that meet across Canada. Three times
-          a year, the Institute selects a book that deepens Catholic intellectual life — and invites
-          everyone to read together.
-        </p>
-        <p>
-          Each study comes with discussion guides written by our Fellows, live webinars to connect
-          readers nationwide, and discounted copies of the book. Whether you join a local group or
-          follow along online, you're part of a growing network of Canadians who believe reading
-          well is a form of worship.
-        </p>
+        <p class="label text-gold">{introLabel}</p>
+        <h2>{introHeading}</h2>
+        {program?.introText ? (
+          <Fragment set:html={renderPortableText(program.introText)} />
+        ) : (
+          <>
+            <p>
+              Named after the famous Oxford circle of C.S. Lewis, J.R.R. Tolkien, and Charles Williams,
+              Inklings Clubs are free small-group reading communities that meet across Canada. Three times
+              a year, the Institute selects a book that deepens Catholic intellectual life — and invites
+              everyone to read together.
+            </p>
+            <p>
+              Each study comes with discussion guides written by our Fellows, live webinars to connect
+              readers nationwide, and discounted copies of the book. Whether you join a local group or
+              follow along online, you’re part of a growing network of Canadians who believe reading
+              well is a form of worship.
+            </p>
+          </>
+        )}
       </div>
       <div class="bs-intro__details">
-        <div class="bs-detail">
-          <svg class="bs-detail__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-          <div>
-            <strong>{studyCountWord} per year</strong>
-            <span>{studyMonths}</span>
+        {introDetails.map((detail: any) => (
+          <div class="bs-detail">
+            <div>
+              <strong>{detail.title}</strong>
+              {detail.subtitle && <span>{detail.subtitle}</span>}
+            </div>
           </div>
-        </div>
-        <div class="bs-detail">
-          <svg class="bs-detail__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-          <div>
-            <strong>Always free</strong>
-            <span>No cost to join, ever</span>
-          </div>
-        </div>
-        <div class="bs-detail">
-          <svg class="bs-detail__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-          <div>
-            <strong>Local groups + online</strong>
-            <span>Join in your city or from home</span>
-          </div>
-        </div>
-        <div class="bs-detail">
-          <svg class="bs-detail__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
-          <div>
-            <strong>Study guides provided</strong>
-            <span>Written by GGI Fellows</span>
-          </div>
-        </div>
+        ))}
       </div>
     </div>
   </section>
@@ -112,8 +111,8 @@ const sanityGroups = await getReadingGroups();
   <section class="section section--linen section--compact">
     <div class="container">
       <div class="section-header">
-        <p class="label text-gold">2026 Reading List</p>
-        <h2>This Year's Books</h2>
+        <p class="label text-gold">{readingListLabel}</p>
+        <h2>{readingListHeading}</h2>
       </div>
 
       <div class="bs-books">
@@ -153,7 +152,7 @@ const sanityGroups = await getReadingGroups();
         <div class="bs-step">
           <span class="bs-step__number">1</span>
           <h3>Sign Up</h3>
-          <p>Register for the current study — it takes 30 seconds and costs nothing.</p>
+          <p>Register for the current study - it takes 30 seconds and costs nothing.</p>
         </div>
         <div class="bs-step">
           <span class="bs-step__number">2</span>
@@ -181,7 +180,7 @@ const sanityGroups = await getReadingGroups();
         <p class="label text-gold">Find a Group</p>
         <h2>Inklings Clubs Across Canada</h2>
         <p class="subtitle">
-          Join an existing group near you — or start one in your city.
+          Join an existing group near you - or start one in your city.
         </p>
       </div>
 
@@ -196,7 +195,7 @@ const sanityGroups = await getReadingGroups();
         <p class="label text-gold">Get Connected</p>
         <h2 id="form-title">Join an Inklings Club</h2>
         <p class="subtitle--sm">
-          Tell us a bit about yourself and we'll connect you with a group — or help you start one.
+          Tell us a bit about yourself and we'll connect you with a group - or help you start one.
         </p>
       </div>
       <BookStudyForm />
@@ -208,7 +207,7 @@ const sanityGroups = await getReadingGroups();
     <div class="container container--medium text-center">
       <h2 class="heading-on-dark">No Group Near You?</h2>
       <p class="text-on-dark mb-8">
-        Start an Inklings Club in your city. We'll send you everything you need — study guides,
+        Start an Inklings Club in your city. We'll send you everything you need - study guides,
         hosting tips, and promotional materials.
       </p>
       <p class="text-on-dark--muted mb-24">
