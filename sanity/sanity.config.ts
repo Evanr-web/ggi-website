@@ -65,14 +65,6 @@ const structure = (S: StructureBuilder) =>
             .documentId('homepage')
             .views(documentViewsWithPreview(S))
         ),
-      S.listItem()
-        .title('🎓 Programs Overview')
-        .child(
-          S.document()
-            .schemaType('programsOverview')
-            .documentId('programsOverview')
-        ),
-
       S.divider(),
 
       // Library with sub-groups
@@ -186,18 +178,34 @@ const structure = (S: StructureBuilder) =>
             ])
         ),
 
-      // Programs — with preview
+      // Programs — with overview + individual programs
       S.listItem()
         .title('🎓 Programs')
         .child(
-          S.documentTypeList('program')
+          S.list()
             .title('Programs')
-            .child((documentId: string) =>
-              S.document()
-                .documentId(documentId)
-                .schemaType('program')
-                .views(documentViewsWithPreview(S))
-            )
+            .items([
+              S.listItem()
+                .title('📋 Overview Page')
+                .child(
+                  S.document()
+                    .schemaType('programsOverview')
+                    .documentId('programsOverview')
+                ),
+              S.divider(),
+              S.listItem()
+                .title('All Programs')
+                .child(
+                  S.documentTypeList('program')
+                    .title('All Programs')
+                    .child((documentId: string) =>
+                      S.document()
+                        .documentId(documentId)
+                        .schemaType('program')
+                        .views(documentViewsWithPreview(S))
+                    )
+                ),
+            ])
         ),
 
       // Events — with preview
