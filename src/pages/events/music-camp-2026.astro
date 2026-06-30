@@ -1,19 +1,24 @@
 ---
 import EventLayout from '../../layouts/EventLayout.astro';
 import Testimonials from '../../components/Testimonials.astro';
+import { getEvent } from '../../lib/sanity';
+import { renderPortableText } from '../../lib/portable-text';
 const base = import.meta.env.BASE_URL;
 
-// Sample testimonials for preview — replace with real quotes or wire to Sanity
+const event = await getEvent('music-camp-2026');
+const bodyHtml = event?.body ? renderPortableText(event.body) : '';
+
+// Sample testimonials for preview - replace with real quotes or wire to Sanity
 const sampleTestimonials = [
   { quote: "My daughter came home singing hymns and folk songs all day. She's already asking when she can go back.", attribution: "Parent, 2025 Camp" },
   { quote: "I learned more about prayer in four days than I had in years. The music was the doorway.", attribution: "Camper, age 16" },
-  { quote: "The combination of sacred music, outdoor life, and genuine friendship — it's exactly what our kids need.", attribution: "Parent, Edmonton" },
+  { quote: "The combination of sacred music, outdoor life, and genuine friendship - it's exactly what our kids need.", attribution: "Parent, Edmonton" },
 ];
 ---
 
 <EventLayout
   title="St. Gregory's Music & Leadership Camp"
-  description="A Catholic youth camp blending sacred music, outdoor adventure, and leadership formation. Ages 12–17, July 2026 in Parkland County, Alberta."
+  description="A Catholic youth camp blending sacred music, outdoor adventure, and leadership formation. Ages 12-17, July 2026 in Parkland County, Alberta."
   date="2026-07-12"
   endDate="2026-07-16"
   location="Solara Water's Edge, Parkland County, AB"
@@ -24,31 +29,37 @@ const sampleTestimonials = [
   ctaText="Registration Closed"
   ctaStatus="closed"
 >
-  <p>
-    A four-night residential camp for youth ages 12–18. Instruction in <strong>fiddle, penny whistle,
-    and voice</strong>, exploring sacred and folk music traditions. Daily prayer, leadership sessions,
-    games, and community. Inspired by the von Trapp family singers' camp.
-  </p>
+  {bodyHtml ? (
+    <Fragment set:html={bodyHtml} />
+  ) : (
+    <>
+      <p>
+        A four-night residential camp for youth ages 12–18. Instruction in <strong>fiddle, penny whistle,
+        and voice</strong>, exploring sacred and folk music traditions. Daily prayer, leadership sessions,
+        games, and community. Inspired by the von Trapp family singers’ camp.
+      </p>
 
-  <h2>What Campers Will Experience</h2>
-  <ul>
-    <li>Daily music instruction in fiddle, penny whistle, and voice</li>
-    <li>Sacred and folk music traditions from the Catholic heritage</li>
-    <li>Leadership development sessions</li>
-    <li>Daily prayer and spiritual formation</li>
-    <li>Games, outdoor activities, and community building</li>
-    <li>End-of-camp concert for families</li>
-  </ul>
+      <h2>What Campers Will Experience</h2>
+      <ul>
+        <li>Daily music instruction in fiddle, penny whistle, and voice</li>
+        <li>Sacred and folk music traditions from the Catholic heritage</li>
+        <li>Leadership development sessions</li>
+        <li>Daily prayer and spiritual formation</li>
+        <li>Games, outdoor activities, and community building</li>
+        <li>End-of-camp concert for families</li>
+      </ul>
 
-  <h2>Leader-in-Training Stream</h2>
-  <p>
-    Youth ages 16–18 can apply for the Leader-in-Training stream, developing mentorship
-    and teaching skills alongside the regular camp program.
-  </p>
+      <h2>Leader-in-Training Stream</h2>
+      <p>
+        Youth ages 16–18 can apply for the Leader-in-Training stream, developing mentorship
+        and teaching skills alongside the regular camp program.
+      </p>
 
-  <p>
-    Open to youth ages 12–18. Four nights, residential format.
-  </p>
+      <p>
+        Open to youth ages 12–18. Four nights, residential format.
+      </p>
+    </>
+  )}
 
   <Testimonials testimonials={sampleTestimonials} heading="What Families Are Saying" />
 

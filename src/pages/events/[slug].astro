@@ -1,0 +1,82 @@
+---
+import EventLayout from '../../layouts/EventLayout.astro';
+import { getEvents, getEvent } from '../../lib/sanity';
+import { renderPortableText } from '../../lib/portable-text';
+
+export async function getStaticPaths() {
+  // Slugs that have their own dedicated .astro files — exclude from dynamic generation
+  const hardcodedSlugs = ['conference-2026', 'book-study-sep-2026', 'music-camp-2026'];
+  const events = await getEvents();
+  return events
+    .filter((e: any) => {
+      const s = typeof e.slug === 'string' ? e.slug : e.slug?.current;
+      return s && !hardcodedSlugs.includes(s);
+    })
+    .map((e: any) => ({
+      params: { slug: typeof e.slug === 'string' ? e.slug : e.slug?.current },
+    }));
+}
+
+const { slug } = Astro.params;
+const event = await getEvent(slug!);
+
+if (!event) {
+  return Astro.redirect('/events/');
+}
+
+const bodyHtml = event.body ? renderPortableText(event.body) : '';
+const hasBody = bodyHtml.length > 0;
+
+// Derive display values
+const tag = event.programTag || event.template
+  ? (event.programTag || (event.template.charAt(0).toUpperCase() + event.template.slice(1)))
+  : 'Event';
+
+const isPast = event.status === 'past';
+
+// CTA logic
+let ctaStatus: 'active' | 'closed' | 'notify' = 'active';
+let ctaText = event.ctaLabel || '';
+let ctaHref = event.registrationUrl || '';
+
+if (isPast) {
+  ctaStatus = 'closed';
+  ctaText = '';
+} else if (event.ctaStatus === 'closed' || event.registrationStatus === 'closed') {
+  ctaStatus = 'closed';
+  ctaText = ctaText || 'Registration Closed';
+} else if (event.ctaStatus === 'notify' || event.registrationStatus === 'coming-soon') {
+  ctaStatus = 'notify';
+  ctaText = ctaText || 'Get Notified';
+} else if (ctaText && ctaHref) {
+  ctaStatus = 'active';
+} else {
+  // No CTA configured
+  ctaText = '';
+  ctaHref = '';
+}
+---
+
+<EventLayout
+  title={event.title}
+  description={event.shortDescription || event.description || ''}
+  date={event.startDate}
+  endDate={event.endDate}
+  location={event.location}
+  locationAddress={event.locationAddress}
+  showMap={!!event.locationAddress}
+  cost={event.cost}
+  image={event.headerImage}
+  imageAlt={event.title}
+  tag={tag}
+  past={isPast}
+  ctaText={ctaText || undefined}
+  ctaHref={ctaHref || undefined}
+  ctaStatus={ctaStatus}
+>
+  {hasBody ? (
+    <Fragment set:html={bodyHtml} />
+  ) : (
+    <p>Details coming soon.</p>
+  )}
+</EventLayout>
