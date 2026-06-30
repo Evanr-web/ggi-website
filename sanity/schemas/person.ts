@@ -65,11 +65,11 @@ export default defineType({
     }),
     defineField({
       name: 'published',
-      title: 'Show on Website',
+      title: 'Show on Leadership Page',
       type: 'boolean',
       group: 'basics',
       initialValue: false,
-      description: 'Toggle ON when this person is ready to appear on the Leadership page. Leave OFF to save as a draft.',
+      description: 'Toggle ON to show this person on the Leadership page (/about/leadership/). Leave OFF to save as a draft.',
     }),
     defineField({
       name: 'order',
@@ -80,18 +80,18 @@ export default defineType({
     }),
     defineField({
       name: 'magnaliaContributor',
-      title: 'Show on Magnalia Pages',
+      title: 'Magnalia Contributor',
       type: 'boolean',
       group: 'basics',
       initialValue: false,
-      description: 'Toggle ON to feature this person on the Magnalia index and contributors pages.',
+      description: 'Toggle ON to include this person as a Magnalia contributor. Positions 1–4 appear on the main Magnalia page; all others appear on the Contributors page only.',
     }),
     defineField({
       name: 'magnaliaOrder',
       title: 'Magnalia Sort Order',
       type: 'number',
       group: 'basics',
-      description: 'Display order on Magnalia pages. 1 = first. Only used when "Show on Magnalia Pages" is on.',
+      description: 'Positions 1–4 appear on the main Magnalia page. Position 5+ appear on the Contributors page only.',
     }),
 
     // === Details ===
