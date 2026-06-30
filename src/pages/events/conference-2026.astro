@@ -3,6 +3,7 @@ import EventLayout from '../../layouts/EventLayout.astro';
 import SectionDivider from '../../components/SectionDivider.astro';
 import EventRegistration from '../../components/EventRegistration.astro';
 import { getEvent } from '../../lib/sanity';
+import { renderPortableText } from '../../lib/portable-text';
 
 const base = import.meta.env.BASE_URL;
 
@@ -11,6 +12,7 @@ const event = await getEvent('conference-2026');
 const regStatus = event?.registrationStatus || 'open';
 const zeffyUrl = event?.zeffyFormUrl || '/embed/ticketing/2nd-annual-renewing-culture-conference-bringing-back-sunday';
 const notifyTag = event?.notifyTag || 'interest:conference-2026';
+const bodyHtml = event?.body ? renderPortableText(event.body) : '';
 ---
 
 <EventLayout
@@ -30,31 +32,37 @@ const notifyTag = event?.notifyTag || 'interest:conference-2026';
   ctaHref="#register"
   ctaStatus={regStatus === 'open' ? 'active' : regStatus === 'coming-soon' ? 'notify' : 'closed'}
 >
-  <p>
-    The 2nd Annual <strong>Renewing Culture Conference</strong> gathers Christians from across Western Canada
-    for two days of talks, seminars, prayer, and fellowship. This year's theme —
-    <em>Bringing Back Sunday</em> — takes up Josef Pieper's masterwork
-    <em>Leisure: The Basis of Culture</em>.
-  </p>
+  {bodyHtml ? (
+    <Fragment set:html={bodyHtml} />
+  ) : (
+    <>
+      <p>
+        The 2nd Annual <strong>Renewing Culture Conference</strong> gathers Christians from across Western Canada
+        for two days of talks, seminars, prayer, and fellowship. This year's theme —
+        <em>Bringing Back Sunday</em> — takes up Josef Pieper's masterwork
+        <em>Leisure: The Basis of Culture</em>.
+      </p>
 
-  <p>
-    In a world that reduces human life to productivity and consumption, Pieper's vision of
-    contemplative leisure as the foundation of civilization is more urgent than ever. What would
-    it mean to recover the Lord's Day — not just as a day off, but as the source of authentic culture?
-  </p>
+      <p>
+        In a world that reduces human life to productivity and consumption, Pieper's vision of
+        contemplative leisure as the foundation of civilization is more urgent than ever. What would
+        it mean to recover the Lord's Day — not just as a day off, but as the source of authentic culture?
+      </p>
 
-  <h2>What to Expect</h2>
-  <ul>
-    <li>Keynote addresses from leading Catholic thinkers</li>
-    <li>Breakout seminars and Socratic discussion groups</li>
-    <li>Daily Mass and prayer</li>
-    <li>Meals and fellowship with like-minded Christians</li>
-    <li>Book signings and a curated reading table</li>
-  </ul>
+      <h2>What to Expect</h2>
+      <ul>
+        <li>Keynote addresses from leading Catholic thinkers</li>
+        <li>Breakout seminars and Socratic discussion groups</li>
+        <li>Daily Mass and prayer</li>
+        <li>Meals and fellowship with like-minded Christians</li>
+        <li>Book signings and a curated reading table</li>
+      </ul>
 
-  <p>
-    All are welcome — no prerequisites.
-  </p>
+      <p>
+        All are welcome — no prerequisites.
+      </p>
+    </>
+  )}
 
   <SectionDivider />
 
