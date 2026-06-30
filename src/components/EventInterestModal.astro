@@ -241,9 +241,28 @@ const displayEvents = events.length > 0 ? events : fallbackEvents;
     var msgEl = document.getElementById('ei-modal-message');
     if (!modal || !form || !msgEl) return;
 
+    function renderTurnstile() {
+      var widget = modal.querySelector('.cf-turnstile');
+      if (!widget) return;
+      if (widget.querySelector('iframe')) return;
+      if (window.turnstile) {
+        window.turnstile.render(widget, {
+          sitekey: widget.dataset.sitekey,
+          size: 'compact',
+        });
+      } else {
+        if (!renderTurnstile._attempts) renderTurnstile._attempts = 0;
+        renderTurnstile._attempts++;
+        if (renderTurnstile._attempts < 10) {
+          setTimeout(renderTurnstile, 500);
+        }
+      }
+    }
+
     function openModal() {
       modal.classList.add('ei-modal--open');
       modal.setAttribute('aria-hidden', 'false');
+      renderTurnstile();
       var firstInput = modal.querySelector('input[name="firstName"]');
       if (firstInput) firstInput.focus();
     }

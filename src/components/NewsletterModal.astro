@@ -191,9 +191,30 @@
     var modal = document.getElementById('newsletter-modal');
     if (!modal) return;
 
+    function renderTurnstile() {
+      var widget = modal.querySelector('.cf-turnstile');
+      if (!widget) return;
+      // Only render if not already rendered (no iframe inside)
+      if (widget.querySelector('iframe')) return;
+      if (window.turnstile) {
+        window.turnstile.render(widget, {
+          sitekey: widget.dataset.sitekey,
+          size: 'compact',
+        });
+      } else {
+        // Script not loaded yet — retry
+        if (!renderTurnstile._attempts) renderTurnstile._attempts = 0;
+        renderTurnstile._attempts++;
+        if (renderTurnstile._attempts < 10) {
+          setTimeout(renderTurnstile, 500);
+        }
+      }
+    }
+
     function openModal() {
       modal.classList.add('nl-modal--open');
       modal.setAttribute('aria-hidden', 'false');
+      renderTurnstile();
       var firstInput = modal.querySelector('input');
       if (firstInput) firstInput.focus();
     }
