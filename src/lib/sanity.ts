@@ -219,6 +219,7 @@ export async function getProgramsOverview() {
       "thumbnail": thumbnail.asset->url,
       thumbnailAlt,
       artFilter,
+      imagePosition,
       description,
       details[]{ key, value },
       ctaText,

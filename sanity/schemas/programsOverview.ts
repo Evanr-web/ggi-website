@@ -89,6 +89,12 @@ export default defineType({
               initialValue: false,
             }),
             defineField({
+              name: 'imagePosition',
+              title: 'Image Focus Point',
+              type: 'string',
+              description: 'CSS object-position value. Default: "center center". Use "center 20%" to show the top of the image (e.g. for portraits), or "center 80%" for the bottom.',
+            }),
+            defineField({
               name: 'description',
               title: 'Description',
               type: 'text',
