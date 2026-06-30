@@ -173,6 +173,19 @@ export async function getLibraryArticle(slug: string) {
   }`, { slug });
 }
 
+// Magnalia Contributors
+export async function getMagnaliaContributors() {
+  return sanityClient.fetch(`*[_type == "person" && published == true && magnaliaContributor == true] | order(magnaliaOrder asc, order asc, name asc) {
+    _id,
+    name,
+    role,
+    shortBio,
+    contributorBio,
+    credentials,
+    "photo": photo.asset->url
+  }`);
+}
+
 // People
 export async function getPeople(personType?: string) {
   const filter = personType ? `&& personType == "${personType}"` : '';

@@ -2,7 +2,11 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Button from '../../components/Button.astro';
 import SectionDivider from '../../components/SectionDivider.astro';
+import { getMagnaliaContributors } from '../../lib/sanity';
 const base = import.meta.env.BASE_URL;
+
+let contributors: any[] = [];
+try { contributors = await getMagnaliaContributors() || []; } catch (e) { /* fallback */ }
 ---
 
 <BaseLayout title="Contributors — Magnalia" description="Meet the writers and thinkers behind Magnalia.">
@@ -19,78 +23,16 @@ const base = import.meta.env.BASE_URL;
       </div>
 
       <div class="contributors-list">
-        <div class="contributor">
-          <img src={`${base}images/people/Ryan-Topping-headshot.jpg`} alt="Dr. Ryan N.S. Topping" class="contributor__photo" />
-          <div class="contributor__info">
-            <h3>Dr. Ryan N.S. Topping</h3>
-            <p class="contributor__credentials">DPhil (Oxford) · Author of 11 books</p>
-            <p class="contributor__bio">
-              Executive Director of the Gregory the Great Institute. Dr. Topping is a philosopher of education
-              and culture, and one of Canada's leading Catholic intellectuals. His work spans classical education,
-              the theology of culture, and the renewal of Catholic institutions.
-            </p>
+        {contributors.map((person: any) => (
+          <div class="contributor">
+            {person.photo && <img src={person.photo} alt={person.name} class="contributor__photo" />}
+            <div class="contributor__info">
+              <h3>{person.name}</h3>
+              {person.role && <p class="contributor__credentials">{person.credentials ? `${person.role} · ${person.credentials}` : person.role}</p>}
+              {(person.contributorBio || person.shortBio) && <p class="contributor__bio">{person.contributorBio || person.shortBio}</p>}
+            </div>
           </div>
-        </div>
-
-        <div class="contributor">
-          <img src={`${base}images/people/Celene-Sidloski-headshot.jpg`} alt="Dr. Celene Sidloski" class="contributor__photo" />
-          <div class="contributor__info">
-            <h3>Dr. Celene Sidloski</h3>
-            <p class="contributor__credentials">Fellow · Saskatoon</p>
-            <p class="contributor__bio">
-              Specialist in classical education and the Canadian Catholic intellectual tradition.
-              Dr. Sidloski explores how the Great Books tradition can reshape Catholic formation in Canada.
-            </p>
-          </div>
-        </div>
-
-        <div class="contributor">
-          <img src={`${base}images/people/Joe-Woodard-headshot.jpg`} alt="Dr. Joseph Woodard" class="contributor__photo" />
-          <div class="contributor__info">
-            <h3>Dr. Joseph Woodard</h3>
-            <p class="contributor__credentials">Fellow · Calgary</p>
-            <p class="contributor__bio">
-              Philosopher specializing in ethics, bioethics, and Catholic social thought.
-              His writing in Magnalia addresses the intersection of medical ethics, conscience, and the common good.
-            </p>
-          </div>
-        </div>
-
-        <div class="contributor">
-          <img src={`${base}images/people/Mark-Ingham-headshot.jpg`} alt="Mark Ingham" class="contributor__photo" />
-          <div class="contributor__info">
-            <h3>Mark Ingham</h3>
-            <p class="contributor__credentials">Fellow · Barry's Bay · PhD Candidate</p>
-            <p class="contributor__bio">
-              Researcher focused on vocations and Canadian Catholic demographics.
-              His work provides data-driven analysis of the state of the faith in Canada.
-            </p>
-          </div>
-        </div>
-
-        <div class="contributor">
-          <img src={`${base}images/people/Fr-Michael-Bombak-headshot.jpg`} alt="Fr. Michael Bombak" class="contributor__photo" />
-          <div class="contributor__info">
-            <h3>Fr. Michael Bombak</h3>
-            <p class="contributor__credentials">Fellow · Edmonton</p>
-            <p class="contributor__bio">
-              Parish priest and Fellow of the Institute. Fr. Bombak writes and speaks on
-              faith, institution-building, and the pastoral dimensions of cultural renewal.
-            </p>
-          </div>
-        </div>
-
-        <div class="contributor">
-          <img src={`${base}images/people/Victor-Carpay-headshot.jpg`} alt="Victor Carpay" class="contributor__photo" />
-          <div class="contributor__info">
-            <h3>Victor Carpay</h3>
-            <p class="contributor__credentials">Managing Director</p>
-            <p class="contributor__bio">
-              Managing Director of the Gregory the Great Institute. Victor writes the "From the Western Front"
-              column in Magnalia, offering dispatches from the field on Catholic life in Alberta.
-            </p>
-          </div>
-        </div>
+        ))}
       </div>
 
       <div class="contributors-cta">

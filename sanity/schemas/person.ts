@@ -78,8 +78,32 @@ export default defineType({
       group: 'basics',
       description: 'Controls display order within the section. 1 = first, 2 = second, etc.',
     }),
+    defineField({
+      name: 'magnaliaContributor',
+      title: 'Show on Magnalia Pages',
+      type: 'boolean',
+      group: 'basics',
+      initialValue: false,
+      description: 'Toggle ON to feature this person on the Magnalia index and contributors pages.',
+    }),
+    defineField({
+      name: 'magnaliaOrder',
+      title: 'Magnalia Sort Order',
+      type: 'number',
+      group: 'basics',
+      description: 'Display order on Magnalia pages. 1 = first. Only used when "Show on Magnalia Pages" is on.',
+    }),
 
     // === Details ===
+    defineField({
+      name: 'contributorBio',
+      title: 'Magnalia Contributor Bio',
+      type: 'text',
+      rows: 3,
+      group: 'details',
+      description: 'Extended bio shown on the Magnalia contributors page. 2-3 sentences. Only used when "Show on Magnalia Pages" is on.',
+      validation: (Rule) => Rule.max(400).warning('Keep under 300 characters for consistent layout.'),
+    }),
     defineField({
       name: 'shortBio',
       title: 'Short Bio',

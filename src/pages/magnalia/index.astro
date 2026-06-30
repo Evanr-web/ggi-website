@@ -3,13 +3,17 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Button from '../../components/Button.astro';
 import QuoteBlock from '../../components/QuoteBlock.astro';
 import SectionDivider from '../../components/SectionDivider.astro';
-import { getCurrentMagnaliaIssue } from '../../lib/sanity';
+import { getCurrentMagnaliaIssue, getMagnaliaContributors } from '../../lib/sanity';
 
 const base = import.meta.env.BASE_URL;
 
 // Try Sanity for current issue data
 let issue: any = null;
 try { issue = await getCurrentMagnaliaIssue(); } catch (e) { /* fallback */ }
+
+// Magnalia contributors from Sanity
+let contributors: any[] = [];
+try { contributors = await getMagnaliaContributors() || []; } catch (e) { /* fallback */ }
 
 // Resolved values (CMS or hardcoded defaults)
 const coverImage = issue?.coverImage || `${base}images/branding/Magnalia_Cover.jpg`;
@@ -134,30 +138,14 @@ const issueLabel = issue ? `Inside Issue ${issue.issueNumber}${issue.title ? ' �
       </div>
 
       <div class="contributors-grid reveal">
-        <div class="contributor-card">
-          <img src={`${import.meta.env.BASE_URL}images/people/Ryan-Topping-headshot.jpg`} alt="Dr. Ryan Topping" class="contributor-card__photo" />
-          <h3 class="contributor-card__name">Dr. Ryan N.S. Topping</h3>
-          <p class="contributor-card__credentials">DPhil (Oxford) · 11 books</p>
-          <p class="contributor-card__bio">Executive Director. Catholic education and cultural philosophy.</p>
-        </div>
-        <div class="contributor-card">
-          <img src={`${import.meta.env.BASE_URL}images/people/Celene-Sidloski-headshot.jpg`} alt="Dr. Celene Sidloski" class="contributor-card__photo" />
-          <h3 class="contributor-card__name">Dr. Celene Sidloski</h3>
-          <p class="contributor-card__credentials">Fellow · Saskatoon</p>
-          <p class="contributor-card__bio">Classical education and Canadian Catholic intellectual life.</p>
-        </div>
-        <div class="contributor-card">
-          <img src={`${import.meta.env.BASE_URL}images/people/Joe-Woodard-headshot.jpg`} alt="Dr. Joseph Woodard" class="contributor-card__photo" />
-          <h3 class="contributor-card__name">Dr. Joseph Woodard</h3>
-          <p class="contributor-card__credentials">Fellow · Calgary</p>
-          <p class="contributor-card__bio">Ethics, bioethics, and Catholic social thought.</p>
-        </div>
-        <div class="contributor-card">
-          <img src={`${import.meta.env.BASE_URL}images/people/Mark-Ingham-headshot.jpg`} alt="Mark Ingham" class="contributor-card__photo" />
-          <h3 class="contributor-card__name">Mark Ingham</h3>
-          <p class="contributor-card__credentials">Fellow · Barry's Bay · PhD Cand.</p>
-          <p class="contributor-card__bio">Vocations research and Canadian Catholic demographics.</p>
-        </div>
+        {contributors.map((person: any) => (
+          <div class="contributor-card">
+            {person.photo && <img src={person.photo} alt={person.name} class="contributor-card__photo" />}
+            <h3 class="contributor-card__name">{person.name}</h3>
+            {person.role && <p class="contributor-card__credentials">{person.credentials ? `${person.role} · ${person.credentials}` : person.role}</p>}
+            {person.shortBio && <p class="contributor-card__bio">{person.shortBio}</p>}
+          </div>
+        ))}
       </div>
 
       <div class="section-footer">
