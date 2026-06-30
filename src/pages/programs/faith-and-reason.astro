@@ -59,6 +59,7 @@ const audienceCards = program?.audienceCards || [
 const formLabel = program?.formLabel || 'Limited to 15–20 Participants';
 const formHeading = program?.formHeading || 'Join the Interest List';
 const formSubtitle = program?.formSubtitle || "Tell us about yourself and we'll notify you when registration opens for the next seminar.";
+const heroImage = program?.headerImage || `${base}images/art/newman-millais-portrait.jpg`;
 ---
 
 <BaseLayout
@@ -69,7 +70,7 @@ const formSubtitle = program?.formSubtitle || "Tell us about yourself and we'll 
 
   <!-- Hero -->
   <section class="fr-hero section--dark">
-    <div class="fr-hero__bg" style={`background-image: url(${base}images/art/newman-millais-portrait.jpg)`}></div>
+    <div class="fr-hero__bg" style={`background-image: url(${heroImage})`}></div>
     <div class="fr-hero__overlay"></div>
     <div class="fr-hero__content container">
       <p class="label text-gold">Intensive Formation</p>

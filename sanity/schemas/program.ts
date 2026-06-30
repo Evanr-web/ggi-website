@@ -79,6 +79,7 @@ export default defineType({
         { type: 'image', options: { hotspot: true } },
       ],
       group: 'general',
+      hidden: ({ document }: any) => ['book-studies', 'seminar'].includes(document?.template),
     }),
     defineField({
       name: 'headerImage',
@@ -250,6 +251,7 @@ export default defineType({
       type: 'string',
       description: 'e.g. "Ages 12–18", "Catholic leaders", "All welcome"',
       group: 'details',
+      hidden: ({ document }: any) => ['book-studies', 'seminar'].includes(document?.template),
     }),
     defineField({
       name: 'format',
@@ -257,6 +259,7 @@ export default defineType({
       type: 'string',
       description: 'e.g. "4-night residential camp", "3-day intensive", "Monthly online"',
       group: 'details',
+      hidden: ({ document }: any) => ['book-studies', 'seminar'].includes(document?.template),
     }),
     defineField({
       name: 'frequency',
@@ -264,6 +267,7 @@ export default defineType({
       type: 'string',
       description: 'e.g. "Annual — October", "Year-round", "Summer"',
       group: 'details',
+      hidden: ({ document }: any) => ['book-studies', 'seminar'].includes(document?.template),
     }),
     defineField({
       name: 'pricing',
@@ -272,12 +276,14 @@ export default defineType({
       rows: 2,
       description: 'e.g. "$350/child" or "$50 early bird / $75 regular". Include family discounts or bursary info if available.',
       group: 'details',
+      hidden: ({ document }: any) => ['book-studies', 'seminar'].includes(document?.template),
     }),
     defineField({
       name: 'registrationUrl',
       title: 'Registration URL',
       type: 'url',
       group: 'details',
+      hidden: ({ document }: any) => ['book-studies', 'seminar'].includes(document?.template),
     }),
     defineField({
       name: 'contactPerson',
@@ -285,6 +291,7 @@ export default defineType({
       type: 'reference',
       to: [{ type: 'person' }],
       group: 'details',
+      hidden: ({ document }: any) => ['book-studies', 'seminar'].includes(document?.template),
     }),
     defineField({
       name: 'relatedEvents',
@@ -292,6 +299,7 @@ export default defineType({
       type: 'array',
       of: [{ type: 'reference', to: [{ type: 'event' }] }],
       group: 'details',
+      hidden: ({ document }: any) => ['book-studies', 'seminar'].includes(document?.template),
     }),
     defineField({
       name: 'testimonials',
@@ -366,6 +374,7 @@ export default defineType({
     defineField({
       name: 'ctaStatus',
       group: 'details',
+      hidden: ({ document }: any) => ['book-studies', 'seminar'].includes(document?.template),
       title: 'CTA Button Status',
       type: 'string',
       description: 'Controls the main action button. "Active" links to registration, "Interest List" shows a signup form, "Closed" shows greyed-out button.',
@@ -385,6 +394,7 @@ export default defineType({
       type: 'string',
       description: 'Override default button text. Defaults: "Register Now" (active), "Join the Interest List" (interest), "Registration Closed" (closed).',
       group: 'details',
+      hidden: ({ document }: any) => ['book-studies', 'seminar'].includes(document?.template),
     }),
     defineField({
       name: 'location',
@@ -392,6 +402,7 @@ export default defineType({
       type: 'string',
       description: 'e.g. "Mt Carmel Spirituality Centre, Alberta" or "Online"',
       group: 'details',
+      hidden: ({ document }: any) => ['book-studies', 'seminar'].includes(document?.template),
     }),
     defineField({
       name: 'dates',
@@ -399,6 +410,7 @@ export default defineType({
       type: 'string',
       description: 'Human-readable date string, e.g. "October 2-3, 2026" or "Year-round"',
       group: 'details',
+      hidden: ({ document }: any) => ['book-studies', 'seminar'].includes(document?.template),
     }),
     defineField({
       name: 'order',
