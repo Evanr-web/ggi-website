@@ -7,9 +7,8 @@ import { getLeadMagnets } from '../../../lib/sanity';
 
 export async function getStaticPaths() {
   const magnets = await getLeadMagnets();
-  const reserved = ['roadmap'];
   return magnets
-    .filter((m: any) => m.slug && !reserved.includes(m.slug))
+    .filter((m: any) => m.slug)
     .map((m: any) => ({ params: { slug: m.slug }, props: { magnet: m } }));
 }
 
