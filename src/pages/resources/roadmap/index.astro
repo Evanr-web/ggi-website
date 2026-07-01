@@ -7,8 +7,8 @@ import '../../../styles/global.css';
 
 const base = import.meta.env.BASE_URL;
 const siteUrl = 'https://gregorythegreat.ca';
-const title = 'The Roadmap to Renewal — Free Reading List';
-const description = 'Get the free reading list based on the 6 Models of Cultural Renewal. 18 titles curated by Dr. Ryan Topping to help you rebuild culture through faith and reason.';
+const title = 'The Roadmap to Renewal — Free Reading Guide';
+const description = 'Get the free reading guide based on the 6 Models of Cultural Renewal. 20 titles curated by Dr. Ryan Topping to help you rebuild culture through faith and reason.';
 const ogImage = `${siteUrl}${base}images/branding/ggi-og-default.jpg`;
 ---
 
@@ -51,14 +51,14 @@ const ogImage = `${siteUrl}${base}images/branding/ggi-og-default.jpg`;
 
           <!-- Left: copy + benefits -->
           <div class="lp-hero__copy">
-            <p class="lp-label">Free Reading List</p>
+            <p class="lp-label">Free Reading Guide</p>
             <h1 class="lp-h1">The Roadmap<br />to Renewal</h1>
-            <p class="lp-subtitle">A reading list based on the 6 Models of Cultural Renewal</p>
+            <p class="lp-subtitle">A reading guide based on the 6 Models of Cultural Renewal</p>
 
-            <p class="lp-intro">Dr.&nbsp;Ryan Topping's 6 Models of Cultural Renewal map six paths toward rebuilding culture through faith and reason. This reading list pairs each model with essential titles — 18&nbsp;books across philosophy, theology, and spiritual formation.</p>
+            <p class="lp-intro">Dr.&nbsp;Ryan Topping's 6 Models of Cultural Renewal map six paths toward rebuilding culture through faith and reason. This reading guide pairs each model with essential titles — 20&nbsp;books across philosophy, theology, and spiritual formation.</p>
 
             <ul class="lp-benefits">
-              <li><strong>18 titles organized by model</strong> — know where to start</li>
+              <li><strong>20 titles organized by model</strong> — know where to start</li>
               <li><strong>Philosophy, theology, social thought, and spiritual formation</strong></li>
               <li><strong>A companion</strong> to the 6 Models of Cultural Renewal video series</li>
             </ul>
@@ -67,15 +67,13 @@ const ogImage = `${siteUrl}${base}images/branding/ggi-og-default.jpg`;
           <!-- Right: mockup + form -->
           <div class="lp-hero__action">
             <img
-              src={`${base}images/branding/reading-guide-mockup.png`}
+              src={`${base}images/branding/reading-guide-preview.png`}
               alt="The Roadmap to Renewal — Reading Guide preview"
               class="lp-mockup"
-              width="335"
-              height="427"
             />
 
             <div class="lp-form-card" id="download">
-              <h2 class="lp-form-title">Get the Free Reading List</h2>
+              <h2 class="lp-form-title">Get the Free Reading Guide</h2>
               <p class="lp-form-desc">We'll email the guide straight to your inbox.</p>
 
               <form id="roadmap-form" class="lp-form" novalidate>
@@ -104,7 +102,7 @@ const ogImage = `${siteUrl}${base}images/branding/ggi-og-default.jpg`;
                 <div class="cf-turnstile" data-sitekey="0x4AAAAAADm6eYaBvIIwZNRm" data-theme="light"></div>
 
                 <button type="submit" class="lp-btn" id="submit-btn">
-                  Get the Reading List
+                  Get the Reading Guide
                 </button>
 
                 <p id="form-error" class="lp-msg lp-msg--err" style="display:none;"></p>
@@ -127,45 +125,27 @@ const ogImage = `${siteUrl}${base}images/branding/ggi-og-default.jpg`;
         <div class="lp-model-list">
           <div class="lp-model">
             <span class="lp-model-num">1</span>
-            <div>
-              <strong>The Ignatian Model</strong>
-              <span>Formation of Elites</span>
-            </div>
+            <strong>The Ignatian Model</strong>
           </div>
           <div class="lp-model">
             <span class="lp-model-num">2</span>
-            <div>
-              <strong>The Dominican Model</strong>
-              <span>Preaching &amp; Intellectual Clarity</span>
-            </div>
+            <strong>The Dominican Model</strong>
           </div>
           <div class="lp-model">
             <span class="lp-model-num">3</span>
-            <div>
-              <strong>The Franciscan Model</strong>
-              <span>Miracles &amp; Acts of Charity</span>
-            </div>
+            <strong>The Franciscan Model</strong>
           </div>
           <div class="lp-model">
             <span class="lp-model-num">4</span>
-            <div>
-              <strong>The Benedictine Model</strong>
-              <span>Building Holy Communities</span>
-            </div>
+            <strong>The Benedictine Model</strong>
           </div>
           <div class="lp-model">
             <span class="lp-model-num">5</span>
-            <div>
-              <strong>The Constantinian Model</strong>
-              <span>Reforming Civil &amp; Social Structures</span>
-            </div>
+            <strong>The Constantinian Model</strong>
           </div>
           <div class="lp-model">
             <span class="lp-model-num">6</span>
-            <div>
-              <strong>The Marian Model</strong>
-              <span>Strengthening Parish &amp; Domestic Life</span>
-            </div>
+            <strong>The Marian Model</strong>
           </div>
         </div>
       </section>
@@ -175,7 +155,7 @@ const ogImage = `${siteUrl}${base}images/branding/ggi-og-default.jpg`;
            ═══════════════════════════════════════════ -->
       <section class="lp-cta2">
         <h2 class="lp-h2">Ready to Begin?</h2>
-        <p>Get the free reading list and start your roadmap to renewal.</p>
+        <p>Get the free reading guide and start your roadmap to renewal.</p>
         <a href="#download" class="lp-btn lp-btn--outline">Get the Guide ↑</a>
       </section>
     </main>
@@ -227,13 +207,13 @@ const ogImage = `${siteUrl}${base}images/branding/ggi-og-default.jpg`;
             errEl.textContent = data.error || 'Something went wrong. Please try again.';
             errEl.style.display = 'block';
             btn.disabled = false;
-            btn.textContent = 'Get the Reading List';
+            btn.textContent = 'Get the Reading Guide';
           }
         } catch (err) {
           errEl.textContent = 'Network error. Please try again.';
           errEl.style.display = 'block';
           btn.disabled = false;
-          btn.textContent = 'Get the Reading List';
+          btn.textContent = 'Get the Reading Guide';
         }
       });
     </script>
