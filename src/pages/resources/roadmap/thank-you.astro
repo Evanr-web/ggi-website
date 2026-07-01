@@ -1,0 +1,215 @@
+---
+/*  /resources/roadmap/thank-you  —  Post-submission confirmation page
+    Directs user into the site: book studies, YouTube, Magnalia, support
+*/
+import '../../../styles/global.css';
+
+const base = import.meta.env.BASE_URL;
+const siteUrl = 'https://gregorythegreat.ca';
+const title = 'Your Reading List Is on Its Way — Gregory the Great Institute';
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow" />
+    <link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`} />
+    <title>{title}</title>
+  </head>
+
+  <body class="landing-body">
+    <header class="landing-header">
+      <a href={siteUrl} class="landing-logo">
+        <img src={`${base}images/branding/ggi-seal.png`} alt="Gregory the Great Institute" width="56" height="56" />
+      </a>
+    </header>
+
+    <main class="ty-main">
+      <div class="ty-card">
+        <div class="ty-check">✓</div>
+        <h1 class="ty-h1">Your Reading List Is on Its Way</h1>
+        <p class="ty-desc">
+          Check your inbox — we've sent the <strong>Roadmap to Renewal</strong> reading list
+          to your email. If you don't see it within a few minutes, check your spam folder.
+        </p>
+      </div>
+
+      <section class="ty-next">
+        <h2 class="ty-h2">While You Wait, Explore More</h2>
+
+        <div class="ty-grid">
+          <a href={`${siteUrl}${base}programs/book-studies/`} class="ty-link-card">
+            <h3>📖 Join a Book Study</h3>
+            <p>Read and discuss these books with a guided group. Our book studies bring these texts to life.</p>
+          </a>
+
+          <a href={`${siteUrl}${base}magnalia/`} class="ty-link-card">
+            <h3>📰 Read Magnalia</h3>
+            <p>Canada's journal of faith and culture — essays, interviews, and sacred art from leading Catholic thinkers.</p>
+          </a>
+
+          <a href={`${siteUrl}${base}programs/`} class="ty-link-card">
+            <h3>🎓 Our Programs</h3>
+            <p>Formation programs, short courses, and research — building a culture of faith and reason in Canada.</p>
+          </a>
+
+          <a href={`${siteUrl}${base}support/`} class="ty-link-card">
+            <h3>🤝 Support the Mission</h3>
+            <p>Help us renew culture through faith and reason. Every gift makes a difference.</p>
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="landing-footer">
+      <p>&copy; {new Date().getFullYear()} Gregory the Great Institute &nbsp;·&nbsp;
+        <a href={siteUrl}>gregorythegreat.ca</a>
+      </p>
+    </footer>
+  </body>
+</html>
+
+<style>
+  .landing-body {
+    font-family: var(--font-body);
+    background-color: var(--color-parchment);
+    color: var(--color-ink);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .landing-header {
+    padding: 24px 32px;
+    text-align: center;
+  }
+
+  .landing-logo img {
+    border-radius: 50%;
+  }
+
+  .ty-main {
+    flex: 1;
+    max-width: 720px;
+    margin-inline: auto;
+    padding: 0 24px 64px;
+  }
+
+  .ty-card {
+    text-align: center;
+    background: white;
+    border: 1px solid var(--color-ivory);
+    border-radius: 12px;
+    padding: 48px 36px;
+    margin-bottom: 48px;
+  }
+
+  .ty-check {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: var(--color-success);
+    color: white;
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+  }
+
+  .ty-h1 {
+    font-family: var(--font-display);
+    font-size: clamp(1.6rem, 4vw, 2.2rem);
+    font-weight: 700;
+    color: var(--color-navy);
+    margin-bottom: 16px;
+    line-height: 1.2;
+  }
+
+  .ty-desc {
+    font-size: 1.05rem;
+    color: var(--color-gray);
+    line-height: 1.7;
+    max-width: 520px;
+    margin-inline: auto;
+  }
+
+  .ty-next {
+    text-align: center;
+  }
+
+  .ty-h2 {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--color-navy);
+    margin-bottom: 24px;
+  }
+
+  .ty-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  .ty-link-card {
+    display: block;
+    background: white;
+    border: 1px solid var(--color-ivory);
+    border-radius: 8px;
+    padding: 24px 20px;
+    text-decoration: none;
+    text-align: left;
+    transition: box-shadow var(--transition-base), border-color var(--transition-base);
+  }
+
+  .ty-link-card:hover {
+    border-color: var(--color-gold);
+    box-shadow: 0 4px 16px rgba(14, 51, 82, 0.08);
+  }
+
+  .ty-link-card h3 {
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--color-navy);
+    margin-bottom: 8px;
+  }
+
+  .ty-link-card p {
+    font-family: var(--font-ui);
+    font-size: 0.85rem;
+    color: var(--color-gray);
+    line-height: 1.5;
+  }
+
+  .landing-footer {
+    text-align: center;
+    padding: 24px;
+    font-family: var(--font-ui);
+    font-size: 0.8rem;
+    color: var(--color-gray);
+  }
+
+  .landing-footer a {
+    color: var(--color-navy);
+    text-decoration: none;
+  }
+
+  .landing-footer a:hover {
+    color: var(--color-crimson);
+  }
+
+  @media (max-width: 600px) {
+    .ty-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .ty-card {
+      padding: 32px 20px;
+    }
+  }
+</style>
