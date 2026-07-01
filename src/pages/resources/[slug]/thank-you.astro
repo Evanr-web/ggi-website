@@ -1,0 +1,249 @@
+---
+/*  /resources/[slug]/thank-you  —  Dynamic post-submission confirmation page
+    Content from Sanity "leadMagnet" type.
+*/
+import '../../../styles/global.css';
+import { getLeadMagnets } from '../../../lib/sanity';
+
+export async function getStaticPaths() {
+  const magnets = await getLeadMagnets();
+  const reserved = ['roadmap'];
+  return magnets
+    .filter((m: any) => m.slug && !reserved.includes(m.slug))
+    .map((m: any) => ({ params: { slug: m.slug }, props: { magnet: m } }));
+}
+
+const { magnet } = Astro.props;
+const base = import.meta.env.BASE_URL;
+const siteUrl = 'https://gregorythegreat.ca';
+const title = `${magnet.thankYouTitle || 'Thank You'} — Gregory the Great Institute`;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow" />
+    <link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`} />
+    <title>{title}</title>
+  </head>
+
+  <body class="landing-body">
+    <header class="landing-header">
+      <a href={siteUrl} class="landing-logo">
+        <img src={`${base}images/branding/ggi-seal.png`} alt="Gregory the Great Institute" width="56" height="56" />
+      </a>
+    </header>
+
+    <main class="ty-main">
+      <div class="ty-card">
+        <div class="ty-check">✓</div>
+        <h1 class="ty-h1">{magnet.thankYouTitle || 'Thank You!'}</h1>
+        {magnet.thankYouMessage && (
+          <p class="ty-desc">{magnet.thankYouMessage}</p>
+        )}
+      </div>
+
+      {magnet.thankYouNextSteps && magnet.thankYouNextSteps.length > 0 && (
+        <section class="ty-next">
+          <h2 class="ty-h2">While You Wait, Explore More</h2>
+
+          <div class="ty-grid">
+            {magnet.thankYouNextSteps.map((step: any) => (
+              <a href={step.url || '#'} class="ty-link-card">
+                <span class="ty-icon">✦</span>
+                <h3>{step.heading}</h3>
+                <p>{step.text}</p>
+              </a>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {magnet.thankYouCtaText && magnet.thankYouCtaUrl && (
+        <div class="ty-cta-wrap">
+          <a href={magnet.thankYouCtaUrl} class="ty-cta-btn">{magnet.thankYouCtaText}</a>
+        </div>
+      )}
+    </main>
+
+    <footer class="landing-footer">
+      <p>&copy; {new Date().getFullYear()} Gregory the Great Institute &nbsp;·&nbsp;
+        <a href={siteUrl}>gregorythegreat.ca</a>
+      </p>
+    </footer>
+  </body>
+</html>
+
+<style>
+  .landing-body {
+    font-family: var(--font-body);
+    background-color: var(--color-parchment);
+    color: var(--color-ink);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .landing-header {
+    padding: 24px 32px;
+    text-align: center;
+  }
+
+  .landing-logo img {
+    border-radius: 50%;
+  }
+
+  .ty-main {
+    flex: 1;
+    max-width: 720px;
+    margin-inline: auto;
+    padding: 0 24px 64px;
+  }
+
+  .ty-card {
+    text-align: center;
+    background: white;
+    border: 1px solid var(--color-ivory);
+    border-radius: 12px;
+    padding: 48px 36px;
+    margin-bottom: 48px;
+  }
+
+  .ty-check {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: var(--color-success);
+    color: white;
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+  }
+
+  .ty-h1 {
+    font-family: var(--font-display);
+    font-size: clamp(1.6rem, 4vw, 2.2rem);
+    font-weight: 700;
+    color: var(--color-navy);
+    margin-bottom: 16px;
+    line-height: 1.2;
+  }
+
+  .ty-desc {
+    font-size: 1.05rem;
+    color: var(--color-gray);
+    line-height: 1.7;
+    max-width: 520px;
+    margin-inline: auto;
+  }
+
+  .ty-next {
+    text-align: center;
+  }
+
+  .ty-h2 {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--color-navy);
+    margin-bottom: 24px;
+  }
+
+  .ty-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  .ty-link-card {
+    display: block;
+    background: white;
+    border: 1px solid var(--color-ivory);
+    border-radius: 8px;
+    padding: 24px 20px;
+    text-decoration: none;
+    text-align: left;
+    transition: box-shadow var(--transition-base), border-color var(--transition-base);
+  }
+
+  .ty-link-card:hover {
+    border-color: var(--color-gold);
+    box-shadow: 0 4px 16px rgba(14, 51, 82, 0.08);
+  }
+
+  .ty-icon {
+    display: block;
+    font-size: 1.1rem;
+    color: var(--color-gold);
+    margin-bottom: 8px;
+  }
+
+  .ty-link-card h3 {
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--color-navy);
+    margin-bottom: 8px;
+  }
+
+  .ty-link-card p {
+    font-family: var(--font-ui);
+    font-size: 0.85rem;
+    color: var(--color-gray);
+    line-height: 1.5;
+  }
+
+  .ty-cta-wrap {
+    text-align: center;
+    margin-top: 32px;
+  }
+
+  .ty-cta-btn {
+    display: inline-block;
+    padding: 12px 32px;
+    font-family: var(--font-ui);
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: white;
+    background: var(--color-navy);
+    border-radius: 6px;
+    text-decoration: none;
+    transition: background var(--transition-base);
+  }
+
+  .ty-cta-btn:hover {
+    background: var(--color-crimson);
+  }
+
+  .landing-footer {
+    text-align: center;
+    padding: 24px;
+    font-family: var(--font-ui);
+    font-size: 0.8rem;
+    color: var(--color-gray);
+  }
+
+  .landing-footer a {
+    color: var(--color-navy);
+    text-decoration: none;
+  }
+
+  .landing-footer a:hover {
+    color: var(--color-crimson);
+  }
+
+  @media (max-width: 600px) {
+    .ty-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .ty-card {
+      padding: 32px 20px;
+    }
+  }
+</style>

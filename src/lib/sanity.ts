@@ -389,6 +389,37 @@ export async function getBookStudies(year?: number) {
   }`);
 }
 
+// Lead Magnets
+export async function getLeadMagnets() {
+  return sanityClient.fetch(`*[_type == "leadMagnet" && enabled == true] | order(_createdAt desc) {
+    _id,
+    title,
+    "slug": slug.current,
+    seoDescription,
+    heroLabel,
+    heroTitle,
+    heroSubtitle,
+    introText,
+    benefits,
+    "mockupImageUrl": mockupImage.asset->url,
+    "downloadFileUrl": downloadFile.asset->url,
+    formTitle,
+    formDescription,
+    formButtonText,
+    acTagName,
+    insideTitle,
+    insideDescription,
+    insideItems,
+    ctaTitle,
+    ctaText,
+    thankYouTitle,
+    thankYouMessage,
+    thankYouNextSteps,
+    thankYouCtaText,
+    thankYouCtaUrl
+  }`);
+}
+
 // Reading Groups
 export async function getReadingGroups() {
   return sanityClient.fetch(`*[_type == "readingGroup" && active == true] | order(province asc, city asc) {

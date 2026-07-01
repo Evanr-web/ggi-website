@@ -11,6 +11,7 @@ import careerPosting from './careerPosting';
 import bookStudy from './bookStudy';
 import readingGroup from './readingGroup';
 import tag from './tag';
+import leadMagnet from './leadMagnet';
 
 export const schemaTypes = [
   // Singletons
@@ -29,4 +30,5 @@ export const schemaTypes = [
   bookStudy,
   readingGroup,
   tag,
+  leadMagnet,
 ];

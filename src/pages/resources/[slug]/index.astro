@@ -1,0 +1,567 @@
+---
+/*  /resources/[slug]  —  Dynamic lead magnet landing page (CMS-driven)
+    Content from Sanity "leadMagnet" type.
+    AC endpoint: /api/lead-magnet  |  Tag: from Sanity acTagName  |  List: newsletter (4)
+*/
+import '../../../styles/global.css';
+import { getLeadMagnets } from '../../../lib/sanity';
+
+export async function getStaticPaths() {
+  const magnets = await getLeadMagnets();
+  // Exclude slugs with dedicated hardcoded pages
+  const reserved = ['roadmap'];
+  return magnets
+    .filter((m: any) => m.slug && !reserved.includes(m.slug))
+    .map((m: any) => ({ params: { slug: m.slug }, props: { magnet: m } }));
+}
+
+const { magnet } = Astro.props;
+const base = import.meta.env.BASE_URL;
+const siteUrl = 'https://gregorythegreat.ca';
+const title = `${magnet.heroTitle || magnet.title} — Gregory the Great Institute`;
+const description = magnet.seoDescription || '';
+const ogImage = `${siteUrl}${base}images/branding/ggi-og-default.jpg`;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <meta name="robots" content="noindex, nofollow" />
+
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:url" content={`${siteUrl}${base}resources/${magnet.slug}/`} />
+    <meta property="og:type" content="website" />
+
+    <link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`} />
+    <title>{title}</title>
+
+    <!-- Cloudflare Turnstile -->
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+  </head>
+
+  <body class="lp">
+
+    <!-- Logo -->
+    <header class="lp-header">
+      <a href={siteUrl}>
+        <img src={`${base}images/branding/ggi-seal.png`} alt="Gregory the Great Institute" width="52" height="52" class="lp-seal" />
+      </a>
+    </header>
+
+    <main>
+      <!-- ═══════════════════════════════════════════
+           HERO — Above the fold: mockup + form
+           ═══════════════════════════════════════════ -->
+      <section class="lp-hero">
+        <div class="lp-hero__inner">
+
+          <!-- Left: copy + benefits -->
+          <div class="lp-hero__copy">
+            {magnet.heroLabel && <p class="lp-label">{magnet.heroLabel}</p>}
+            <h1 class="lp-h1" set:html={magnet.heroTitle} />
+            {magnet.heroSubtitle && <p class="lp-subtitle">{magnet.heroSubtitle}</p>}
+            {magnet.introText && <p class="lp-intro">{magnet.introText}</p>}
+
+            {magnet.benefits && magnet.benefits.length > 0 && (
+              <ul class="lp-benefits">
+                {magnet.benefits.map((b: string) => (
+                  <li set:html={b} />
+                ))}
+              </ul>
+            )}
+          </div>
+
+          <!-- Right: mockup + form -->
+          <div class="lp-hero__action">
+            {magnet.mockupImageUrl && (
+              <img
+                src={magnet.mockupImageUrl}
+                alt={`${magnet.heroTitle} preview`}
+                class="lp-mockup"
+              />
+            )}
+
+            <div class="lp-form-card" id="download">
+              <h2 class="lp-form-title">{magnet.formTitle || 'Get Your Free Download'}</h2>
+              {magnet.formDescription && <p class="lp-form-desc">{magnet.formDescription}</p>}
+
+              <form id="lm-form" class="lp-form" novalidate
+                data-tag={magnet.acTagName}
+                data-slug={magnet.slug}>
+                <div class="lp-form-row">
+                  <div class="lp-field">
+                    <label for="firstName">First Name</label>
+                    <input type="text" id="firstName" name="firstName" autocomplete="given-name" required />
+                  </div>
+                  <div class="lp-field">
+                    <label for="lastName">Last Name</label>
+                    <input type="text" id="lastName" name="lastName" autocomplete="family-name" />
+                  </div>
+                </div>
+
+                <div class="lp-field">
+                  <label for="email">Email Address <span class="req">*</span></label>
+                  <input type="email" id="email" name="email" autocomplete="email" required />
+                </div>
+
+                <!-- Honeypot -->
+                <div style="position:absolute;left:-9999px;" aria-hidden="true">
+                  <input type="text" name="website" tabindex="-1" autocomplete="off" />
+                </div>
+
+                <!-- Turnstile -->
+                <div class="cf-turnstile" data-sitekey="0x4AAAAAADm6eYaBvIIwZNRm" data-theme="light"></div>
+
+                <button type="submit" class="lp-btn" id="submit-btn">
+                  {magnet.formButtonText || 'Get the Download'}
+                </button>
+
+                <p id="form-error" class="lp-msg lp-msg--err" style="display:none;"></p>
+                <p class="lp-privacy">You'll also receive occasional updates from the Gregory the Great Institute. Unsubscribe anytime.</p>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════
+           WHAT'S INSIDE
+           ═══════════════════════════════════════════ -->
+      {magnet.insideItems && magnet.insideItems.length > 0 && (
+        <section class="lp-inside">
+          <h2 class="lp-h2">{magnet.insideTitle || "What's Inside"}</h2>
+          {magnet.insideDescription && <p class="lp-inside-desc">{magnet.insideDescription}</p>}
+
+          <div class="lp-model-list">
+            {magnet.insideItems.map((item: any) => (
+              <div class="lp-model">
+                <span class="lp-model-num">{item.number}</span>
+                <strong>{item.label}</strong>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
+
+      <!-- ═══════════════════════════════════════════
+           SECOND CTA
+           ═══════════════════════════════════════════ -->
+      {(magnet.ctaTitle || magnet.ctaText) && (
+        <section class="lp-cta2">
+          {magnet.ctaTitle && <h2 class="lp-h2">{magnet.ctaTitle}</h2>}
+          {magnet.ctaText && <p>{magnet.ctaText}</p>}
+          <a href="#download" class="lp-btn lp-btn--outline">{magnet.formButtonText || 'Get the Download'} ↑</a>
+        </section>
+      )}
+    </main>
+
+    <!-- Minimal footer -->
+    <footer class="lp-footer">
+      <p>&copy; {new Date().getFullYear()} Gregory the Great Institute &nbsp;·&nbsp;
+        <a href={siteUrl}>gregorythegreat.ca</a>
+      </p>
+    </footer>
+
+    <!-- Form handler -->
+    <script is:inline>
+      document.getElementById('lm-form').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        var btn = document.getElementById('submit-btn');
+        var errEl = document.getElementById('form-error');
+        errEl.style.display = 'none';
+        btn.disabled = true;
+        btn.textContent = 'Sending…';
+
+        var form = this;
+        var fd = new FormData(form);
+        var params = new URLSearchParams(window.location.search);
+        var payload = {
+          firstName: fd.get('firstName') || '',
+          lastName: fd.get('lastName') || '',
+          email: fd.get('email') || '',
+          website: fd.get('website') || '',
+          tagName: form.dataset.tag || '',
+          signup_page: '/resources/' + (form.dataset.slug || '') + '/',
+          utm_source: params.get('utm_source') || '',
+          utm_medium: params.get('utm_medium') || '',
+          utm_campaign: params.get('utm_campaign') || '',
+          utm_content: params.get('utm_content') || '',
+        };
+
+        var tsEl = document.querySelector('[name="cf-turnstile-response"]');
+        if (tsEl) payload['cf-turnstile-response'] = tsEl.value;
+
+        try {
+          var res = await fetch('/api/lead-magnet', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload),
+          });
+          var data = await res.json();
+          if (res.ok && data.success) {
+            window.location.href = '/resources/' + (form.dataset.slug || '') + '/thank-you/';
+          } else {
+            errEl.textContent = data.error || 'Something went wrong. Please try again.';
+            errEl.style.display = 'block';
+            btn.disabled = false;
+            btn.textContent = form.querySelector('.lp-btn')?.dataset?.originalText || 'Get the Download';
+          }
+        } catch (err) {
+          errEl.textContent = 'Network error. Please try again.';
+          errEl.style.display = 'block';
+          btn.disabled = false;
+          btn.textContent = 'Get the Download';
+        }
+      });
+    </script>
+  </body>
+</html>
+
+<style>
+  /* ════════════════════════════════════════════
+     Landing Page — High-Conversion Layout
+     (matches roadmap/index.astro exactly)
+     ════════════════════════════════════════════ */
+
+  .lp {
+    font-family: var(--font-body);
+    background: var(--color-parchment);
+    color: var(--color-ink);
+    min-height: 100vh;
+  }
+
+  .lp-header {
+    text-align: center;
+    padding: 20px 24px 0;
+  }
+  .lp-seal {
+    border-radius: 50%;
+    opacity: 0.9;
+  }
+
+  .lp-hero {
+    padding: 32px 24px 56px;
+  }
+  .lp-hero__inner {
+    max-width: 1060px;
+    margin-inline: auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: start;
+  }
+
+  .lp-label {
+    font-family: var(--font-ui);
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-gold);
+    margin-bottom: 8px;
+  }
+
+  .lp-h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2.2rem, 4.5vw, 3.2rem);
+    font-weight: 700;
+    color: var(--color-navy);
+    line-height: 1.1;
+    margin-bottom: 10px;
+  }
+
+  .lp-subtitle {
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    font-style: italic;
+    color: var(--color-crimson);
+    margin-bottom: 28px;
+  }
+
+  .lp-benefits {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 24px;
+  }
+  .lp-benefits li {
+    position: relative;
+    padding-left: 24px;
+    margin-bottom: 14px;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--color-gray);
+  }
+  .lp-benefits li::before {
+    content: '✦';
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: var(--color-gold);
+    font-size: 0.85rem;
+  }
+  .lp-benefits li :global(strong) {
+    color: var(--color-navy);
+  }
+
+  .lp-intro {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: var(--color-gray);
+    margin-bottom: 20px;
+  }
+
+  .lp-hero__action {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .lp-mockup {
+    max-width: 280px;
+    width: 100%;
+    height: auto;
+    margin-bottom: -24px;
+    position: relative;
+    z-index: 1;
+    filter: drop-shadow(0 8px 24px rgba(14, 51, 82, 0.12));
+  }
+
+  .lp-form-card {
+    background: white;
+    border: 1px solid var(--color-ivory);
+    border-radius: 12px;
+    padding: 32px 28px 28px;
+    width: 100%;
+    max-width: 400px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .lp-form-title {
+    font-family: var(--font-display);
+    font-size: 1.35rem;
+    font-weight: 600;
+    color: var(--color-navy);
+    text-align: center;
+    margin-bottom: 6px;
+  }
+
+  .lp-form-desc {
+    font-family: var(--font-ui);
+    font-size: 0.85rem;
+    color: var(--color-gray);
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .lp-form-row {
+    display: flex;
+    gap: 12px;
+  }
+
+  .lp-field {
+    margin-bottom: 14px;
+    flex: 1;
+  }
+  .lp-field label {
+    display: block;
+    font-family: var(--font-ui);
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--color-navy);
+    margin-bottom: 5px;
+  }
+  .req { color: var(--color-crimson); }
+
+  .lp-field input {
+    width: 100%;
+    padding: 9px 12px;
+    font-family: var(--font-body);
+    font-size: 0.92rem;
+    border: 1px solid var(--color-ivory);
+    border-radius: 6px;
+    background: var(--color-linen);
+    color: var(--color-ink);
+    transition: border-color var(--transition-fast);
+  }
+  .lp-field input:focus {
+    outline: none;
+    border-color: var(--color-gold);
+    box-shadow: 0 0 0 3px rgba(184, 154, 71, 0.15);
+  }
+
+  .cf-turnstile {
+    margin: 12px auto;
+    display: flex;
+    justify-content: center;
+  }
+
+  .lp-btn {
+    display: block;
+    width: 100%;
+    padding: 13px 20px;
+    font-family: var(--font-ui);
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: white;
+    background: var(--color-navy);
+    border: 2px solid var(--color-navy);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background var(--transition-base), color var(--transition-base);
+    text-align: center;
+    text-decoration: none;
+    margin-top: 6px;
+  }
+  .lp-btn:hover {
+    background: var(--color-crimson);
+    border-color: var(--color-crimson);
+  }
+  .lp-btn:disabled {
+    opacity: 0.6;
+    cursor: wait;
+  }
+
+  .lp-btn--outline {
+    display: inline-block;
+    width: auto;
+    background: transparent;
+    color: var(--color-navy);
+    padding: 12px 32px;
+  }
+  .lp-btn--outline:hover {
+    background: var(--color-navy);
+    color: white;
+  }
+
+  .lp-msg {
+    font-family: var(--font-ui);
+    font-size: 0.82rem;
+    margin-top: 10px;
+    text-align: center;
+  }
+  .lp-msg--err { color: var(--color-error); }
+
+  .lp-privacy {
+    font-family: var(--font-ui);
+    font-size: 0.72rem;
+    color: var(--color-gray);
+    text-align: center;
+    margin-top: 10px;
+    opacity: 0.65;
+  }
+
+  .lp-inside {
+    background: var(--color-navy);
+    padding: 56px 24px;
+    text-align: center;
+  }
+
+  .lp-h2 {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: var(--color-navy);
+    margin-bottom: 12px;
+  }
+
+  .lp-inside .lp-h2 {
+    color: white;
+  }
+
+  .lp-inside-desc {
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    font-style: italic;
+    color: var(--color-ivory);
+    margin-bottom: 36px;
+  }
+
+  .lp-model-list {
+    max-width: 720px;
+    margin-inline: auto;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    text-align: left;
+  }
+
+  .lp-model {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 16px;
+    border: 1px solid rgba(184, 154, 71, 0.25);
+    border-radius: 8px;
+    transition: border-color var(--transition-base);
+  }
+  .lp-model:hover {
+    border-color: var(--color-gold);
+  }
+
+  .lp-model-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: var(--color-gold);
+    color: var(--color-navy);
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.85rem;
+  }
+
+  .lp-model strong {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    color: white;
+    margin-bottom: 2px;
+  }
+
+  .lp-cta2 {
+    text-align: center;
+    padding: 0 24px 56px;
+  }
+  .lp-cta2 p {
+    color: var(--color-gray);
+    margin-bottom: 20px;
+    font-size: 1rem;
+  }
+
+  .lp-footer {
+    text-align: center;
+    padding: 20px 24px;
+    font-family: var(--font-ui);
+    font-size: 0.78rem;
+    color: var(--color-gray);
+    border-top: 1px solid var(--color-ivory);
+  }
+  .lp-footer a {
+    color: var(--color-navy);
+    text-decoration: none;
+  }
+  .lp-footer a:hover {
+    color: var(--color-crimson);
+  }
+
+  @media (max-width: 768px) {
+    .lp-hero__inner {
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+    .lp-hero__action {
+      order: -1;
+    }
+    .lp-model-list {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

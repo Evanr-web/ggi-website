@@ -269,6 +269,17 @@ const structure = (S: StructureBuilder) =>
         .title('💰 Giving Tiers')
         .child(S.documentTypeList('givingTier').title('Giving Tiers')),
 
+      // Lead Magnets
+      S.listItem()
+        .title('🧲 Lead Magnets')
+        .child(
+          S.documentTypeList('leadMagnet')
+            .title('Lead Magnets')
+            .defaultOrdering([{ field: '_createdAt', direction: 'desc' }])
+        ),
+
+      S.divider(),
+
       // Careers — with preview
       S.listItem()
         .title('💼 Career Postings')
