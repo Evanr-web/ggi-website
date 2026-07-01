@@ -41,22 +41,26 @@ const title = 'Your Reading List Is on Its Way — Gregory the Great Institute';
 
         <div class="ty-grid">
           <a href={`${siteUrl}${base}programs/book-studies/`} class="ty-link-card">
-            <h3>📖 Join a Book Study</h3>
+            <span class="ty-icon">✦</span>
+            <h3>Join a Book Study</h3>
             <p>Read and discuss these books with a guided group. Our book studies bring these texts to life.</p>
           </a>
 
           <a href={`${siteUrl}${base}magnalia/`} class="ty-link-card">
-            <h3>📰 Read Magnalia</h3>
+            <span class="ty-icon">✦</span>
+            <h3>Read Magnalia</h3>
             <p>Canada's journal of faith and culture — essays, interviews, and sacred art from leading Catholic thinkers.</p>
           </a>
 
           <a href={`${siteUrl}${base}programs/`} class="ty-link-card">
-            <h3>🎓 Our Programs</h3>
+            <span class="ty-icon">✦</span>
+            <h3>Our Programs</h3>
             <p>Formation programs, short courses, and research — building a culture of faith and reason in Canada.</p>
           </a>
 
           <a href={`${siteUrl}${base}support/`} class="ty-link-card">
-            <h3>🤝 Support the Mission</h3>
+            <span class="ty-icon">✦</span>
+            <h3>Support the Mission</h3>
             <p>Help us renew culture through faith and reason. Every gift makes a difference.</p>
           </a>
         </div>
@@ -169,6 +173,13 @@ const title = 'Your Reading List Is on Its Way — Gregory the Great Institute';
   .ty-link-card:hover {
     border-color: var(--color-gold);
     box-shadow: 0 4px 16px rgba(14, 51, 82, 0.08);
+  }
+
+  .ty-icon {
+    display: block;
+    font-size: 1.1rem;
+    color: var(--color-gold);
+    margin-bottom: 8px;
   }
 
   .ty-link-card h3 {
