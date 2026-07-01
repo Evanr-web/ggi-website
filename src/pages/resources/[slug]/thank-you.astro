@@ -35,6 +35,7 @@ const title = `${magnet.thankYouTitle || 'Thank You'} — Gregory the Great Inst
          NAVY HERO — Confirmation
          ═══════════════════════════════════════════ -->
     <section class="ty-hero">
+      <div class="ty-hero-content">
       <a href={siteUrl} class="ty-seal-link">
         <img src={`${base}images/branding/ggi-seal.png`} alt="Gregory the Great Institute" width="60" height="60" class="ty-seal" />
       </a>
@@ -55,17 +56,11 @@ const title = `${magnet.thankYouTitle || 'Thank You'} — Gregory the Great Inst
       <div class="ty-rule">
         <span class="ty-rule-ornament">✦</span>
       </div>
-    </section>
+      </div>
 
-    <!-- ═══════════════════════════════════════════
-         CLASSICAL ART STRIP — Visual transition
-         ═══════════════════════════════════════════ -->
-    <div class="ty-art-strip">
-      <img src={`${base}images/art/school-of-athens.jpg`} alt="" class="ty-art-img" loading="lazy" />
-      <img src={`${base}images/art/disputation-holy-sacrament.jpg`} alt="" class="ty-art-img" loading="lazy" />
-      <img src={`${base}images/art/gozzoli-triumph-aquinas.jpg`} alt="" class="ty-art-img" loading="lazy" />
-      <img src={`${base}images/art/rembrandt-scholar-study.jpg`} alt="" class="ty-art-img" loading="lazy" />
-    </div>
+      <!-- Classical art overlay — bottom-aligned within hero -->
+      <img src={`${base}images/art/ggi-classical-overlay.png`} alt="" class="ty-art-overlay" loading="lazy" />
+    </section>
 
     <!-- ═══════════════════════════════════════════
          NEXT STEPS — Explore more
@@ -125,8 +120,12 @@ const title = `${magnet.thankYouTitle || 'Thank You'} — Gregory the Great Inst
   .ty-hero {
     background: var(--color-navy);
     text-align: center;
-    padding: 40px 24px 48px;
+    padding: 0;
     position: relative;
+  }
+
+  .ty-hero-content {
+    padding: 40px 24px 0;
   }
 
   .ty-seal-link {
@@ -184,25 +183,12 @@ const title = `${magnet.thankYouTitle || 'Thank You'} — Gregory the Great Inst
     opacity: 0.7;
   }
 
-  /* ── Classical Art Strip ── */
-  .ty-art-strip {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    height: 100px;
-    overflow: hidden;
-    border-bottom: 3px solid var(--color-crimson);
-  }
-
-  .ty-art-img {
+  /* ── Classical Art Overlay ── */
+  .ty-art-overlay {
+    display: block;
     width: 100%;
-    height: 100%;
-    object-fit: cover;
-    filter: saturate(0.7) brightness(0.85);
-    transition: filter 0.4s ease;
-  }
-
-  .ty-art-img:hover {
-    filter: saturate(1) brightness(1);
+    height: auto;
+    opacity: 0.8;
   }
 
   /* ── Main Content ── */
@@ -351,17 +337,10 @@ const title = `${magnet.thankYouTitle || 'Thank You'} — Gregory the Great Inst
       grid-template-columns: 1fr;
     }
 
-    .ty-art-strip {
-      grid-template-columns: repeat(2, 1fr);
-      height: 80px;
-    }
 
-    .ty-art-img:nth-child(n+3) {
-      display: none;
-    }
 
-    .ty-hero {
-      padding: 32px 20px 40px;
+    .ty-hero-content {
+      padding: 32px 20px 0;
     }
   }
 </style>
