@@ -195,7 +195,7 @@ const ogImage = `${siteUrl}${base}images/branding/ggi-og-default.jpg`;
         if (tsEl) payload['cf-turnstile-response'] = tsEl.value;
 
         try {
-          var res = await fetch('/api/reading-guide', {
+          var res = await fetch('/api/lead-magnet', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload),
