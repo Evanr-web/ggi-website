@@ -1,6 +1,7 @@
 ---
 /*  /resources/[slug]/thank-you  —  Dynamic post-submission confirmation page
     Content from Sanity "leadMagnet" type.
+    Branded design: navy hero, crimson accents, classical art strip.
 */
 import '../../../styles/global.css';
 import { getLeadMagnets } from '../../../lib/sanity';
@@ -28,22 +29,48 @@ const title = `${magnet.thankYouTitle || 'Thank You'} — Gregory the Great Inst
     <title>{title}</title>
   </head>
 
-  <body class="landing-body">
-    <header class="landing-header">
-      <a href={siteUrl} class="landing-logo">
-        <img src={`${base}images/branding/ggi-seal.png`} alt="Gregory the Great Institute" width="56" height="56" />
-      </a>
-    </header>
+  <body class="ty-body">
 
-    <main class="ty-main">
-      <div class="ty-card">
-        <div class="ty-check">✓</div>
-        <h1 class="ty-h1">{magnet.thankYouTitle || 'Thank You!'}</h1>
-        {magnet.thankYouMessage && (
-          <p class="ty-desc">{magnet.thankYouMessage}</p>
-        )}
+    <!-- ═══════════════════════════════════════════
+         NAVY HERO — Confirmation
+         ═══════════════════════════════════════════ -->
+    <section class="ty-hero">
+      <a href={siteUrl} class="ty-seal-link">
+        <img src={`${base}images/branding/ggi-seal.png`} alt="Gregory the Great Institute" width="60" height="60" class="ty-seal" />
+      </a>
+
+      <div class="ty-check-ring">
+        <svg width="56" height="56" viewBox="0 0 56 56" fill="none">
+          <circle cx="28" cy="28" r="27" stroke="var(--color-gold)" stroke-width="2" />
+          <path d="M17 28.5L24.5 36L39 21" stroke="var(--color-gold)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
       </div>
 
+      <h1 class="ty-h1">{magnet.thankYouTitle || 'Thank You!'}</h1>
+      {magnet.thankYouMessage && (
+        <p class="ty-desc">{magnet.thankYouMessage}</p>
+      )}
+
+      <!-- Decorative gold rule -->
+      <div class="ty-rule">
+        <span class="ty-rule-ornament">✦</span>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════
+         CLASSICAL ART STRIP — Visual transition
+         ═══════════════════════════════════════════ -->
+    <div class="ty-art-strip">
+      <img src={`${base}images/art/school-of-athens.jpg`} alt="" class="ty-art-img" loading="lazy" />
+      <img src={`${base}images/art/disputation-holy-sacrament.jpg`} alt="" class="ty-art-img" loading="lazy" />
+      <img src={`${base}images/art/gozzoli-triumph-aquinas.jpg`} alt="" class="ty-art-img" loading="lazy" />
+      <img src={`${base}images/art/rembrandt-scholar-study.jpg`} alt="" class="ty-art-img" loading="lazy" />
+    </div>
+
+    <!-- ═══════════════════════════════════════════
+         NEXT STEPS — Explore more
+         ═══════════════════════════════════════════ -->
+    <main class="ty-main">
       {magnet.thankYouNextSteps && magnet.thankYouNextSteps.length > 0 && (
         <section class="ty-next">
           <h2 class="ty-h2">While You Wait, Explore More</h2>
@@ -51,9 +78,11 @@ const title = `${magnet.thankYouTitle || 'Thank You'} — Gregory the Great Inst
           <div class="ty-grid">
             {magnet.thankYouNextSteps.map((step: any) => (
               <a href={step.url || '#'} class="ty-link-card">
+                <div class="ty-card-accent"></div>
                 <span class="ty-icon">✦</span>
                 <h3>{step.heading}</h3>
                 <p>{step.text}</p>
+                <span class="ty-arrow">→</span>
               </a>
             ))}
           </div>
@@ -67,7 +96,8 @@ const title = `${magnet.thankYouTitle || 'Thank You'} — Gregory the Great Inst
       )}
     </main>
 
-    <footer class="landing-footer">
+    <!-- Minimal footer -->
+    <footer class="ty-footer">
       <p>&copy; {new Date().getFullYear()} Gregory the Great Institute &nbsp;·&nbsp;
         <a href={siteUrl}>gregorythegreat.ca</a>
       </p>
@@ -76,69 +106,111 @@ const title = `${magnet.thankYouTitle || 'Thank You'} — Gregory the Great Inst
 </html>
 
 <style>
-  .landing-body {
+  /* ════════════════════════════════════════════
+     Thank You Page — Branded Design
+     Navy hero, crimson accents, classical art
+     ════════════════════════════════════════════ */
+
+  .ty-body {
     font-family: var(--font-body);
     background-color: var(--color-parchment);
     color: var(--color-ink);
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    margin: 0;
   }
 
-  .landing-header {
-    padding: 24px 32px;
+  /* ── Navy Hero ── */
+  .ty-hero {
+    background: var(--color-navy);
     text-align: center;
+    padding: 40px 24px 48px;
+    position: relative;
   }
 
-  .landing-logo img {
+  .ty-seal-link {
+    display: inline-block;
+    margin-bottom: 24px;
+  }
+
+  .ty-seal {
     border-radius: 50%;
+    border: 2px solid rgba(184, 154, 71, 0.3);
   }
 
-  .ty-main {
-    flex: 1;
-    max-width: 720px;
-    margin-inline: auto;
-    padding: 0 24px 64px;
-  }
-
-  .ty-card {
-    text-align: center;
-    background: white;
-    border: 1px solid var(--color-ivory);
-    border-radius: 12px;
-    padding: 48px 36px;
-    margin-bottom: 48px;
-  }
-
-  .ty-check {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 56px;
-    height: 56px;
-    border-radius: 50%;
-    background: var(--color-success);
-    color: white;
-    font-size: 1.6rem;
-    font-weight: 700;
+  .ty-check-ring {
     margin-bottom: 20px;
   }
 
   .ty-h1 {
     font-family: var(--font-display);
-    font-size: clamp(1.6rem, 4vw, 2.2rem);
+    font-size: clamp(1.8rem, 4vw, 2.4rem);
     font-weight: 700;
-    color: var(--color-navy);
+    color: white;
     margin-bottom: 16px;
     line-height: 1.2;
   }
 
   .ty-desc {
     font-size: 1.05rem;
-    color: var(--color-gray);
+    color: var(--color-ivory);
     line-height: 1.7;
     max-width: 520px;
     margin-inline: auto;
+    opacity: 0.9;
+  }
+
+  .ty-rule {
+    margin-top: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+  }
+
+  .ty-rule::before,
+  .ty-rule::after {
+    content: '';
+    width: 60px;
+    height: 1px;
+    background: var(--color-gold);
+    opacity: 0.4;
+  }
+
+  .ty-rule-ornament {
+    color: var(--color-gold);
+    font-size: 0.9rem;
+    opacity: 0.7;
+  }
+
+  /* ── Classical Art Strip ── */
+  .ty-art-strip {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    height: 100px;
+    overflow: hidden;
+    border-bottom: 3px solid var(--color-crimson);
+  }
+
+  .ty-art-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: saturate(0.7) brightness(0.85);
+    transition: filter 0.4s ease;
+  }
+
+  .ty-art-img:hover {
+    filter: saturate(1) brightness(1);
+  }
+
+  /* ── Main Content ── */
+  .ty-main {
+    flex: 1;
+    max-width: 760px;
+    margin-inline: auto;
+    padding: 48px 24px 64px;
   }
 
   .ty-next {
@@ -150,36 +222,54 @@ const title = `${magnet.thankYouTitle || 'Thank You'} — Gregory the Great Inst
     font-size: 1.4rem;
     font-weight: 600;
     color: var(--color-navy);
-    margin-bottom: 24px;
+    margin-bottom: 28px;
   }
 
   .ty-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 16px;
+    gap: 18px;
   }
 
   .ty-link-card {
     display: block;
+    position: relative;
     background: white;
     border: 1px solid var(--color-ivory);
     border-radius: 8px;
-    padding: 24px 20px;
+    padding: 28px 22px 22px;
     text-decoration: none;
     text-align: left;
-    transition: box-shadow var(--transition-base), border-color var(--transition-base);
+    overflow: hidden;
+    transition: box-shadow var(--transition-base), border-color var(--transition-base), transform 0.2s ease;
+  }
+
+  .ty-card-accent {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--color-crimson), var(--color-gold));
+    opacity: 0;
+    transition: opacity var(--transition-base);
   }
 
   .ty-link-card:hover {
     border-color: var(--color-gold);
-    box-shadow: 0 4px 16px rgba(14, 51, 82, 0.08);
+    box-shadow: 0 6px 20px rgba(14, 51, 82, 0.1);
+    transform: translateY(-2px);
+  }
+
+  .ty-link-card:hover .ty-card-accent {
+    opacity: 1;
   }
 
   .ty-icon {
     display: block;
     font-size: 1.1rem;
-    color: var(--color-gold);
-    margin-bottom: 8px;
+    color: var(--color-crimson);
+    margin-bottom: 10px;
   }
 
   .ty-link-card h3 {
@@ -195,54 +285,83 @@ const title = `${magnet.thankYouTitle || 'Thank You'} — Gregory the Great Inst
     font-size: 0.85rem;
     color: var(--color-gray);
     line-height: 1.5;
+    margin-bottom: 8px;
   }
 
+  .ty-arrow {
+    font-family: var(--font-ui);
+    font-size: 0.85rem;
+    color: var(--color-crimson);
+    font-weight: 600;
+    opacity: 0;
+    transition: opacity var(--transition-base);
+  }
+
+  .ty-link-card:hover .ty-arrow {
+    opacity: 1;
+  }
+
+  /* ── CTA Button ── */
   .ty-cta-wrap {
     text-align: center;
-    margin-top: 32px;
+    margin-top: 40px;
   }
 
   .ty-cta-btn {
     display: inline-block;
-    padding: 12px 32px;
+    padding: 14px 36px;
     font-family: var(--font-ui);
     font-size: 0.95rem;
     font-weight: 600;
     color: white;
-    background: var(--color-navy);
+    background: var(--color-crimson);
+    border: 2px solid var(--color-crimson);
     border-radius: 6px;
     text-decoration: none;
-    transition: background var(--transition-base);
+    transition: background var(--transition-base), color var(--transition-base);
   }
 
   .ty-cta-btn:hover {
-    background: var(--color-crimson);
+    background: transparent;
+    color: var(--color-crimson);
   }
 
-  .landing-footer {
+  /* ── Footer ── */
+  .ty-footer {
     text-align: center;
     padding: 24px;
     font-family: var(--font-ui);
     font-size: 0.8rem;
     color: var(--color-gray);
+    border-top: 1px solid var(--color-ivory);
   }
 
-  .landing-footer a {
+  .ty-footer a {
     color: var(--color-navy);
     text-decoration: none;
   }
 
-  .landing-footer a:hover {
+  .ty-footer a:hover {
     color: var(--color-crimson);
   }
 
+  /* ── Mobile ── */
   @media (max-width: 600px) {
     .ty-grid {
       grid-template-columns: 1fr;
     }
 
-    .ty-card {
-      padding: 32px 20px;
+    .ty-art-strip {
+      grid-template-columns: repeat(2, 1fr);
+      height: 80px;
+    }
+
+    .ty-art-img:nth-child(n+3) {
+      display: none;
+    }
+
+    .ty-hero {
+      padding: 32px 20px 40px;
     }
   }
 </style>
