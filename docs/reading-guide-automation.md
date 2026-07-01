@@ -1,4 +1,4 @@
-# Reading List Lead Magnet — ActiveCampaign Automation Setup
+# Reading Guide Lead Magnet — ActiveCampaign Automation Setup
 
 ## What's Already Done
 - ✅ Landing page: `/resources/roadmap/`
@@ -6,6 +6,7 @@
 - ✅ API endpoint: `/api/reading-guide` (Turnstile + honeypot + newsletter list)
 - ✅ AC tag created: `reading-guide` (ID: 33)
 - ✅ PDF hosted: `/downloads/roadmap-reading-guide.pdf` (unlisted, not linked from nav)
+- ✅ CASL disclosure on form ("You'll also receive occasional updates...")
 
 ## Automation Setup (ActiveCampaign UI — ~5 minutes)
 
@@ -18,32 +19,37 @@
 ### Step 2: Add the Email Action
 
 1. Add action: **Send an Email**
-2. **Subject:** "Your Reading List: The Roadmap to Renewal"
+2. **Subject:** Your Reading Guide: The Roadmap to Renewal
 3. **From:** Gregory the Great Institute (use your standard sender)
-4. **Email body** (suggested copy below):
+4. **Email body** (copy below):
 
 ---
 
 **Email Copy:**
 
-> **Subject:** Your Reading List: The Roadmap to Renewal
+> **Subject:** Your Reading Guide: The Roadmap to Renewal
 >
 > Hi %FIRSTNAME%,
 >
 > Thank you for your interest in the Gregory the Great Institute's mission of cultural renewal.
 >
-> Here is your free copy of **The Roadmap to Renewal: 6 Models of Cultural Restoration** — a curated reading list based on Dr. Ryan Topping's framework.
+> Here is your free copy of **The Roadmap to Renewal: 6 Models of Cultural Restoration** — a curated reading guide based on Dr. Ryan Topping's framework.
 >
-> **[Download Your Reading List →](https://gregorythegreat.ca/downloads/roadmap-reading-guide.pdf)**
+> **[Download Your Reading Guide →](https://gregorythegreat.ca/downloads/roadmap-reading-guide.pdf)**
 >
-> Inside you'll find 18 carefully selected titles spanning philosophy, theology, social thought, and spiritual formation — each paired with one of the six models of cultural restoration.
+> Inside you'll find 20 carefully selected titles spanning philosophy, theology, social thought, and spiritual formation — each paired with one of the six models of cultural restoration.
 >
-> **Want to go deeper?** Our guided [book studies](https://gregorythegreat.ca/programs/book-studies/) bring these texts to life through discussion, reflection, and community.
+> ---
+>
+> **Ready to dive in with others?** Our guided book studies bring these texts to life through discussion, reflection, and community.
+>
+> **[See Current Book Studies →](https://gregorythegreat.ca/programs/book-studies/)**
+>
+> ---
 >
 > In Christ,
 > The Gregory the Great Institute
 >
-> ---
 > *gregorythegreat.ca*
 
 ---
@@ -69,5 +75,6 @@ YouTube CTA → /resources/roadmap/ → form submit
 ## Notes
 - The PDF is at an unlisted URL — not in nav, not in sitemap, `noindex` on the landing page
 - Contact also joins the newsletter list, so they'll get regular updates too
+- CASL compliant: form discloses newsletter subscription, unsubscribe link in all AC emails
 - UTM params from YouTube links are captured (utm_source, utm_medium, utm_campaign)
-- Example YouTube description CTA: `Get the free reading list: https://gregorythegreat.ca/resources/roadmap/?utm_source=youtube&utm_medium=video&utm_campaign=6-models`
+- Example YouTube description CTA: `Get the free reading guide: https://gregorythegreat.ca/resources/roadmap/?utm_source=youtube&utm_medium=video&utm_campaign=6-models`
