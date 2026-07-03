@@ -21,6 +21,9 @@ document.addEventListener('DOMContentLoaded', () => {
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
 
+      // Skip if phase 2 enrichment is active (handled by its own logic)
+      if (form.dataset.phase2) return;
+
       const btn = form.querySelector('button[type="submit"]');
       const originalText = btn.textContent;
       btn.textContent = 'Sending...';
@@ -125,6 +128,7 @@ document.addEventListener('DOMContentLoaded', () => {
     var isFooter = formEl.closest('.footer');
     var isModal = formEl.closest('.nl-modal-card');
 
+    formEl.dataset.phase2 = 'true';
     formEl.innerHTML = buildPhase2HTML(contactId, isFooter);
     formEl.removeAttribute('data-ac-endpoint');
 
@@ -163,9 +167,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Wire up phase 2 submit
     var phase2Form = formEl.querySelector('.phase2-form');
-    if (phase2Form) {
-      phase2Form.addEventListener('submit', function (e) {
-        e.preventDefault();
+    var phase2Btn = formEl.querySelector('.phase2-submit');
+    if (phase2Form && phase2Btn) {
+      phase2Btn.addEventListener('click', function () {
         submitPhase2(formEl, phase2Form, contactId);
       });
     }
@@ -203,7 +207,7 @@ document.addEventListener('DOMContentLoaded', () => {
         '<p class="phase2-check">✓ You\'re in!</p>' +
         '<p class="phase2-prompt">Help us tailor what we send you:</p>' +
       '</div>' +
-      '<form class="phase2-form">' +
+      '<div class="phase2-form">' +
         '<input type="hidden" name="contactId" value="' + contactId + '" />' +
 
         // Last name
@@ -233,10 +237,10 @@ document.addEventListener('DOMContentLoaded', () => {
         '<div class="cf-turnstile" data-sitekey="0x4AAAAAADm6eYaBvIIwZNRm" data-size="compact"></div>' +
 
         '<div class="phase2-actions">' +
-          '<button type="submit" class="phase2-submit">Save Preferences</button>' +
+          '<button type="button" class="phase2-submit">Save Preferences</button>' +
           '<a href="#" class="phase2-skip">Skip for now</a>' +
         '</div>' +
-      '</form>' +
+      '</div>' +
     '</div>';
   }
 
