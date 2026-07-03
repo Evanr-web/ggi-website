@@ -144,32 +144,21 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
-    // Wire up phase 2 submit
-    var phase2Form = formEl.querySelector('.phase2-form');
-    var phase2Btn = formEl.querySelector('.phase2-submit');
-    if (phase2Form && phase2Btn) {
-      phase2Btn.addEventListener('click', function () {
-        submitPhase2(formEl, phase2Form, contactId);
-      });
-    }
-
-    // Wire up skip
-    var skipBtn = formEl.querySelector('.phase2-skip');
-    if (skipBtn) {
-      skipBtn.addEventListener('click', function (e) {
+    // Wire up phase 2 interactions via event delegation on the form element.
+    // This is more robust than querying for buttons after innerHTML replacement.
+    formEl.addEventListener('click', function (e) {
+      var submitBtn = e.target.closest('.phase2-submit');
+      if (submitBtn) {
+        var pForm = formEl.querySelector('.phase2-form');
+        if (pForm) submitPhase2(formEl, pForm, contactId);
+        return;
+      }
+      var skip = e.target.closest('.phase2-skip');
+      if (skip) {
         e.preventDefault();
         showThankYou(formEl);
-      });
-    }
-
-    // Wire up province → show/hide postal code hint
-    var provinceSelect = formEl.querySelector('[name="province"]');
-    if (provinceSelect) {
-      provinceSelect.addEventListener('change', function () {
-        var postalGroup = formEl.querySelector('.phase2-postal-group');
-        if (postalGroup) postalGroup.style.display = this.value ? '' : '';
-      });
-    }
+      }
+    });
   }
 
   function buildPhase2HTML(contactId, isCompact) {
