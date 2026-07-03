@@ -52,27 +52,43 @@ export async function POST({ request }) {
     const postalCode = sanitize(body.postalCode, 10);
     const interests = Array.isArray(body.interests) ? body.interests : [];
 
-    // 1. Update contact (lastName + address custom fields)
-    // AC custom field IDs: 9=Street Address, 10=City, 11=Province, 12=Postal Code
-    const fieldValues = [];
-    if (streetAddress) fieldValues.push({ field: '9', value: streetAddress });
-    if (city) fieldValues.push({ field: '10', value: city });
-    if (province) fieldValues.push({ field: '11', value: province });
-    if (postalCode) fieldValues.push({ field: '12', value: postalCode });
-
-    const contactUpdate = {};
-    if (lastName) contactUpdate.lastName = lastName;
-    if (fieldValues.length > 0) contactUpdate.fieldValues = fieldValues;
-
-    if (Object.keys(contactUpdate).length > 0) {
+    // 1. Update contact lastName
+    if (lastName) {
       await fetch(`${AC_URL}/api/3/contacts/${contactId}`, {
         method: 'PUT',
         headers: acHeaders,
-        body: JSON.stringify({ contact: contactUpdate }),
+        body: JSON.stringify({ contact: { lastName } }),
       });
     }
 
-    // 2. Add interest tags
+    // 2. Set custom field values via dedicated fieldValues endpoint
+    // AC custom field IDs: 9=Street Address, 10=City, 11=Province, 12=Postal Code
+    const fieldEntries = [
+      { field: '9', value: streetAddress },
+      { field: '10', value: city },
+      { field: '11', value: province },
+      { field: '12', value: postalCode },
+    ].filter(f => f.value);
+
+    for (const entry of fieldEntries) {
+      try {
+        await fetch(`${AC_URL}/api/3/fieldValues`, {
+          method: 'POST',
+          headers: acHeaders,
+          body: JSON.stringify({
+            fieldValue: {
+              contact: contactId,
+              field: entry.field,
+              value: entry.value,
+            },
+          }),
+        });
+      } catch {
+        // Best-effort — don't fail for one field
+      }
+    }
+
+    // 3. Add interest tags
     for (const interest of interests) {
       const tagId = INTEREST_TAG_MAP[interest];
       if (!tagId) continue;
