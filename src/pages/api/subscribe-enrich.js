@@ -4,12 +4,12 @@ import { env } from 'cloudflare:workers';
 import { jsonResponse, corsHeaders, sanitize, checkHoneypot, logError, verifyTurnstile } from '../../lib/api-shared.js';
 
 // Map phase-2 interest checkbox values → AC tag IDs
-// Verify/update these IDs in AC dashboard → Contacts → Tags
+// Source: GET /api/3/tags (queried 2026-07-03)
 const INTEREST_TAG_MAP = {
-  'magnalia-journal': '1',   // magnalia-letter
-  'events':          '11',   // events
+  'magnalia-journal': '24',  // interest:magnalia-journal
+  'events':          '32',   // interest:events
   'book-studies':    '14',   // book-study
-  'news':            '19',   // news / institute updates
+  'news':            '1',    // magnalia-letter (general newsletter)
 };
 
 export async function OPTIONS({ request }) {
@@ -52,19 +52,17 @@ export async function POST({ request }) {
     const postalCode = sanitize(body.postalCode, 10);
     const interests = Array.isArray(body.interests) ? body.interests : [];
 
-    // 1. Update contact (lastName + address as note if provided)
+    // 1. Update contact (lastName + address custom fields)
+    // AC custom field IDs: 9=Street Address, 10=City, 11=Province, 12=Postal Code
+    const fieldValues = [];
+    if (streetAddress) fieldValues.push({ field: '9', value: streetAddress });
+    if (city) fieldValues.push({ field: '10', value: city });
+    if (province) fieldValues.push({ field: '11', value: province });
+    if (postalCode) fieldValues.push({ field: '12', value: postalCode });
+
     const contactUpdate = {};
     if (lastName) contactUpdate.lastName = lastName;
-
-    // Build address string for the contact's note/custom field
-    const addressParts = [streetAddress, city, province, postalCode].filter(Boolean);
-    if (addressParts.length > 0) {
-      contactUpdate.fieldValues = [
-        // Store full mailing address in a single custom field
-        // TODO: Create a "Mailing Address" custom field in AC and put its ID here
-        // For now, append to contact note
-      ];
-    }
+    if (fieldValues.length > 0) contactUpdate.fieldValues = fieldValues;
 
     if (Object.keys(contactUpdate).length > 0) {
       await fetch(`${AC_URL}/api/3/contacts/${contactId}`, {
