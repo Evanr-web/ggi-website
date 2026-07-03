@@ -1,7 +1,7 @@
 export const prerender = false;
 
 import { env } from 'cloudflare:workers';
-import { jsonResponse, corsHeaders, sanitize, checkHoneypot, logError, verifyTurnstile } from '../../lib/api-shared.js';
+import { jsonResponse, corsHeaders, sanitize, checkHoneypot, logError } from '../../lib/api-shared.js';
 
 // Map phase-2 interest checkbox values → AC tag IDs
 // Source: GET /api/3/tags (queried 2026-07-03)
@@ -22,12 +22,8 @@ export async function POST({ request }) {
   try {
     const body = await request.json();
 
-    // Turnstile verification
-    const turnstile = await verifyTurnstile(request, env, body);
-    if (!turnstile.success) {
-      return jsonResponse({ error: turnstile.error }, 403, origin);
-    }
-
+    // Phase 2 enrichment — user already passed Turnstile in phase 1 subscribe.
+    // No second CAPTCHA needed; honeypot still checked.
     if (checkHoneypot(body)) {
       return jsonResponse({ success: true }, 200, origin);
     }

@@ -144,27 +144,6 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
-    // Render Turnstile widget in phase 2 (retry if script hasn't loaded yet)
-    var turnstileContainer = formEl.querySelector('.phase2-form .cf-turnstile');
-    if (turnstileContainer) {
-      var renderTurnstile = function () {
-        if (window.turnstile) {
-          window.turnstile.render(turnstileContainer, {
-            sitekey: turnstileContainer.dataset.sitekey,
-            size: 'compact',
-          });
-        } else {
-          // Script not loaded yet — retry up to 10 times
-          if (!renderTurnstile._attempts) renderTurnstile._attempts = 0;
-          renderTurnstile._attempts++;
-          if (renderTurnstile._attempts < 10) {
-            setTimeout(renderTurnstile, 500);
-          }
-        }
-      };
-      renderTurnstile();
-    }
-
     // Wire up phase 2 submit
     var phase2Form = formEl.querySelector('.phase2-form');
     var phase2Btn = formEl.querySelector('.phase2-submit');
@@ -233,9 +212,6 @@ document.addEventListener('DOMContentLoaded', () => {
           '<input type="text" name="postalCode" placeholder="Postal code" class="phase2-input phase2-input--short" aria-label="Postal code" />' +
         '</fieldset>' +
 
-        // Turnstile for phase 2
-        '<div class="cf-turnstile" data-sitekey="0x4AAAAAADm6eYaBvIIwZNRm" data-size="compact"></div>' +
-
         '<div class="phase2-actions">' +
           '<button type="button" class="phase2-submit">Save Preferences</button>' +
           '<a href="#" class="phase2-skip">Skip for now</a>' +
@@ -265,10 +241,6 @@ document.addEventListener('DOMContentLoaded', () => {
     phase2Form.querySelectorAll('input[name="interests"]:checked').forEach(function (cb) {
       data.interests.push(cb.value);
     });
-
-    // Turnstile token
-    var turnstileInput = phase2Form.querySelector('[name="cf-turnstile-response"]');
-    data['cf-turnstile-response'] = turnstileInput ? turnstileInput.value : '';
 
     try {
       var res = await fetch('/api/subscribe-enrich', {
