@@ -196,7 +196,6 @@ const base = import.meta.env.BASE_URL;
         <a href="https://crisismagazine.com/author/ryan-n-s-topping" target="_blank" rel="noopener" class="outlet-tag outlet-tag--link">Crisis Magazine</a>
         <a href="https://www.catholicworldreport.com/?s=%22Dr.+Ryan+N.S.+Topping%22" target="_blank" rel="noopener" class="outlet-tag outlet-tag--link">Catholic World Report</a>
         <a href="https://www.ncregister.com/blog/st-john-henry-newman-and-the-new-evangelization" target="_blank" rel="noopener" class="outlet-tag outlet-tag--link">National Catholic Register</a>
-        <div class="outlet-tag">Shalom Media</div>
         <a href="https://www.theepochtimes.com/bright/intelligent-people-have-kids-couple-choose-faith-over-contraception-give-birth-to-9-boys-and-1-girl-5541271" target="_blank" rel="noopener" class="outlet-tag outlet-tag--link">The Epoch Times</a>
       </div>
     </div>
@@ -215,40 +214,86 @@ const base = import.meta.env.BASE_URL;
       </div>
 
       <div class="books-grid reveal-stagger">
-        <div class="book-item reveal">
+        <a href="https://angelicopress.com/products/thinking-as-though-god-exists" target="_blank" rel="noopener" class="book-item book-item--link reveal">
           <div class="book-item__spine"></div>
           <div class="book-item__content">
             <h3>Thinking as Though God Exists</h3>
             <p class="book-item__subtitle">Newman on Evangelizing the 'Nones'</p>
             <p class="book-item__note">Most recent</p>
           </div>
-        </div>
-        <div class="book-item reveal">
+        </a>
+        <a href="https://angelicopress.com/products/the-case-for-catholic-education" target="_blank" rel="noopener" class="book-item book-item--link reveal">
           <div class="book-item__spine"></div>
           <div class="book-item__content">
             <h3>The Case for Catholic Education</h3>
             <p class="book-item__subtitle">Why Parents, Teachers, and Politicians Should Reclaim the Principles of Catholic Pedagogy</p>
           </div>
-        </div>
-        <div class="book-item reveal">
+        </a>
+        <a href="https://www.amazon.ca/Rebuilding-Catholic-Culture-Catechism-Common/dp/1933184949" target="_blank" rel="noopener" class="book-item book-item--link reveal">
           <div class="book-item__spine"></div>
           <div class="book-item__content">
             <h3>Rebuilding Catholic Culture</h3>
             <p class="book-item__subtitle">How the Catechism Can Shape Our Common Life</p>
           </div>
-        </div>
-        <div class="book-item reveal">
+        </a>
+        <a href="https://www.amazon.ca/Renewing-Catholic-Schools-Regain-Secular/dp/1949822044" target="_blank" rel="noopener" class="book-item book-item--link reveal">
           <div class="book-item__spine"></div>
           <div class="book-item__content">
             <h3>Renewing Catholic Schools</h3>
             <p class="book-item__subtitle">How to Regain a Catholic Vision for a Secular Age</p>
           </div>
-        </div>
-        <div class="book-item reveal">
+        </a>
+        <a href="https://angelicopress.com/products/the-elements-of-rhetoric" target="_blank" rel="noopener" class="book-item book-item--link reveal">
           <div class="book-item__spine"></div>
           <div class="book-item__content">
-            <h3>St. Augustine</h3>
-            <p class="book-item__subtitle">Moral and Educational Philosophy (Oxford DPhil)</p>
+            <h3>The Elements of Rhetoric</h3>
+            <p class="book-item__subtitle">How to Write and Speak Clearly and Persuasively</p>
+          </div>
+        </a>
+      </div>
+
+      <!-- See All Books (expandable) -->
+      <div class="books-more">
+        <button class="books-more__toggle" aria-expanded="false" aria-controls="books-more-list">
+          See All Books <span class="books-more__icon">▼</span>
+        </button>
+        <div class="books-more__panel" id="books-more-list" hidden>
+          <div class="books-grid">
+            <a href="https://beapriest.ca/documents/2024/4/Meet%20Our%20New%20Priests%20Nov%202023.pdf" target="_blank" rel="noopener" class="book-item book-item--link">
+              <div class="book-item__spine"></div>
+              <div class="book-item__content">
+                <h3>Meet Our New Priests</h3>
+                <p class="book-item__subtitle">Vocations in the Archdiocese</p>
+              </div>
+            </a>
+            <a href="https://www.amazon.ca/-/fr/Ryan-N-S-Topping-ebook/dp/B07FK7QDYG" target="_blank" rel="noopener" class="book-item book-item--link">
+              <div class="book-item__spine"></div>
+              <div class="book-item__content">
+                <h3>St. Augustine</h3>
+                <p class="book-item__subtitle">Moral and Educational Philosophy</p>
+              </div>
+            </a>
+            <a href="https://www.amazon.ca/Christmas-Around-Fire-Stories-Christs/dp/1505111153" target="_blank" rel="noopener" class="book-item book-item--link">
+              <div class="book-item__spine"></div>
+              <div class="book-item__content">
+                <h3>Christmas Around the Fire</h3>
+                <p class="book-item__subtitle">Stories for Christ's Season</p>
+              </div>
+            </a>
+            <a href="https://www.amazon.ca/Renewing-Reader-Philosophy-Catholic-Education/dp/0813227313" target="_blank" rel="noopener" class="book-item book-item--link">
+              <div class="book-item__spine"></div>
+              <div class="book-item__content">
+                <h3>Renewing the Reader</h3>
+                <p class="book-item__subtitle">A Philosophy of Catholic Education</p>
+              </div>
+            </a>
+            <a href="https://www.amazon.ca/Happiness-Wisdom-Augustines-Theology-Education/dp/0813219736" target="_blank" rel="noopener" class="book-item book-item--link">
+              <div class="book-item__spine"></div>
+              <div class="book-item__content">
+                <h3>Happiness and Wisdom</h3>
+                <p class="book-item__subtitle">Augustine's Theology of Education</p>
+              </div>
+            </a>
           </div>
         </div>
       </div>
@@ -802,6 +847,55 @@ const base = import.meta.env.BASE_URL;
     margin-top: 4px;
   }
 
+  a.book-item--link {
+    text-decoration: none;
+    transition: border-color 0.15s, transform 0.15s;
+  }
+
+  a.book-item--link:hover {
+    border-color: var(--color-gold);
+    transform: translateX(4px);
+  }
+
+  /* See All Books toggle */
+  .books-more {
+    text-align: center;
+    margin-top: 20px;
+  }
+
+  .books-more__toggle {
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--color-gold);
+    background: none;
+    border: 1px solid var(--color-gold);
+    border-radius: 3px;
+    padding: 10px 28px;
+    cursor: pointer;
+    transition: background-color 0.15s, color 0.15s;
+  }
+
+  .books-more__toggle:hover {
+    background-color: var(--color-gold);
+    color: var(--color-parchment, #f5efe5);
+  }
+
+  .books-more__icon {
+    display: inline-block;
+    font-size: 0.7rem;
+    margin-left: 6px;
+    transition: transform 0.2s;
+  }
+
+  .books-more__toggle[aria-expanded="true"] .books-more__icon {
+    transform: rotate(180deg);
+  }
+
+  .books-more__panel {
+    margin-top: 16px;
+  }
+
   .books-count {
     text-align: center;
     margin-top: 20px;
@@ -1016,14 +1110,19 @@ const base = import.meta.env.BASE_URL;
 
 <script is:inline>
   (function () {
-    var toggle = document.querySelector('.video-more__toggle');
-    var panel = document.getElementById('video-more-grid');
-    if (!toggle || !panel) return;
-    toggle.addEventListener('click', function () {
-      var expanded = toggle.getAttribute('aria-expanded') === 'true';
-      toggle.setAttribute('aria-expanded', String(!expanded));
-      panel.hidden = expanded;
-      toggle.firstChild.textContent = expanded ? 'View More ' : 'View Less ';
-    });
+    // Generic expand/collapse
+    function wireToggle(btnSelector, panelId, openLabel, closeLabel) {
+      var btn = document.querySelector(btnSelector);
+      var panel = document.getElementById(panelId);
+      if (!btn || !panel) return;
+      btn.addEventListener('click', function () {
+        var expanded = btn.getAttribute('aria-expanded') === 'true';
+        btn.setAttribute('aria-expanded', String(!expanded));
+        panel.hidden = expanded;
+        btn.firstChild.textContent = expanded ? openLabel + ' ' : closeLabel + ' ';
+      });
+    }
+    wireToggle('.video-more__toggle', 'video-more-grid', 'View More', 'View Less');
+    wireToggle('.books-more__toggle', 'books-more-list', 'See All Books', 'Show Less');
   })();
 </script>
