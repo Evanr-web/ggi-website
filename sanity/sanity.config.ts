@@ -65,6 +65,13 @@ const structure = (S: StructureBuilder) =>
             .documentId('homepage')
             .views(documentViewsWithPreview(S))
         ),
+      S.listItem()
+        .title('📰 Media & Press')
+        .child(
+          S.document()
+            .schemaType('mediaPage')
+            .documentId('mediaPage')
+        ),
       S.divider(),
 
       // Library with sub-groups
@@ -320,7 +327,7 @@ export default defineConfig({
   document: {
     actions: (prev, context) => {
       // Singletons shouldn't be duplicated or deleted
-      const singletons = ['siteSettings', 'homepage', 'programsOverview'];
+      const singletons = ['siteSettings', 'homepage', 'programsOverview', 'mediaPage'];
       if (singletons.includes(context.schemaType)) {
         return prev.filter(
           (action: any) => !['duplicate', 'delete'].includes(action.action || '')

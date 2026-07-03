@@ -420,6 +420,48 @@ export async function getLeadMagnets() {
   }`);
 }
 
+// Media Page (singleton)
+export async function getMediaPage() {
+  return sanityClient.fetch(`*[_type == "mediaPage"][0]{
+    "heroImage": heroImage.asset->url,
+    heroTitle,
+    heroSubtitle,
+    featuredVideoUrl,
+    featuredVideoTitle,
+    featuredVideoDescription,
+    featuredVideoMeta,
+    videosLabel,
+    videosHeading,
+    videosVisibleCount,
+    videos[]{ youtubeUrl, title, meta },
+    videosNote,
+    outletsLabel,
+    outletsHeading,
+    outlets[]{ name, url },
+    booksLabel,
+    booksHeading,
+    booksVisibleCount,
+    books[]{ title, subtitle, url, note },
+    booksTotalCount,
+    booksCountNote,
+    pressKitLabel,
+    pressKitHeading,
+    pressKitBoilerplateTitle,
+    pressKitBoilerplate,
+    keyFacts[]{ label, value, url },
+    downloads[]{ name, meta, "fileUrl": file.asset->url, externalUrl },
+    brandColors[]{ name, hex, light },
+    "speakerPhoto": speakerPhoto.asset->url,
+    speakingLabel,
+    speakingHeading,
+    speakingDescription,
+    speakingTopics,
+    speakingButtonText,
+    speakingButtonUrl,
+    speakingEmail
+  }`);
+}
+
 // Reading Groups
 export async function getReadingGroups() {
   return sanityClient.fetch(`*[_type == "readingGroup" && active == true] | order(province asc, city asc) {

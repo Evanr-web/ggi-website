@@ -12,12 +12,14 @@ import bookStudy from './bookStudy';
 import readingGroup from './readingGroup';
 import tag from './tag';
 import leadMagnet from './leadMagnet';
+import mediaPage from './mediaPage';
 
 export const schemaTypes = [
   // Singletons
   siteSettings,
   homepage,
   programsOverview,
+  mediaPage,
 
   // Documents
   person,

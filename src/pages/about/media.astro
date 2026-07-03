@@ -2,130 +2,106 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Button from '../../components/Button.astro';
 import SectionDivider from '../../components/SectionDivider.astro';
+import { getMediaPage } from '../../lib/sanity';
+import { toHTML } from '@portabletext/to-html';
+
 const base = import.meta.env.BASE_URL;
+const media = await getMediaPage();
+
+// Helper: extract YouTube embed ID from various URL formats
+function ytId(url: string): string {
+  if (!url) return '';
+  try {
+    const u = new URL(url);
+    if (u.hostname.includes('youtu.be')) return u.pathname.slice(1);
+    return u.searchParams.get('v') || '';
+  } catch {
+    return url; // fallback: treat as raw ID
+  }
+}
+
+// Split videos into visible + expandable
+const visibleCount = media?.videosVisibleCount ?? 3;
+const allVideos = media?.videos ?? [];
+const visibleVideos = allVideos.slice(0, visibleCount);
+const expandableVideos = allVideos.slice(visibleCount);
+
+// Split books into visible + expandable
+const booksVisible = media?.booksVisibleCount ?? 5;
+const allBooks = media?.books ?? [];
+const visibleBooks = allBooks.slice(0, booksVisible);
+const expandableBooks = allBooks.slice(booksVisible);
+
+// Fallback hero image
+const heroImg = media?.heroImage || `${base}images/art/school-of-athens.jpg`;
 ---
 
 <BaseLayout title="Media & Press" description="Dr. Ryan Topping in the media — articles, interviews, videos, and press resources from the Gregory the Great Institute.">
 
   <!-- Hero -->
   <section class="hero-compact section--dark">
-    <div class="hero-compact__bg" style={`background-image: url(${base}images/art/school-of-athens.jpg)`}></div>
+    <div class="hero-compact__bg" style={`background-image: url(${heroImg})`}></div>
     <div class="hero-compact__overlay"></div>
     <div class="hero-compact__content container">
-      <h1 data-pagefind-weight="10" class="display">Media & Press</h1>
-      <p class="hero-compact__subtitle">Articles, interviews, and press resources</p>
+      <h1 data-pagefind-weight="10" class="display">{media?.heroTitle || 'Media & Press'}</h1>
+      <p class="hero-compact__subtitle">{media?.heroSubtitle || 'Articles, interviews, and press resources'}</p>
     </div>
   </section>
 
   <!-- ============================================
        Section 1: FEATURED VIDEO
        ============================================ -->
-  <section class="section">
-    <div class="container">
-      <div class="section-header">
-        <p class="label text-gold">Watch</p>
-        <h2>Featured</h2>
-      </div>
+  {media?.featuredVideoUrl && (
+    <section class="section">
+      <div class="container">
+        <div class="section-header">
+          <p class="label text-gold">Watch</p>
+          <h2>Featured</h2>
+        </div>
 
-      <div class="media-featured reveal">
-        <div class="media-featured__video">
-          <div class="video-embed">
-            <iframe
-              src="https://www.youtube.com/embed/Lhzqr8tMYsI"
-              title="Why Catholic Culture Matters — Dr. Ryan Topping"
-              frameborder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowfullscreen
-              loading="lazy"
-            ></iframe>
+        <div class="media-featured reveal">
+          <div class="media-featured__video">
+            <div class="video-embed">
+              <iframe
+                src={`https://www.youtube.com/embed/${ytId(media.featuredVideoUrl)}`}
+                title={media.featuredVideoTitle || 'Featured Video'}
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+                loading="lazy"
+              ></iframe>
+            </div>
+          </div>
+          <div class="media-featured__text">
+            {media.featuredVideoTitle && <h3>{media.featuredVideoTitle}</h3>}
+            {media.featuredVideoDescription && <p>{media.featuredVideoDescription}</p>}
+            {media.featuredVideoMeta && <p class="media-featured__meta">{media.featuredVideoMeta}</p>}
           </div>
         </div>
-        <div class="media-featured__text">
-          <h3>Why Catholic Culture Matters</h3>
-          <p>Dr. Ryan Topping introduces the Gregory the Great Institute and the case for Catholic cultural renewal in Canada.</p>
-          <p class="media-featured__meta">Gregory the Great Institute · 2025</p>
-        </div>
       </div>
-    </div>
-  </section>
+    </section>
+  )}
 
-  <SectionDivider />
+  {media?.featuredVideoUrl && <SectionDivider />}
 
   <!-- ============================================
        Section 2: VIDEO APPEARANCES
        ============================================ -->
-  <section class="section section--linen">
-    <div class="container">
-      <div class="section-header">
-        <p class="label text-gold">Video</p>
-        <h2>Interviews & Talks</h2>
-      </div>
-
-      <div class="video-grid reveal-stagger">
-        <div class="video-card reveal">
-          <div class="video-embed video-embed--card">
-            <iframe
-              src="https://www.youtube.com/embed/x1Z2YIqQWbA"
-              title="Canada Needs Many More Priests — Archbishop Smith & Dr. Ryan Topping"
-              frameborder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowfullscreen
-              loading="lazy"
-            ></iframe>
-          </div>
-          <div class="video-card__info">
-            <h3>Canada Needs Many More Priests</h3>
-            <p class="video-card__meta">w/ Archbishop Smith</p>
-          </div>
+  {visibleVideos.length > 0 && (
+    <section class="section section--linen">
+      <div class="container">
+        <div class="section-header">
+          <p class="label text-gold">{media?.videosLabel || 'Video'}</p>
+          <h2>{media?.videosHeading || 'Interviews & Talks'}</h2>
         </div>
 
-        <div class="video-card reveal">
-          <div class="video-embed video-embed--card">
-            <iframe
-              src="https://www.youtube.com/embed/T8NHbjgHpyE"
-              title="Why Classical Education Now — Dr. Ryan Topping"
-              frameborder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowfullscreen
-              loading="lazy"
-            ></iframe>
-          </div>
-          <div class="video-card__info">
-            <h3>Why Classical Education Now</h3>
-            <p class="video-card__meta">Raising Children Who Can Think, Discern &amp; Believe</p>
-          </div>
-        </div>
-
-        <div class="video-card reveal">
-          <div class="video-embed video-embed--card">
-            <iframe
-              src="https://www.youtube.com/embed/sDFohseLTlA"
-              title="From Protestant to Catholic Through Newman — Brian Holdsworth & Dr. Ryan Topping"
-              frameborder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowfullscreen
-              loading="lazy"
-            ></iframe>
-          </div>
-          <div class="video-card__info">
-            <h3>From Protestant to Catholic Through Newman</h3>
-            <p class="video-card__meta">Brian Holdsworth</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- View More (expandable) -->
-      <div class="video-more">
-        <button class="video-more__toggle" aria-expanded="false" aria-controls="video-more-grid">
-          View More <span class="video-more__icon">▼</span>
-        </button>
-        <div class="video-more__panel" id="video-more-grid" hidden>
-          <div class="video-grid">
-            <div class="video-card">
+        <div class="video-grid reveal-stagger">
+          {visibleVideos.map((v: any) => (
+            <div class="video-card reveal">
               <div class="video-embed video-embed--card">
                 <iframe
-                  src="https://www.youtube.com/embed/-ETKa5Bo5qc"
-                  title="Renewal of Catholic Culture — Dr. Ryan Topping & Brett Powell"
+                  src={`https://www.youtube.com/embed/${ytId(v.youtubeUrl)}`}
+                  title={v.title}
                   frameborder="0"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowfullscreen
@@ -133,271 +109,212 @@ const base = import.meta.env.BASE_URL;
                 ></iframe>
               </div>
               <div class="video-card__info">
-                <h3>Renewal of Catholic Culture</h3>
-                <p class="video-card__meta">Heroic Men · Brett Powell</p>
+                <h3>{v.title}</h3>
+                {v.meta && <p class="video-card__meta">{v.meta}</p>}
               </div>
             </div>
+          ))}
+        </div>
 
-            <div class="video-card">
-              <div class="video-embed video-embed--card">
-                <iframe
-                  src="https://www.youtube.com/embed/bEzhwfNvS9I"
-                  title="If You Want Vocations, Rebuild Catholic Culture — Dr. Ryan Topping"
-                  frameborder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowfullscreen
-                  loading="lazy"
-                ></iframe>
-              </div>
-              <div class="video-card__info">
-                <h3>If You Want Vocations, Rebuild Catholic Culture</h3>
-                <p class="video-card__meta">Newman Theological College</p>
-              </div>
-            </div>
-
-            <div class="video-card">
-              <div class="video-embed video-embed--card">
-                <iframe
-                  src="https://www.youtube.com/embed/Ue8DsP1bsJ0"
-                  title="2024 Vocations Rally — Dr. Ryan Topping"
-                  frameborder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowfullscreen
-                  loading="lazy"
-                ></iframe>
-              </div>
-              <div class="video-card__info">
-                <h3>2024 Vocations Rally</h3>
-                <p class="video-card__meta">Calgary Diocese</p>
+        {expandableVideos.length > 0 && (
+          <div class="video-more">
+            <button class="video-more__toggle" aria-expanded="false" aria-controls="video-more-grid">
+              View More <span class="video-more__icon">▼</span>
+            </button>
+            <div class="video-more__panel" id="video-more-grid" hidden>
+              <div class="video-grid">
+                {expandableVideos.map((v: any) => (
+                  <div class="video-card">
+                    <div class="video-embed video-embed--card">
+                      <iframe
+                        src={`https://www.youtube.com/embed/${ytId(v.youtubeUrl)}`}
+                        title={v.title}
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen
+                        loading="lazy"
+                      ></iframe>
+                    </div>
+                    <div class="video-card__info">
+                      <h3>{v.title}</h3>
+                      {v.meta && <p class="video-card__meta">{v.meta}</p>}
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
-        </div>
-      </div>
-    </div>
-  </section>
+        )}
 
-  <SectionDivider />
+        {media?.videosNote && <p class="media-note">{media.videosNote}</p>}
+      </div>
+    </section>
+  )}
+
+  {visibleVideos.length > 0 && <SectionDivider />}
 
   <!-- ============================================
        Section 3: AS SEEN IN
        ============================================ -->
-  <section class="section">
-    <div class="container">
-      <div class="section-header">
-        <p class="label text-gold">Appearances</p>
-        <h2>As Seen In</h2>
-      </div>
+  {media?.outlets?.length > 0 && (
+    <section class="section">
+      <div class="container">
+        <div class="section-header">
+          <p class="label text-gold">{media?.outletsLabel || 'Appearances'}</p>
+          <h2>{media?.outletsHeading || 'As Seen In'}</h2>
+        </div>
 
-      <div class="outlet-grid reveal">
-        <a href="https://firstthings.com/archive/?_author=ryan-n-s-topping" target="_blank" rel="noopener" class="outlet-tag outlet-tag--large outlet-tag--link">First Things</a>
-        <a href="https://www.wordonfire.org/articles/the-elements-of-rhetoric-and-evangelization-with-dr-ryan-topping/" target="_blank" rel="noopener" class="outlet-tag outlet-tag--large outlet-tag--link">Word on Fire</a>
-        <a href="https://crisismagazine.com/author/ryan-n-s-topping" target="_blank" rel="noopener" class="outlet-tag outlet-tag--link">Crisis Magazine</a>
-        <a href="https://www.catholicworldreport.com/?s=%22Dr.+Ryan+N.S.+Topping%22" target="_blank" rel="noopener" class="outlet-tag outlet-tag--link">Catholic World Report</a>
-        <a href="https://www.ncregister.com/blog/st-john-henry-newman-and-the-new-evangelization" target="_blank" rel="noopener" class="outlet-tag outlet-tag--link">National Catholic Register</a>
-        <a href="https://www.theepochtimes.com/bright/intelligent-people-have-kids-couple-choose-faith-over-contraception-give-birth-to-9-boys-and-1-girl-5541271" target="_blank" rel="noopener" class="outlet-tag outlet-tag--link">The Epoch Times</a>
-      </div>
-    </div>
-  </section>
-
-  <SectionDivider />
-
-  <!-- ============================================
-       Section 5: KEY PUBLICATIONS (Books)
-       ============================================ -->
-  <section class="section">
-    <div class="container">
-      <div class="section-header">
-        <p class="label text-gold">Books</p>
-        <h2>Selected Publications by Dr. Topping</h2>
-      </div>
-
-      <div class="books-grid reveal-stagger">
-        <a href="https://angelicopress.com/products/thinking-as-though-god-exists" target="_blank" rel="noopener" class="book-item book-item--link reveal">
-          <div class="book-item__spine"></div>
-          <div class="book-item__content">
-            <h3>Thinking as Though God Exists</h3>
-            <p class="book-item__subtitle">Newman on Evangelizing the 'Nones'</p>
-            <p class="book-item__note">Most recent</p>
-          </div>
-        </a>
-        <a href="https://angelicopress.com/products/the-case-for-catholic-education" target="_blank" rel="noopener" class="book-item book-item--link reveal">
-          <div class="book-item__spine"></div>
-          <div class="book-item__content">
-            <h3>The Case for Catholic Education</h3>
-            <p class="book-item__subtitle">Why Parents, Teachers, and Politicians Should Reclaim the Principles of Catholic Pedagogy</p>
-          </div>
-        </a>
-        <a href="https://www.amazon.ca/Rebuilding-Catholic-Culture-Catechism-Common/dp/1933184949" target="_blank" rel="noopener" class="book-item book-item--link reveal">
-          <div class="book-item__spine"></div>
-          <div class="book-item__content">
-            <h3>Rebuilding Catholic Culture</h3>
-            <p class="book-item__subtitle">How the Catechism Can Shape Our Common Life</p>
-          </div>
-        </a>
-        <a href="https://www.amazon.ca/Renewing-Catholic-Schools-Regain-Secular/dp/1949822044" target="_blank" rel="noopener" class="book-item book-item--link reveal">
-          <div class="book-item__spine"></div>
-          <div class="book-item__content">
-            <h3>Renewing Catholic Schools</h3>
-            <p class="book-item__subtitle">How to Regain a Catholic Vision for a Secular Age</p>
-          </div>
-        </a>
-        <a href="https://angelicopress.com/products/the-elements-of-rhetoric" target="_blank" rel="noopener" class="book-item book-item--link reveal">
-          <div class="book-item__spine"></div>
-          <div class="book-item__content">
-            <h3>The Elements of Rhetoric</h3>
-            <p class="book-item__subtitle">How to Write and Speak Clearly and Persuasively</p>
-          </div>
-        </a>
-      </div>
-
-      <!-- See All Books (expandable) -->
-      <div class="books-more">
-        <button class="books-more__toggle" aria-expanded="false" aria-controls="books-more-list">
-          See All Books <span class="books-more__icon">▼</span>
-        </button>
-        <div class="books-more__panel" id="books-more-list" hidden>
-          <div class="books-grid">
-            <a href="https://www.amazon.ca/-/fr/Ryan-N-S-Topping-ebook/dp/B07FK7QDYG" target="_blank" rel="noopener" class="book-item book-item--link">
-              <div class="book-item__spine"></div>
-              <div class="book-item__content">
-                <h3>St. Augustine</h3>
-                <p class="book-item__subtitle">Moral and Educational Philosophy</p>
-              </div>
-            </a>
-            <a href="https://www.amazon.ca/Christmas-Around-Fire-Stories-Christs/dp/1505111153" target="_blank" rel="noopener" class="book-item book-item--link">
-              <div class="book-item__spine"></div>
-              <div class="book-item__content">
-                <h3>Christmas Around the Fire</h3>
-                <p class="book-item__subtitle">Stories for Christ's Season</p>
-              </div>
-            </a>
-            <a href="https://www.amazon.ca/Renewing-Reader-Philosophy-Catholic-Education/dp/0813227313" target="_blank" rel="noopener" class="book-item book-item--link">
-              <div class="book-item__spine"></div>
-              <div class="book-item__content">
-                <h3>Renewing the Reader</h3>
-                <p class="book-item__subtitle">A Philosophy of Catholic Education</p>
-              </div>
-            </a>
-            <a href="https://www.amazon.ca/Happiness-Wisdom-Augustines-Theology-Education/dp/0813219736" target="_blank" rel="noopener" class="book-item book-item--link">
-              <div class="book-item__spine"></div>
-              <div class="book-item__content">
-                <h3>Happiness and Wisdom</h3>
-                <p class="book-item__subtitle">Augustine's Theology of Education</p>
-              </div>
-            </a>
-          </div>
+        <div class="outlet-grid reveal">
+          {media.outlets.map((o: any, i: number) => {
+            const isLarge = i < 2;
+            if (o.url) {
+              return (
+                <a href={o.url} target="_blank" rel="noopener" class={`outlet-tag outlet-tag--link${isLarge ? ' outlet-tag--large' : ''}`}>
+                  {o.name}
+                </a>
+              );
+            }
+            return (
+              <span class={`outlet-tag${isLarge ? ' outlet-tag--large' : ''}`}>{o.name}</span>
+            );
+          })}
         </div>
       </div>
+    </section>
+  )}
 
-      <p class="books-count">Author of <strong>11 books</strong> on Catholic culture, education, and intellectual life.</p>
-    </div>
-  </section>
-
-  <SectionDivider />
+  {media?.outlets?.length > 0 && <SectionDivider />}
 
   <!-- ============================================
-       Section 6: PRESS KIT
+       Section 4: BOOKS
+       ============================================ -->
+  {visibleBooks.length > 0 && (
+    <section class="section">
+      <div class="container">
+        <div class="section-header">
+          <p class="label text-gold">{media?.booksLabel || 'Books'}</p>
+          <h2>{media?.booksHeading || 'Selected Publications by Dr. Topping'}</h2>
+        </div>
+
+        <div class="books-grid reveal-stagger">
+          {visibleBooks.map((b: any) => {
+            const Tag = b.url ? 'a' : 'div';
+            const linkProps = b.url ? { href: b.url, target: '_blank', rel: 'noopener' } : {};
+            return (
+              <a href={b.url || undefined} target={b.url ? '_blank' : undefined} rel={b.url ? 'noopener' : undefined} class={`book-item${b.url ? ' book-item--link' : ''} reveal`}>
+                <div class="book-item__spine"></div>
+                <div class="book-item__content">
+                  <h3>{b.title}</h3>
+                  {b.subtitle && <p class="book-item__subtitle">{b.subtitle}</p>}
+                  {b.note && <p class="book-item__note">{b.note}</p>}
+                </div>
+              </a>
+            );
+          })}
+        </div>
+
+        {expandableBooks.length > 0 && (
+          <div class="books-more">
+            <button class="books-more__toggle" aria-expanded="false" aria-controls="books-more-list">
+              See All Books <span class="books-more__icon">▼</span>
+            </button>
+            <div class="books-more__panel" id="books-more-list" hidden>
+              <div class="books-grid">
+                {expandableBooks.map((b: any) => (
+                  <a href={b.url || undefined} target={b.url ? '_blank' : undefined} rel={b.url ? 'noopener' : undefined} class={`book-item${b.url ? ' book-item--link' : ''}`}>
+                    <div class="book-item__spine"></div>
+                    <div class="book-item__content">
+                      <h3>{b.title}</h3>
+                      {b.subtitle && <p class="book-item__subtitle">{b.subtitle}</p>}
+                      {b.note && <p class="book-item__note">{b.note}</p>}
+                    </div>
+                  </a>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {media?.booksTotalCount && (
+          <p class="books-count">Author of <strong>{media.booksTotalCount} books</strong> {media.booksCountNote || ''}</p>
+        )}
+      </div>
+    </section>
+  )}
+
+  {visibleBooks.length > 0 && <SectionDivider />}
+
+  <!-- ============================================
+       Section 5: PRESS KIT
        ============================================ -->
   <section class="section section--linen">
     <div class="container">
       <div class="section-header">
-        <p class="label text-gold">For Journalists & Partners</p>
-        <h2>Press Kit</h2>
+        <p class="label text-gold">{media?.pressKitLabel || 'For Journalists & Partners'}</p>
+        <h2>{media?.pressKitHeading || 'Press Kit'}</h2>
       </div>
 
       <div class="press-kit">
         <!-- Boilerplate -->
-        <div class="press-kit__section reveal">
-          <h3>About the Gregory the Great Institute</h3>
-          <div class="press-kit__boilerplate">
-            <p>
-              The Gregory the Great Institute is a Canadian non-profit dedicated to Catholic cultural
-              renewal through formation, courses, and publications. Founded by Dr. Ryan N.S. Topping
-              (DPhil, Oxford), the Institute runs formation programs in four provinces, publishes
-              <em>Magnalia</em> — the journal of Catholic cultural renewal in Canada — and hosts the
-              annual Renewing Culture Conference. His Eminence Thomas Cardinal Collins serves as Patron.
-            </p>
-            <p>
-              The Institute is named for St. Gregory the Great (d. 604), pope and Doctor of the Church,
-              who rebuilt civilization from the ruins of the Roman Empire through liturgy, education,
-              and pastoral care.
-            </p>
+        {media?.pressKitBoilerplate && (
+          <div class="press-kit__section reveal">
+            <h3>{media.pressKitBoilerplateTitle || 'About the Gregory the Great Institute'}</h3>
+            <div class="press-kit__boilerplate">
+              <Fragment set:html={toHTML(media.pressKitBoilerplate)} />
+            </div>
           </div>
-        </div>
+        )}
 
         <!-- Key Facts -->
-        <div class="press-kit__section reveal">
-          <h3>Key Facts</h3>
-          <ul class="press-kit__facts">
-            <li><strong>Founded:</strong> 2025</li>
-            <li><strong>Headquarters:</strong> Edmonton, Alberta, Canada</li>
-            <li><strong>Patron:</strong> His Eminence Thomas Cardinal Collins</li>
-            <li><strong>Executive Director:</strong> Dr. Ryan N.S. Topping (DPhil, Oxford)</li>
-            <li><strong>Community:</strong> 1,500+ members across Canada</li>
-            <li><strong>Programs:</strong> Active in four provinces (AB, SK, ON, NB)</li>
-            <li><strong>Publication:</strong> <em>Magnalia</em> — distributed to every Catholic bishop in Canada</li>
-            <li><strong>Website:</strong> <a href="https://gregorythegreat.ca">gregorythegreat.ca</a></li>
-          </ul>
-        </div>
+        {media?.keyFacts?.length > 0 && (
+          <div class="press-kit__section reveal">
+            <h3>Key Facts</h3>
+            <ul class="press-kit__facts">
+              {media.keyFacts.map((f: any) => (
+                <li>
+                  <strong>{f.label}:</strong>{' '}
+                  {f.url ? <a href={f.url}>{f.value}</a> : f.value}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
 
         <!-- Downloads -->
-        <div class="press-kit__section reveal">
-          <h3>Downloads</h3>
-          <div class="press-kit__downloads">
-            <a href={`${base}images/branding/ggi-seal.png`} download class="download-item">
-              <span class="download-item__icon">⬇</span>
-              <div>
-                <span class="download-item__name">GGI Seal</span>
-                <span class="download-item__meta">PNG · Transparent background</span>
-              </div>
-            </a>
-            <a href={`${base}images/people/Ryan-Topping-headshot.jpg`} download class="download-item">
-              <span class="download-item__icon">⬇</span>
-              <div>
-                <span class="download-item__name">Dr. Ryan Topping — Headshot</span>
-                <span class="download-item__meta">JPG · High resolution</span>
-              </div>
-            </a>
-            <a href={`${base}images/people/ryan-topping-portrait.jpg`} download class="download-item">
-              <span class="download-item__icon">⬇</span>
-              <div>
-                <span class="download-item__name">Dr. Ryan Topping — Portrait</span>
-                <span class="download-item__meta">JPG · High resolution</span>
-              </div>
-            </a>
-            <a href={`${base}images/branding/Magnalia_Cover.jpg`} download class="download-item">
-              <span class="download-item__icon">⬇</span>
-              <div>
-                <span class="download-item__name">Magnalia Cover — Issue One</span>
-                <span class="download-item__meta">JPG</span>
-              </div>
-            </a>
+        {media?.downloads?.length > 0 && (
+          <div class="press-kit__section reveal">
+            <h3>Downloads</h3>
+            <div class="press-kit__downloads">
+              {media.downloads.map((d: any) => {
+                const href = d.fileUrl || d.externalUrl;
+                return href ? (
+                  <a href={href} download={d.fileUrl ? true : undefined} target={d.externalUrl ? '_blank' : undefined} rel={d.externalUrl ? 'noopener' : undefined} class="download-item">
+                    <span class="download-item__icon">⬇</span>
+                    <div>
+                      <span class="download-item__name">{d.name}</span>
+                      {d.meta && <span class="download-item__meta">{d.meta}</span>}
+                    </div>
+                  </a>
+                ) : null;
+              })}
+            </div>
           </div>
-        </div>
+        )}
 
         <!-- Brand Colors -->
-        <div class="press-kit__section reveal">
-          <h3>Brand</h3>
-          <div class="brand-colors">
-            <div class="brand-swatch" style="background-color: #0e3352;">
-              <span class="brand-swatch__label">Navy</span>
-              <span class="brand-swatch__hex">#0E3352</span>
-            </div>
-            <div class="brand-swatch" style="background-color: #b89a47;">
-              <span class="brand-swatch__label">Gold</span>
-              <span class="brand-swatch__hex">#B89A47</span>
-            </div>
-            <div class="brand-swatch" style="background-color: #84292d;">
-              <span class="brand-swatch__label">Crimson</span>
-              <span class="brand-swatch__hex">#84292D</span>
-            </div>
-            <div class="brand-swatch brand-swatch--light" style="background-color: #f8ebd9;">
-              <span class="brand-swatch__label">Parchment</span>
-              <span class="brand-swatch__hex">#F8EBD9</span>
+        {media?.brandColors?.length > 0 && (
+          <div class="press-kit__section reveal">
+            <h3>Brand</h3>
+            <div class="brand-colors">
+              {media.brandColors.map((c: any) => (
+                <div class={`brand-swatch${c.light ? ' brand-swatch--light' : ''}`} style={`background-color: ${c.hex};`}>
+                  <span class="brand-swatch__label">{c.name}</span>
+                  <span class="brand-swatch__hex">{c.hex}</span>
+                </div>
+              ))}
             </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   </section>
@@ -405,28 +322,32 @@ const base = import.meta.env.BASE_URL;
   <SectionDivider />
 
   <!-- ============================================
-       Section 7: SPEAKING & CONTACT
+       Section 6: SPEAKING & CONTACT
        ============================================ -->
   <section class="section">
     <div class="container media-cta">
       <div class="media-cta__inner reveal">
-        <img src={`${base}images/people/Ryan-Topping-headshot.jpg`} alt="Dr. Ryan Topping" class="media-cta__photo" />
+        <img
+          src={media?.speakerPhoto || `${base}images/people/Ryan-Topping-headshot.jpg`}
+          alt={media?.speakingHeading || 'Dr. Ryan Topping'}
+          class="media-cta__photo"
+        />
         <div class="media-cta__text">
-          <p class="label text-gold">Speaking & Media</p>
-          <h2>Invite Dr. Topping</h2>
-          <p>
-            Dr. Topping is available for conferences, parish events, lectures, podcasts, and media
-            interviews on Catholic education, cultural renewal, intellectual life, and the state of
-            the Church in Canada.
-          </p>
-          <p class="media-cta__topics">
-            <strong>Topics include:</strong> Renewing Catholic culture · Classical education ·
-            Catholic intellectual life in Canada · Newman and the 'Nones' · The case for Catholic schools ·
-            Faith and reason · The role of beauty in evangelization
-          </p>
+          <p class="label text-gold">{media?.speakingLabel || 'Speaking & Media'}</p>
+          <h2>{media?.speakingHeading || 'Invite Dr. Topping'}</h2>
+          {media?.speakingDescription && <p>{media.speakingDescription}</p>}
+          {media?.speakingTopics && (
+            <p class="media-cta__topics">
+              <strong>Topics include:</strong> {media.speakingTopics}
+            </p>
+          )}
           <div class="media-cta__buttons">
-            <Button href={`${base}contact/`} variant="primary">Request a Speaking Engagement</Button>
-            <a href="mailto:rtopping@gregorythegreat.ca" class="media-cta__email">rtopping@gregorythegreat.ca</a>
+            <Button href={media?.speakingButtonUrl || `${base}contact/`} variant="primary">
+              {media?.speakingButtonText || 'Request a Speaking Engagement'}
+            </Button>
+            {media?.speakingEmail && (
+              <a href={`mailto:${media.speakingEmail}`} class="media-cta__email">{media.speakingEmail}</a>
+            )}
           </div>
         </div>
       </div>
@@ -652,100 +573,6 @@ const base = import.meta.env.BASE_URL;
     margin-top: 24px;
   }
 
-  /* Articles */
-  .media-intro {
-    text-align: center;
-    font-family: var(--font-body);
-    font-size: 1rem;
-    color: var(--color-gray);
-    max-width: 640px;
-    margin: 0 auto 32px;
-    line-height: 1.7;
-  }
-
-  .media-intro a {
-    color: var(--color-gold);
-    text-decoration: none;
-  }
-
-  .articles-list {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    max-width: 760px;
-    margin-inline: auto;
-  }
-
-  .article-item {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    padding: 20px 24px;
-    background-color: var(--color-linen);
-    border: 1px solid rgba(90, 90, 110, 0.08);
-    border-radius: 3px;
-    text-decoration: none;
-    transition: border-color var(--transition-base), transform var(--transition-base);
-  }
-
-  .article-item:hover {
-    border-color: var(--color-gold);
-    transform: translateX(4px);
-  }
-
-  .article-item__outlet {
-    flex-shrink: 0;
-    width: 120px;
-  }
-
-  .article-item__outlet-name {
-    font-family: var(--font-display);
-    font-size: 0.85rem;
-    font-weight: 700;
-    color: var(--color-navy);
-    display: block;
-  }
-
-  .article-item__content {
-    flex: 1;
-  }
-
-  .article-item__content h3 {
-    font-family: var(--font-display);
-    font-size: 1.02rem;
-    font-weight: 600;
-    color: var(--color-navy);
-    margin-bottom: 4px;
-  }
-
-  .article-item__content p {
-    font-family: var(--font-body);
-    font-size: 0.85rem;
-    line-height: 1.5;
-    color: var(--color-gray);
-    margin: 0;
-  }
-
-  .article-item__arrow {
-    font-size: 1.2rem;
-    color: var(--color-gold);
-    flex-shrink: 0;
-  }
-
-  @media (max-width: 640px) {
-    .article-item {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 8px;
-    }
-    .article-item__outlet {
-      width: auto;
-    }
-    .article-item__arrow {
-      display: none;
-    }
-  }
-
   /* Outlet Grid (As Seen In) */
   .outlet-grid {
     display: flex;
@@ -913,7 +740,8 @@ const base = import.meta.env.BASE_URL;
     border-bottom: 1px solid rgba(184, 154, 71, 0.2);
   }
 
-  .press-kit__boilerplate p {
+  .press-kit__boilerplate p,
+  .press-kit__boilerplate :global(p) {
     font-family: var(--font-body);
     font-size: 0.95rem;
     line-height: 1.75;
@@ -1100,7 +928,6 @@ const base = import.meta.env.BASE_URL;
 
 <script is:inline>
   (function () {
-    // Generic expand/collapse
     function wireToggle(btnSelector, panelId, openLabel, closeLabel) {
       var btn = document.querySelector(btnSelector);
       var panel = document.getElementById(panelId);
