@@ -192,7 +192,6 @@ const base = import.meta.env.BASE_URL;
       <div class="outlet-grid reveal">
         <a href="https://firstthings.com/archive/?_author=ryan-n-s-topping" target="_blank" rel="noopener" class="outlet-tag outlet-tag--large outlet-tag--link">First Things</a>
         <a href="https://www.wordonfire.org/articles/the-elements-of-rhetoric-and-evangelization-with-dr-ryan-topping/" target="_blank" rel="noopener" class="outlet-tag outlet-tag--large outlet-tag--link">Word on Fire</a>
-        <div class="outlet-tag outlet-tag--large">EWTN</div>
         <a href="https://crisismagazine.com/author/ryan-n-s-topping" target="_blank" rel="noopener" class="outlet-tag outlet-tag--link">Crisis Magazine</a>
         <a href="https://www.catholicworldreport.com/?s=%22Dr.+Ryan+N.S.+Topping%22" target="_blank" rel="noopener" class="outlet-tag outlet-tag--link">Catholic World Report</a>
         <a href="https://www.ncregister.com/blog/st-john-henry-newman-and-the-new-evangelization" target="_blank" rel="noopener" class="outlet-tag outlet-tag--link">National Catholic Register</a>
@@ -763,7 +762,7 @@ const base = import.meta.env.BASE_URL;
     font-weight: 600;
     padding: 12px 28px;
     background-color: var(--color-parchment);
-    border: 1px solid rgba(90, 90, 110, 0.1);
+    border: 1px solid var(--color-gold);
     border-radius: 3px;
     color: var(--color-navy);
   }
@@ -771,7 +770,6 @@ const base = import.meta.env.BASE_URL;
   .outlet-tag--large {
     font-size: 1.1rem;
     padding: 14px 32px;
-    border-color: var(--color-gold);
   }
 
   a.outlet-tag--link {
@@ -781,8 +779,7 @@ const base = import.meta.env.BASE_URL;
   }
 
   a.outlet-tag--link:hover {
-    border-color: var(--color-gold);
-    background-color: rgba(184, 154, 71, 0.08);
+    background-color: rgba(184, 154, 71, 0.12);
     transform: translateY(-2px);
   }
 
