@@ -165,6 +165,7 @@ export async function getLibraryArticle(slug: string) {
   return sanityClient.fetch(`*[_type == "libraryItem" && slug.current == $slug][0]{
     ...,
     "image": featuredImage.asset->url,
+    "authorName": author->name,
     featuredImage { asset-> },
     body[]{
       ...,

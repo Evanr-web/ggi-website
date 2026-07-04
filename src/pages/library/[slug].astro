@@ -38,7 +38,7 @@ const months = ['January','February','March','April','May','June','July','August
 const dateStr = pubDate ? `${months[pubDate.getMonth()]} ${pubDate.getDate()}, ${pubDate.getFullYear()}` : '';
 
 // Get author name — could be a reference or inline
-const authorName = typeof article.author === 'string' ? article.author : (article.author?.name || 'Gregory the Great Institute');
+const authorName = article.authorName || (typeof article.author === 'string' ? article.author : 'Gregory the Great Institute');
 
 // Get image URL
 const imageUrl = article.featuredImage?.asset?.url || article.image || '';
