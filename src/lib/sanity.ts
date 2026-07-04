@@ -166,6 +166,7 @@ export async function getLibraryArticle(slug: string) {
     ...,
     "image": featuredImage.asset->url,
     "authorName": author->name,
+    "authorImage": author->photo.asset->url,
     featuredImage { asset-> },
     body[]{
       ...,

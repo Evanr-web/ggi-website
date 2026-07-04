@@ -39,6 +39,7 @@ const dateStr = pubDate ? `${months[pubDate.getMonth()]} ${pubDate.getDate()}, $
 
 // Get author name — could be a reference or inline
 const authorName = article.authorName || (typeof article.author === 'string' ? article.author : 'Gregory the Great Institute');
+const authorPhoto = article.authorImage || '';
 
 // Get image URL
 const imageUrl = article.featuredImage?.asset?.url || article.image || '';
@@ -79,6 +80,7 @@ const readTime = `${Math.max(1, Math.ceil(wordCount / 250))} min read`;
   readTime={readTime}
   image={imageUrl}
   imageAlt={article.title}
+  authorImage={authorPhoto || undefined}
 >
   <Fragment set:html={bodyHtml} />
 </ArticleLayout>
