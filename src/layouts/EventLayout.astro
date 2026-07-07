@@ -34,7 +34,11 @@ const { title, date, endDate, location, locationAddress, mapLat, mapLng, showMap
 const base = import.meta.env.BASE_URL;
 
 const formatDate = (d: string) => {
-  const dt = new Date(d + 'T12:00:00');
+  if (!d) return '';
+  // Handle both date-only ("2026-10-02") and full ISO ("2026-08-01T14:00:00.000Z") formats
+  const dateOnly = d.includes('T') ? d.split('T')[0] : d;
+  const dt = new Date(dateOnly + 'T12:00:00');
+  if (isNaN(dt.getTime())) return d; // fallback to raw string
   return dt.toLocaleDateString('en-CA', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
 };
 ---

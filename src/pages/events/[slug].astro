@@ -29,8 +29,8 @@ const bodyHtml = event.body ? renderPortableText(event.body) : '';
 const hasBody = bodyHtml.length > 0;
 
 // Derive display values
-const tag = event.programTag || event.template
-  ? (event.programTag || (event.template.charAt(0).toUpperCase() + event.template.slice(1)))
+const tag = (event.programTag || event.template)
+  ? (event.programTag || (event.template ? event.template.charAt(0).toUpperCase() + event.template.slice(1) : 'Event'))
   : 'Event';
 
 const isPast = event.status === 'past';
@@ -61,9 +61,9 @@ if (isPast) {
 <EventLayout
   title={event.title}
   description={event.shortDescription || event.description || ''}
-  date={event.startDate}
-  endDate={event.endDate}
-  location={event.location}
+  date={event.startDate ? event.startDate.split('T')[0] : ''}
+  endDate={event.endDate ? event.endDate.split('T')[0] : undefined}
+  location={event.location || ''}
   locationAddress={event.locationAddress}
   showMap={!!event.locationAddress}
   cost={event.cost}
