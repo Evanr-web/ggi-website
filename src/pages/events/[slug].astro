@@ -1,5 +1,6 @@
 ---
 import EventLayout from '../../layouts/EventLayout.astro';
+import EventRegistration from '../../components/EventRegistration.astro';
 import { getEvents, getEvent } from '../../lib/sanity';
 import { renderPortableText } from '../../lib/portable-text';
 
@@ -78,5 +79,14 @@ if (isPast) {
     <Fragment set:html={bodyHtml} />
   ) : (
     <p>Details coming soon.</p>
+  )}
+
+  {event.registrationStatus && event.registrationStatus !== 'closed' && (
+    <EventRegistration
+      status={event.registrationStatus}
+      zeffyFormUrl={event.zeffyFormUrl}
+      notifyTag={event.notifyTag}
+      eventTitle={event.title}
+    />
   )}
 </EventLayout>

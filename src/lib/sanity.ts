@@ -117,17 +117,17 @@ export async function getLatestLibraryItems(limit = 3) {
 // Events
 export async function getEvents(status?: string) {
   const filter = status ? `&& status == "${status}"` : '';
-  return sanityClient.fetch(`*[_type == "event" ${filter}] | order(startDate asc) {
+  return sanityClient.fetch(`*[_type == "event" ${filter}] | order(date asc) {
     _id,
     title,
     slug,
     template,
     status,
-    startDate,
+    "startDate": date,
     endDate,
     location,
     "headerImage": headerImage.asset->url,
-    shortDescription,
+    "shortDescription": description,
     tagline,
     registrationUrl,
     cost,
@@ -138,6 +138,8 @@ export async function getEvents(status?: string) {
 export async function getEvent(slug: string) {
   return sanityClient.fetch(`*[_type == "event" && slug.current == $slug][0]{
     ...,
+    "startDate": date,
+    "shortDescription": description,
     "headerImage": headerImage.asset->url,
     "speakers": speakers[]{
       ...,
