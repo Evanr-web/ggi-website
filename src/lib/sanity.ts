@@ -88,6 +88,11 @@ export async function getHomepage() {
     },
     videoUrl,
     videoCaption,
+    endorsements[]{
+      quote,
+      name,
+      title
+    },
     featuredLibraryItems[]->{
       _id,
       title,

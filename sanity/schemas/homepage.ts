@@ -10,6 +10,7 @@ export default defineType({
     { name: 'pillars', title: '🏛️ What We Do' },
     { name: 'video', title: '🎬 Video' },
     { name: 'library', title: '📚 Library' },
+    { name: 'endorsements', title: '💬 Endorsements' },
   ],
   fields: [
     // === Hero ===
@@ -156,6 +157,29 @@ export default defineType({
     }),
 
     // Magnalia feature section is hand-designed — content comes from the Magnalia Issue document
+
+    // === Endorsements ===
+    defineField({
+      name: 'endorsements',
+      title: 'Endorsements',
+      type: 'array',
+      group: 'endorsements',
+      description: 'Testimonial quotes shown on the homepage. Recommended: 3 quotes.',
+      of: [
+        {
+          type: 'object',
+          name: 'endorsement',
+          fields: [
+            { name: 'quote', title: 'Quote', type: 'text', rows: 3, validation: (Rule: any) => Rule.required() },
+            { name: 'name', title: 'Name', type: 'string', validation: (Rule: any) => Rule.required() },
+            { name: 'title', title: 'Title / Role', type: 'string', description: 'e.g. "Canadian author and painter"' },
+          ],
+          preview: {
+            select: { title: 'name', subtitle: 'title' },
+          },
+        },
+      ],
+    }),
   ],
   preview: {
     prepare() {

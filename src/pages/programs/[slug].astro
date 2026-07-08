@@ -7,6 +7,8 @@ import SectionDivider from '../../components/SectionDivider.astro';
 import { getProgram, getAllProgramSlugs, imageUrl } from '../../lib/sanity';
 
 export async function getStaticPaths() {
+  // Custom layout pages exist for these — they take priority over this dynamic route
+  // but we still generate [slug] pages as fallback for when custom pages are removed
   const staticSlugs = ['book-studies', 'faith-and-reason', 'masterclasses'];
 
   let programs: any[] = [];

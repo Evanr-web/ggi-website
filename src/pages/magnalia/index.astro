@@ -4,6 +4,7 @@ import Button from '../../components/Button.astro';
 import QuoteBlock from '../../components/QuoteBlock.astro';
 import SectionDivider from '../../components/SectionDivider.astro';
 import { getCurrentMagnaliaIssue, getMagnaliaContributors } from '../../lib/sanity';
+import { renderPortableText } from '../../lib/portable-text';
 
 const base = import.meta.env.BASE_URL;
 
@@ -18,6 +19,18 @@ try { contributors = (await getMagnaliaContributors() || []).slice(0, 4); } catc
 // Resolved values (CMS or hardcoded defaults)
 const coverImage = issue?.coverImage || `${base}images/branding/Magnalia_Cover.jpg`;
 const issueLabel = issue ? `Inside Issue ${issue.issueNumber}${issue.title ? ' · ' + issue.title : ''} · ${issue.pageCount || 60} Pages` : 'Inside Issue One · Winter 2026 · 60 Pages';
+
+// Render sample article body from Portable Text
+const sampleHtml = issue?.sampleArticle?.body ? renderPortableText(issue.sampleArticle.body) : '';
+
+// Fallback highlight cards if no TOC data from CMS
+const fallbackHighlights = [
+  { type: 'Essay', articleTitle: 'Heart Speaks to Heart', author: 'Thomas Cardinal Collins', desc: 'The Archbishop Emeritus of Toronto on Newman\'s motto and the renewal of Catholic culture in Canada.' },
+  { type: 'Essay', articleTitle: 'Irrigating the New Deserts', author: 'Dr. Ryan N.S. Topping', desc: 'The case for Catholic institution-building in an age of cultural drought — and a roadmap for how to begin.' },
+  { type: 'Essay', articleTitle: 'The Nursery Rhyme Metaphysic', author: 'Dr. Celene Sidloski', desc: 'How the imaginative world of childhood verse encodes deep truths about reality.' },
+  { type: 'Essay', articleTitle: 'AI and the Future of Humanity', author: 'Dr. Gerard McLarney', desc: 'A Catholic philosopher confronts the promises and perils of artificial intelligence.' },
+];
+const highlightEntries = (issue?.tableOfContents && issue.tableOfContents.length > 0) ? issue.tableOfContents : fallbackHighlights;
 ---
 
 <BaseLayout title="Magnalia" description="The journal of Catholic cultural renewal in Canada. Essays, art, and letters from leading Catholic thinkers.">
@@ -51,33 +64,24 @@ const issueLabel = issue ? `Inside Issue ${issue.issueNumber}${issue.title ? ' �
       <div class="section-header">
         <p class="label text-gold">{issueLabel}</p>
         <h2>What You'll Find</h2>
+        {issue?.whatYoullFind && issue.whatYoullFind.length > 0 && (
+          <ul class="what-youll-find-list">
+            {issue.whatYoullFind.map((item: string) => (
+              <li>{item}</li>
+            ))}
+          </ul>
+        )}
       </div>
 
       <div class="highlights-strip reveal">
-        <div class="highlight-card">
-          <span class="highlight-card__type label text-gold">Essay</span>
-          <h3 class="highlight-card__title">Heart Speaks to Heart</h3>
-          <p class="highlight-card__author">Thomas Cardinal Collins</p>
-          <p class="highlight-card__desc">The Archbishop Emeritus of Toronto on Newman's motto and the renewal of Catholic culture in Canada.</p>
-        </div>
-        <div class="highlight-card">
-          <span class="highlight-card__type label text-gold">Essay</span>
-          <h3 class="highlight-card__title">Irrigating the New Deserts</h3>
-          <p class="highlight-card__author">Dr. Ryan N.S. Topping</p>
-          <p class="highlight-card__desc">The case for Catholic institution-building in an age of cultural drought — and a roadmap for how to begin.</p>
-        </div>
-        <div class="highlight-card">
-          <span class="highlight-card__type label text-gold">Essay</span>
-          <h3 class="highlight-card__title">The Nursery Rhyme Metaphysic</h3>
-          <p class="highlight-card__author">Dr. Celene Sidloski</p>
-          <p class="highlight-card__desc">How the imaginative world of childhood verse encodes deep truths about reality.</p>
-        </div>
-        <div class="highlight-card">
-          <span class="highlight-card__type label text-gold">Essay</span>
-          <h3 class="highlight-card__title">AI and the Future of Humanity</h3>
-          <p class="highlight-card__author">Dr. Gerard McLarney</p>
-          <p class="highlight-card__desc">A Catholic philosopher confronts the promises and perils of artificial intelligence.</p>
-        </div>
+        {highlightEntries.map((entry: any) => (
+          <div class="highlight-card">
+            <span class="highlight-card__type label text-gold">{entry.type || 'Essay'}</span>
+            <h3 class="highlight-card__title">{entry.articleTitle}</h3>
+            <p class="highlight-card__author">{entry.author}</p>
+            {entry.desc && <p class="highlight-card__desc">{entry.desc}</p>}
+          </div>
+        ))}
       </div>
 
       <p class="highlights-more">Plus essays, reviews, art, and more. <a href={`${import.meta.env.BASE_URL}magnalia/issue-one/`}>See full table of contents →</a></p>
@@ -90,33 +94,37 @@ const issueLabel = issue ? `Inside Issue ${issue.issueNumber}${issue.title ? ' �
   <section class="section" id="sample">
     <div class="container">
       <div class="sample-article reveal">
-        <p class="label text-gold">Sample from Issue One</p>
-        <h2 class="sample-article__title">Irrigating the New Deserts</h2>
-        <p class="sample-article__byline">By <strong>Dr. Ryan N.S. Topping</strong></p>
+        <p class="label text-gold">{issue ? `Sample from Issue ${issue.issueNumber || 'One'}` : 'Sample from Issue One'}</p>
+        <h2 class="sample-article__title">{issue?.sampleArticle?.title || 'Irrigating the New Deserts'}</h2>
+        <p class="sample-article__byline">By <strong>{issue?.sampleArticle?.author || 'Dr. Ryan N.S. Topping'}</strong></p>
 
-        <div class="prose">
-          <p>
-            Catholic culture in Canada is not dying. It is being born again — but only where men and
-            women have the courage to build. The great institutions that once carried the faith through
-            centuries — the universities, the hospitals, the schools — were not handed down from heaven.
-            They were built, stone by stone, by people who understood that culture is the fruit of worship.
-          </p>
-          <p>
-            We face a new kind of desert. Not the desert of persecution, but the desert of indifference —
-            a landscape in which the faith is not opposed but simply forgotten. In this desert, the old
-            institutions have dried up or lost their nerve. The question is not whether Catholic culture
-            can survive, but whether we have the will to irrigate new ground.
-          </p>
-          <blockquote class="sample-article__pullquote">
-            <p>"The task before us is not to restore what was, but to build what must be — institutions worthy of the tradition we have received."</p>
-          </blockquote>
-          <p>
-            What does this mean in practice? It means new journals, new schools, new centres of formation.
-            It means taking seriously the intellectual life — not as a luxury for academics, but as a
-            necessity for every baptized person. It means refusing to accept that Catholic culture in
-            Canada is a relic of the past rather than a seed of the future...
-          </p>
-        </div>
+        {sampleHtml ? (
+          <div class="prose" set:html={sampleHtml} />
+        ) : (
+          <div class="prose">
+            <p>
+              Catholic culture in Canada is not dying. It is being born again — but only where men and
+              women have the courage to build. The great institutions that once carried the faith through
+              centuries — the universities, the hospitals, the schools — were not handed down from heaven.
+              They were built, stone by stone, by people who understood that culture is the fruit of worship.
+            </p>
+            <p>
+              We face a new kind of desert. Not the desert of persecution, but the desert of indifference —
+              a landscape in which the faith is not opposed but simply forgotten. In this desert, the old
+              institutions have dried up or lost their nerve. The question is not whether Catholic culture
+              can survive, but whether we have the will to irrigate new ground.
+            </p>
+            <blockquote class="sample-article__pullquote">
+              <p>"The task before us is not to restore what was, but to build what must be — institutions worthy of the tradition we have received."</p>
+            </blockquote>
+            <p>
+              What does this mean in practice? It means new journals, new schools, new centres of formation.
+              It means taking seriously the intellectual life — not as a luxury for academics, but as a
+              necessity for every baptized person. It means refusing to accept that Catholic culture in
+              Canada is a relic of the past rather than a seed of the future...
+            </p>
+          </div>
+        )}
 
         <div class="sample-article__cta">
           <img src={`${import.meta.env.BASE_URL}images/branding/Magnalia_Cover.jpg`} alt="Magnalia Issue One" class="sample-article__cta-cover" />
@@ -157,6 +165,7 @@ const issueLabel = issue ? `Inside Issue ${issue.issueNumber}${issue.title ? ' �
   <SectionDivider />
 
   <!-- Section 5: Subscription Options Preview -->
+  <!-- TODO: Pricing tiers ($25/$20/yr/$600/yr) are hardcoded. Consider making these CMS-driven via a "subscriptionTier" schema in Sanity. -->
   <section class="section">
     <div class="container">
       <div class="section-header">
@@ -267,6 +276,30 @@ const issueLabel = issue ? `Inside Issue ${issue.issueNumber}${issue.title ? ' �
     .magnalia-hero__inner {
       grid-template-columns: 1.2fr 1fr;
     }
+  }
+
+  /* What You'll Find list */
+  .what-youll-find-list {
+    list-style: none;
+    padding: 0;
+    margin: 12px 0 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 6px 16px;
+  }
+
+  .what-youll-find-list li {
+    font-family: var(--font-ui);
+    font-size: 0.85rem;
+    color: var(--color-gray);
+  }
+
+  .what-youll-find-list li::before {
+    content: '·';
+    margin-right: 8px;
+    color: var(--color-gold);
+    font-weight: 700;
   }
 
   /* Highlight Strip */
