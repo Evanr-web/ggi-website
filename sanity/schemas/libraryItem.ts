@@ -95,7 +95,8 @@ export default defineType({
       name: 'downloadFile',
       title: 'Downloadable File',
       type: 'file',
-      description: 'For resource items (PDFs, study guides)',
+      description: 'Optional PDF or document for download. If set, a download button will appear on the article page.',
+      options: { accept: '.pdf,.doc,.docx' },
     }),
     defineField({
       name: 'crossPostSubstack',

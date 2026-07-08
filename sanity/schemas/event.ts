@@ -90,6 +90,12 @@ export default defineType({
       description: 'Recommended: 1600×900px or larger, landscape. Shown at the top of the event page.',
     }),
     defineField({
+      name: 'headerImageAlt',
+      title: 'Hero Image Alt Text',
+      type: 'string',
+      description: 'Describe the image for accessibility. If blank, the event title is used.',
+    }),
+    defineField({
       name: 'cost',
       title: 'Cost',
       type: 'string',

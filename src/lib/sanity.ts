@@ -86,13 +86,13 @@ export async function getHomepage() {
 // Upcoming events (next 3 by date)
 export async function getUpcomingEvents(limit = 3) {
   const today = new Date().toISOString().split('T')[0];
-  return sanityClient.fetch(`*[_type == "event" && startDate >= $today] | order(startDate asc) [0...$limit]{
+  return sanityClient.fetch(`*[_type == "event" && date >= $today] | order(date asc) [0...$limit]{
     _id,
     title,
     slug,
-    startDate,
+    "startDate": date,
     location,
-    shortDescription,
+    "shortDescription": description,
     tagline,
     programTag,
     template,
@@ -108,7 +108,7 @@ export async function getLatestLibraryItems(limit = 3) {
     slug,
     category,
     publishDate,
-    author,
+    "author": author->name,
     excerpt,
     "image": featuredImage.asset->url
   }`, { limit });
@@ -169,6 +169,7 @@ export async function getLibraryArticle(slug: string) {
     "image": featuredImage.asset->url,
     "authorName": author->name,
     "authorImage": author->photo.asset->url,
+    "downloadFile": downloadFile{asset->{url}},
     featuredImage { asset-> },
     body[]{
       ...,
@@ -213,7 +214,7 @@ export async function getPrograms() {
     slug,
     template,
     tagline,
-    shortDescription,
+    "shortDescription": description,
     "headerImage": headerImage.asset->url,
     dates,
     location,

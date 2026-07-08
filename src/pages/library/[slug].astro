@@ -6,18 +6,8 @@ import { toHTML } from '@portabletext/to-html';
 export async function getStaticPaths() {
   const articles = await getLibraryArticles();
 
-  // Static pages that already have their own .astro files — skip these slugs
-  const staticSlugs = [
-    'abolition-of-man-guide',
-    'christmas-books-2025',
-    'easter-family',
-    'fine-gathering-ottawa',
-    'medicine-forgets-vocation',
-    'personal-finances',
-  ];
-
   return (articles || [])
-    .filter((a: any) => a.slug?.current && !staticSlugs.includes(a.slug.current))
+    .filter((a: any) => a.slug?.current)
     .map((a: any) => ({
       params: { slug: a.slug.current },
     }));
@@ -83,4 +73,42 @@ const readTime = `${Math.max(1, Math.ceil(wordCount / 250))} min read`;
   authorImage={authorPhoto || undefined}
 >
   <Fragment set:html={bodyHtml} />
+  {article.downloadFile?.asset?.url && (
+    <div class="article__download">
+      <a href={article.downloadFile.asset.url} download class="article__download-btn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+          <polyline points="7 10 12 15 17 10"></polyline>
+          <line x1="12" y1="15" x2="12" y2="3"></line>
+        </svg>
+        Download Resource
+      </a>
+    </div>
+  )}
 </ArticleLayout>
+
+<style>
+  .article__download {
+    margin-top: 32px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(90, 90, 110, 0.1);
+    text-align: center;
+  }
+  .article__download-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    font-weight: 600;
+    padding: 14px 32px;
+    background-color: var(--color-crimson);
+    color: var(--color-parchment);
+    border-radius: 3px;
+    text-decoration: none;
+    transition: background-color var(--transition-fast);
+  }
+  .article__download-btn:hover {
+    background-color: #6b2124;
+  }
+</style>
