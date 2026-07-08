@@ -4,7 +4,7 @@ import Button from '../../components/Button.astro';
 import Testimonials from '../../components/Testimonials.astro';
 import ShareBar from '../../components/ShareBar.astro';
 import SectionDivider from '../../components/SectionDivider.astro';
-import { getProgram, getAllProgramSlugs } from '../../lib/sanity';
+import { getProgram, getAllProgramSlugs, imageUrl } from '../../lib/sanity';
 
 export async function getStaticPaths() {
   const staticSlugs = ['book-studies', 'faith-and-reason', 'masterclasses'];
@@ -31,7 +31,7 @@ if (!program) {
 const base = import.meta.env.BASE_URL;
 const title = program.title || 'Program';
 const description = program.seo?.metaDescription || program.description || '';
-const heroImage = program.headerImage;
+const heroImage = imageUrl(program.headerImage, 1600);
 const label = program.label || '';
 const audience = program.audience || '';
 const format = program.format || '';

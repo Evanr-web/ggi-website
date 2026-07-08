@@ -4,7 +4,7 @@ import EventRegistration from '../../components/EventRegistration.astro';
 import SectionDivider from '../../components/SectionDivider.astro';
 import CanadaGroupMap from '../../components/CanadaGroupMap.astro';
 import BookStudyForm from '../../components/BookStudyForm.astro';
-import { getEvents, getEvent, getReadingGroups } from '../../lib/sanity';
+import { getEvents, getEvent, getReadingGroups, imageUrl } from '../../lib/sanity';
 import { renderPortableText } from '../../lib/portable-text';
 
 export async function getStaticPaths() {
@@ -74,9 +74,8 @@ if (isPast) {
   locationAddress={event.locationAddress}
   showMap={!!event.locationAddress}
   cost={event.cost}
-  image={event.headerImage}
+  image={imageUrl(event.headerImage, 1600)}
   imageAlt={event.title}
-  imagePosition={event.imagePosition}
   artFilter={!!event.artFilter}
   tag={tag}
   past={isPast}

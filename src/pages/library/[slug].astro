@@ -1,6 +1,6 @@
 ---
 import ArticleLayout from '../../layouts/ArticleLayout.astro';
-import { getLibraryArticle, getLibraryArticles } from '../../lib/sanity';
+import { getLibraryArticle, getLibraryArticles, imageUrl as sanityImageUrl } from '../../lib/sanity';
 import { toHTML } from '@portabletext/to-html';
 
 export async function getStaticPaths() {
@@ -31,8 +31,8 @@ const dateStr = pubDate ? `${months[pubDate.getMonth()]} ${pubDate.getDate()}, $
 const authorName = article.authorName || (typeof article.author === 'string' ? article.author : 'Gregory the Great Institute');
 const authorPhoto = article.authorImage || '';
 
-// Get image URL
-const imageUrl = article.featuredImage?.asset?.url || article.image || '';
+// Get image URL (with hotspot/crop support)
+const articleImageUrl = sanityImageUrl(article.image, 1200) || article.featuredImage?.asset?.url || '';
 
 // Category
 const category = article.category || 'News';
@@ -68,7 +68,7 @@ const readTime = `${Math.max(1, Math.ceil(wordCount / 250))} min read`;
   date={dateStr}
   category={category}
   readTime={readTime}
-  image={imageUrl}
+  image={articleImageUrl}
   imageAlt={article.title}
   authorImage={authorPhoto || undefined}
 >

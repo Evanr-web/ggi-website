@@ -9,6 +9,24 @@ export function urlFor(source: SanityImageSource) {
   return builder.image(source);
 }
 
+/**
+ * Generate an image URL that respects Sanity hotspot/crop data.
+ * Falls back to raw URL if hotspot data isn't available.
+ */
+export function imageUrl(image: any, width?: number, height?: number): string {
+  if (!image) return '';
+  // If it's already a plain URL string (backward compat), return as-is
+  if (typeof image === 'string') return image;
+  // If we have the asset reference, use the URL builder
+  if (image.asset) {
+    let builder = urlFor(image);
+    if (width) builder = builder.width(width);
+    if (height) builder = builder.height(height);
+    return builder.fit('crop').auto('format').url();
+  }
+  return image.asset?.url || '';
+}
+
 // === Preview Client (fetches drafts) ===
 let _previewClient: ReturnType<typeof createClient> | null = null;
 export function getPreviewClient() {
@@ -96,7 +114,7 @@ export async function getUpcomingEvents(limit = 3) {
     tagline,
     programTag,
     template,
-    "headerImage": headerImage.asset->url
+    "headerImage": headerImage{asset->{url, _id}, hotspot, crop}
   }`, { today, limit });
 }
 
@@ -126,7 +144,7 @@ export async function getEvents(status?: string) {
     "startDate": date,
     endDate,
     location,
-    "headerImage": headerImage.asset->url,
+    "headerImage": headerImage{asset->{url, _id}, hotspot, crop},
     "shortDescription": description,
     tagline,
     registrationUrl,
@@ -140,7 +158,7 @@ export async function getEvent(slug: string) {
     ...,
     "startDate": date,
     "shortDescription": description,
-    "headerImage": headerImage.asset->url,
+    "headerImage": headerImage{asset->{url, _id}, hotspot, crop},
     "speakers": speakers[]{
       ...,
       "photo": photo.asset->url
@@ -159,14 +177,14 @@ export async function getLibraryArticles() {
     "author": author->name,
     excerpt,
     featured,
-    "image": featuredImage.asset->url
+    "image": featuredImage{asset->{url, _id}, hotspot, crop}
   }`);
 }
 
 export async function getLibraryArticle(slug: string) {
   return sanityClient.fetch(`*[_type == "libraryItem" && slug.current == $slug][0]{
     ...,
-    "image": featuredImage.asset->url,
+    "image": featuredImage{asset->{url, _id}, hotspot, crop},
     "authorName": author->name,
     "authorImage": author->photo.asset->url,
     "downloadFile": downloadFile{asset->{url}},
@@ -215,7 +233,7 @@ export async function getPrograms() {
     template,
     tagline,
     "shortDescription": description,
-    "headerImage": headerImage.asset->url,
+    "headerImage": headerImage{asset->{url, _id}, hotspot, crop},
     dates,
     location,
     cost,
@@ -263,7 +281,7 @@ export async function getProgramVisibility(): Promise<Record<string, boolean>> {
 export async function getProgram(slug: string) {
   return sanityClient.fetch(`*[_type == "program" && slug.current == $slug][0]{
     ...,
-    "headerImage": headerImage.asset->url,
+    "headerImage": headerImage{asset->{url, _id}, hotspot, crop},
     testimonials,
     highlights,
     schedule,

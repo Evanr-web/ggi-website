@@ -46,7 +46,7 @@ const formatDate = (d: string) => {
 <BaseLayout title={`${title} — Gregory the Great Institute`} description={description} ogImage={ogImage}>
   {image && (
     <div class="event-hero">
-      <img src={image.startsWith('/') ? `${base}${image.slice(1)}` : image} alt={imageAlt} class={`event-hero__img${artFilter ? ' art-filter' : ''}`} style={imagePosition ? `object-position: ${imagePosition}` : undefined} />
+      <img src={image.startsWith('/') ? `${base}${image.slice(1)}` : image} alt={imageAlt} class={`event-hero__img${artFilter ? ' art-filter' : ''}`} />
     </div>
   )}
 
