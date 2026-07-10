@@ -203,7 +203,7 @@ const endorsements = cms?.endorsements?.length ? cms.endorsements : [
                 location={event.location || ''}
                 description={event.shortDescription || event.tagline || ''}
                 href={`${base}events/${event.slug?.current || ''}/`}
-                programTag={event.template || event.programTag || ''}
+                programTag={event.programTag || event.template || ''}
               />
             );
           })

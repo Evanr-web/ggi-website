@@ -25,7 +25,7 @@ const events = sanityEvents
       location: e.location || '',
       description: e.shortDescription || '',
       href: `${base}events/${e.slug?.current}/`,
-      programTag: e.template ? e.template.charAt(0).toUpperCase() + e.template.slice(1) : '',
+      programTag: e.programTag || (e.template ? e.template.charAt(0).toUpperCase() + e.template.slice(1) : ''),
       thumbnail: imageUrl(e.headerImage, 400) || '',
       thumbnailAlt: e.title,
     };
