@@ -65,6 +65,7 @@ const isPast = event.status === 'past';
 let ctaStatus: 'active' | 'closed' | 'notify' = 'active';
 let ctaText = event.ctaLabel || '';
 let ctaHref = event.registrationUrl || '';
+const normalizedZeffy = normalizeZeffyUrl(event.zeffyFormUrl);
 
 if (isPast) {
   ctaStatus = 'closed';
@@ -75,6 +76,11 @@ if (isPast) {
 } else if (event.ctaStatus === 'notify' || event.registrationStatus === 'coming-soon') {
   ctaStatus = 'notify';
   ctaText = ctaText || 'Get Notified';
+} else if (normalizedZeffy && event.registrationStatus === 'open' && !ctaHref) {
+  // Auto-link to on-page Zeffy embed when no explicit registrationUrl is set
+  ctaStatus = 'active';
+  ctaText = ctaText || 'Register';
+  ctaHref = '#register';
 } else if (ctaText && ctaHref) {
   ctaStatus = 'active';
 } else {
