@@ -31,6 +31,25 @@ if (!event) {
 const bodyHtml = event.body ? renderPortableText(event.body) : '';
 const hasBody = bodyHtml.length > 0;
 
+// Normalize zeffyFormUrl — accepts full embed HTML, full URL, or just the path
+function normalizeZeffyUrl(raw?: string): string | undefined {
+  if (!raw) return undefined;
+  const trimmed = raw.trim();
+  // Already a clean path like /embed/ticketing/...
+  if (trimmed.startsWith('/embed/')) return trimmed;
+  // Full URL like https://www.zeffy.com/embed/ticketing/...
+  const urlMatch = trimmed.match(/zeffy\.com(\/embed\/[^\s"'<>]+)/);
+  if (urlMatch) return urlMatch[1];
+  // HTML blob — extract data-form-url="..." value
+  const attrMatch = trimmed.match(/data-form-url=["']([^"']+)["']/);
+  if (attrMatch) return attrMatch[1];
+  // Zeffy page URL like /en-CA/ticketing/summer-pilgrimage → convert to embed path
+  const pageMatch = trimmed.match(/zeffy\.com\/(?:en-[A-Z]{2}\/)?ticketing\/([^\s"'<>]+)/);
+  if (pageMatch) return `/embed/ticketing/${pageMatch[1]}`;
+  // Fallback: return as-is and hope for the best
+  return trimmed;
+}
+
 // Book study template data
 const isBookStudy = event.template === 'book-study';
 const sanityGroups = isBookStudy ? await getReadingGroups() : [];
@@ -92,7 +111,7 @@ if (isPast) {
   {event.registrationStatus && event.registrationStatus !== 'closed' && (
     <EventRegistration
       status={event.registrationStatus}
-      zeffyFormUrl={event.zeffyFormUrl}
+      zeffyFormUrl={normalizeZeffyUrl(event.zeffyFormUrl)}
       notifyTag={event.notifyTag}
       eventTitle={event.title}
     />
