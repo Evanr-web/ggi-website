@@ -145,6 +145,7 @@ export async function getEvents(status?: string) {
     title,
     slug,
     template,
+    programTag,
     status,
     "startDate": date,
     endDate,
