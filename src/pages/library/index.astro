@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Card from '../../components/Card.astro';
-import { getLibraryArticles } from '../../lib/sanity';
+import { getLibraryArticles, imageUrl } from '../../lib/sanity';
 
 const base = import.meta.env.BASE_URL;
 
@@ -20,7 +20,7 @@ const cmsEntries = sanityArticles
     author: a.author || 'Gregory the Great Institute',
     category: a.category || 'Resource',
     date: d ? `${months[d.getMonth()]} ${d.getFullYear()}` : '',
-    image: a.image || '',
+    image: imageUrl(a.image, 400) || '',
     excerpt: a.excerpt || '',
     href: a.slug?.current || '',
     featured: a.featured === true,
