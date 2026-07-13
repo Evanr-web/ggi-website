@@ -58,6 +58,10 @@
 /event-details/st-gregorys-inkling-book-club /programs/book-studies/ 301
 /event-details/why-classical-education-now-raising-children-who-can-think-discern-and-believe /library/ 301
 
+# === Lead magnet slug migration ===
+/resources/roadmap-to-renewal-reading-guide/* /resources/roadmap/:splat 301
+/resources/roadmap-to-renewal-reading-guide/ /resources/roadmap/ 301
+
 # === Catch-all for any other old /post/ or /event-details/ URLs ===
 /post/* /library/ 301
 /event-details/* /events/ 301
