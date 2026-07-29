@@ -1,5 +1,7 @@
 ---
 import ArticleLayout from '../../layouts/ArticleLayout.astro';
+import Gallery from '../../components/Gallery.astro';
+import VideoSection from '../../components/VideoSection.astro';
 import { getLibraryArticle, getLibraryArticles, imageUrl as sanityImageUrl } from '../../lib/sanity';
 import { toHTML } from '@portabletext/to-html';
 
@@ -73,6 +75,23 @@ const readTime = `${Math.max(1, Math.ceil(wordCount / 250))} min read`;
   authorImage={authorPhoto || undefined}
 >
   <Fragment set:html={bodyHtml} />
+  {(article.gallery && article.gallery.length > 0) && (
+    <Gallery photos={article.gallery.map((p: any) => ({
+      url: sanityImageUrl(p, 800) || p.url || '',
+      caption: p.caption || '',
+      alt: p.alt || p.caption || '',
+    }))} />
+  )}
+  {(article.videos && article.videos.length > 0) && (
+    <VideoSection videos={article.videos.map((v: any) => ({
+      title: v.title || 'Untitled',
+      description: v.description || '',
+      source: v.source || 'upload',
+      fileUrl: v.fileUrl || '',
+      youtubeUrl: v.youtubeUrl || '',
+      thumbnailUrl: v.thumbnailUrl || '',
+    }))} />
+  )}
   {article.downloadFile?.asset?.url && (
     <div class="article__download">
       <a href={article.downloadFile.asset.url} download class="article__download-btn">

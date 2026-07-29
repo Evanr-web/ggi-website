@@ -1,0 +1,323 @@
+---
+/**
+ * VideoSection — Displays uploaded videos and YouTube embeds below articles
+ * Usage: <VideoSection videos={videos} />
+ * Each video: { title, description?, source: 'upload'|'youtube', fileUrl?, youtubeUrl?, thumbnailUrl? }
+ */
+interface VideoItem {
+  title: string;
+  description?: string;
+  source: 'upload' | 'youtube';
+  fileUrl?: string;
+  youtubeUrl?: string;
+  thumbnailUrl?: string;
+}
+
+interface Props {
+  videos: VideoItem[];
+}
+
+const { videos = [] } = Astro.props;
+if (videos.length === 0) return null;
+
+// Extract YouTube video ID from URL
+function getYouTubeId(url: string): string | null {
+  if (!url) return null;
+  const match = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([a-zA-Z0-9_-]{11})/);
+  return match ? match[1] : null;
+}
+
+function getYouTubeThumbnail(url: string): string {
+  const id = getYouTubeId(url);
+  return id ? `https://img.youtube.com/vi/${id}/hqdefault.jpg` : '';
+}
+---
+
+<section class="video-section">
+  <h2 class="video-section__title">Videos</h2>
+
+  <div class="video-section__grid">
+    {videos.map((video) => {
+      const isYoutube = video.source === 'youtube';
+      const ytId = isYoutube && video.youtubeUrl ? getYouTubeId(video.youtubeUrl) : null;
+      const thumb = video.thumbnailUrl || (isYoutube && video.youtubeUrl ? getYouTubeThumbnail(video.youtubeUrl) : '');
+
+      return (
+        <div class="video-card" data-video-card data-source={video.source} data-yt-id={ytId || ''} data-file-url={video.fileUrl || ''}>
+          <div class="video-card__player">
+            {thumb ? (
+              <img src={thumb} alt={video.title} class="video-card__thumb" loading="lazy" />
+            ) : (
+              <div class="video-card__placeholder"></div>
+            )}
+            <button class="video-card__play" aria-label={`Play ${video.title}`} data-video-play>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                <polygon points="5,3 19,12 5,21" />
+              </svg>
+            </button>
+            <span class={`video-card__badge ${isYoutube ? 'video-card__badge--youtube' : 'video-card__badge--upload'}`}>
+              {isYoutube ? 'YouTube' : 'Video'}
+            </span>
+          </div>
+          <div class="video-card__info">
+            <h3 class="video-card__title">{video.title}</h3>
+            {video.description && <p class="video-card__desc">{video.description}</p>}
+          </div>
+        </div>
+      );
+    })}
+  </div>
+</section>
+
+<!-- Video Modal (for uploaded videos) -->
+<div class="video-modal" id="video-modal" aria-hidden="true" role="dialog" aria-label="Video player">
+  <button class="video-modal__close" id="video-modal-close" aria-label="Close">&times;</button>
+  <div class="video-modal__content">
+    <video id="video-modal-player" controls playsinline preload="metadata">
+      <source id="video-modal-source" src="" type="video/mp4" />
+      Your browser does not support video playback.
+    </video>
+  </div>
+</div>
+
+<style>
+  .video-section {
+    margin-top: var(--space-component, 40px);
+    padding-top: 28px;
+    border-top: 1px solid rgba(90, 90, 110, 0.1);
+  }
+
+  .video-section__title {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    color: var(--color-navy);
+    font-weight: 700;
+    margin-bottom: 16px;
+  }
+
+  .video-section__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 16px;
+  }
+
+  /* === Video Card === */
+  .video-card {
+    border-radius: 3px;
+    overflow: hidden;
+    background: white;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+    transition: box-shadow var(--transition-fast, 150ms ease);
+  }
+  .video-card:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  }
+
+  .video-card__player {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    background: var(--color-navy);
+    overflow: hidden;
+    cursor: pointer;
+  }
+
+  .video-card__thumb {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .video-card__placeholder {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, var(--color-navy) 0%, #1a4a6e 100%);
+  }
+
+  .video-card__play {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 56px;
+    height: 56px;
+    background: rgba(255, 255, 255, 0.92);
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-navy);
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+    transition: transform 150ms ease, background 150ms ease, color 150ms ease;
+    padding-left: 3px;
+  }
+  .video-card__play:hover {
+    transform: translate(-50%, -50%) scale(1.1);
+    background: var(--color-crimson);
+    color: white;
+  }
+
+  .video-card__badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-family: var(--font-ui);
+    font-size: 0.6rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 3px 8px;
+    border-radius: 2px;
+  }
+  .video-card__badge--upload {
+    background: var(--color-gold);
+    color: white;
+  }
+  .video-card__badge--youtube {
+    background: #cc0000;
+    color: white;
+  }
+
+  .video-card__info {
+    padding: 12px 14px;
+  }
+  .video-card__title {
+    font-family: var(--font-ui);
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--color-navy);
+    line-height: 1.3;
+  }
+  .video-card__desc {
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    color: var(--color-gray);
+    margin-top: 4px;
+    line-height: 1.4;
+  }
+
+  /* === Video Modal === */
+  .video-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.93);
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+  }
+  .video-modal[aria-hidden="false"] {
+    display: flex;
+  }
+
+  .video-modal__close {
+    position: absolute;
+    top: 16px;
+    right: 20px;
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 2.2rem;
+    cursor: pointer;
+    padding: 8px;
+    line-height: 1;
+    transition: color 150ms ease;
+    z-index: 2;
+  }
+  .video-modal__close:hover { color: white; }
+
+  .video-modal__content {
+    width: 90vw;
+    max-width: 900px;
+    aspect-ratio: 16 / 9;
+  }
+
+  .video-modal__content video,
+  .video-modal__content iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: 3px;
+  }
+
+  @media (max-width: 640px) {
+    .video-section__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<script is:inline>
+  (function() {
+    var cards = document.querySelectorAll('[data-video-card]');
+    var modal = document.getElementById('video-modal');
+    if (!modal || cards.length === 0) return;
+
+    var player = document.getElementById('video-modal-player');
+    var source = document.getElementById('video-modal-source');
+    var content = modal.querySelector('.video-modal__content');
+
+    function openUploadedVideo(url) {
+      // Clear any previous iframe
+      var oldIframe = content.querySelector('iframe');
+      if (oldIframe) oldIframe.remove();
+      player.style.display = '';
+      source.src = url;
+      player.load();
+      modal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+      player.play();
+    }
+
+    function openYouTube(ytId) {
+      // Hide native player, inject iframe
+      player.style.display = 'none';
+      var oldIframe = content.querySelector('iframe');
+      if (oldIframe) oldIframe.remove();
+      var iframe = document.createElement('iframe');
+      iframe.src = 'https://www.youtube-nocookie.com/embed/' + ytId + '?autoplay=1&rel=0';
+      iframe.allow = 'autoplay; encrypted-media; picture-in-picture';
+      iframe.allowFullscreen = true;
+      content.appendChild(iframe);
+      modal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      modal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+      player.pause();
+      player.currentTime = 0;
+      var iframe = content.querySelector('iframe');
+      if (iframe) iframe.remove();
+    }
+
+    cards.forEach(function(card) {
+      var playBtn = card.querySelector('[data-video-play]');
+      var src = card.getAttribute('data-source');
+      var ytId = card.getAttribute('data-yt-id');
+      var fileUrl = card.getAttribute('data-file-url');
+
+      function handleClick() {
+        if (src === 'youtube' && ytId) {
+          openYouTube(ytId);
+        } else if (fileUrl) {
+          openUploadedVideo(fileUrl);
+        }
+      }
+
+      if (playBtn) playBtn.addEventListener('click', handleClick);
+      card.querySelector('.video-card__player').addEventListener('click', handleClick);
+    });
+
+    document.getElementById('video-modal-close').addEventListener('click', closeModal);
+    modal.addEventListener('click', function(e) {
+      if (e.target === modal) closeModal();
+    });
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && modal.getAttribute('aria-hidden') === 'false') closeModal();
+    });
+  })();
+</script>

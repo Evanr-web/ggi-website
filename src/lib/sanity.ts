@@ -198,6 +198,22 @@ export async function getLibraryArticle(slug: string) {
     body[]{
       ...,
       _type == "image" => { "url": asset->url }
+    },
+    gallery[]{
+      caption,
+      alt,
+      "url": asset->url,
+      asset->{url, _id},
+      hotspot,
+      crop
+    },
+    videos[]{
+      title,
+      description,
+      source,
+      "fileUrl": file.asset->url,
+      youtubeUrl,
+      "thumbnailUrl": thumbnail.asset->url
     }
   }`, { slug });
 }

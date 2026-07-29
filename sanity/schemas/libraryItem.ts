@@ -74,7 +74,6 @@ export default defineType({
       description: 'Shown on the Library listing page. Keep under 200 characters.',
       validation: (Rule) => Rule.max(250).warning('Try to keep this under 200 characters for the best card layout.'),
       rows: 3,
-      description: 'Short excerpt for cards and previews',
     }),
     defineField({
       name: 'body',
@@ -108,6 +107,104 @@ export default defineType({
         { name: 'posted', title: 'Cross-posted', type: 'boolean', initialValue: false, description: 'Check this after the article has been published on Substack.' },
         { name: 'url', title: 'Substack URL', type: 'url', description: 'Link to the Substack version of this article.' },
         { name: 'postedDate', title: 'Date Cross-posted', type: 'date', description: 'When it was posted to Substack.' },
+      ],
+    }),
+    defineField({
+      name: 'gallery',
+      title: 'Photo Gallery',
+      type: 'array',
+      description: 'Add photos for the gallery filmstrip at the bottom of the article. Drag to reorder.',
+      of: [
+        {
+          type: 'image',
+          options: { hotspot: true },
+          fields: [
+            {
+              name: 'caption',
+              title: 'Caption',
+              type: 'string',
+              description: 'Optional caption shown in the lightbox',
+            },
+            {
+              name: 'alt',
+              title: 'Alt Text',
+              type: 'string',
+              description: 'Describe the image for accessibility',
+            },
+          ],
+        },
+      ],
+    }),
+    defineField({
+      name: 'videos',
+      title: 'Videos',
+      type: 'array',
+      description: 'Add videos to display below the gallery. Short clips (under 3 min): upload directly. Longer videos: paste a YouTube URL.',
+      of: [
+        {
+          type: 'object',
+          name: 'videoItem',
+          title: 'Video',
+          fields: [
+            {
+              name: 'title',
+              title: 'Title',
+              type: 'string',
+              validation: (Rule: any) => Rule.required(),
+            },
+            {
+              name: 'description',
+              title: 'Description',
+              type: 'string',
+              description: 'Short description shown below the video',
+            },
+            {
+              name: 'source',
+              title: 'Source',
+              type: 'string',
+              options: {
+                list: [
+                  { title: 'Upload File (short clips, max 100MB, 1080p recommended)', value: 'upload' },
+                  { title: 'YouTube URL (longer videos)', value: 'youtube' },
+                ],
+                layout: 'radio',
+              },
+              initialValue: 'upload',
+              validation: (Rule: any) => Rule.required(),
+            },
+            {
+              name: 'file',
+              title: 'Video File',
+              type: 'file',
+              description: '⚠️ Compress before uploading. Max recommended: 1080p, under 100MB. iPhone users: set Camera → Record Video → 1080p.',
+              options: { accept: 'video/mp4,video/quicktime,video/webm' },
+              hidden: ({ parent }: any) => parent?.source !== 'upload',
+            },
+            {
+              name: 'youtubeUrl',
+              title: 'YouTube URL',
+              type: 'url',
+              description: 'Paste the full YouTube video URL (e.g. https://youtube.com/watch?v=...)',
+              hidden: ({ parent }: any) => parent?.source !== 'youtube',
+            },
+            {
+              name: 'thumbnail',
+              title: 'Custom Thumbnail',
+              type: 'image',
+              description: 'Optional. If blank, a default thumbnail is used (or YouTube auto-thumbnail).',
+              options: { hotspot: true },
+            },
+          ],
+          preview: {
+            select: { title: 'title', source: 'source' },
+            prepare({ title, source }: any) {
+              return {
+                title: title || 'Untitled Video',
+                subtitle: source === 'youtube' ? '🔴 YouTube' : '📁 Direct Upload',
+              };
+            },
+          },
+        },
       ],
     }),
     defineField({
