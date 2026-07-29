@@ -77,7 +77,8 @@ const readTime = `${Math.max(1, Math.ceil(wordCount / 250))} min read`;
   <Fragment set:html={bodyHtml} />
   {(article.gallery && article.gallery.length > 0) && (
     <Gallery photos={article.gallery.map((p: any) => ({
-      url: sanityImageUrl(p, 800) || p.url || '',
+      url: sanityImageUrl(p, 1600) || p.url || '',
+      thumbUrl: sanityImageUrl(p, 360, 270) || '',
       caption: p.caption || '',
       alt: p.alt || p.caption || '',
     }))} />

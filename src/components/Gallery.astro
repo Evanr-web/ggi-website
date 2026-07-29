@@ -2,10 +2,13 @@
 /**
  * Gallery — Photo filmstrip with lightbox
  * Usage: <Gallery photos={photos} />
- * Each photo: { url, caption?, alt? }
+ * Each photo: { url, thumbUrl?, caption?, alt? }
+ * thumbUrl is a hotspot-aware cropped thumbnail from Sanity CDN.
+ * url is the full-size image for the lightbox.
  */
 interface GalleryPhoto {
   url: string;
+  thumbUrl?: string;
   caption?: string;
   alt?: string;
 }
@@ -27,11 +30,13 @@ if (photos.length === 0) return null;
       <button
         class="gallery__thumb"
         data-gallery-open={i}
+        data-full-url={photo.url}
+        data-caption={photo.caption || ''}
         aria-label={photo.alt || photo.caption || `Photo ${i + 1}`}
         type="button"
       >
         <img
-          src={photo.url}
+          src={photo.thumbUrl || photo.url}
           alt={photo.alt || photo.caption || ''}
           loading="lazy"
           class="gallery__thumb-img"
@@ -234,13 +239,13 @@ if (photos.length === 0) return null;
     var lb = document.getElementById('gallery-lightbox');
     if (!lb || thumbs.length === 0) return;
 
-    // Build photo data from thumbs
+    // Build photo data from thumbs — use full-size URL for lightbox
     thumbs.forEach(function(thumb) {
       var img = thumb.querySelector('img');
       photos.push({
-        url: img ? img.src : '',
+        url: thumb.getAttribute('data-full-url') || (img ? img.src : ''),
         alt: img ? img.alt : '',
-        caption: img ? img.alt : ''
+        caption: thumb.getAttribute('data-caption') || (img ? img.alt : '')
       });
     });
 
