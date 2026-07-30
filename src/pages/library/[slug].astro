@@ -43,7 +43,15 @@ const category = article.category || 'News';
 const bodyHtml = article.body ? toHTML(article.body, {
   components: {
     types: {
-      image: ({value}: any) => `<figure class="article__figure"><img src="${value.url || value.asset?.url || ''}" alt="" class="article__inline-img" loading="lazy" /></figure>`,
+      image: ({value}: any) => {
+        const url = value.url || value.asset?.url || '';
+        const alt = value.alt || '';
+        const size = value.size || 'full';
+        const float = value.float || 'none';
+        const cls = `article__figure article__figure--${size}` + (float !== 'none' ? ` article__figure--${float}` : '');
+        const caption = alt ? `<figcaption style="text-align:center;font-size:0.85rem;color:var(--color-gray,#666);margin-top:8px;">${alt}</figcaption>` : '';
+        return `<figure class="${cls}"><img src="${url}" alt="${alt}" class="article__inline-img" loading="lazy" />${caption}</figure>`;
+      },
     },
     block: {
       blockquote: ({children}: any) => `<blockquote class="article__pullquote"><p>${children}</p></blockquote>`,
@@ -61,6 +69,16 @@ const wordCount = article.body?.reduce((acc: number, block: any) => {
   return acc;
 }, 0) || 0;
 const readTime = `${Math.max(1, Math.ceil(wordCount / 250))} min read`;
+const videoPosition = article.videoPosition || 'bottom';
+const hasVideos = article.videos && article.videos.length > 0;
+const videoBlock = hasVideos ? article.videos.map((v: any) => ({
+  title: v.title || 'Untitled',
+  description: v.description || '',
+  source: v.source || 'upload',
+  fileUrl: v.fileUrl || '',
+  youtubeUrl: v.youtubeUrl || '',
+  thumbnailUrl: v.thumbnailUrl || '',
+})) : [];
 ---
 
 <ArticleLayout
@@ -74,6 +92,9 @@ const readTime = `${Math.max(1, Math.ceil(wordCount / 250))} min read`;
   imageAlt={article.title}
   authorImage={authorPhoto || undefined}
 >
+  {videoPosition === 'top' && hasVideos && (
+    <VideoSection videos={videoBlock} />
+  )}
   <Fragment set:html={bodyHtml} />
   {(article.gallery && article.gallery.length > 0) && (
     <Gallery photos={article.gallery.map((p: any) => ({
@@ -83,15 +104,8 @@ const readTime = `${Math.max(1, Math.ceil(wordCount / 250))} min read`;
       alt: p.alt || p.caption || '',
     }))} />
   )}
-  {(article.videos && article.videos.length > 0) && (
-    <VideoSection videos={article.videos.map((v: any) => ({
-      title: v.title || 'Untitled',
-      description: v.description || '',
-      source: v.source || 'upload',
-      fileUrl: v.fileUrl || '',
-      youtubeUrl: v.youtubeUrl || '',
-      thumbnailUrl: v.thumbnailUrl || '',
-    }))} />
+  {videoPosition === 'bottom' && hasVideos && (
+    <VideoSection videos={videoBlock} />
   )}
   {article.downloadFile?.asset?.url && (
     <div class="article__download">

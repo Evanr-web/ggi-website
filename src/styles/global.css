@@ -578,3 +578,57 @@ body > div[style*="z-index: 10000"]:not([style*="background-color"]) {
   }
 }
 
+/* === Inline Image Sizing & Floating === */
+.article__figure {
+  margin: 24px 0;
+}
+
+.article__figure img {
+  width: 100%;
+  border-radius: 3px;
+}
+
+.article__figure--full {
+  width: 100%;
+}
+
+.article__figure--medium {
+  width: 50%;
+  margin: 8px auto 16px;
+}
+
+.article__figure--small {
+  width: 150px;
+  margin: 4px 0 12px;
+}
+
+.article__figure--left {
+  float: left;
+  margin-right: 20px;
+  margin-bottom: 12px;
+  margin-top: 4px;
+}
+
+.article__figure--right {
+  float: right;
+  margin-left: 20px;
+  margin-bottom: 12px;
+  margin-top: 4px;
+}
+
+/* Clear floats after floated images */
+.article__body::after {
+  content: '';
+  display: table;
+  clear: both;
+}
+
+@media (max-width: 640px) {
+  .article__figure--medium {
+    width: 70%;
+  }
+  .article__figure--small {
+    width: 100px;
+  }
+}
+

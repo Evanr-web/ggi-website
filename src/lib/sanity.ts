@@ -165,6 +165,10 @@ export async function getEvent(slug: string) {
     "startDate": date,
     "shortDescription": description,
     "headerImage": headerImage{asset->{url, _id}, hotspot, crop},
+    body[]{
+      ...,
+      _type == "image" => { "url": asset->url, size, float, alt }
+    },
     "speakers": speakers[]{
       ...,
       "photo": photo.asset->url
@@ -197,7 +201,7 @@ export async function getLibraryArticle(slug: string) {
     featuredImage { asset-> },
     body[]{
       ...,
-      _type == "image" => { "url": asset->url }
+      _type == "image" => { "url": asset->url, size, float, alt }
     },
     gallery[]{
       caption,
