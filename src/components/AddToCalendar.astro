@@ -9,14 +9,21 @@ interface Props {
 
 const { title, date, endDate, location, description } = Astro.props;
 
+// Extract date-only string (YYYY-MM-DD) in Mountain Time from ISO datetime or date-only input
+const toMTDate = (d: string) => {
+  const dt = d.includes('T') ? new Date(d) : new Date(d + 'T12:00:00');
+  return dt.toLocaleDateString('en-CA', { year: 'numeric', month: '2-digit', day: '2-digit', timeZone: 'America/Edmonton' });
+};
+
 // Format dates for .ics (YYYYMMDD)
-const fmtIcs = (d: string) => d.replace(/-/g, '');
+const fmtIcs = (d: string) => toMTDate(d).replace(/-/g, '');
 const startDate = fmtIcs(date);
 const finishDate = endDate ? fmtIcs(endDate) : startDate;
 
 // For all-day events, end date in .ics needs to be the day AFTER
 const endPlusOne = (d: string) => {
-  const dt = new Date(d + 'T12:00:00');
+  const mtDate = toMTDate(d);
+  const dt = new Date(mtDate + 'T12:00:00');
   dt.setDate(dt.getDate() + 1);
   return dt.toISOString().slice(0, 10).replace(/-/g, '');
 };

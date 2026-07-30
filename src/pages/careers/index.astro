@@ -52,7 +52,7 @@ const hasCmsPostings = cmsPostings.length > 0;
               <div class="posting__meta">
                 <span class={`posting__badge posting__badge--${posting.type}`}>{posting.type}</span>
                 {posting.location && <span>{posting.location}</span>}
-                {posting.deadline && <span>Deadline: {new Date(posting.deadline).toLocaleDateString('en-CA', { month: 'short', day: 'numeric', year: 'numeric' })}</span>}
+                {posting.deadline && <span>Deadline: {new Date(posting.deadline).toLocaleDateString('en-CA', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'America/Edmonton' })}</span>}
               </div>
             </div>
           </div>
@@ -74,7 +74,7 @@ const hasCmsPostings = cmsPostings.length > 0;
               {posting.startDate && (
                 <div class="posting__detail">
                   <strong>Start Date</strong>
-                  <span>{new Date(posting.startDate).toLocaleDateString('en-CA', { month: 'long', year: 'numeric' })}</span>
+                  <span>{new Date(posting.startDate).toLocaleDateString('en-CA', { month: 'long', year: 'numeric', timeZone: 'America/Edmonton' })}</span>
                 </div>
               )}
             </div>

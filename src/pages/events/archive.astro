@@ -12,11 +12,15 @@ try { sanityEvents = await getEvents() || []; } catch (e) { /* fallback */ }
 const cmsEvents = sanityEvents.map((e: any) => {
   const d = new Date(e.startDate);
   const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  const tz = 'America/Edmonton';
+  const mtMonth = Number(d.toLocaleDateString('en-CA', { month: 'numeric', timeZone: tz })) - 1;
+  const mtDay = d.toLocaleDateString('en-CA', { day: 'numeric', timeZone: tz });
+  const mtYear = d.toLocaleDateString('en-CA', { year: 'numeric', timeZone: tz });
   return {
     title: e.title,
-    month: months[d.getMonth()],
-    day: String(d.getDate()),
-    year: String(d.getFullYear()),
+    month: months[mtMonth],
+    day: mtDay,
+    year: mtYear,
     date: e.startDate,
     location: e.location || '',
     description: e.shortDescription || '',

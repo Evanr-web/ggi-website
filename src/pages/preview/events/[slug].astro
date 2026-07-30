@@ -44,8 +44,8 @@ const eventTitle = event.title || 'Untitled Event';
 const tag = event.template ? event.template.charAt(0).toUpperCase() + event.template.slice(1) : 'Event';
 
 const formatDate = (dateStr: string) => {
-  const dt = new Date(dateStr + 'T12:00:00');
-  return dt.toLocaleDateString('en-CA', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+  const dt = dateStr.includes('T') ? new Date(dateStr) : new Date(dateStr + 'T12:00:00');
+  return dt.toLocaleDateString('en-CA', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', timeZone: 'America/Edmonton' });
 };
 
 const now = new Date();

@@ -14,13 +14,19 @@ const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov
 const events = sanityEvents
   .filter((e: any) => e.startDate) // skip events without dates
   .map((e: any) => {
-    const dateOnly = e.startDate.includes('T') ? e.startDate.split('T')[0] : e.startDate;
-    const d = new Date(dateOnly + 'T12:00:00');
+    // Parse full ISO datetime; pin to Mountain Time so dates are correct on
+    // any build server (Cloudflare runs UTC, local Mac runs MDT).
+    const d = e.startDate.includes('T') ? new Date(e.startDate) : new Date(e.startDate + 'T12:00:00');
+    const tz = 'America/Edmonton';
+    const mtMonth = Number(d.toLocaleDateString('en-CA', { month: 'numeric', timeZone: tz })) - 1;
+    const mtDay = d.toLocaleDateString('en-CA', { day: 'numeric', timeZone: tz });
+    const mtYear = d.toLocaleDateString('en-CA', { year: 'numeric', timeZone: tz });
+    const dateOnly = d.toLocaleDateString('en-CA', { year: 'numeric', month: '2-digit', day: '2-digit', timeZone: tz });
     return {
       title: e.title,
-      month: months[d.getMonth()],
-      day: String(d.getDate()),
-      year: String(d.getFullYear()),
+      month: months[mtMonth],
+      day: mtDay,
+      year: mtYear,
       date: dateOnly,
       location: e.location || '',
       description: e.shortDescription || '',

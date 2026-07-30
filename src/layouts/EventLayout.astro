@@ -40,7 +40,9 @@ const formatDate = (d: string) => {
   // For date-only strings ("2026-10-02"), anchor at noon to avoid date drift.
   const dt = d.includes('T') ? new Date(d) : new Date(d + 'T12:00:00');
   if (isNaN(dt.getTime())) return d; // fallback to raw string
-  return dt.toLocaleDateString('en-CA', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+  // Pin to Mountain Time so dates display correctly regardless of where
+  // the build runs (Cloudflare servers are UTC, local Mac is MDT).
+  return dt.toLocaleDateString('en-CA', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', timeZone: 'America/Edmonton' });
 };
 ---
 

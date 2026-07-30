@@ -93,8 +93,8 @@ if (isPast) {
 <EventLayout
   title={event.title}
   description={event.shortDescription || event.description || ''}
-  date={event.startDate ? event.startDate.split('T')[0] : ''}
-  endDate={event.endDate ? event.endDate.split('T')[0] : undefined}
+  date={event.startDate || ''}
+  endDate={event.endDate || undefined}
   location={event.location || ''}
   locationAddress={event.locationAddress}
   showMap={!!event.locationAddress}
