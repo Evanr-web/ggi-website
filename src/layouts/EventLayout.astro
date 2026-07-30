@@ -152,12 +152,14 @@ const formatDate = (d: string) => {
 <style>
   .event-hero {
     width: 100%;
+    height: 320px;
+    overflow: hidden;
   }
 
   .event-hero__img {
     width: 100%;
-    height: auto;
-    display: block;
+    height: 100%;
+    object-fit: cover;
   }
 
   .event-detail {
@@ -375,7 +377,7 @@ const formatDate = (d: string) => {
   }
 
   @media (max-width: 640px) {
-    /* hero is now auto-height from image */
+    .event-hero { height: 220px; }
     .event-detail__header h1 { font-size: 1.6rem; }
   }
 </style>
