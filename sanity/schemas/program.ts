@@ -1,5 +1,6 @@
 import { defineType, defineField } from 'sanity';
 import { EnabledToggle } from '../components/EnabledToggle';
+import { HeroImageInput } from '../components/HeroImageInput';
 
 export default defineType({
   name: 'program',
@@ -88,6 +89,7 @@ export default defineType({
       options: { hotspot: true },
       description: 'Recommended: 1600×900px or larger, landscape. Shown at the top of the program page.',
       group: 'general',
+      components: { input: HeroImageInput },
     }),
 
     // === Landing Page Sections ===

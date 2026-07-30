@@ -1,5 +1,6 @@
 import { defineType, defineField } from 'sanity';
 import { EnabledToggle } from '../components/EnabledToggle';
+import { HeroImageInput } from '../components/HeroImageInput';
 
 export default defineType({
   name: 'event',
@@ -181,6 +182,7 @@ export default defineType({
       type: 'image',
       options: { hotspot: true },
       description: 'Recommended: 1600×900px or larger, landscape. Shown at the top of the event page.',
+      components: { input: HeroImageInput },
     }),
     defineField({
       name: 'headerImageAlt',
