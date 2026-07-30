@@ -44,8 +44,17 @@ const bodyHtml = article.body ? toHTML(article.body, {
   components: {
     types: {
       image: ({value}: any) => {
-        const url = value.url || value.asset?.url || '';
-        const alt = value.alt || '';
+        let url = '';
+        if (value?.asset) {
+          try {
+            url = sanityImageUrl(value, value?.size === 'small' ? 300 : value?.size === 'medium' ? 600 : 1200) || value.asset?.url || '';
+          } catch {
+            url = value.asset?.url || '';
+          }
+        } else {
+          url = value?.url || '';
+        }
+        const alt = value?.alt || '';
         const size = value.size || 'full';
         const float = value.float || 'none';
         const cls = `article__figure article__figure--${size}` + (float !== 'none' ? ` article__figure--${float}` : '');

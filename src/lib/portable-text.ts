@@ -1,4 +1,5 @@
 import { toHTML } from '@portabletext/to-html';
+import { urlFor } from './sanity';
 
 /**
  * Render Sanity Portable Text blocks to HTML string.
@@ -13,11 +14,22 @@ export function renderPortableText(body: any): string {
     components: {
       types: {
         image: ({ value }: { value: any }) => {
-          const url = value?.url || value?.asset?.url || '';
           const alt = value?.alt || '';
-          if (!url) return '';
           const size = value?.size || 'full';
           const float = value?.float || 'none';
+          // Use URL builder for hotspot/crop support, fall back to raw URL
+          let url = '';
+          if (value?.asset) {
+            try {
+              const width = size === 'small' ? 300 : size === 'medium' ? 600 : 1200;
+              url = urlFor(value).width(width).fit('crop').auto('format').url();
+            } catch {
+              url = value.asset?.url || '';
+            }
+          } else {
+            url = value?.url || '';
+          }
+          if (!url) return '';
           const caption = alt
             ? '<figcaption style="text-align:center;font-size:0.85rem;color:var(--color-gray,#666);margin-top:8px;">' + alt + '</figcaption>'
             : '';
