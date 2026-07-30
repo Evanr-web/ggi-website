@@ -47,6 +47,8 @@ function getYouTubeThumbnail(url: string): string {
           <div class="video-card__player">
             {thumb ? (
               <img src={thumb} alt={video.title} class="video-card__thumb" loading="lazy" />
+            ) : video.fileUrl ? (
+              <video src={`${video.fileUrl}#t=0.1`} preload="metadata" muted playsinline class="video-card__thumb" />
             ) : (
               <div class="video-card__placeholder"></div>
             )}
