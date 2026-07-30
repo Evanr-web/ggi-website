@@ -176,7 +176,7 @@ export default defineType({
               name: 'file',
               title: 'Video File',
               type: 'file',
-              description: '⚠️ Compress before uploading. Max recommended: 1080p, under 100MB. iPhone users: set Camera → Record Video → 1080p.',
+              description: '⚠️ MP4 format recommended for best browser compatibility. Compress before uploading. Max recommended: 1080p, under 100MB. iPhone users: export as MP4 and set Camera → Record Video → 1080p.',
               options: { accept: 'video/mp4,video/quicktime,video/webm' },
               hidden: ({ parent }: any) => parent?.source !== 'upload',
             },
