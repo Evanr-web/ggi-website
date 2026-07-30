@@ -60,6 +60,15 @@ const tag = (event.programTag || event.template)
   : 'Event';
 
 const isPast = event.status === 'past';
+const heroSize = event.heroSize || 'standard';
+
+// Hero image dimensions based on heroSize
+const heroImageDims: Record<string, [number] | [number, number]> = {
+  standard: [1600, 480],
+  tall: [1600, 720],
+  full: [1600],
+};
+const dims = heroImageDims[heroSize] || heroImageDims.standard;
 
 // CTA logic
 let ctaStatus: 'active' | 'closed' | 'notify' = 'active';
@@ -99,8 +108,9 @@ if (isPast) {
   locationAddress={event.locationAddress}
   showMap={!!event.locationAddress}
   cost={event.cost}
-  image={imageUrl(event.headerImage, 1600, 480)}
+  image={imageUrl(event.headerImage, dims[0], dims[1])}
   imageAlt={event.title}
+  heroSize={heroSize}
   artFilter={!!event.artFilter}
   tag={tag}
   past={isPast}

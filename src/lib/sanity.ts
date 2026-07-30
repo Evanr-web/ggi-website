@@ -151,6 +151,7 @@ export async function getEvents(status?: string) {
     endDate,
     location,
     "headerImage": headerImage{asset->{url, _id}, hotspot, crop},
+    "thumbnailImage": thumbnailImage{asset->{url, _id}, hotspot, crop},
     "shortDescription": description,
     tagline,
     registrationUrl,

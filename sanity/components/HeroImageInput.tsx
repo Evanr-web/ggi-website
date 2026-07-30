@@ -2,42 +2,76 @@
  * Custom image input that wraps Sanity's default image field and adds
  * live hero-banner previews at the exact aspect ratios used on the site.
  *
- * Desktop hero: full-width × 320px  → ~4.5:1 (at 1440px viewport)
- * Mobile hero:  full-width × 220px  → ~2.9:1 (at 640px viewport)
- *
- * Uses Sanity's image URL builder so hotspot/crop are respected in the preview.
+ * Reads the sibling `heroSize` field to show the correct preview dimensions:
+ *   standard → 1440×320 desktop / 640×220 mobile
+ *   tall     → 1440×480 desktop / 640×320 mobile
+ *   full     → shows the image at natural aspect ratio (width-only)
  */
-import { useCallback, useMemo } from 'react'
-import { type ObjectInputProps, useClient } from 'sanity'
-import { Box, Card, Flex, Text, Stack } from '@sanity/ui'
+import { useMemo } from 'react'
+import { type ObjectInputProps, useClient, useFormValue } from 'sanity'
+import { Card, Text, Stack } from '@sanity/ui'
 import imageUrlBuilder from '@sanity/image-url'
 
-// Hero dimensions matching EventLayout.astro
-const HERO_PREVIEWS = [
-  { label: 'Desktop Hero (1440 × 320)', width: 1440, height: 320 },
-  { label: 'Mobile Hero (640 × 220)', width: 640, height: 220 },
-] as const
+const HERO_SIZES: Record<string, { label: string; desktop: [number, number]; mobile: [number, number] }> = {
+  standard: {
+    label: 'Standard',
+    desktop: [1440, 320],
+    mobile: [640, 220],
+  },
+  tall: {
+    label: 'Tall',
+    desktop: [1440, 480],
+    mobile: [640, 320],
+  },
+}
 
 export function HeroImageInput(props: ObjectInputProps) {
   const client = useClient({ apiVersion: '2024-01-01' })
   const builder = useMemo(() => imageUrlBuilder(client), [client])
 
-  // The value is the image object with asset, hotspot, crop
+  // Read sibling heroSize field
+  const heroSize = (useFormValue(['heroSize']) as string) || 'standard'
   const imageValue = props.value as any
+
+  const sizeConfig = HERO_SIZES[heroSize]
 
   const previewUrls = useMemo(() => {
     if (!imageValue?.asset?._ref) return []
-    return HERO_PREVIEWS.map((p) => ({
-      ...p,
-      url: builder
-        .image(imageValue)
-        .width(p.width)
-        .height(p.height)
-        .fit('crop')
-        .auto('format')
-        .url(),
-    }))
-  }, [imageValue, builder])
+
+    // "full" mode — show the image at natural aspect ratio (no height constraint)
+    if (!sizeConfig) {
+      return [
+        {
+          label: 'Full — image at natural aspect ratio (no crop)',
+          width: 1440,
+          height: null as number | null,
+          url: builder
+            .image(imageValue)
+            .width(1440)
+            .fit('crop')
+            .auto('format')
+            .url(),
+        },
+      ]
+    }
+
+    const [dw, dh] = sizeConfig.desktop
+    const [mw, mh] = sizeConfig.mobile
+    return [
+      {
+        label: `Desktop Hero (${dw} × ${dh})`,
+        width: dw,
+        height: dh,
+        url: builder.image(imageValue).width(dw).height(dh).fit('crop').auto('format').url(),
+      },
+      {
+        label: `Mobile Hero (${mw} × ${mh})`,
+        width: mw,
+        height: mh,
+        url: builder.image(imageValue).width(mw).height(mh).fit('crop').auto('format').url(),
+      },
+    ]
+  }, [imageValue, builder, sizeConfig])
 
   return (
     <Stack space={4}>
@@ -49,7 +83,7 @@ export function HeroImageInput(props: ObjectInputProps) {
         <Card padding={4} radius={2} shadow={1} tone="transparent">
           <Stack space={4}>
             <Text size={1} weight="semibold" muted>
-              🖼️ Hero Banner Preview — this is how it will appear on the event page
+              🖼️ Hero Banner Preview ({heroSize === 'full' ? 'Full' : sizeConfig?.label || 'Standard'})
             </Text>
             {previewUrls.map((preview) => (
               <Stack space={2} key={preview.label}>
@@ -59,32 +93,47 @@ export function HeroImageInput(props: ObjectInputProps) {
                 <Card
                   radius={2}
                   overflow="hidden"
-                  style={{
-                    position: 'relative',
-                    width: '100%',
-                    paddingBottom: `${(preview.height / preview.width) * 100}%`,
-                    background: '#f0f0f0',
-                  }}
+                  style={
+                    preview.height
+                      ? {
+                          position: 'relative' as const,
+                          width: '100%',
+                          paddingBottom: `${(preview.height / preview.width) * 100}%`,
+                          background: '#f0f0f0',
+                        }
+                      : {
+                          width: '100%',
+                          background: '#f0f0f0',
+                        }
+                  }
                 >
                   <img
                     src={preview.url}
                     alt={preview.label}
-                    style={{
-                      position: 'absolute',
-                      top: 0,
-                      left: 0,
-                      width: '100%',
-                      height: '100%',
-                      objectFit: 'cover',
-                      display: 'block',
-                    }}
+                    style={
+                      preview.height
+                        ? {
+                            position: 'absolute' as const,
+                            top: 0,
+                            left: 0,
+                            width: '100%',
+                            height: '100%',
+                            objectFit: 'cover' as const,
+                            display: 'block',
+                          }
+                        : {
+                            width: '100%',
+                            height: 'auto',
+                            display: 'block',
+                          }
+                    }
                   />
                 </Card>
               </Stack>
             ))}
             <Text size={0} muted style={{ lineHeight: 1.4 }}>
-              💡 Tip: Use the crop & hotspot tool above to control what's visible.
-              Keep important content (faces, text) within the center of the image.
+              💡 Use the crop & hotspot tool above to control what's visible.
+              Change "Hero Banner Size" below to see different preview sizes.
             </Text>
           </Stack>
         </Card>

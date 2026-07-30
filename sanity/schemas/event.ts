@@ -185,10 +185,33 @@ export default defineType({
       components: { input: HeroImageInput },
     }),
     defineField({
+      name: 'heroSize',
+      title: 'Hero Banner Size',
+      type: 'string',
+      description: 'Standard works for most events. Use Tall or Full for designed graphics where you need more vertical space.',
+      options: {
+        list: [
+          { title: 'Standard (default)', value: 'standard' },
+          { title: 'Tall — more vertical space', value: 'tall' },
+          { title: 'Full — image determines height', value: 'full' },
+        ],
+        layout: 'radio',
+        direction: 'horizontal',
+      },
+      initialValue: 'standard',
+    }),
+    defineField({
       name: 'headerImageAlt',
       title: 'Hero Image Alt Text',
       type: 'string',
       description: 'Describe the image for accessibility. If blank, the event title is used.',
+    }),
+    defineField({
+      name: 'thumbnailImage',
+      title: 'Thumbnail Image (optional)',
+      type: 'image',
+      options: { hotspot: true },
+      description: 'Square image for event cards on the listing page. If empty, the hero image is used with a square crop.',
     }),
     defineField({
       name: 'cost',

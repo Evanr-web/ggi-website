@@ -25,12 +25,13 @@ interface Props {
   ctaHref?: string;
   ctaStatus?: 'active' | 'closed' | 'notify';
   artFilter?: boolean;
+  heroSize?: 'standard' | 'tall' | 'full';
   imagePosition?: string;
   description?: string;
   ogImage?: string;
 }
 
-const { title, date, endDate, location, locationAddress, mapLat, mapLng, showMap = false, cost, image, imageAlt = '', tag, past = false, ctaText, ctaHref, ctaStatus = 'active', artFilter = false, imagePosition, description, ogImage } = Astro.props;
+const { title, date, endDate, location, locationAddress, mapLat, mapLng, showMap = false, cost, image, imageAlt = '', tag, past = false, ctaText, ctaHref, ctaStatus = 'active', artFilter = false, heroSize = 'standard', imagePosition, description, ogImage } = Astro.props;
 const base = import.meta.env.BASE_URL;
 
 const formatDate = (d: string) => {
@@ -48,7 +49,7 @@ const formatDate = (d: string) => {
 
 <BaseLayout title={`${title} — Gregory the Great Institute`} description={description} ogImage={ogImage}>
   {image && (
-    <div class="event-hero">
+    <div class={`event-hero event-hero--${heroSize}`}>
       <img src={image.startsWith('/') ? `${base}${image.slice(1)}` : image} alt={imageAlt} class={`event-hero__img${artFilter ? ' art-filter' : ''}`} />
     </div>
   )}
@@ -150,6 +151,7 @@ const formatDate = (d: string) => {
 </BaseLayout>
 
 <style>
+  /* Hero banner — standard (default) */
   .event-hero {
     width: 100%;
     height: 320px;
@@ -160,6 +162,22 @@ const formatDate = (d: string) => {
     width: 100%;
     height: 100%;
     object-fit: cover;
+  }
+
+  /* Tall hero — more vertical space for graphics */
+  .event-hero--tall {
+    height: 480px;
+  }
+
+  /* Full hero — image determines height, no crop */
+  .event-hero--full {
+    height: auto;
+    overflow: visible;
+  }
+
+  .event-hero--full .event-hero__img {
+    height: auto;
+    object-fit: contain;
   }
 
   .event-detail {
@@ -378,6 +396,8 @@ const formatDate = (d: string) => {
 
   @media (max-width: 640px) {
     .event-hero { height: 220px; }
+    .event-hero--tall { height: 320px; }
+    .event-hero--full { height: auto; }
     .event-detail__header h1 { font-size: 1.6rem; }
   }
 </style>

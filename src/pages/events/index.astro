@@ -32,7 +32,7 @@ const events = sanityEvents
       description: e.shortDescription || '',
       href: `${base}events/${e.slug?.current}/`,
       programTag: e.programTag || (e.template ? e.template.charAt(0).toUpperCase() + e.template.slice(1) : ''),
-      thumbnail: imageUrl(e.headerImage, 400, 400) || '',
+      thumbnail: imageUrl(e.thumbnailImage || e.headerImage, 400, 400) || '',
       thumbnailAlt: e.title,
     };
   });
