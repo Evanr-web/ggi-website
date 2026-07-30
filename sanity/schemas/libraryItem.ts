@@ -124,6 +124,57 @@ export default defineType({
             },
           ],
         },
+        {
+          type: 'object',
+          name: 'inlineVideo',
+          title: 'Video',
+          fields: [
+            {
+              name: 'title',
+              title: 'Title',
+              type: 'string',
+              description: 'Optional caption shown below the video.',
+            },
+            {
+              name: 'source',
+              title: 'Source',
+              type: 'string',
+              options: {
+                list: [
+                  { title: 'Upload File (short clips, MP4 recommended)', value: 'upload' },
+                  { title: 'YouTube URL', value: 'youtube' },
+                ],
+                layout: 'radio',
+              },
+              initialValue: 'youtube',
+              validation: (Rule: any) => Rule.required(),
+            },
+            {
+              name: 'file',
+              title: 'Video File',
+              type: 'file',
+              description: 'MP4 recommended for best compatibility. Max ~100MB.',
+              options: { accept: 'video/mp4,video/quicktime,video/webm' },
+              hidden: ({ parent }: any) => parent?.source !== 'upload',
+            },
+            {
+              name: 'youtubeUrl',
+              title: 'YouTube URL',
+              type: 'url',
+              description: 'Full YouTube URL (e.g. https://youtube.com/watch?v=...)',
+              hidden: ({ parent }: any) => parent?.source !== 'youtube',
+            },
+          ],
+          preview: {
+            select: { title: 'title', source: 'source' },
+            prepare({ title, source }: any) {
+              return {
+                title: title || 'Video',
+                subtitle: source === 'youtube' ? '🔴 YouTube' : '📁 Uploaded',
+              };
+            },
+          },
+        },
       ],
     }),
     defineField({

@@ -167,7 +167,8 @@ export async function getEvent(slug: string) {
     "headerImage": headerImage{asset->{url, _id}, hotspot, crop},
     body[]{
       ...,
-      _type == "image" => { "url": asset->url, size, float, alt }
+      _type == "image" => { "url": asset->url, size, float, alt },
+      _type == "inlineVideo" => { title, source, "fileUrl": file.asset->url, youtubeUrl }
     },
     "speakers": speakers[]{
       ...,
@@ -201,7 +202,8 @@ export async function getLibraryArticle(slug: string) {
     featuredImage { asset-> },
     body[]{
       ...,
-      _type == "image" => { "url": asset->url, size, float, alt }
+      _type == "image" => { "url": asset->url, size, float, alt },
+      _type == "inlineVideo" => { title, source, "fileUrl": file.asset->url, youtubeUrl }
     },
     gallery[]{
       caption,

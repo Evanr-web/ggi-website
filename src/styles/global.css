@@ -623,6 +623,29 @@ body > div[style*="z-index: 10000"]:not([style*="background-color"]) {
   clear: both;
 }
 
+/* === Inline Video Embeds === */
+.article__video-embed {
+  margin: 24px 0;
+}
+
+.article__video-wrapper {
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9 */
+  height: 0;
+  overflow: hidden;
+  border-radius: 3px;
+}
+
+.article__video-wrapper iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 3px;
+}
+
 @media (max-width: 640px) {
   .article__figure--medium {
     width: 70%;
