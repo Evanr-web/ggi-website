@@ -109,7 +109,7 @@ export async function getHomepage() {
 // Upcoming events (next 3 by date)
 export async function getUpcomingEvents(limit = 3) {
   const today = new Date().toISOString().split('T')[0];
-  return sanityClient.fetch(`*[_type == "event" && date >= $today] | order(date asc) [0...$limit]{
+  return sanityClient.fetch(`*[_type == "event" && enabled != false && date >= $today] | order(date asc) [0...$limit]{
     _id,
     title,
     slug,
@@ -140,7 +140,7 @@ export async function getLatestLibraryItems(limit = 3) {
 // Events
 export async function getEvents(status?: string) {
   const filter = status ? `&& status == "${status}"` : '';
-  return sanityClient.fetch(`*[_type == "event" ${filter}] | order(date asc) {
+  return sanityClient.fetch(`*[_type == "event" && enabled != false ${filter}] | order(date asc) {
     _id,
     title,
     slug,
