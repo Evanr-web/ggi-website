@@ -18,9 +18,10 @@ interface Props {
   zeffyFormUrl?: string;
   notifyTag?: string;
   eventTitle?: string;
+  registrationSubtitle?: string;
 }
 
-const { status, zeffyFormUrl, notifyTag, eventTitle } = Astro.props;
+const { status, zeffyFormUrl, notifyTag, eventTitle, registrationSubtitle } = Astro.props;
 ---
 
 <div id="register" class="event-registration">
@@ -56,7 +57,7 @@ const { status, zeffyFormUrl, notifyTag, eventTitle } = Astro.props;
     <div class="event-registration__header">
       <p class="label text-gold">Registration</p>
       <h2>Register Now</h2>
-      <p class="event-registration__subtitle">Tickets include all sessions, meals, and materials.</p>
+      {registrationSubtitle && <p class="event-registration__subtitle">{registrationSubtitle}</p>}
     </div>
     <div class="event-registration__zeffy">
       <div data-zeffy-embed data-form-url={zeffyFormUrl}></div>

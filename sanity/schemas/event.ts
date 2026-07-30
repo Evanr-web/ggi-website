@@ -192,6 +192,13 @@ export default defineType({
       initialValue: 'coming-soon',
     }),
     defineField({
+      name: 'registrationSubtitle',
+      title: 'Registration Subtitle',
+      type: 'string',
+      description: 'Optional text shown below "Register Now" (e.g. "Tickets include meals and materials"). Leave blank to show nothing.',
+      hidden: ({ parent }) => parent?.registrationStatus !== 'open',
+    }),
+    defineField({
       name: 'zeffyFormUrl',
       title: 'Zeffy Form URL',
       type: 'string',

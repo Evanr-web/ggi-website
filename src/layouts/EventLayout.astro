@@ -35,9 +35,10 @@ const base = import.meta.env.BASE_URL;
 
 const formatDate = (d: string) => {
   if (!d) return '';
-  // Handle both date-only ("2026-10-02") and full ISO ("2026-08-01T14:00:00.000Z") formats
-  const dateOnly = d.includes('T') ? d.split('T')[0] : d;
-  const dt = new Date(dateOnly + 'T12:00:00');
+  // For full ISO datetimes ("2026-08-01T14:00:00.000Z"), parse directly so
+  // timezone conversion gives the correct local date.
+  // For date-only strings ("2026-10-02"), anchor at noon to avoid date drift.
+  const dt = d.includes('T') ? new Date(d) : new Date(d + 'T12:00:00');
   if (isNaN(dt.getTime())) return d; // fallback to raw string
   return dt.toLocaleDateString('en-CA', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
 };
