@@ -36,6 +36,27 @@ export function renderPortableText(body: any): string {
           const cls = `article__figure article__figure--${size}` + (float !== 'none' ? ` article__figure--${float}` : '');
           return '<figure class="' + cls + '"><img src="' + url + '" alt="' + alt + '" style="width:100%;border-radius:3px;" />' + caption + '</figure>';
         },
+        bodyImage: ({ value }: { value: any }) => {
+          const alt = value?.alt || '';
+          const size = value?.size || 'full';
+          const float = value?.float || 'none';
+          let url = '';
+          const img = value?.image;
+          if (img?.asset) {
+            try {
+              const width = size === 'small' ? 300 : size === 'medium' ? 600 : 1200;
+              url = urlFor(img).width(width).fit('crop').auto('format').url();
+            } catch {
+              url = img.asset?.url || '';
+            }
+          }
+          if (!url) return '';
+          const caption = alt
+            ? '<figcaption style="text-align:center;font-size:0.85rem;color:var(--color-gray,#666);margin-top:8px;">' + alt + '</figcaption>'
+            : '';
+          const cls = `article__figure article__figure--${size}` + (float !== 'none' ? ` article__figure--${float}` : '');
+          return '<figure class="' + cls + '"><img src="' + url + '" alt="' + alt + '" style="width:100%;border-radius:3px;" />' + caption + '</figure>';
+        },
         inlineVideo: ({ value }: { value: any }) => {
           const title = value?.title || '';
           const caption = title

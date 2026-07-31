@@ -169,6 +169,7 @@ export async function getEvent(slug: string) {
     body[]{
       ...,
       _type == "image" => { asset->{url, _id}, hotspot, crop, size, float, alt },
+      _type == "bodyImage" => { image{asset->{url, _id}, hotspot, crop}, size, float, alt },
       _type == "inlineVideo" => { title, source, "fileUrl": file.asset->url, youtubeUrl }
     },
     "speakers": speakers[]{
@@ -204,6 +205,7 @@ export async function getLibraryArticle(slug: string) {
     body[]{
       ...,
       _type == "image" => { asset->{url, _id}, hotspot, crop, size, float, alt },
+      _type == "bodyImage" => { image{asset->{url, _id}, hotspot, crop}, size, float, alt },
       _type == "inlineVideo" => { title, source, "fileUrl": file.asset->url, youtubeUrl }
     },
     gallery[]{

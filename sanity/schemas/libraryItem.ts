@@ -81,49 +81,7 @@ export default defineType({
       type: 'array',
       of: [
         { type: 'block' },
-        {
-          type: 'image',
-          options: { hotspot: true },
-          fields: [
-            {
-              name: 'size',
-              title: 'Size',
-              type: 'string',
-              description: 'How wide the image appears. "Small" works well for headshots beside text.',
-              options: {
-                list: [
-                  { title: 'Small (inline, beside text)', value: 'small' },
-                  { title: 'Medium (half width)', value: 'medium' },
-                  { title: 'Full width (default)', value: 'full' },
-                ],
-                layout: 'radio',
-              },
-              initialValue: 'full',
-            },
-            {
-              name: 'float',
-              title: 'Position',
-              type: 'string',
-              description: 'Float the image left or right so text wraps around it. Only applies to Small and Medium sizes.',
-              options: {
-                list: [
-                  { title: 'Left', value: 'left' },
-                  { title: 'Right', value: 'right' },
-                  { title: 'Centre (own line)', value: 'none' },
-                ],
-                layout: 'radio',
-              },
-              initialValue: 'none',
-              hidden: ({ parent }: any) => !parent?.size || parent?.size === 'full',
-            },
-            {
-              name: 'alt',
-              title: 'Alt Text',
-              type: 'string',
-              description: 'Describe the image for accessibility. Also used as caption if provided.',
-            },
-          ],
-        },
+        { type: 'bodyImage' },
         {
           type: 'object',
           name: 'inlineVideo',

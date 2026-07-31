@@ -61,6 +61,23 @@ const bodyHtml = article.body ? toHTML(article.body, {
         const caption = alt ? `<figcaption style="text-align:center;font-size:0.85rem;color:var(--color-gray,#666);margin-top:8px;">${alt}</figcaption>` : '';
         return `<figure class="${cls}"><img src="${url}" alt="${alt}" class="article__inline-img" loading="lazy" />${caption}</figure>`;
       },
+      bodyImage: ({value}: any) => {
+        const img = value?.image;
+        let url = '';
+        if (img?.asset) {
+          try {
+            url = sanityImageUrl(img, value?.size === 'small' ? 300 : value?.size === 'medium' ? 600 : 1200) || img.asset?.url || '';
+          } catch {
+            url = img.asset?.url || '';
+          }
+        }
+        const alt = value?.alt || '';
+        const size = value?.size || 'full';
+        const float = value?.float || 'none';
+        const cls = `article__figure article__figure--${size}` + (float !== 'none' ? ` article__figure--${float}` : '');
+        const caption = alt ? `<figcaption style="text-align:center;font-size:0.85rem;color:var(--color-gray,#666);margin-top:8px;">${alt}</figcaption>` : '';
+        return `<figure class="${cls}"><img src="${url}" alt="${alt}" class="article__inline-img" loading="lazy" />${caption}</figure>`;
+      },
       inlineVideo: ({value}: any) => {
         const title = value?.title || '';
         const caption = title ? `<figcaption style="text-align:center;font-size:0.85rem;color:var(--color-gray,#666);margin-top:8px;">${title}</figcaption>` : '';

@@ -13,6 +13,7 @@ import readingGroup from './readingGroup';
 import tag from './tag';
 import leadMagnet from './leadMagnet';
 import mediaPage from './mediaPage';
+import bodyImage from './bodyImage';
 
 export const schemaTypes = [
   // Singletons
@@ -33,4 +34,5 @@ export const schemaTypes = [
   readingGroup,
   tag,
   leadMagnet,
+  bodyImage,
 ];
