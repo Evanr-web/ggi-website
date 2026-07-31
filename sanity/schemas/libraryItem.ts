@@ -81,6 +81,7 @@ export default defineType({
       type: 'array',
       of: [
         { type: 'block' },
+        { type: 'image', options: { hotspot: true } },
         { type: 'bodyImage' },
         {
           type: 'object',
