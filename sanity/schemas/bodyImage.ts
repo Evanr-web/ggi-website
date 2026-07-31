@@ -3,7 +3,7 @@ import { ImageIcon } from '@sanity/icons';
 
 export default defineType({
   name: 'bodyImage',
-  title: 'Custom Image',
+  title: 'Image',
   type: 'object',
   icon: ImageIcon,
   fields: [

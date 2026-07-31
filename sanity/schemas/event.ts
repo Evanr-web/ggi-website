@@ -80,8 +80,8 @@ export default defineType({
       type: 'array',
       of: [
         { type: 'block' },
-        { type: 'image', options: { hotspot: true } },
         { type: 'bodyImage' },
+        { type: 'image', title: '⚠️ Legacy Image (do not use)', options: { hotspot: true } },
         {
           type: 'object',
           name: 'inlineVideo',
