@@ -81,7 +81,6 @@ export default defineType({
       of: [
         { type: 'block' },
         { type: 'bodyImage' },
-        { type: 'image', title: '⚠️ Legacy Image (do not use)', options: { hotspot: true } },
         {
           type: 'object',
           name: 'inlineVideo',
@@ -133,6 +132,7 @@ export default defineType({
             },
           },
         },
+        { type: 'image', title: '⚠️ Legacy Image (do not use)', options: { hotspot: true } },
       ],
     }),
     defineField({
