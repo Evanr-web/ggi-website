@@ -18,6 +18,24 @@ const base = import.meta.env.BASE_URL;
     </div>
   </section>
 
+  <!-- One-Time Gift Banner -->
+  <section class="onetime-banner">
+    <div class="onetime-banner__inner container">
+      <div class="onetime-banner__icon">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      </div>
+      <div class="onetime-banner__text">
+        <div class="onetime-banner__headline">Make a One-Time Gift</div>
+        <div class="onetime-banner__sub">Every contribution builds Catholic culture in Canada. Give once, make a lasting impact.</div>
+      </div>
+      <div class="onetime-banner__actions">
+        <a href="#" class="onetime-banner__btn" zeffy-form-link="https://www.zeffy.com/embed/donation-form/gregory-the-great-institute-for-cultural-renewal?modal=true">Give Now →</a>
+        <a href="#monthly" class="onetime-banner__monthly-link">Or see monthly plans ↓</a>
+      </div>
+    </div>
+  </section>
+  <script is:inline src="https://zeffy-scripts.s3.ca-central-1.amazonaws.com/embed-form-script.min.js"></script>
+
   <!-- Case for Support -->
   <section class="section">
     <div class="container case-section reveal">
@@ -51,7 +69,7 @@ const base = import.meta.env.BASE_URL;
   </section>
 
   <!-- Giving Tiers -->
-  <section class="section section--linen" style="padding-top: 36px;">
+  <section id="monthly" class="section section--linen" style="padding-top: 36px;">
     <div class="container">
       <div class="section-header">
         <p class="label text-gold">Join the Mission</p>
@@ -198,7 +216,7 @@ const base = import.meta.env.BASE_URL;
       <p style="font-family: var(--font-body); font-size: 1rem; color: var(--color-gray); margin-bottom: 24px; line-height: 1.7;">
         Prefer to make a one-time gift? Every contribution builds Catholic culture in Canada.
       </p>
-      <Button href={`${import.meta.env.BASE_URL}support/donate/`} variant="primary">Make a Gift</Button>
+      <a href="#" class="onetime-bottom-btn" zeffy-form-link="https://www.zeffy.com/embed/donation-form/gregory-the-great-institute-for-cultural-renewal?modal=true">Make a Gift</a>
     </div>
   </section>
 
@@ -232,6 +250,118 @@ const base = import.meta.env.BASE_URL;
 </BaseLayout>
 
 <style>
+  /* One-Time Gift Banner */
+  .onetime-banner {
+    background: linear-gradient(135deg, #0e3352 0%, #142d45 100%);
+    padding: 28px 0;
+    border-bottom: 3px solid var(--color-gold);
+  }
+
+  .onetime-banner__inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    flex-wrap: wrap;
+    max-width: 760px;
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  .onetime-banner__icon {
+    color: var(--color-gold);
+    flex-shrink: 0;
+  }
+
+  .onetime-banner__text {
+    flex: 1;
+    min-width: 200px;
+  }
+
+  .onetime-banner__headline {
+    font-family: var(--font-display);
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 4px;
+  }
+
+  .onetime-banner__sub {
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    color: rgba(245, 239, 229, 0.75);
+    line-height: 1.5;
+  }
+
+  .onetime-banner__actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+  }
+
+  .onetime-banner__btn {
+    display: inline-block;
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    font-weight: 700;
+    padding: 14px 36px;
+    background-color: var(--color-gold);
+    color: var(--color-navy);
+    border-radius: 3px;
+    text-decoration: none;
+    letter-spacing: 0.02em;
+    transition: all 150ms ease;
+  }
+
+  .onetime-banner__btn:hover {
+    background-color: #d4b35a;
+  }
+
+  .onetime-banner__monthly-link {
+    font-family: var(--font-ui);
+    font-size: 0.78rem;
+    color: rgba(245, 239, 229, 0.5);
+    text-decoration: none;
+    transition: color 150ms ease;
+  }
+
+  .onetime-banner__monthly-link:hover {
+    color: rgba(245, 239, 229, 0.8);
+  }
+
+  @media (max-width: 600px) {
+    .onetime-banner__inner {
+      flex-direction: column;
+      gap: 16px;
+      padding-inline: 24px;
+    }
+
+    .onetime-banner__icon {
+      display: none;
+    }
+  }
+
+  /* Bottom One-Time Gift Button */
+  .onetime-bottom-btn {
+    display: inline-block;
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-parchment);
+    background-color: var(--color-crimson);
+    padding: 14px 32px;
+    border-radius: 3px;
+    text-decoration: none;
+    transition: all 150ms ease;
+    cursor: pointer;
+  }
+
+  .onetime-bottom-btn:hover {
+    background-color: #6b2124;
+  }
+
   .hero-compact {
     position: relative;
     min-height: 360px;
