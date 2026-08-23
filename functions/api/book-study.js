@@ -11,7 +11,6 @@ export async function onRequestPost(context) {
   try {
     const body = await context.request.json();
 
-    // Turnstile verification
     const turnstile = await verifyTurnstile(context.request, context.env, body);
     if (!turnstile.success) {
       return jsonResponse({ error: turnstile.error }, 403, origin);
@@ -23,11 +22,7 @@ export async function onRequestPost(context) {
 
     const email = sanitize(body.email, 254);
     const name = sanitize(body.name, 200);
-    const province = sanitize(body.province, 50);
-    const city = sanitize(body.city, 100);
-    const otherCity = sanitize(body.other_city, 100);
     const interest = sanitize(body.interest, 50);
-    const hostCount = sanitize(body.host_count, 20);
     const wantsMagnalia = body.magnalia_letter === 'yes';
 
     if (!isValidEmail(email)) {
@@ -37,39 +32,39 @@ export async function onRequestPost(context) {
       return jsonResponse({ error: 'Name is required' }, 400, origin);
     }
 
-    // Split name into first/last
     const nameParts = name.trim().split(/\s+/);
     const firstName = nameParts[0];
     const lastName = nameParts.slice(1).join(' ');
 
-    // Map interest type to status tag
+    // Tags: interest:book-study + source:website + specific interest type
+    const tags = ['54', '35'];  // interest:book-study, source:website
+
     const interestTagMap = {
-      join: '29',    // book-study:join
-      waitlist: '30', // book-study:waitlist
-      host: '31',    // book-study:host
-      online: '29',  // book-study:join
+      join: '29',      // book-study:join
+      waitlist: '30',  // book-study:waitlist
+      host: '31',      // book-study:host (→ also role:book-study-leader)
+      online: '29',    // book-study:join
     };
 
-    const tags = ['14']; // book-study (base interest tag)
     if (interestTagMap[interest]) {
       tags.push(interestTagMap[interest]);
     }
-
-    // Lists: Book Study (9) + optionally Magnalia Letter (4)
-    const lists = ['9'];
-    if (wantsMagnalia) {
-      lists.push('4');
-      tags.push('interest:magnalia-letter');
+    if (interest === 'host') {
+      tags.push('62');  // role:book-study-leader
     }
 
-    // Add to primary list (Book Study)
+    // Subscribe to Institute Events list (book studies are events)
     const contactId = await addContact(context.env, {
       email,
       firstName,
       lastName,
-      listId: lists[0],
+      listId: '18',              // Institute Events (new)
       tags,
-      fields: {},
+      fields: {
+        '21': 'Express',
+        '22': 'book-study-form',
+        '23': new Date().toISOString().slice(0, 10),
+      },
       utmData: {
         utm_source: body.utm_source,
         utm_medium: body.utm_medium,
@@ -79,7 +74,7 @@ export async function onRequestPost(context) {
       },
     });
 
-    // Subscribe to Magnalia Letter list if checked
+    // Also subscribe to Newsletter if they opted in
     if (wantsMagnalia && contactId) {
       const AC_URL = context.env.AC_API_URL;
       const AC_KEY = context.env.AC_API_KEY;
@@ -90,7 +85,7 @@ export async function onRequestPost(context) {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          contactList: { list: '4', contact: contactId, status: 1 },
+          contactList: { list: '17', contact: contactId, status: 1 },
         }),
       });
     }

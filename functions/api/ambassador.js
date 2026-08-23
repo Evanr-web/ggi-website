@@ -12,7 +12,6 @@ export async function onRequestPost(context) {
   try {
     const body = await context.request.json();
 
-    // Turnstile verification
     const turnstile = await verifyTurnstile(context.request, context.env, body);
     if (!turnstile.success) {
       return jsonResponse({ error: turnstile.error }, 403, origin);
@@ -25,11 +24,6 @@ export async function onRequestPost(context) {
     email = sanitize(body.email, 254);
     const firstName = sanitize(body.firstName, 100);
     const lastName = sanitize(body.lastName, 100);
-    const city = sanitize(body.city, 100);
-    const province = sanitize(body.province, 100);
-    const connection = sanitize(body.connection, 1000);
-    const community = sanitize(body.community, 1000);
-    const ideas = sanitize(body.ideas, 1000);
 
     if (!isValidEmail(email)) {
       return jsonResponse({ error: 'Please enter a valid email address' }, 400, origin);
@@ -42,8 +36,13 @@ export async function onRequestPost(context) {
       email,
       firstName,
       lastName,
-      listId: '5',
-      tags: ['2'],
+      listId: null,                  // No list — role tag is sufficient
+      tags: ['61', '35'],            // role:ambassador-applicant, source:website
+      fields: {
+        '21': 'Express',             // Consent Status (they applied, that's express)
+        '22': 'ambassador-form',     // Consent Source
+        '23': new Date().toISOString().slice(0, 10),
+      },
       utmData: {
         utm_source: body.utm_source,
         utm_medium: body.utm_medium,

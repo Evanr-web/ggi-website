@@ -22,7 +22,13 @@ export async function addContact(env, { email, firstName, lastName, listId, tags
   const AC_KEY = env.AC_API_KEY;
 
   // Build field values from explicit fields + UTM data
-  const fieldValues = Object.entries(fields).map(([field, value]) => ({ field, value }));
+  // Fields can be simple strings or objects with {value, overwrite}
+  const fieldValues = Object.entries(fields).map(([field, val]) => {
+    if (typeof val === 'object' && val !== null && 'value' in val) {
+      return { field, value: val.value, overwrite: val.overwrite ?? 1 };
+    }
+    return { field, value: val };
+  });
 
   // Append UTM fields if we have field IDs configured
   // first_* fields: set only on first contact creation (AC handles via "overwrite: 0" below)

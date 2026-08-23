@@ -1,4 +1,4 @@
-// POST /api/event-interest — Event registration / "Get Notified" signups
+// POST /api/event-interest — Event "Get Notified" / interest signups
 import { addContact, jsonResponse, corsHeaders, isValidEmail, sanitize, checkHoneypot, logError, verifyTurnstile } from './_shared.js';
 
 export async function onRequestOptions(context) {
@@ -11,7 +11,6 @@ export async function onRequestPost(context) {
   try {
     const body = await context.request.json();
 
-    // Turnstile verification
     const turnstile = await verifyTurnstile(context.request, context.env, body);
     if (!turnstile.success) {
       return jsonResponse({ error: turnstile.error }, 403, origin);
@@ -24,8 +23,6 @@ export async function onRequestPost(context) {
     const email = sanitize(body.email, 254);
     const firstName = sanitize(body.firstName, 100);
     const lastName = sanitize(body.lastName, 100);
-    const interestType = sanitize(body.interestType, 50); // 'notify' | 'register'
-    const message = sanitize(body.message, 1000);
 
     if (!isValidEmail(email)) {
       return jsonResponse({ error: 'Please enter a valid email address' }, 400, origin);
@@ -34,24 +31,18 @@ export async function onRequestPost(context) {
       return jsonResponse({ error: 'First name is required' }, 400, origin);
     }
 
-    // Build tags based on event
-    const tags = ['19']; // source:website-form
+    // Tags: source:website + interest:events (base)
+    const tags = ['35', '32'];  // source:website, interest:events
 
-    // Map event slugs to interest tags
+    // Map specific event interests to tags
     const eventTagMap = {
-      'conference-2026': '11',  // event-conference-2026
-      'music-camp-2026': '12',  // event-music-camp-2026
-      'finances-101': '13',     // event-finances-101
-      'masterclass': '23',      // interest:masterclass
-      'book-study-sep-2026': '14',  // book-study tag
-      'book-study-feb-2026': '14',
-      'book-study-may-2026': '14',
-      'prayer-breakfast-2026': '21', // source:event tag
+      'conference': '74',        // campaign:conference-2026
+      'music-camp': '12',        // event-music-camp-2026 (legacy, keep for now)
+      'masterclass': '23',       // interest:masterclass
+      'book-study': '54',        // interest:book-study
     };
 
-    // Support both single event (backward compat) and multiple events
     const events = Array.isArray(body.events) ? body.events : (body.event ? [body.event] : []);
-
     for (const eventSlug of events) {
       const slug = sanitize(eventSlug, 100);
       if (eventTagMap[slug]) {
@@ -59,19 +50,17 @@ export async function onRequestPost(context) {
       }
     }
 
-    // Always add source:event tag as fallback
-    if (!tags.includes('21')) {
-      tags.push('21');
-    }
-
-    // List 6 = Event Attendees
     const contactId = await addContact(context.env, {
       email,
       firstName,
       lastName,
-      listId: '6',
+      listId: '18',              // Institute Events (new)
       tags,
-      fields: {},
+      fields: {
+        '21': 'Express',         // Consent Status (they asked to be notified)
+        '22': 'event-interest-form',
+        '23': new Date().toISOString().slice(0, 10),
+      },
       utmData: {
         utm_source: body.utm_source,
         utm_medium: body.utm_medium,

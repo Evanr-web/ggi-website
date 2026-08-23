@@ -1,4 +1,4 @@
-// POST /api/leadership — Leadership Circle inquiry form
+// POST /api/leadership — Leadership Circle / Think Tank inquiry
 import { addContact, jsonResponse, corsHeaders, isValidEmail, sanitize, checkHoneypot, logError, verifyTurnstile } from './_shared.js';
 
 export async function onRequestOptions(context) {
@@ -11,7 +11,6 @@ export async function onRequestPost(context) {
   try {
     const body = await context.request.json();
 
-    // Turnstile verification
     const turnstile = await verifyTurnstile(context.request, context.env, body);
     if (!turnstile.success) {
       return jsonResponse({ error: turnstile.error }, 403, origin);
@@ -24,8 +23,6 @@ export async function onRequestPost(context) {
     const email = sanitize(body.email, 254);
     const firstName = sanitize(body.firstName, 100);
     const lastName = sanitize(body.lastName, 100);
-    const phone = sanitize(body.phone, 30);
-    const message = sanitize(body.message, 2000);
 
     if (!isValidEmail(email)) {
       return jsonResponse({ error: 'Please enter a valid email address' }, 400, origin);
@@ -34,17 +31,17 @@ export async function onRequestPost(context) {
       return jsonResponse({ error: 'Full name is required' }, 400, origin);
     }
 
-    // Tags: leadership inquiry + source
-    const tags = ['27', '19']; // leadership:inquiry, source:website-form
-
-    // List 12 = Leadership Inquiries
     const contactId = await addContact(context.env, {
       email,
       firstName,
       lastName,
-      listId: '12',
-      tags,
-      fields: {},
+      listId: null,                   // No list — tag-based tracking
+      tags: ['53', '35'],             // interest:think-tank, source:website
+      fields: {
+        '21': 'Express',
+        '22': 'leadership-form',
+        '23': new Date().toISOString().slice(0, 10),
+      },
       utmData: {
         utm_source: body.utm_source,
         utm_medium: body.utm_medium,

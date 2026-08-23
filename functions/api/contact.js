@@ -1,16 +1,6 @@
 // POST /api/contact — General contact form
 import { addContact, jsonResponse, corsHeaders, isValidEmail, sanitize, checkHoneypot, logError, verifyTurnstile } from './_shared.js';
 
-const SUBJECT_TAGS = {
-  general: '3',
-  speaker: '4',
-  magnalia: '5',
-  programs: '6',
-  support: '7',
-  volunteering: '18',
-  other: '3',
-};
-
 export async function onRequestOptions(context) {
   return new Response(null, { headers: corsHeaders(context.request.headers.get('Origin')) });
 }
@@ -22,7 +12,6 @@ export async function onRequestPost(context) {
   try {
     const body = await context.request.json();
 
-    // Turnstile verification
     const turnstile = await verifyTurnstile(context.request, context.env, body);
     if (!turnstile.success) {
       return jsonResponse({ error: turnstile.error }, 403, origin);
@@ -45,14 +34,19 @@ export async function onRequestPost(context) {
       return jsonResponse({ error: 'Message is required' }, 400, origin);
     }
 
-    const tagId = SUBJECT_TAGS[subject] || '3';
-
+    // No list subscription for general contact — just tag and track
+    // Set donor:prospect if they don't already have a donor tag (overwrite: 0)
     const contactId = await addContact(context.env, {
       email,
       firstName,
       lastName,
-      listId: '7',
-      tags: [tagId],
+      listId: null,            // No list for general contact
+      tags: ['35', '48'],      // source:website, donor:prospect
+      fields: {
+        '21': { value: 'Implied', overwrite: 0 },  // Consent Status (don't overwrite Express)
+        '22': { value: 'contact-form', overwrite: 0 }, // Consent Source
+        '23': new Date().toISOString().slice(0, 10),    // Consent Date
+      },
       utmData: {
         utm_source: body.utm_source,
         utm_medium: body.utm_medium,

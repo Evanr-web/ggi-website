@@ -1,4 +1,4 @@
-// POST /api/subscribe — Magnalia Letter signup
+// POST /api/subscribe — Magnalia Letter / Newsletter signup
 import { addContact, jsonResponse, corsHeaders, isValidEmail, sanitize, checkHoneypot, logError, verifyTurnstile } from './_shared.js';
 
 export async function onRequestOptions(context) {
@@ -12,15 +12,13 @@ export async function onRequestPost(context) {
   try {
     const body = await context.request.json();
 
-    // Turnstile verification
     const turnstile = await verifyTurnstile(context.request, context.env, body);
     if (!turnstile.success) {
       return jsonResponse({ error: turnstile.error }, 403, origin);
     }
 
-    // Honeypot check
     if (checkHoneypot(body)) {
-      return jsonResponse({ success: true, contactId: 'ok' }, 200, origin); // silent reject
+      return jsonResponse({ success: true, contactId: 'ok' }, 200, origin);
     }
 
     email = sanitize(body.email, 254);
@@ -35,8 +33,13 @@ export async function onRequestPost(context) {
       email,
       firstName,
       lastName,
-      listId: '4',
-      tags: ['1'],
+      listId: '17',           // Newsletter (new)
+      tags: ['35'],            // source:website
+      fields: {
+        '21': 'Express',      // Consent Status
+        '22': 'newsletter-signup', // Consent Source
+        '23': new Date().toISOString().slice(0, 10), // Consent Date
+      },
       utmData: {
         utm_source: body.utm_source,
         utm_medium: body.utm_medium,
