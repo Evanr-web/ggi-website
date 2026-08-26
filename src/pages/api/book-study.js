@@ -66,7 +66,10 @@ export async function POST({ request }) {
       lastName,
       listId: lists[0],
       tags,
-      fields: {},
+      fields: {
+        10: city || otherCity,
+        11: province,
+      },
       utmData: {
         utm_source: body.utm_source,
         utm_medium: body.utm_medium,
