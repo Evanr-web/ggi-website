@@ -34,6 +34,7 @@ const AC_FIELDS = {
   zeffySubscriptionId: '25',
   sourceImportDate: '26',
   phone: '27',
+  streetAddress: '9',
   city: '10',
   province: '11',
   postalCode: '12',
@@ -309,11 +310,27 @@ export async function onRequestPost(context) {
     const campaignTag = matchCampaignTag(payment.description);
     const campaignTagName = campaignTag?.tag || null;
 
-    // ── Buyer questions: newsletter opt-in, address, phone ──
-    let newsletterOptin = false;
+    // ── Address from Zeffy contact object (authoritative source) ──
+    let streetAddress = null;
     let city = null;
+    let province = null;
     let postalCode = null;
     let phone = null;
+
+    if (zeffyContact?.address) {
+      const addr = zeffyContact.address;
+      streetAddress = addr.line1 || null;
+      city = addr.city || null;
+      province = addr.state || null;
+      postalCode = addr.postal_code || null;
+    }
+
+    if (zeffyContact?.phone_number) {
+      phone = zeffyContact.phone_number;
+    }
+
+    // ── Buyer questions: newsletter opt-in + fallback address/phone ──
+    let newsletterOptin = false;
 
     for (const bq of payment.buyer_questions || []) {
       const q = (bq.question || '').toLowerCase();
@@ -323,7 +340,10 @@ export async function onRequestPost(context) {
           ['true', 'yes', '1'].includes(String(a).toLowerCase())) {
         newsletterOptin = true;
       }
+      // Fallback: use buyer_questions only if Zeffy contact didn't have the data
+      if ((q.includes('address') || q.includes('street')) && a && !streetAddress) streetAddress = a;
       if (q.includes('city') && a && !city) city = a;
+      if (q.includes('province') || q.includes('state') && a && !province) province = a;
       if (q.includes('postal') && a && !postalCode) postalCode = a;
       if (q.includes('phone') && a && !phone) phone = a;
     }
@@ -341,7 +361,9 @@ export async function onRequestPost(context) {
     if (firstGiftDate) fieldValues.push({ field: AC_FIELDS.firstGiftDate, value: firstGiftDate });
     if (lastGiftDate) fieldValues.push({ field: AC_FIELDS.lastGiftDate, value: lastGiftDate });
     if (zeffyContactId) fieldValues.push({ field: AC_FIELDS.zeffyContactId, value: zeffyContactId });
+    if (streetAddress) fieldValues.push({ field: AC_FIELDS.streetAddress, value: streetAddress });
     if (city) fieldValues.push({ field: AC_FIELDS.city, value: city });
+    if (province) fieldValues.push({ field: AC_FIELDS.province, value: province });
     if (postalCode) fieldValues.push({ field: AC_FIELDS.postalCode, value: postalCode });
     if (phone) fieldValues.push({ field: AC_FIELDS.phone, value: phone });
 
@@ -423,9 +445,15 @@ export async function onRequestPost(context) {
       }
     }
 
-    // Source tag
-    if (tagIds['source:event'] && payment.campaign_category === 'event') {
-      await addTag(env, contactId, tagIds['source:event']);
+    // Source tags
+    if (payment.campaign_category === 'event') {
+      if (tagIds['source:event']) {
+        await addTag(env, contactId, tagIds['source:event']);
+      }
+    } else {
+      if (tagIds['source:donation']) {
+        await addTag(env, contactId, tagIds['source:donation']);
+      }
     }
 
     const elapsed = Date.now() - startTime;
