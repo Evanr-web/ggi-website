@@ -107,6 +107,30 @@ function matchCampaignTag(description) {
   return null;
 }
 
+// ── Donation Classification ──
+// Returns true only for actual charitable donations/gifts.
+// Returns false for event tickets, Magnalia journal purchases, and other
+// non-charitable transactions so they do NOT inflate donor CRM fields.
+export function isDonation(payment) {
+  // Event ticket purchases are never donations
+  if ((payment.campaign_category || '').toLowerCase() === 'event') return false;
+
+  // Magnalia journal purchases and related commerce items are not donations
+  const desc = (payment.description || '').toLowerCase();
+  const nonDonationKeywords = [
+    'magnalia',
+    'single issue',
+    'bulk order',
+    'annual subscription',
+    'journal',
+  ];
+  for (const keyword of nonDonationKeywords) {
+    if (desc.includes(keyword)) return false;
+  }
+
+  return true;
+}
+
 // ── Tier Calculation ──
 function calculateTier(trailing12moCents) {
   const dollars = trailing12moCents / 100;
@@ -258,7 +282,11 @@ export async function onRequestPost(context) {
       console.log(`[zeffy-webhook] ${email}: no Zeffy contact found, using single payment`);
     }
 
-    // ── Calculate derived fields from ALL payments ──
+    // ── Calculate derived fields ──
+    // totalEngagement tracks ALL transaction value (donations + purchases + tickets)
+    // All giving/donor fields use ONLY actual charitable donation payments
+    const donationPayments = allPayments.filter(isDonation);
+
     const now = Date.now();
     const twelveMonthsAgo = now - (365 * 24 * 60 * 60 * 1000);
 
@@ -268,14 +296,18 @@ export async function onRequestPost(context) {
     let trailing12mo = 0;
     let firstGiftDate = null;
     let lastGiftDate = null;
-    let donationCount = allPayments.length;
+    let donationCount = donationPayments.length;
 
+    // Total engagement = all payments regardless of type
     for (const p of allPayments) {
-      const amt = p.amount || 0;
+      totalEngagement += (p.amount || 0);
+    }
+
+    // Giving fields = donation payments only
+    for (const p of donationPayments) {
       const eligible = p.eligible_amount || 0;
       const created = p.created ? p.created * 1000 : null; // unix seconds → ms
 
-      totalEngagement += amt;
       lifetimeEligible += eligible;
       if (eligible > largestGift) largestGift = eligible;
 
@@ -292,7 +324,11 @@ export async function onRequestPost(context) {
 
     const tier = calculateTier(trailing12mo);
 
-    // ── Determine donor tag ──
+    // Is the triggering payment itself a donation?
+    const paymentIsDonation = isDonation(payment);
+    console.log(`[zeffy-webhook] ${email}: payment isDonation=${paymentIsDonation} | ${donationPayments.length}/${allPayments.length} payments are donations`);
+
+    // ── Determine donor tag (only relevant when paymentIsDonation is true) ──
     let donorTag = 'donor:one-time';
     if (zeffyContact) {
       const dt = zeffyContact.donor_type;
@@ -349,17 +385,24 @@ export async function onRequestPost(context) {
     }
 
     // ── Build AC field values ──
+    // totalEngagement always updated — tracks all transaction value regardless of type
     const fieldValues = [
-      { field: AC_FIELDS.donorTier, value: tier },
-      { field: AC_FIELDS.trailing12mo, value: (trailing12mo / 100).toFixed(2) },
-      { field: AC_FIELDS.lifetimeGiving, value: (lifetimeEligible / 100).toFixed(2) },
-      { field: AC_FIELDS.largestGift, value: (largestGift / 100).toFixed(2) },
       { field: AC_FIELDS.totalEngagement, value: (totalEngagement / 100).toFixed(2) },
-      { field: AC_FIELDS.donationCount, value: String(donationCount) },
     ];
 
-    if (firstGiftDate) fieldValues.push({ field: AC_FIELDS.firstGiftDate, value: firstGiftDate });
-    if (lastGiftDate) fieldValues.push({ field: AC_FIELDS.lastGiftDate, value: lastGiftDate });
+    // Donor giving fields only updated when the triggering payment is an actual donation
+    if (paymentIsDonation) {
+      fieldValues.push(
+        { field: AC_FIELDS.donorTier, value: tier },
+        { field: AC_FIELDS.trailing12mo, value: (trailing12mo / 100).toFixed(2) },
+        { field: AC_FIELDS.lifetimeGiving, value: (lifetimeEligible / 100).toFixed(2) },
+        { field: AC_FIELDS.largestGift, value: (largestGift / 100).toFixed(2) },
+        { field: AC_FIELDS.donationCount, value: String(donationCount) },
+      );
+      if (firstGiftDate) fieldValues.push({ field: AC_FIELDS.firstGiftDate, value: firstGiftDate });
+      if (lastGiftDate) fieldValues.push({ field: AC_FIELDS.lastGiftDate, value: lastGiftDate });
+    }
+
     if (zeffyContactId) fieldValues.push({ field: AC_FIELDS.zeffyContactId, value: zeffyContactId });
     if (streetAddress) fieldValues.push({ field: AC_FIELDS.streetAddress, value: streetAddress });
     if (city) fieldValues.push({ field: AC_FIELDS.city, value: city });
@@ -389,11 +432,15 @@ export async function onRequestPost(context) {
       return jsonResponse({ success: true, note: 'AC sync failed, logged' });
     }
 
-    console.log(`[zeffy-webhook] ${email} → AC contact ${contactId} | ${tier} | $${(trailing12mo/100).toFixed(0)}/yr`);
+    if (paymentIsDonation) {
+      console.log(`[zeffy-webhook] ${email} → AC contact ${contactId} | ${tier} | $${(trailing12mo/100).toFixed(0)}/yr`);
+    } else {
+      console.log(`[zeffy-webhook] ${email} → AC contact ${contactId} | non-donation (no donor fields updated)`);
+    }
 
     // ── 2. List management ──
-    // Partners in Renewal: any eligible giving > 0
-    if (lifetimeEligible > 0) {
+    // Partners in Renewal: only for actual donations with eligible giving
+    if (paymentIsDonation && lifetimeEligible > 0) {
       await addToList(env, contactId, AC_LISTS.partners);
     }
 
@@ -408,20 +455,22 @@ export async function onRequestPost(context) {
     }
 
     // ── 3. Tags ──
-    // Donor tag — remove conflicting, add current
-    const donorTags = ['donor:monthly', 'donor:one-time', 'donor:returning', 'donor:prospect', 'donor:lapsed', 'donor:member'];
-    for (const dt of donorTags) {
-      if (dt !== donorTag && tagIds[dt]) {
-        await removeTag(env, contactId, tagIds[dt]);
+    // Donor tags — ONLY applied for actual charitable donations
+    if (paymentIsDonation) {
+      const donorTags = ['donor:monthly', 'donor:one-time', 'donor:returning', 'donor:prospect', 'donor:lapsed', 'donor:member'];
+      for (const dt of donorTags) {
+        if (dt !== donorTag && tagIds[dt]) {
+          await removeTag(env, contactId, tagIds[dt]);
+        }
       }
-    }
-    if (tagIds[donorTag]) {
-      await addTag(env, contactId, tagIds[donorTag]);
-    }
+      if (tagIds[donorTag]) {
+        await addTag(env, contactId, tagIds[donorTag]);
+      }
 
-    // Remove lapsed if present (they just gave)
-    if (tagIds['donor:lapsed']) {
-      await removeTag(env, contactId, tagIds['donor:lapsed']);
+      // Remove lapsed if present (they just gave)
+      if (tagIds['donor:lapsed']) {
+        await removeTag(env, contactId, tagIds['donor:lapsed']);
+      }
     }
 
     // Campaign tag
@@ -462,9 +511,10 @@ export async function onRequestPost(context) {
     return jsonResponse({
       success: true,
       contactId,
-      tier,
-      trailing12mo: trailing12mo / 100,
-      donorTag,
+      isDonation: paymentIsDonation,
+      tier: paymentIsDonation ? tier : null,
+      trailing12mo: paymentIsDonation ? trailing12mo / 100 : null,
+      donorTag: paymentIsDonation ? donorTag : null,
       campaignTag: campaignTagName,
     });
   } catch (err) {
