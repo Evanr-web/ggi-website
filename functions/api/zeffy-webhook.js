@@ -471,6 +471,18 @@ export async function onRequestPost(context) {
       if (tagIds['donor:lapsed']) {
         await removeTag(env, contactId, tagIds['donor:lapsed']);
       }
+
+      // Tier tags — swap to match calculated tier
+      const tierTags = ['tier:general-donor', 'tier:friend', 'tier:patron', 'tier:leadership-partner', 'tier:visionary-partner'];
+      const tierTagName = `tier:${tier.toLowerCase().replace(/ /g, '-')}`;
+      for (const tt of tierTags) {
+        if (tt !== tierTagName && tagIds[tt]) {
+          await removeTag(env, contactId, tagIds[tt]);
+        }
+      }
+      if (tagIds[tierTagName]) {
+        await addTag(env, contactId, tagIds[tierTagName]);
+      }
     }
 
     // Campaign tag
