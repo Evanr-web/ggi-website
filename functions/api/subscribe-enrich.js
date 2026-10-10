@@ -5,7 +5,7 @@ import { jsonResponse, corsHeaders, sanitize, checkHoneypot, logError, verifyTur
 const INTEREST_TAGS = {
   'magnalia-journal': '24',
   'events': '32',
-  'book-studies': '14',
+  'book-studies': '54',   // interest:book-study
 };
 
 // Phase 2 address → AC custom field ID mapping

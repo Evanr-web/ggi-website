@@ -70,8 +70,11 @@ export async function onRequestPost(context) {
       return jsonResponse({ error: 'Missing resource identifier' }, 400, origin);
     }
 
-    // Look up the AC tag by name
-    const tagId = await resolveTagId(context.env, tagName);
+    // Enforce lead: prefix for all lead magnet tags
+    const prefixedTagName = tagName.startsWith('lead:') ? tagName : `lead:${tagName}`;
+
+    // Look up the AC tag by prefixed name
+    const tagId = await resolveTagId(context.env, prefixedTagName);
 
     const contactId = await addContact(context.env, {
       email,

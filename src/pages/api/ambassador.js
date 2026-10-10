@@ -43,8 +43,8 @@ export async function POST({ request }) {
       email,
       firstName,
       lastName,
-      listId: '5',
-      tags: ['2'],
+      listId: '19',                  // Partners in Renewal
+      tags: ['61', '35'],            // role:ambassador-applicant, source:website
       utmData: {
         utm_source: body.utm_source,
         utm_medium: body.utm_medium,

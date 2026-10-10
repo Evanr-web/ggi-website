@@ -49,14 +49,14 @@ export async function POST({ request }) {
       online: '29',
     };
 
-    const tags = ['14'];
+    const tags = ['54', '35'];  // interest:book-study, source:website
     if (interestTagMap[interest]) {
       tags.push(interestTagMap[interest]);
     }
 
-    const lists = ['9'];
+    const lists = ['24'];  // Book Studies
     if (wantsMagnalia) {
-      lists.push('4');
+      lists.push('17');  // Newsletter
       tags.push('interest:magnalia-letter');
     }
 
@@ -89,7 +89,7 @@ export async function POST({ request }) {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          contactList: { list: '4', contact: contactId, status: 1 },
+          contactList: { list: '17', contact: contactId, status: 1 },  // Newsletter
         }),
       });
     }

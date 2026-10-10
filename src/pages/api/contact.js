@@ -4,13 +4,13 @@ import { env } from 'cloudflare:workers';
 import { addContact, jsonResponse, corsHeaders, isValidEmail, sanitize, checkHoneypot, logError, verifyTurnstile } from '../../lib/api-shared.js';
 
 const SUBJECT_TAGS = {
-  general: '3',
-  speaker: '4',
-  magnalia: '5',
-  programs: '6',
-  support: '7',
-  volunteering: '18',
-  other: '3',
+  general: '35',           // source:website (default)
+  speaker: '25',           // interest:speaker-booking
+  magnalia: '24',          // interest:magnalia-journal
+  programs: '32',          // interest:events
+  support: '35',           // source:website (default)
+  volunteering: '26',      // interest:volunteering
+  other: '35',             // source:website (default)
 };
 
 export async function OPTIONS({ request }) {
@@ -46,14 +46,14 @@ export async function POST({ request }) {
       return jsonResponse({ error: 'Message is required' }, 400, origin);
     }
 
-    const tagId = SUBJECT_TAGS[subject] || '3';
+    const tagId = SUBJECT_TAGS[subject] || '35';
 
     const contactId = await addContact(env, {
       email,
       firstName,
       lastName,
-      listId: '7',
-      tags: [tagId],
+      listId: null,            // No list for general contact — tag-based
+      tags: ['35', '48', tagId],  // source:website, donor:prospect, subject tag
       utmData: {
         utm_source: body.utm_source,
         utm_medium: body.utm_medium,

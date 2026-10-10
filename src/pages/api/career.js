@@ -66,8 +66,8 @@ export async function POST({ request }) {
       email,
       firstName,
       lastName,
-      listId: '8',
-      tags: ['17'],
+      listId: null,              // No list for career apps — tag-based
+      tags: ['17', '35'],           // role:career-applicant, source:website
       utmData: {
         utm_source: formData.get('utm_source') || '',
         utm_medium: formData.get('utm_medium') || '',

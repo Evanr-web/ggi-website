@@ -58,7 +58,7 @@ export async function onRequestPost(context) {
       email,
       firstName,
       lastName,
-      listId: '18',              // Institute Events (new)
+      listId: '24',              // Book Studies
       tags,
       fields: {
         '21': 'Express',

@@ -76,15 +76,18 @@ export async function POST({ request }) {
       return jsonResponse({ error: 'Missing tag configuration' }, 400, origin);
     }
 
+    // Enforce lead: prefix for all lead magnet tags
+    const prefixedTagName = tagName.startsWith('lead:') ? tagName : `lead:${tagName}`;
+
     // Resolve tag name → ID (creates tag in AC if needed)
-    const tagId = await resolveTagId(tagName);
+    const tagId = await resolveTagId(prefixedTagName);
 
     const contactId = await addContact(env, {
       email,
       firstName,
       lastName,
-      listId: '4',
-      tags: ['1', tagId],  // 1 = newsletter, resolved lead magnet tag
+      listId: '17',                        // Newsletter
+      tags: [tagId, '35'],                   // lead magnet tag + source:website
       utmData: {
         utm_source: body.utm_source,
         utm_medium: body.utm_medium,

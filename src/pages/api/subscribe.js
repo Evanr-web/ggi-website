@@ -35,8 +35,8 @@ export async function POST({ request }) {
       email,
       firstName,
       lastName,
-      listId: '4',
-      tags: ['1'],
+      listId: '17',           // Newsletter
+      tags: ['35'],            // source:website
       utmData: {
         utm_source: body.utm_source,
         utm_medium: body.utm_medium,

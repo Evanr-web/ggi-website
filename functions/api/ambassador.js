@@ -36,7 +36,7 @@ export async function onRequestPost(context) {
       email,
       firstName,
       lastName,
-      listId: null,                  // No list — role tag is sufficient
+      listId: '19',                  // Partners in Renewal
       tags: ['61', '35'],            // role:ambassador-applicant, source:website
       fields: {
         '21': 'Express',             // Consent Status (they applied, that's express)

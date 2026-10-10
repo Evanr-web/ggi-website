@@ -35,15 +35,19 @@ export async function POST({ request }) {
       return jsonResponse({ error: 'Full name is required' }, 400, origin);
     }
 
-    const tags = ['27', '19'];
+    const tags = ['53', '35'];    // interest:think-tank, source:website
 
     const contactId = await addContact(env, {
       email,
       firstName,
       lastName,
-      listId: '3',
+      listId: null,                   // No list — tag-based tracking
       tags,
-      fields: {},
+      fields: {
+        '21': 'Express',
+        '22': 'leadership-form',
+        '23': new Date().toISOString().slice(0, 10),
+      },
       utmData: {
         utm_source: body.utm_source,
         utm_medium: body.utm_medium,

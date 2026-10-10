@@ -8,8 +8,8 @@ import { jsonResponse, corsHeaders, sanitize, checkHoneypot, logError } from '..
 const INTEREST_TAG_MAP = {
   'magnalia-journal': '24',  // interest:magnalia-journal
   'events':          '32',   // interest:events
-  'book-studies':    '14',   // book-study
-  'news':            '1',    // magnalia-letter (general newsletter)
+  'book-studies':    '54',   // interest:book-study
+  'news':            '35',   // source:website (newsletter interest)
 };
 
 export async function OPTIONS({ request }) {

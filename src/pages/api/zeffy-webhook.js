@@ -44,25 +44,25 @@ import { addContact, jsonResponse, logError } from '../../lib/api-shared.js';
 const CAMPAIGN_MAP = {
   // Conference
   'conference': {
-    listId: '6',       // Event Attendees
-    tags: ['11', '19'], // event-conference-2026, source:website-form
+    listId: '18',      // Institute Events
+    tags: ['74', '19'], // campaign:conference-2026, source:website-form
     tagLabel: 'conference-2026-registered',
   },
   // Music Camp
   'music': {
-    listId: '6',
-    tags: ['12', '19'], // event-music-camp-2026, source:website-form
+    listId: '18',      // Institute Events
+    tags: ['12', '19'], // event:music-camp-2026, source:website-form
     tagLabel: 'music-camp-2026-registered',
   },
   // Magnalia Journal Subscription
   'magnalia': {
-    listId: '4',       // Magnalia Letter
-    tags: ['1', '19'], // magnalia-letter, source:website-form
+    listId: '25',      // Magnalia Journal
+    tags: ['24', '19'], // interest:magnalia-journal, source:website-form
     tagLabel: 'magnalia-subscriber',
   },
   // Donation / Friend / Patron — general giving
   'donation': {
-    listId: '10',      // Donors (create this list in AC)
+    listId: '19',      // Partners in Renewal
     tags: ['19'],      // source:website-form
     tagLabel: 'donor',
   },

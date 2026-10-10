@@ -36,24 +36,31 @@ export async function POST({ request }) {
       return jsonResponse({ error: 'First name is required' }, 400, origin);
     }
 
-    const tags = ['19'];
+    const tags = ['35', '32'];  // source:website, interest:events
 
     const eventTagMap = {
-      'conference-2026': '11',
-      'music-camp-2026': '12',
-      'finances-101': '13',
-      'masterclass': '23',
+      'conference': '74',        // campaign:conference-2026
+      'conference-2026': '74',   // campaign:conference-2026
+      'music-camp': '12',        // event:music-camp-2026
+      'music-camp-2026': '12',   // event:music-camp-2026
+      'finances-101': '13',      // event:finances-101
+      'masterclass': '23',       // interest:masterclass
+      'book-study': '54',        // interest:book-study
     };
 
-    if (eventTagMap[eventName]) {
-      tags.push(eventTagMap[eventName]);
+    const events = Array.isArray(body.events) ? body.events : (body.event ? [body.event] : [eventName].filter(Boolean));
+    for (const ev of events) {
+      const slug = sanitize(ev, 100);
+      if (eventTagMap[slug]) {
+        tags.push(eventTagMap[slug]);
+      }
     }
 
     const contactId = await addContact(env, {
       email,
       firstName,
       lastName,
-      listId: '6',
+      listId: '18',              // Institute Events
       tags,
       fields: {},
       utmData: {
