@@ -1,0 +1,420 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Your Preferences" description="Tell us what you're interested in. We'll only send you what matters to you.">
+
+  <!-- Hero -->
+  <section class="section--dark page-hero">
+    <div class="container">
+      <h1 data-pagefind-weight="10" class="display heading-on-dark">What Interests You?</h1>
+      <p class="hero-sub">Select the topics you'd like to hear about. We'll only send you what's relevant.</p>
+    </div>
+  </section>
+
+  <!-- Preferences Form -->
+  <section class="section">
+    <div class="container preferences-container">
+
+      <div class="preferences-form-wrap">
+        <form id="preferences-form" method="POST">
+
+          <div class="form-group">
+            <label for="email">Your Email *</label>
+            <input type="email" id="email" name="email" required placeholder="Enter the email you subscribed with" />
+          </div>
+
+          <div class="form-group interests-group">
+            <p class="interests-label">I'm interested in:</p>
+
+            <label class="interest-option interest-option--all">
+              <input type="checkbox" id="select-all" />
+              <span class="interest-check"></span>
+              <span class="interest-content">
+                <strong>Everything — keep me in the loop on all things GGI</strong>
+              </span>
+            </label>
+
+            <div class="interests-divider"></div>
+
+            <label class="interest-option">
+              <input type="checkbox" name="interests" value="magnalia-journal" class="interest-item" />
+              <span class="interest-check"></span>
+              <span class="interest-content">
+                <strong>Magnalia Journal</strong>
+                <span class="interest-desc">Our print journal of Catholic scholarship, published twice a year</span>
+              </span>
+            </label>
+
+            <label class="interest-option">
+              <input type="checkbox" name="interests" value="events" class="interest-item" />
+              <span class="interest-check"></span>
+              <span class="interest-content">
+                <strong>Events &amp; Conferences</strong>
+                <span class="interest-desc">Invitations to conferences, retreats, and regional events</span>
+              </span>
+            </label>
+
+            <label class="interest-option">
+              <input type="checkbox" name="interests" value="book-studies" class="interest-item" />
+              <span class="interest-check"></span>
+              <span class="interest-content">
+                <strong>Book Studies</strong>
+                <span class="interest-desc">Inklings Club reading groups and study guides across Canada</span>
+              </span>
+            </label>
+
+            <label class="interest-option">
+              <input type="checkbox" name="interests" value="courses" class="interest-item" />
+              <span class="interest-check"></span>
+              <span class="interest-content">
+                <strong>Courses &amp; Formation</strong>
+                <span class="interest-desc">Masterclasses, talks, and new learning opportunities</span>
+              </span>
+            </label>
+          </div>
+
+          <button type="submit" class="form-submit">Save My Preferences</button>
+
+        </form>
+
+        <div id="preferences-success" class="preferences-success" style="display:none;">
+          <div class="success-icon">✓</div>
+          <h2>Preferences Saved</h2>
+          <p>Thank you! We'll tailor your experience based on what you've selected.</p>
+          <p class="success-sub">You can update your preferences anytime by visiting this page.</p>
+        </div>
+
+        <div class="preferences-unsub">
+          <p>Want to unsubscribe entirely? <a href="%UNSUBSCRIBELINK%" id="unsub-link">Unsubscribe here</a></p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+</BaseLayout>
+
+<script is:inline>
+(function() {
+  // Pre-fill email from URL parameter
+  const params = new URLSearchParams(window.location.search);
+  const emailParam = params.get('email');
+  if (emailParam) {
+    try {
+      const decoded = atob(emailParam);
+      document.getElementById('email').value = decoded;
+    } catch {
+      document.getElementById('email').value = emailParam;
+    }
+  }
+
+  // Select All logic
+  const selectAll = document.getElementById('select-all');
+  const items = document.querySelectorAll('.interest-item');
+
+  selectAll.addEventListener('change', function() {
+    items.forEach(function(cb) { cb.checked = selectAll.checked; });
+  });
+
+  items.forEach(function(cb) {
+    cb.addEventListener('change', function() {
+      selectAll.checked = Array.from(items).every(function(c) { return c.checked; });
+    });
+  });
+
+  const form = document.getElementById('preferences-form');
+  const successEl = document.getElementById('preferences-success');
+
+  form.addEventListener('submit', async function(e) {
+    e.preventDefault();
+
+    const btn = form.querySelector('button[type="submit"]');
+    const originalText = btn.textContent;
+    btn.textContent = 'Saving...';
+    btn.disabled = true;
+
+    const email = form.querySelector('#email').value;
+    const checkboxes = form.querySelectorAll('input[name="interests"]:checked');
+    const interests = Array.from(checkboxes).map(cb => cb.value);
+
+    try {
+      const res = await fetch('/api/preferences', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, interests }),
+      });
+      const result = await res.json();
+
+      if (res.ok && result.success) {
+        form.style.display = 'none';
+        successEl.style.display = 'block';
+      } else {
+        btn.textContent = result.error || 'Something went wrong';
+        btn.disabled = false;
+        setTimeout(() => { btn.textContent = originalText; }, 3000);
+      }
+    } catch {
+      btn.textContent = 'Connection error. Please try again.';
+      btn.disabled = false;
+      setTimeout(() => { btn.textContent = originalText; }, 3000);
+    }
+  });
+})();
+</script>
+
+<style>
+  .page-hero {
+    padding: 60px 0 40px;
+    text-align: center;
+  }
+
+  .hero-sub {
+    font-family: var(--font-body);
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.7);
+    max-width: 500px;
+    margin: 12px auto 0;
+    line-height: 1.6;
+  }
+
+  .preferences-container {
+    max-width: 560px;
+    margin-inline: auto;
+    padding: 40px 0 60px;
+  }
+
+  .preferences-form-wrap {
+    background: var(--color-white, #fff);
+    border-radius: 6px;
+    padding: 36px 40px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  }
+
+  .form-group {
+    margin-bottom: 24px;
+  }
+
+  .form-group label[for="email"] {
+    display: block;
+    font-family: var(--font-ui);
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--color-navy);
+    margin-bottom: 6px;
+  }
+
+  .form-group input[type="email"] {
+    width: 100%;
+    padding: 12px 14px;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    border: 1.5px solid #d0cec8;
+    border-radius: 4px;
+    background: #fefcf9;
+    transition: border-color 0.2s;
+  }
+
+  .form-group input[type="email"]:focus {
+    outline: none;
+    border-color: var(--color-gold);
+  }
+
+  .interests-label {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-navy);
+    margin-bottom: 14px;
+  }
+
+  .interest-option {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 14px 16px;
+    margin-bottom: 8px;
+    background: #f9f7f3;
+    border: 1.5px solid transparent;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .interest-option:hover {
+    background: #f4f0ea;
+    border-color: var(--color-gold);
+  }
+
+  .interest-option input[type="checkbox"] {
+    display: none;
+  }
+
+  .interest-check {
+    flex-shrink: 0;
+    width: 22px;
+    height: 22px;
+    border: 2px solid #c0bdb5;
+    border-radius: 4px;
+    margin-top: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    background: #fff;
+  }
+
+  .interest-option input:checked ~ .interest-check {
+    background: var(--color-gold);
+    border-color: var(--color-gold);
+  }
+
+  .interest-option input:checked ~ .interest-check::after {
+    content: '✓';
+    color: #fff;
+    font-size: 14px;
+    font-weight: bold;
+  }
+
+  .interest-option input:checked ~ .interest-content strong {
+    color: var(--color-navy);
+  }
+
+  .interest-content {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .interest-content strong {
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    color: var(--color-navy);
+    transition: color 0.2s;
+  }
+
+  .interest-desc {
+    font-family: var(--font-body);
+    font-size: 0.82rem;
+    color: var(--color-gray, #666);
+    line-height: 1.4;
+  }
+
+  .form-submit {
+    display: block;
+    width: 100%;
+    padding: 14px;
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #fff;
+    background: var(--color-navy);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.2s;
+    letter-spacing: 0.5px;
+  }
+
+  .form-submit:hover {
+    background: var(--color-gold);
+  }
+
+  .form-submit:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  /* Success state */
+  .preferences-success {
+    text-align: center;
+    padding: 30px 0;
+  }
+
+  .success-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: var(--color-gold);
+    color: #fff;
+    font-size: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+  }
+
+  .preferences-success h2 {
+    font-family: var(--font-display);
+    color: var(--color-navy);
+    font-size: 1.4rem;
+    margin-bottom: 10px;
+  }
+
+  .preferences-success p {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: var(--color-gray, #666);
+    line-height: 1.6;
+  }
+
+  .success-sub {
+    font-size: 0.85rem !important;
+    margin-top: 8px;
+  }
+
+  /* Unsubscribe */
+  .interest-option--all {
+    background: var(--color-navy, #0e3352);
+    border-color: var(--color-navy, #0e3352);
+  }
+
+  .interest-option--all:hover {
+    background: #163d5e;
+    border-color: #163d5e;
+  }
+
+  .interest-option--all strong {
+    color: #fff !important;
+  }
+
+  .interest-option--all .interest-check {
+    border-color: rgba(255,255,255,0.4);
+    background: rgba(255,255,255,0.1);
+  }
+
+  .interest-option--all input:checked ~ .interest-check {
+    background: var(--color-gold);
+    border-color: var(--color-gold);
+  }
+
+  .interests-divider {
+    height: 1px;
+    background: #e8e4dc;
+    margin: 8px 0;
+  }
+
+  .preferences-unsub {
+    text-align: center;
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px solid #e8e4dc;
+  }
+
+  .preferences-unsub p {
+    font-family: var(--font-ui);
+    font-size: 0.82rem;
+    color: var(--color-gray, #999);
+  }
+
+  .preferences-unsub a {
+    color: var(--color-gray, #999);
+    text-decoration: underline;
+  }
+
+  @media (max-width: 600px) {
+    .preferences-form-wrap {
+      padding: 24px 20px;
+    }
+  }
+</style>
