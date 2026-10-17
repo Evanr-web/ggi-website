@@ -9,7 +9,7 @@ import DarkSection from '../components/DarkSection.astro';
 import EventCard from '../components/EventCard.astro';
 import GivingTier from '../components/GivingTier.astro';
 import EndorsementCard from '../components/EndorsementCard.astro';
-import { getHomepage, getUpcomingEvents, getLatestLibraryItems } from '../lib/sanity';
+import { getHomepage, getUpcomingEvents, getLatestLibraryItems, getSupporterEvenings } from '../lib/sanity';
 
 const base = import.meta.env.BASE_URL;
 
@@ -20,6 +20,11 @@ try { cms = await getHomepage(); } catch (e) { /* fallback */ }
 // Upcoming events (auto-populated)
 let upcomingEvents: any[] = [];
 try { upcomingEvents = await getUpcomingEvents(3) || []; } catch (e) { /* fallback */ }
+
+// Supporter Evenings (fallback when no upcoming events)
+let seCms: any = null;
+try { seCms = await getSupporterEvenings(); } catch (e) { /* fallback */ }
+const showSeCallout = upcomingEvents.length === 0 && seCms?.enabled !== false;
 
 // Library items: use featured picks from CMS, fallback to most recent
 let libraryItems: any[] = cms?.featuredLibraryItems?.length ? cms.featuredLibraryItems : [];
@@ -188,9 +193,9 @@ const endorsements = cms?.endorsements?.length ? cms.endorsements : [
         <h2>Events & Programs</h2>
       </div>
 
-      <div class="events-grid reveal">
-        {upcomingEvents.length > 0 ? (
-          upcomingEvents.map((event: any) => {
+      {upcomingEvents.length > 0 ? (
+        <div class="events-grid reveal">
+          {upcomingEvents.map((event: any) => {
             const d = new Date(event.startDate);
             const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
             return (
@@ -206,11 +211,20 @@ const endorsements = cms?.endorsements?.length ? cms.endorsements : [
                 programTag={event.programTag || event.template || ''}
               />
             );
-          })
-        ) : (
-          <p class="text-center" style="grid-column: 1 / -1; opacity: 0.7;">No upcoming events — check back soon!</p>
-        )}
-      </div>
+          })}
+        </div>
+      ) : showSeCallout ? (
+        <a href={`${base}events/supporter-evenings/`} class="se-callout reveal">
+          <p class="se-callout__label">{seCms?.seasonLabel || '2026\u20132027 Season'}</p>
+          <h3 class="se-callout__title">{seCms?.heroHeading || 'Supporter Evenings'}</h3>
+          <p class="se-callout__desc">{seCms?.heroDescription || 'An evening with Dr. Ryan Topping to learn about the Institute\u2019s mission, share in its vision, and explore how you can help bring it forward \u2014 over wine and good conversation.'}</p>
+          <span class="se-callout__cta">Learn More & Register \u2192</span>
+        </a>
+      ) : (
+        <div class="events-grid reveal">
+          <p class="text-center" style="grid-column: 1 / -1; opacity: 0.7;">No upcoming events \u2014 check back soon!</p>
+        </div>
+      )}
 
       <div class="section-footer" style="margin-bottom: -32px;">
         <Button href={`${import.meta.env.BASE_URL}events/`} variant="tertiary">View All Events →</Button>
@@ -944,5 +958,59 @@ const endorsements = cms?.endorsements?.length ? cms.endorsements : [
 
   .newsletter-section__btn:hover {
     background-color: #a08638;
+  }
+
+  /* ── Supporter Evenings Callout ── */
+  .se-callout {
+    display: block;
+    text-decoration: none;
+    background: var(--color-linen);
+    border-left: 4px solid var(--color-gold);
+    padding: 28px 32px;
+    transition: box-shadow var(--transition-base), border-color var(--transition-base);
+  }
+
+  .se-callout:hover {
+    box-shadow: 0 4px 20px rgba(14, 51, 82, 0.08);
+    border-left-color: var(--color-crimson);
+  }
+
+  .se-callout__label {
+    font-family: var(--font-ui);
+    font-size: 0.68rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--color-gold);
+    margin-bottom: 6px;
+  }
+
+  .se-callout__title {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-navy);
+    margin-bottom: 8px;
+  }
+
+  .se-callout__desc {
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--color-gray);
+    margin-bottom: 12px;
+    max-width: 640px;
+  }
+
+  .se-callout__cta {
+    font-family: var(--font-ui);
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--color-gold);
+    transition: color var(--transition-fast);
+  }
+
+  .se-callout:hover .se-callout__cta {
+    color: var(--color-crimson);
   }
 </style>
