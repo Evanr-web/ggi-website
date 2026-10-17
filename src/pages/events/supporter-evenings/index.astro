@@ -1,18 +1,47 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { getSupporterEvenings } from '../../../lib/sanity';
 const base = import.meta.env.BASE_URL;
+
+// Fetch from Sanity (singleton) with hardcoded fallbacks
+let cms: any = null;
+try { cms = await getSupporterEvenings(); } catch (e) { /* fallback */ }
+
+const seasonLabel = cms?.seasonLabel || '2026\u20132027 Season';
+const heroHeading = cms?.heroHeading || 'Supporter Evenings';
+const heroDesc = cms?.heroDescription || 'An evening with Dr. Ryan Topping to learn about the Institute\u2019s mission, share in its vision, and explore how you can help bring it forward \u2014 over wine and good conversation.';
+const heroImage = cms?.heroImageUrl || `${base}images/events/supper-at-emmaus-caravaggio.jpg`;
+const expectItems = cms?.expectItems || [
+  { title: 'Wine & Conversation', description: 'A relaxed evening with wine, hors d\u2019oeuvres, and meaningful conversation about culture, faith, and the work of the Institute.' },
+  { title: 'A Word from Dr. Topping', description: 'A brief, engaging talk from our Founding Director on the Institute\u2019s mission, recent achievements, and vision for the year ahead.' },
+  { title: 'Meet Fellow Supporters', description: 'Connect with others who share your commitment to renewing Catholic culture in Canada. Every guest matters.' },
+];
+const quoteText = cms?.quoteText || '\u201CIt is the creative minorities that determine the future. The Catholic Church must understand itself as a creative minority that has a heritage of values that are not things of the past, but a very living and relevant reality.\u201D';
+const quoteAttr = cms?.quoteAttribution || 'Pope Benedict XVI';
+const formHeading = cms?.formHeading || 'Get Involved';
+const formSub = cms?.formSubheading || 'Would you like to attend an evening, or host one in your community?';
+const attendConfirm = cms?.attendConfirmation || 'Thank you! We\u2019ll be in touch with details for an evening near you.';
+const hostConfirm = cms?.hostConfirmation || 'Thank you! Our team will follow up within 48 hours to coordinate your evening.';
+
+// SVG icons for the expect items (matched by index, fallback to generic)
+const expectIcons = [
+  // Wine & Conversation - house/gathering
+  `<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="20" cy="20" r="19" stroke="#b89a47" stroke-width="1.5" fill="none"/><path d="M14 28V16l6-4 6 4v12" stroke="#b89a47" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path d="M18 28v-5h4v5" stroke="#b89a47" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/><line x1="14" y1="28" x2="26" y2="28" stroke="#b89a47" stroke-width="1.5" stroke-linecap="round"/></svg>`,
+  // A Word - open book
+  `<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="20" cy="20" r="19" stroke="#b89a47" stroke-width="1.5" fill="none"/><path d="M12 14c0 0 4-2 8 0v14c-4-2-8 0-8 0V14z" stroke="#b89a47" stroke-width="1.5" stroke-linejoin="round" fill="none"/><path d="M28 14c0 0-4-2-8 0v14c4-2 8 0 8 0V14z" stroke="#b89a47" stroke-width="1.5" stroke-linejoin="round" fill="none"/></svg>`,
+  // Meet Fellow Supporters - two people
+  `<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="20" cy="20" r="19" stroke="#b89a47" stroke-width="1.5" fill="none"/><circle cx="15" cy="16" r="3" stroke="#b89a47" stroke-width="1.5" fill="none"/><circle cx="25" cy="16" r="3" stroke="#b89a47" stroke-width="1.5" fill="none"/><path d="M10 27c0-3 2.5-5 5-5 1.2 0 2.3.4 3.2 1.2" stroke="#b89a47" stroke-width="1.5" stroke-linecap="round" fill="none"/><path d="M30 27c0-3-2.5-5-5-5-1.2 0-2.3.4-3.2 1.2" stroke="#b89a47" stroke-width="1.5" stroke-linecap="round" fill="none"/></svg>`,
+];
 ---
 
 <BaseLayout title="Supporter Evenings" description="An evening with Dr. Ryan Topping to learn about the Institute's mission, share in its vision, and explore how you can help bring it forward.">
 
   <!-- Hero -->
-  <section class="se-hero section--dark">
+  <section class="se-hero section--dark" style={`background-image: url('${heroImage}');`}>
     <div class="container" style="text-align: center; position: relative; z-index: 2;">
-      <p class="se-hero__label">2026–2027 Season</p>
-      <h1 data-pagefind-weight="10" data-pagefind-meta="title" class="se-hero__title">Supporter Evenings</h1>
-      <p class="se-hero__desc">
-        An evening with Dr. Ryan Topping to learn about the Institute's mission, share in its vision, and explore how you can help bring it forward — over wine and good conversation.
-      </p>
+      <p class="se-hero__label">{seasonLabel}</p>
+      <h1 data-pagefind-weight="10" data-pagefind-meta="title" class="se-hero__title">{heroHeading}</h1>
+      <p class="se-hero__desc">{heroDesc}</p>
     </div>
   </section>
 
@@ -21,42 +50,13 @@ const base = import.meta.env.BASE_URL;
     <div class="container text-center">
       <h2 style="margin-bottom: 32px;">What to Expect</h2>
       <div class="se-expect-grid">
-        <div class="se-expect-item">
-          <div class="se-expect-item__icon">
-            <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="20" cy="20" r="19" stroke="#b89a47" stroke-width="1.5" fill="none"/>
-              <path d="M14 28V16l6-4 6 4v12" stroke="#b89a47" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-              <path d="M18 28v-5h4v5" stroke="#b89a47" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-              <line x1="14" y1="28" x2="26" y2="28" stroke="#b89a47" stroke-width="1.5" stroke-linecap="round"/>
-            </svg>
+        {expectItems.map((item: any, i: number) => (
+          <div class="se-expect-item">
+            <div class="se-expect-item__icon" set:html={expectIcons[i] || expectIcons[0]} />
+            <h3 class="se-expect-item__title">{item.title}</h3>
+            <p class="se-expect-item__desc">{item.description}</p>
           </div>
-          <h3 class="se-expect-item__title">Wine & Conversation</h3>
-          <p class="se-expect-item__desc">A relaxed evening with wine, hors d'oeuvres, and meaningful conversation about culture, faith, and the work of the Institute.</p>
-        </div>
-        <div class="se-expect-item">
-          <div class="se-expect-item__icon">
-            <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="20" cy="20" r="19" stroke="#b89a47" stroke-width="1.5" fill="none"/>
-              <path d="M12 14c0 0 4-2 8 0v14c-4-2-8 0-8 0V14z" stroke="#b89a47" stroke-width="1.5" stroke-linejoin="round" fill="none"/>
-              <path d="M28 14c0 0-4-2-8 0v14c4-2 8 0 8 0V14z" stroke="#b89a47" stroke-width="1.5" stroke-linejoin="round" fill="none"/>
-            </svg>
-          </div>
-          <h3 class="se-expect-item__title">A Word from Dr. Topping</h3>
-          <p class="se-expect-item__desc">A brief, engaging talk from our Founding Director on the Institute's mission, recent achievements, and vision for the year ahead.</p>
-        </div>
-        <div class="se-expect-item">
-          <div class="se-expect-item__icon">
-            <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="20" cy="20" r="19" stroke="#b89a47" stroke-width="1.5" fill="none"/>
-              <circle cx="15" cy="16" r="3" stroke="#b89a47" stroke-width="1.5" fill="none"/>
-              <circle cx="25" cy="16" r="3" stroke="#b89a47" stroke-width="1.5" fill="none"/>
-              <path d="M10 27c0-3 2.5-5 5-5 1.2 0 2.3.4 3.2 1.2" stroke="#b89a47" stroke-width="1.5" stroke-linecap="round" fill="none"/>
-              <path d="M30 27c0-3-2.5-5-5-5-1.2 0-2.3.4-3.2 1.2" stroke="#b89a47" stroke-width="1.5" stroke-linecap="round" fill="none"/>
-            </svg>
-          </div>
-          <h3 class="se-expect-item__title">Meet Fellow Supporters</h3>
-          <p class="se-expect-item__desc">Connect with others who share your commitment to renewing Catholic culture in Canada. Every guest matters.</p>
-        </div>
+        ))}
       </div>
     </div>
   </section>
@@ -65,8 +65,8 @@ const base = import.meta.env.BASE_URL;
   <section class="se-quote-section">
     <div class="container">
       <div class="se-quote-block">
-        <p class="se-quote-block__text">"It is the creative minorities that determine the future. The Catholic Church must understand itself as a creative minority that has a heritage of values that are not things of the past, but a very living and relevant reality."</p>
-        <p class="se-quote-block__attr">— Pope Benedict XVI</p>
+        <p class="se-quote-block__text">{quoteText}</p>
+        <p class="se-quote-block__attr">- {quoteAttr}</p>
       </div>
     </div>
   </section>
@@ -75,8 +75,8 @@ const base = import.meta.env.BASE_URL;
   <section class="section" id="register">
     <div class="container">
       <div class="se-form-section">
-        <h2 class="se-form-section__heading text-center">Get Involved</h2>
-        <p class="se-form-section__sub text-center">Would you like to attend an evening, or host one in your community?</p>
+        <h2 class="se-form-section__heading text-center">{formHeading}</h2>
+        <p class="se-form-section__sub text-center">{formSub}</p>
 
         <!-- Intent Toggle -->
         <div class="se-intent-toggle">
@@ -140,7 +140,7 @@ const base = import.meta.env.BASE_URL;
           <div class="se-form-row">
             <div class="se-form-field">
               <label for="a-message">Anything else? (optional)</label>
-              <textarea id="a-message" name="message" rows="3" placeholder="Questions, special requests, or how you heard about us…"></textarea>
+              <textarea id="a-message" name="message" rows="3" placeholder="Questions, special requests, or how you heard about us..."></textarea>
             </div>
           </div>
 
@@ -197,10 +197,10 @@ const base = import.meta.env.BASE_URL;
             <div class="se-form-field">
               <label for="h-capacity">How many guests can you accommodate? *</label>
               <select id="h-capacity" name="capacity" required>
-                <option value="">Select…</option>
-                <option value="10-15">10–15 guests</option>
-                <option value="15-25">15–25 guests</option>
-                <option value="25-40">25–40 guests</option>
+                <option value="">Select...</option>
+                <option value="10-15">10-15 guests</option>
+                <option value="15-25">15-25 guests</option>
+                <option value="25-40">25-40 guests</option>
                 <option value="40+">40+ guests</option>
               </select>
             </div>
@@ -209,14 +209,14 @@ const base = import.meta.env.BASE_URL;
           <div class="se-form-row">
             <div class="se-form-field">
               <label for="h-venue">Venue Details (optional)</label>
-              <textarea id="h-venue" name="venueDetails" rows="2" placeholder="Your home, a parish hall, a community space…"></textarea>
+              <textarea id="h-venue" name="venueDetails" rows="2" placeholder="Your home, a parish hall, a community space..."></textarea>
             </div>
           </div>
 
           <div class="se-form-row">
             <div class="se-form-field">
               <label for="h-message">Anything else? (optional)</label>
-              <textarea id="h-message" name="message" rows="3" placeholder="Parking info, AV needs, or questions for our team…"></textarea>
+              <textarea id="h-message" name="message" rows="3" placeholder="Parking info, AV needs, or questions for our team..."></textarea>
             </div>
           </div>
 
@@ -243,8 +243,7 @@ const base = import.meta.env.BASE_URL;
   /* ── Hero ── */
   .se-hero {
     position: relative;
-    background: var(--color-navy);
-    background-image: url('https://upload.wikimedia.org/wikipedia/commons/c/c0/Supper_at_Emmaus-Caravaggio_%281601%29.jpg');
+    background-color: var(--color-navy);
     background-size: cover;
     background-position: center 30%;
     overflow: hidden;
@@ -512,7 +511,10 @@ const base = import.meta.env.BASE_URL;
   .text-center { text-align: center; }
 </style>
 
-<script is:inline>
+<script is:inline
+  data-attend-confirm={attendConfirm}
+  data-host-confirm={hostConfirm}
+>
   (function() {
     // Intent toggle
     var intentBtns = document.querySelectorAll('.se-intent-btn');
@@ -554,7 +556,7 @@ const base = import.meta.env.BASE_URL;
         }
 
         submitBtn.disabled = true;
-        submitBtn.textContent = 'Submitting…';
+        submitBtn.textContent = 'Submitting...';
         statusEl.textContent = '';
         statusEl.className = 'se-form-status';
 
@@ -566,9 +568,10 @@ const base = import.meta.env.BASE_URL;
         .then(function(res) { return res.json(); })
         .then(function(result) {
           if (result.success) {
-            statusEl.textContent = intent === 'attend'
-              ? 'Thank you! We'll be in touch with details for an evening near you.'
-              : 'Thank you! Our team will follow up within 48 hours to coordinate your evening.';
+            var scriptTag = document.querySelector('script[data-attend-confirm]');
+            var attendMsg = scriptTag ? scriptTag.getAttribute('data-attend-confirm') : 'Thank you!';
+            var hostMsg = scriptTag ? scriptTag.getAttribute('data-host-confirm') : 'Thank you!';
+            statusEl.textContent = intent === 'attend' ? attendMsg : hostMsg;
             statusEl.className = 'se-form-status se-form-status--success';
             form.reset();
             // Re-render Turnstile

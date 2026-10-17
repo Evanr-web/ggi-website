@@ -14,6 +14,7 @@ import tag from './tag';
 import leadMagnet from './leadMagnet';
 import mediaPage from './mediaPage';
 import bodyImage from './bodyImage';
+import supporterEvenings from './supporterEvenings';
 
 export const schemaTypes = [
   // Singletons
@@ -35,4 +36,5 @@ export const schemaTypes = [
   tag,
   leadMagnet,
   bodyImage,
+  supporterEvenings,
 ];

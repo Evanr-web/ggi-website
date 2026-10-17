@@ -65,6 +65,24 @@ export async function getSiteSettings() {
   }`);
 }
 
+// Supporter Evenings (singleton)
+export async function getSupporterEvenings() {
+  return sanityClient.fetch(`*[_type == "supporterEvenings"][0]{
+    seasonLabel,
+    heroHeading,
+    heroDescription,
+    "heroImageUrl": heroImage.asset->url,
+    expectItems[]{ title, description },
+    quoteText,
+    quoteAttribution,
+    formHeading,
+    formSubheading,
+    attendConfirmation,
+    hostConfirmation,
+    enabled
+  }`);
+}
+
 // Homepage (singleton)
 export async function getHomepage() {
   return sanityClient.fetch(`*[_type == "homepage"][0]{
