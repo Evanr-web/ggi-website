@@ -1,0 +1,598 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+const base = import.meta.env.BASE_URL;
+---
+
+<BaseLayout title="Supporter Evenings" description="An evening with Dr. Ryan Topping to learn about the Institute's mission, share in its vision, and explore how you can help bring it forward.">
+
+  <!-- Hero -->
+  <section class="se-hero section--dark">
+    <div class="container" style="text-align: center; position: relative; z-index: 2;">
+      <p class="se-hero__label">2026–2027 Season</p>
+      <h1 data-pagefind-weight="10" data-pagefind-meta="title" class="se-hero__title">Supporter Evenings</h1>
+      <p class="se-hero__desc">
+        An evening with Dr. Ryan Topping to learn about the Institute's mission, share in its vision, and explore how you can help bring it forward — over wine and good conversation.
+      </p>
+    </div>
+  </section>
+
+  <!-- What to Expect -->
+  <section class="section section--linen">
+    <div class="container text-center">
+      <h2 style="margin-bottom: 32px;">What to Expect</h2>
+      <div class="se-expect-grid">
+        <div class="se-expect-item">
+          <div class="se-expect-item__icon">
+            <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="20" cy="20" r="19" stroke="#b89a47" stroke-width="1.5" fill="none"/>
+              <path d="M14 28V16l6-4 6 4v12" stroke="#b89a47" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+              <path d="M18 28v-5h4v5" stroke="#b89a47" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+              <line x1="14" y1="28" x2="26" y2="28" stroke="#b89a47" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <h3 class="se-expect-item__title">Wine & Conversation</h3>
+          <p class="se-expect-item__desc">A relaxed evening with wine, hors d'oeuvres, and meaningful conversation about culture, faith, and the work of the Institute.</p>
+        </div>
+        <div class="se-expect-item">
+          <div class="se-expect-item__icon">
+            <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="20" cy="20" r="19" stroke="#b89a47" stroke-width="1.5" fill="none"/>
+              <path d="M12 14c0 0 4-2 8 0v14c-4-2-8 0-8 0V14z" stroke="#b89a47" stroke-width="1.5" stroke-linejoin="round" fill="none"/>
+              <path d="M28 14c0 0-4-2-8 0v14c4-2 8 0 8 0V14z" stroke="#b89a47" stroke-width="1.5" stroke-linejoin="round" fill="none"/>
+            </svg>
+          </div>
+          <h3 class="se-expect-item__title">A Word from Dr. Topping</h3>
+          <p class="se-expect-item__desc">A brief, engaging talk from our Founding Director on the Institute's mission, recent achievements, and vision for the year ahead.</p>
+        </div>
+        <div class="se-expect-item">
+          <div class="se-expect-item__icon">
+            <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="20" cy="20" r="19" stroke="#b89a47" stroke-width="1.5" fill="none"/>
+              <circle cx="15" cy="16" r="3" stroke="#b89a47" stroke-width="1.5" fill="none"/>
+              <circle cx="25" cy="16" r="3" stroke="#b89a47" stroke-width="1.5" fill="none"/>
+              <path d="M10 27c0-3 2.5-5 5-5 1.2 0 2.3.4 3.2 1.2" stroke="#b89a47" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+              <path d="M30 27c0-3-2.5-5-5-5-1.2 0-2.3.4-3.2 1.2" stroke="#b89a47" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+            </svg>
+          </div>
+          <h3 class="se-expect-item__title">Meet Fellow Supporters</h3>
+          <p class="se-expect-item__desc">Connect with others who share your commitment to renewing Catholic culture in Canada. Every guest matters.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quote -->
+  <section class="se-quote-section">
+    <div class="container">
+      <div class="se-quote-block">
+        <p class="se-quote-block__text">"It is the creative minorities that determine the future. The Catholic Church must understand itself as a creative minority that has a heritage of values that are not things of the past, but a very living and relevant reality."</p>
+        <p class="se-quote-block__attr">— Pope Benedict XVI</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Registration / Host Form -->
+  <section class="section" id="register">
+    <div class="container">
+      <div class="se-form-section">
+        <h2 class="se-form-section__heading text-center">Get Involved</h2>
+        <p class="se-form-section__sub text-center">Would you like to attend an evening, or host one in your community?</p>
+
+        <!-- Intent Toggle -->
+        <div class="se-intent-toggle">
+          <button class="se-intent-btn se-intent-btn--active" data-intent="attend" type="button">
+            <span class="se-intent-btn__label">Attend an Evening</span>
+            <span class="se-intent-btn__desc">RSVP to an upcoming event</span>
+          </button>
+          <button class="se-intent-btn" data-intent="host" type="button">
+            <span class="se-intent-btn__label">Host an Evening</span>
+            <span class="se-intent-btn__desc">Open your home to the mission</span>
+          </button>
+        </div>
+
+        <!-- ═══ ATTEND FORM ═══ -->
+        <form class="se-form-panel se-form-panel--active" id="attend-form">
+          <div class="se-form-row se-form-row--2col">
+            <div class="se-form-field">
+              <label for="a-first">First Name *</label>
+              <input type="text" id="a-first" name="firstName" required />
+            </div>
+            <div class="se-form-field">
+              <label for="a-last">Last Name *</label>
+              <input type="text" id="a-last" name="lastName" required />
+            </div>
+          </div>
+
+          <div class="se-form-row">
+            <div class="se-form-field">
+              <label for="a-email">Email *</label>
+              <input type="email" id="a-email" name="email" required />
+            </div>
+          </div>
+
+          <div class="se-form-row se-form-row--2col">
+            <div class="se-form-field">
+              <label for="a-phone">Phone (optional)</label>
+              <input type="tel" id="a-phone" name="phone" />
+            </div>
+            <div class="se-form-field">
+              <label for="a-city">City / Province *</label>
+              <input type="text" id="a-city" name="city" required placeholder="e.g. Calgary, AB" />
+            </div>
+          </div>
+
+          <div class="se-form-row se-form-row--2col">
+            <div class="se-form-field">
+              <label for="a-guests">Number of Guests (including you) *</label>
+              <select id="a-guests" name="guestCount" required>
+                <option value="1">1 (Just me)</option>
+                <option value="2" selected>2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+              </select>
+            </div>
+            <div class="se-form-field">
+              <label for="a-dietary">Dietary Restrictions</label>
+              <input type="text" id="a-dietary" name="dietary" placeholder="e.g. vegetarian, gluten-free" />
+            </div>
+          </div>
+
+          <div class="se-form-row">
+            <div class="se-form-field">
+              <label for="a-message">Anything else? (optional)</label>
+              <textarea id="a-message" name="message" rows="3" placeholder="Questions, special requests, or how you heard about us…"></textarea>
+            </div>
+          </div>
+
+          <!-- Honeypot -->
+          <div style="position: absolute; left: -9999px;" aria-hidden="true">
+            <input type="text" name="website" tabindex="-1" autocomplete="off" />
+          </div>
+
+          <!-- Turnstile -->
+          <div class="cf-turnstile" data-sitekey="0x4AAAAAADm6eYaBvIIwZNRm" data-size="compact"></div>
+
+          <button type="submit" class="se-form-submit">Register to Attend</button>
+          <p class="se-form-note">You'll receive a confirmation email with the address and evening details.</p>
+
+          <div class="se-form-status" id="attend-status" aria-live="polite"></div>
+        </form>
+
+        <!-- ═══ HOST FORM ═══ -->
+        <form class="se-form-panel" id="host-form">
+          <div class="se-form-row se-form-row--2col">
+            <div class="se-form-field">
+              <label for="h-first">First Name *</label>
+              <input type="text" id="h-first" name="firstName" required />
+            </div>
+            <div class="se-form-field">
+              <label for="h-last">Last Name *</label>
+              <input type="text" id="h-last" name="lastName" required />
+            </div>
+          </div>
+
+          <div class="se-form-row se-form-row--2col">
+            <div class="se-form-field">
+              <label for="h-email">Email *</label>
+              <input type="email" id="h-email" name="email" required />
+            </div>
+            <div class="se-form-field">
+              <label for="h-phone">Phone *</label>
+              <input type="tel" id="h-phone" name="phone" required />
+            </div>
+          </div>
+
+          <div class="se-form-row se-form-row--2col">
+            <div class="se-form-field">
+              <label for="h-city">City *</label>
+              <input type="text" id="h-city" name="city" required placeholder="e.g. Calgary, AB" />
+            </div>
+            <div class="se-form-field">
+              <label for="h-date">Preferred Date Range *</label>
+              <input type="text" id="h-date" name="preferredDate" required placeholder="e.g. Late November, Early December" />
+            </div>
+          </div>
+
+          <div class="se-form-row">
+            <div class="se-form-field">
+              <label for="h-capacity">How many guests can you accommodate? *</label>
+              <select id="h-capacity" name="capacity" required>
+                <option value="">Select…</option>
+                <option value="10-15">10–15 guests</option>
+                <option value="15-25">15–25 guests</option>
+                <option value="25-40">25–40 guests</option>
+                <option value="40+">40+ guests</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="se-form-row">
+            <div class="se-form-field">
+              <label for="h-venue">Venue Details (optional)</label>
+              <textarea id="h-venue" name="venueDetails" rows="2" placeholder="Your home, a parish hall, a community space…"></textarea>
+            </div>
+          </div>
+
+          <div class="se-form-row">
+            <div class="se-form-field">
+              <label for="h-message">Anything else? (optional)</label>
+              <textarea id="h-message" name="message" rows="3" placeholder="Parking info, AV needs, or questions for our team…"></textarea>
+            </div>
+          </div>
+
+          <!-- Honeypot -->
+          <div style="position: absolute; left: -9999px;" aria-hidden="true">
+            <input type="text" name="website" tabindex="-1" autocomplete="off" />
+          </div>
+
+          <!-- Turnstile -->
+          <div class="cf-turnstile" data-sitekey="0x4AAAAAADm6eYaBvIIwZNRm" data-size="compact"></div>
+
+          <button type="submit" class="se-form-submit">Submit Hosting Request</button>
+          <p class="se-form-note">Our team will follow up within 48 hours to coordinate your evening.</p>
+
+          <div class="se-form-status" id="host-status" aria-live="polite"></div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  /* ── Hero ── */
+  .se-hero {
+    position: relative;
+    background: var(--color-navy);
+    background-image: url('https://upload.wikimedia.org/wikipedia/commons/c/c0/Supper_at_Emmaus-Caravaggio_%281601%29.jpg');
+    background-size: cover;
+    background-position: center 30%;
+    overflow: hidden;
+    padding: 100px 0 80px;
+  }
+
+  .se-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(14,51,82,0.6), rgba(14,51,82,0.75));
+    z-index: 1;
+  }
+
+  .se-hero__label {
+    font-family: var(--font-ui);
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--color-gold);
+    margin-bottom: 12px;
+  }
+
+  .se-hero__title {
+    font-family: var(--font-display);
+    font-size: clamp(2.2rem, 5vw, 3.052rem);
+    font-weight: 700;
+    color: var(--color-text-on-dark);
+    margin-bottom: 16px;
+  }
+
+  .se-hero__desc {
+    font-family: var(--font-body);
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: rgba(245, 239, 229, 0.75);
+    max-width: 640px;
+    margin: 0 auto;
+  }
+
+  /* ── What to Expect ── */
+  .se-expect-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  @media (max-width: 768px) {
+    .se-expect-grid { grid-template-columns: 1fr; gap: 32px; }
+  }
+
+  .se-expect-item { text-align: center; }
+
+  .se-expect-item__icon {
+    margin-bottom: 16px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .se-expect-item__title {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--color-navy);
+    margin-bottom: 8px;
+  }
+
+  .se-expect-item__desc {
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    color: var(--color-gray);
+    line-height: 1.6;
+  }
+
+  /* ── Quote ── */
+  .se-quote-section {
+    background: var(--color-navy);
+    padding: 48px 0;
+  }
+
+  .se-quote-block {
+    max-width: 720px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .se-quote-block__text {
+    font-family: var(--font-display);
+    font-size: 1.35rem;
+    font-style: italic;
+    font-weight: 400;
+    line-height: 1.6;
+    color: var(--color-text-on-dark);
+    margin-bottom: 16px;
+  }
+
+  .se-quote-block__attr {
+    font-family: var(--font-ui);
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--color-gold);
+    letter-spacing: 0.04em;
+  }
+
+  /* ── Form Section ── */
+  .se-form-section {
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  .se-form-section__heading {
+    font-size: 1.953rem;
+    margin-bottom: 8px;
+  }
+
+  .se-form-section__sub {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: var(--color-gray);
+    margin-bottom: 32px;
+  }
+
+  /* ── Intent Toggle ── */
+  .se-intent-toggle {
+    display: flex;
+    gap: 0;
+    margin-bottom: 36px;
+    border: 1px solid rgba(90, 90, 110, 0.15);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .se-intent-btn {
+    flex: 1;
+    background: var(--color-linen);
+    border: none;
+    padding: 20px 16px;
+    cursor: pointer;
+    text-align: center;
+    transition: all var(--transition-base);
+    border-right: 1px solid rgba(90, 90, 110, 0.1);
+  }
+
+  .se-intent-btn:last-child { border-right: none; }
+
+  .se-intent-btn--active {
+    background: var(--color-navy);
+  }
+
+  .se-intent-btn__label {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--color-navy);
+    margin-bottom: 4px;
+  }
+
+  .se-intent-btn--active .se-intent-btn__label { color: var(--color-text-on-dark); }
+
+  .se-intent-btn__desc {
+    display: block;
+    font-family: var(--font-ui);
+    font-size: 0.72rem;
+    color: var(--color-gray);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .se-intent-btn--active .se-intent-btn__desc { color: var(--color-gold); }
+
+  /* ── Form Panels ── */
+  .se-form-panel {
+    display: none;
+    position: relative;
+  }
+
+  .se-form-panel--active { display: block; }
+
+  .se-form-row { margin-bottom: 20px; }
+
+  .se-form-row--2col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  @media (max-width: 639px) {
+    .se-form-row--2col { grid-template-columns: 1fr; }
+  }
+
+  .se-form-field label {
+    display: block;
+    font-family: var(--font-ui);
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--color-ink);
+    margin-bottom: 6px;
+  }
+
+  .se-form-field input,
+  .se-form-field select,
+  .se-form-field textarea {
+    width: 100%;
+    font-family: var(--font-ui);
+    font-size: 0.82rem;
+    padding: 10px 12px;
+    border: 1px solid rgba(90, 90, 110, 0.15);
+    border-radius: 3px;
+    background: #fff;
+    color: var(--color-ink);
+    outline: none;
+    transition: border-color var(--transition-fast);
+  }
+
+  .se-form-field input:focus,
+  .se-form-field select:focus,
+  .se-form-field textarea:focus {
+    border-color: var(--color-gold);
+  }
+
+  .se-form-field textarea { resize: vertical; }
+
+  .se-form-submit {
+    display: block;
+    width: 100%;
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--color-text-on-dark);
+    background-color: var(--color-navy);
+    border: none;
+    border-radius: 3px;
+    padding: 14px 32px;
+    cursor: pointer;
+    margin-top: 24px;
+    transition: background-color var(--transition-fast);
+  }
+
+  .se-form-submit:hover { background-color: #0a2740; }
+  .se-form-submit:disabled { opacity: 0.6; cursor: not-allowed; }
+
+  .se-form-note {
+    font-family: var(--font-ui);
+    font-size: 0.78rem;
+    color: var(--color-gray);
+    text-align: center;
+    margin-top: 12px;
+  }
+
+  .se-form-status {
+    text-align: center;
+    margin-top: 16px;
+    font-family: var(--font-ui);
+    font-size: 0.88rem;
+    font-weight: 500;
+  }
+
+  .se-form-status--success { color: var(--color-success); }
+  .se-form-status--error { color: var(--color-error, #9b2c2c); }
+
+  .text-center { text-align: center; }
+</style>
+
+<script is:inline>
+  (function() {
+    // Intent toggle
+    var intentBtns = document.querySelectorAll('.se-intent-btn');
+    var attendForm = document.getElementById('attend-form');
+    var hostForm = document.getElementById('host-form');
+
+    intentBtns.forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        intentBtns.forEach(function(b) { b.classList.remove('se-intent-btn--active'); });
+        btn.classList.add('se-intent-btn--active');
+
+        if (btn.dataset.intent === 'attend') {
+          attendForm.classList.add('se-form-panel--active');
+          hostForm.classList.remove('se-form-panel--active');
+        } else {
+          hostForm.classList.add('se-form-panel--active');
+          attendForm.classList.remove('se-form-panel--active');
+        }
+      });
+    });
+
+    // Form submission
+    function submitForm(form, intent) {
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        var statusEl = document.getElementById(intent + '-status');
+        var submitBtn = form.querySelector('.se-form-submit');
+        var formData = new FormData(form);
+        var data = {};
+
+        formData.forEach(function(value, key) { data[key] = value; });
+        data.intent = intent;
+
+        // Get Turnstile token
+        var turnstileInput = form.querySelector('input[name="cf-turnstile-response"]');
+        if (turnstileInput) {
+          data['cf-turnstile-response'] = turnstileInput.value;
+        }
+
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Submitting…';
+        statusEl.textContent = '';
+        statusEl.className = 'se-form-status';
+
+        fetch('/api/supporter-evening', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        })
+        .then(function(res) { return res.json(); })
+        .then(function(result) {
+          if (result.success) {
+            statusEl.textContent = intent === 'attend'
+              ? 'Thank you! We'll be in touch with details for an evening near you.'
+              : 'Thank you! Our team will follow up within 48 hours to coordinate your evening.';
+            statusEl.className = 'se-form-status se-form-status--success';
+            form.reset();
+            // Re-render Turnstile
+            var widget = form.querySelector('.cf-turnstile');
+            if (widget && window.turnstile) {
+              window.turnstile.reset(widget);
+            }
+          } else {
+            statusEl.textContent = result.error || 'Something went wrong. Please try again.';
+            statusEl.className = 'se-form-status se-form-status--error';
+          }
+          submitBtn.disabled = false;
+          submitBtn.textContent = intent === 'attend' ? 'Register to Attend' : 'Submit Hosting Request';
+        })
+        .catch(function() {
+          statusEl.textContent = 'Something went wrong. Please try again.';
+          statusEl.className = 'se-form-status se-form-status--error';
+          submitBtn.disabled = false;
+          submitBtn.textContent = intent === 'attend' ? 'Register to Attend' : 'Submit Hosting Request';
+        });
+      });
+    }
+
+    submitForm(attendForm, 'attend');
+    submitForm(hostForm, 'host');
+  })();
+</script>
