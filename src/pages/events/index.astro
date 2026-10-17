@@ -66,18 +66,13 @@ const hasArchive = olderPast.length > 0;
 
   <!-- Supporter Evenings Banner -->
   {showSeBanner && (
-  <section class="section" style="padding-block: 0;">
+  <section style="padding-block: 0;">
     <div class="container">
-      <a href={`${base}events/supporter-evenings/`} class="se-banner">
-        <div class="se-banner__img-wrap">
-          <img src={`${base}images/events/supper-at-emmaus-caravaggio.jpg`} alt="Supper at Emmaus by Caravaggio" class="se-banner__img" loading="lazy" />
-        </div>
-        <div class="se-banner__content">
-          <span class="se-banner__label">2026–2027 Season</span>
-          <h3 class="se-banner__title">Supporter Evenings</h3>
-          <p class="se-banner__desc">An evening with Dr. Ryan Topping to learn about the Institute's mission, share in its vision, and explore how you can help bring it forward.</p>
-          <span class="se-banner__cta">Learn More & Register →</span>
-        </div>
+      <a href={`${base}events/supporter-evenings/`} class="se-callout">
+        <p class="se-callout__label">2026–2027 Season</p>
+        <h3 class="se-callout__title">Supporter Evenings</h3>
+        <p class="se-callout__desc">An evening with Dr. Ryan Topping to learn about the Institute’s mission, share in its vision, and explore how you can help bring it forward — over wine and good conversation.</p>
+        <span class="se-callout__cta">Learn More & Register →</span>
       </a>
     </div>
   </section>
@@ -173,70 +168,50 @@ const hasArchive = olderPast.length > 0;
     color: var(--color-crimson);
   }
 
-  /* ── Supporter Evenings Banner ── */
-  .se-banner {
-    display: grid;
-    grid-template-columns: 320px 1fr;
-    background: var(--color-navy);
-    border-radius: 3px;
-    overflow: hidden;
-    text-decoration: none;
-    margin-top: var(--space-section);
-    transition: box-shadow var(--transition-base);
-  }
-
-  .se-banner:hover {
-    box-shadow: 0 8px 32px rgba(14, 51, 82, 0.2);
-  }
-
-  .se-banner__img-wrap {
-    position: relative;
-    overflow: hidden;
-    min-height: 200px;
-  }
-
-  .se-banner__img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center 30%;
+  /* ── Supporter Evenings Callout ── */
+  .se-callout {
     display: block;
+    text-decoration: none;
+    background: var(--color-linen);
+    border-left: 4px solid var(--color-gold);
+    padding: 28px 32px;
+    margin-top: var(--space-section);
+    transition: box-shadow var(--transition-base), border-color var(--transition-base);
   }
 
-  .se-banner__content {
-    padding: 32px 36px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+  .se-callout:hover {
+    box-shadow: 0 4px 20px rgba(14, 51, 82, 0.08);
+    border-left-color: var(--color-crimson);
   }
 
-  .se-banner__label {
+  .se-callout__label {
     font-family: var(--font-ui);
-    font-size: 0.72rem;
+    font-size: 0.68rem;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.12em;
     color: var(--color-gold);
+    margin-bottom: 6px;
+  }
+
+  .se-callout__title {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-navy);
     margin-bottom: 8px;
   }
 
-  .se-banner__title {
-    font-family: var(--font-display);
-    font-size: 1.6rem;
-    font-weight: 700;
-    color: var(--color-text-on-dark);
-    margin-bottom: 10px;
-  }
-
-  .se-banner__desc {
+  .se-callout__desc {
     font-family: var(--font-body);
     font-size: 0.95rem;
     line-height: 1.6;
-    color: rgba(245, 239, 229, 0.7);
-    margin-bottom: 16px;
+    color: var(--color-gray);
+    margin-bottom: 12px;
+    max-width: 640px;
   }
 
-  .se-banner__cta {
+  .se-callout__cta {
     font-family: var(--font-ui);
     font-size: 0.85rem;
     font-weight: 600;
@@ -244,21 +219,7 @@ const hasArchive = olderPast.length > 0;
     transition: color var(--transition-fast);
   }
 
-  .se-banner:hover .se-banner__cta {
-    color: var(--color-parchment);
-  }
-
-  @media (max-width: 768px) {
-    .se-banner {
-      grid-template-columns: 1fr;
-    }
-
-    .se-banner__img-wrap {
-      max-height: 180px;
-    }
-
-    .se-banner__content {
-      padding: 24px 20px;
-    }
+  .se-callout:hover .se-callout__cta {
+    color: var(--color-crimson);
   }
 </style>
