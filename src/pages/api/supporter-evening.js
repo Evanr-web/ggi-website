@@ -38,7 +38,7 @@ export async function POST({ request }) {
     }
 
     // Tags: source:website (35), interest:events (32)
-    // + supporter-evening-attend or supporter-evening-host (create these in AC)
+    // + event:supporter-evening-attend (157) or event:supporter-evening-host (158)
     const tags = ['35', '32'];
 
     // Notes to attach to contact
@@ -48,8 +48,7 @@ export async function POST({ request }) {
       const guestCount = sanitize(body.guestCount, 10);
       const dietary = sanitize(body.dietary, 200);
 
-      // Tag: supporter-evening-attend — SET THIS ID AFTER CREATING IN AC
-      if (body.tagAttend) tags.push(body.tagAttend);
+      tags.push('157'); // event:supporter-evening-attend
 
       noteLines.push(`City: ${city}`);
       noteLines.push(`Guests: ${guestCount}`);
@@ -61,8 +60,7 @@ export async function POST({ request }) {
       const capacity = sanitize(body.capacity, 20);
       const venueDetails = sanitize(body.venueDetails, 1000);
 
-      // Tag: supporter-evening-host — SET THIS ID AFTER CREATING IN AC
-      if (body.tagHost) tags.push(body.tagHost);
+      tags.push('158'); // event:supporter-evening-host
 
       noteLines.push(`City: ${city}`);
       noteLines.push(`Preferred Date: ${preferredDate}`);
