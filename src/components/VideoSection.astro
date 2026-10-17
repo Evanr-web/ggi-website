@@ -29,7 +29,7 @@ function getYouTubeId(url: string): string | null {
 
 function getYouTubeThumbnail(url: string): string {
   const id = getYouTubeId(url);
-  return id ? `https://img.youtube.com/vi/${id}/hqdefault.jpg` : '';
+  return id ? `https://i.ytimg.com/vi/${id}/hqdefault.jpg` : '';
 }
 ---
 
