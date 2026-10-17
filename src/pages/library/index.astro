@@ -88,7 +88,7 @@ const categories = ["All", "News", "Essays", "Videos", "Resources"];
           const isReverse = isFeature && featuredSoFar % 2 === 1;
 
           if (!isFeature) cardCount++;
-          const showBanner = !isFeature && cardCount === 3 && !bannerInserted;
+          const showBanner = !isFeature && cardCount === 4 && !bannerInserted;
           if (showBanner) bannerInserted = true;
 
           return isFeature ? (
@@ -109,7 +109,7 @@ const categories = ["All", "News", "Essays", "Videos", "Resources"];
               <div class="series-banner-wrapper library-card reveal" data-category="video">
                 <a href={`${import.meta.env.BASE_URL}library/reasonable-passions/`} class="series-banner">
                   <div class="series-banner__thumb">
-                    <img src="https://img.youtube.com/vi/9JBc2_HzeZU/hqdefault.jpg" alt="Reasonable Passions series" loading="lazy" />
+                    <img src="https://img.youtube.com/vi/9JBc2_HzeZU/maxresdefault.jpg" alt="Reasonable Passions series" loading="lazy" />
                     <div class="series-banner__play-badge">
                       <svg viewBox="0 0 12 12" fill="currentColor"><path d="M3 1.5l7 4.5-7 4.5V1.5z"/></svg>
                       8 of 12 Episodes
