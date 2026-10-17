@@ -516,16 +516,19 @@ const categories = ["All", "News", "Essays", "Videos", "Resources"];
     position: relative;
     aspect-ratio: 16 / 9;
     overflow: hidden;
+    min-height: 180px;
   }
 
   @media (min-width: 768px) {
     .series-banner__thumb {
       aspect-ratio: auto;
-      min-height: 200px;
+      min-height: 220px;
     }
   }
 
   .series-banner__thumb img {
+    position: absolute;
+    inset: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
