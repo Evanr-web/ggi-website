@@ -10,8 +10,8 @@ export default defineType({
       name: 'seasonLabel',
       title: 'Season Label',
       type: 'string',
-      description: 'e.g. "2026–2027 Season"',
-      initialValue: '2026–2027 Season',
+      description: 'e.g. "2026-2027 Season"',
+      initialValue: '2026-2027 Season',
     }),
     defineField({
       name: 'heroHeading',
@@ -31,7 +31,7 @@ export default defineType({
       title: 'Hero Background Image',
       type: 'image',
       options: { hotspot: true },
-      description: 'Background image for the hero section. Default: Caravaggio's Supper at Emmaus.',
+      description: 'Background image for the hero section. Default: Caravaggio Supper at Emmaus.',
     }),
 
     // What to Expect
@@ -51,7 +51,7 @@ export default defineType({
           },
         },
       ],
-      validation: (Rule: any) => Rule.max(4).warning('3–4 items recommended.'),
+      validation: (Rule: any) => Rule.max(4).warning('3-4 items recommended.'),
     }),
 
     // Quote
@@ -87,7 +87,7 @@ export default defineType({
       name: 'attendConfirmation',
       title: 'Attend Confirmation Message',
       type: 'string',
-      initialValue: 'Thank you! We'll be in touch with details for an evening near you.',
+      initialValue: "Thank you! We'll be in touch with details for an evening near you.",
     }),
     defineField({
       name: 'hostConfirmation',
