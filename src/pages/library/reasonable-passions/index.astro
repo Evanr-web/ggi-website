@@ -1,0 +1,536 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../components/Breadcrumbs.astro';
+
+const base = import.meta.env.BASE_URL;
+
+const episodes = [
+  { num: 1, id: 'gD_09sSJa6U', title: '3 Virtues for Patriots: How to Love a Postmodern Country', desc: 'Ahead of the Alberta Referendum, Dr. Topping examines the crisis of national identity across modern Western democracies and proposes three virtues for loving a country well.' },
+  { num: 2, id: 'CsKbaGNzA2s', title: 'Why God Gave Us Passions (And How to Control Them)', desc: 'Is "following your heart" actually the worst advice you can give someone? Dr. Topping breaks down the classical understanding of the passions.' },
+  { num: 3, id: 'euiP2pZUEvo', title: 'How to Renew a Culture (and Build a Creative Minority)', desc: 'What does it take to build a creative minority capable of renewing a civilization? Dr. Topping draws on history to chart a path forward.' },
+  { num: 4, id: 'BTZPBEUx7U0', title: 'The Lion and the Lamb: A Father\'s Guide to Masculine Anger', desc: 'Is anger always a vice? Dr. Topping explores the classical understanding of righteous anger and its place in fatherhood.' },
+  { num: 5, id: '6IXb6kNsA1A', title: 'Predator, Prey, or Pilgrim', desc: 'Three archetypes for engaging modern culture. Which one are you — and which one should you be?' },
+  { num: 6, id: 'ZSY-HyN1z10', title: 'The Classical Revolution', desc: 'The classical education movement is one of the most promising signs of cultural renewal. Dr. Topping examines its roots and its future.' },
+  { num: 7, id: 'aUDpGCemYNQ', title: 'St. John Henry Newman: The Doctor for Our Time', desc: 'Why Newman\'s vision of the university and the development of doctrine speaks directly to the challenges of our age.' },
+  { num: 8, id: '9JBc2_HzeZU', title: 'The 6 Models for Cultural Renewal', desc: 'We don\'t need a single solution to the cultural crisis; we need an ecosystem. Dr. Topping maps six distinct approaches to renewing culture.' },
+];
+
+const totalEpisodes = 12;
+const trailerId = 'xxOGS7v7KIQ';
+---
+
+<BaseLayout title="Reasonable Passions — Video Series" description="A 12-part video series by Dr. Ryan N.S. Topping exploring the intellectual and social paths to a renewed Catholic culture in North America.">
+
+  <!-- Breadcrumb -->
+  <nav class="breadcrumb-nav">
+    <div class="container">
+      <a href={`${base}`}>Home</a>
+      <span class="sep">/</span>
+      <a href={`${base}library/`}>Library</a>
+      <span class="sep">/</span>
+      <span class="current">Reasonable Passions</span>
+    </div>
+  </nav>
+
+  <!-- Series Hero -->
+  <section class="series-hero">
+    <div class="container series-hero__grid">
+      <div class="series-hero__text">
+        <p class="series-hero__label">Video Series</p>
+        <h1 data-pagefind-weight="10" class="series-hero__title">Reasonable Passions</h1>
+        <p class="series-hero__subtitle">with Dr. Ryan N.S. Topping</p>
+        <p class="series-hero__desc">
+          A 12-part video series exploring the intellectual and social paths to a renewed Catholic culture in North America. From the crisis of secularism to the renewal of the family, Dr. Topping examines what the founders of Western civilization can teach us today.
+        </p>
+        <div class="series-hero__meta">
+          <span class="series-hero__meta-item"><strong>{episodes.length} of {totalEpisodes}</strong> Episodes</span>
+          <span class="series-hero__meta-item"><strong>2026</strong> Season</span>
+          <span class="series-hero__meta-item">Produced by <strong>Gregory the Great Institute</strong></span>
+        </div>
+      </div>
+      <div class="series-hero__trailer">
+        <iframe
+          src={`https://www.youtube.com/embed/${trailerId}`}
+          title="Reasonable Passions — Trailer"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+          loading="lazy"
+        ></iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- Episodes -->
+  <section class="episodes-section section">
+    <div class="container">
+      <div class="episodes-header">
+        <h2>All Episodes</h2>
+        <p>Select an episode to watch. New episodes released regularly.</p>
+      </div>
+
+      <div class="episodes-grid">
+        {episodes.map((ep) => (
+          <article class="episode-card reveal" data-video={ep.id}>
+            <div class="episode-card__video">
+              <img class="episode-card__thumb" src={`https://img.youtube.com/vi/${ep.id}/hqdefault.jpg`} alt="" loading="lazy" />
+              <div class="episode-card__play">
+                <svg viewBox="0 0 68 68" fill="none"><circle cx="34" cy="34" r="33" fill="rgba(255,255,255,0.95)"/><path d="M28 22l18 12-18 12V22z" fill="#0e3352"/></svg>
+              </div>
+            </div>
+            <div class="episode-card__body">
+              <p class="episode-card__number">Episode {ep.num}</p>
+              <h3 class="episode-card__title">{ep.title}</h3>
+              <p class="episode-card__desc">{ep.desc}</p>
+            </div>
+          </article>
+        ))}
+
+        {Array.from({ length: totalEpisodes - episodes.length }, (_, i) => (
+          <article class="episode-card episode-card--placeholder reveal">
+            <div class="episode-card__video">
+              <div class="episode-card__coming-soon">
+                <span>Coming Soon</span>
+              </div>
+            </div>
+            <div class="episode-card__body">
+              <p class="episode-card__number">Episode {episodes.length + i + 1}</p>
+              <h3 class="episode-card__title">Coming Soon</h3>
+              <p class="episode-card__desc">New episodes released regularly. Subscribe to be notified.</p>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Subscribe CTA -->
+  <section class="subscribe-cta section section--linen text-center">
+    <div class="container">
+      <h2>Follow the Series</h2>
+      <p class="subscribe-cta__desc">Subscribe to Dr. Topping's YouTube channel for new episodes and exclusive content from the Gregory the Great Institute.</p>
+      <a href="https://www.youtube.com/@DrRyanTopping?sub_confirmation=1" class="subscribe-cta__btn" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+        Subscribe on YouTube
+      </a>
+    </div>
+  </section>
+
+  <!-- Back to Library -->
+  <div class="back-section text-center">
+    <a href={`${base}library/`} class="back-link">← Back to Library</a>
+  </div>
+
+  <!-- Video Modal -->
+  <div class="video-modal" id="videoModal">
+    <div class="video-modal__inner">
+      <button class="video-modal__close" id="modalClose">✕ Close</button>
+      <iframe id="modalIframe" src="" title="Episode Video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+  </div>
+
+</BaseLayout>
+
+<style>
+  /* Breadcrumb */
+  .breadcrumb-nav {
+    padding: 16px 0;
+    padding-top: 40px;
+    border-bottom: 1px solid rgba(90, 90, 110, 0.1);
+  }
+
+  .breadcrumb-nav a, .breadcrumb-nav span {
+    font-family: var(--font-ui);
+    font-size: 0.78rem;
+    color: var(--color-gray);
+    text-decoration: none;
+  }
+
+  .breadcrumb-nav a:hover { color: var(--color-gold); }
+
+  .breadcrumb-nav .sep {
+    margin: 0 8px;
+    opacity: 0.4;
+  }
+
+  .breadcrumb-nav .current {
+    color: var(--color-navy);
+    font-weight: 500;
+  }
+
+  /* Series Hero */
+  .series-hero {
+    position: relative;
+    background: var(--color-navy);
+    overflow: hidden;
+    padding: 72px 0 56px;
+  }
+
+  .series-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      rgba(15, 18, 30, 0.55) 0%,
+      rgba(15, 18, 30, 0.5) 50%,
+      rgba(15, 18, 30, 0.7) 100%
+    );
+    z-index: 1;
+  }
+
+  .series-hero__grid {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 40px;
+    align-items: center;
+  }
+
+  @media (min-width: 768px) {
+    .series-hero__grid {
+      grid-template-columns: 1.2fr 1fr;
+    }
+  }
+
+  .series-hero__text {
+    color: var(--color-text-on-dark);
+  }
+
+  .series-hero__label {
+    font-family: var(--font-ui);
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--color-gold);
+    margin-bottom: 12px;
+  }
+
+  .series-hero__title {
+    font-family: var(--font-display);
+    font-size: clamp(2.2rem, 5vw, 3.052rem);
+    font-weight: 700;
+    line-height: 1.15;
+    margin-bottom: 8px;
+    color: var(--color-text-on-dark);
+  }
+
+  .series-hero__subtitle {
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    font-style: italic;
+    color: var(--color-gold);
+    margin-bottom: 20px;
+  }
+
+  .series-hero__desc {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    line-height: 1.7;
+    color: rgba(245, 239, 229, 0.75);
+    max-width: 520px;
+    margin-bottom: 24px;
+  }
+
+  .series-hero__meta {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+
+  .series-hero__meta-item {
+    font-family: var(--font-ui);
+    font-size: 0.78rem;
+    color: rgba(245, 239, 229, 0.5);
+  }
+
+  .series-hero__meta-item strong {
+    color: rgba(245, 239, 229, 0.8);
+    font-weight: 600;
+  }
+
+  .series-hero__trailer {
+    border-radius: 3px;
+    overflow: hidden;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+    aspect-ratio: 16 / 9;
+  }
+
+  .series-hero__trailer iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+
+  /* Episodes */
+  .episodes-header {
+    text-align: center;
+    margin-bottom: 48px;
+  }
+
+  .episodes-header h2 {
+    font-size: 1.953rem;
+    margin-bottom: 8px;
+  }
+
+  .episodes-header p {
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    color: var(--color-gray);
+  }
+
+  .episodes-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  @media (min-width: 640px) {
+    .episodes-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (min-width: 1024px) {
+    .episodes-grid { grid-template-columns: repeat(3, 1fr); column-gap: 28px; }
+  }
+
+  .episode-card {
+    background: var(--color-linen);
+    border: 1px solid rgba(90, 90, 110, 0.1);
+    border-radius: 3px;
+    overflow: hidden;
+    transition: border-color var(--transition-base), box-shadow var(--transition-base);
+  }
+
+  .episode-card:hover {
+    border-color: var(--color-gold);
+    box-shadow: 0 4px 20px rgba(14, 51, 82, 0.08);
+  }
+
+  .episode-card__video {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    background: var(--color-navy);
+    cursor: pointer;
+    overflow: hidden;
+  }
+
+  .episode-card__thumb {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--transition-base);
+  }
+
+  .episode-card:hover .episode-card__thumb {
+    transform: scale(1.03);
+  }
+
+  .episode-card__play {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(14, 51, 82, 0.3);
+    transition: background var(--transition-base);
+  }
+
+  .episode-card:hover .episode-card__play {
+    background: rgba(14, 51, 82, 0.15);
+  }
+
+  .episode-card__play svg {
+    width: 56px;
+    height: 56px;
+    filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.3));
+    transition: transform var(--transition-fast);
+  }
+
+  .episode-card:hover .episode-card__play svg {
+    transform: scale(1.1);
+  }
+
+  .episode-card__body {
+    padding: 20px 24px 24px;
+  }
+
+  .episode-card__number {
+    font-family: var(--font-ui);
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-gold);
+    margin-bottom: 6px;
+  }
+
+  .episode-card__title {
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--color-navy);
+    line-height: 1.3;
+    margin-bottom: 8px;
+    transition: color var(--transition-fast);
+  }
+
+  .episode-card:hover .episode-card__title {
+    color: var(--color-gold);
+  }
+
+  .episode-card__desc {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    color: var(--color-gray);
+    line-height: 1.6;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  /* Placeholder episodes */
+  .episode-card--placeholder {
+    opacity: 0.5;
+  }
+
+  .episode-card__coming-soon {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    aspect-ratio: 16 / 9;
+    background: var(--color-navy);
+  }
+
+  .episode-card__coming-soon span {
+    font-family: var(--font-ui);
+    font-size: 0.78rem;
+    color: rgba(245, 239, 229, 0.4);
+  }
+
+  /* Subscribe CTA */
+  .subscribe-cta__desc {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: var(--color-gray);
+    max-width: 500px;
+    margin: 0 auto 24px;
+    line-height: 1.7;
+  }
+
+  .subscribe-cta__btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 600;
+    padding: 14px 32px;
+    background: var(--color-crimson);
+    color: var(--color-text-on-dark);
+    border: none;
+    border-radius: 3px;
+    text-decoration: none;
+    transition: background var(--transition-fast);
+  }
+
+  .subscribe-cta__btn:hover {
+    background: #6e2226;
+    color: var(--color-text-on-dark);
+  }
+
+  .subscribe-cta__btn svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  /* Back link */
+  .back-section {
+    padding: 40px 0;
+  }
+
+  .back-link {
+    font-family: var(--font-ui);
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--color-gold);
+  }
+
+  .back-link:hover { color: var(--color-crimson); }
+
+  /* Video Modal */
+  .video-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: rgba(0, 0, 0, 0.85);
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+
+  .video-modal.active { display: flex; }
+
+  .video-modal__inner {
+    width: 100%;
+    max-width: 900px;
+    aspect-ratio: 16 / 9;
+    position: relative;
+  }
+
+  .video-modal__inner iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: 3px;
+  }
+
+  .video-modal__close {
+    position: absolute;
+    top: -40px;
+    right: 0;
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 1.5rem;
+    cursor: pointer;
+    font-family: var(--font-ui);
+    opacity: 0.7;
+    transition: opacity var(--transition-fast);
+  }
+
+  .video-modal__close:hover { opacity: 1; }
+
+  .section--linen { background-color: var(--color-linen); }
+</style>
+
+<script>
+  const modal = document.getElementById('videoModal');
+  const iframe = document.getElementById('modalIframe');
+  const closeBtn = document.getElementById('modalClose');
+
+  document.querySelectorAll('.episode-card[data-video]').forEach(card => {
+    card.querySelector('.episode-card__video')?.addEventListener('click', () => {
+      const vid = card.getAttribute('data-video');
+      if (iframe && modal && vid) {
+        iframe.setAttribute('src', `https://www.youtube.com/embed/${vid}?autoplay=1`);
+        modal.classList.add('active');
+      }
+    });
+  });
+
+  function closeModal() {
+    if (modal && iframe) {
+      modal.classList.remove('active');
+      iframe.setAttribute('src', '');
+    }
+  }
+
+  closeBtn?.addEventListener('click', closeModal);
+  modal?.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
+</script>
