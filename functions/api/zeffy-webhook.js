@@ -115,8 +115,12 @@ export function isDonation(payment) {
   // Event ticket purchases are never donations
   if ((payment.campaign_category || '').toLowerCase() === 'event') return false;
 
-  // Magnalia journal purchases and related commerce items are not donations
+  // "Magnalia Patron" is a charitable donation (monthly giving to support the journal)
+  // — must be checked BEFORE the generic "magnalia" keyword filter below
   const desc = (payment.description || '').toLowerCase();
+  if (desc.includes('magnalia patron')) return true;
+
+  // Magnalia journal purchases and related commerce items are not donations
   const nonDonationKeywords = [
     'magnalia',
     'single issue',

@@ -109,7 +109,12 @@ function matchCampaignTag(description) {
 // ── Donation Classification ──
 function isDonation(payment) {
   if ((payment.campaign_category || '').toLowerCase() === 'event') return false;
+
+  // "Magnalia Patron" is a charitable donation (monthly giving to support the journal)
+  // — must be checked BEFORE the generic "magnalia" keyword filter below
   const desc = (payment.description || '').toLowerCase();
+  if (desc.includes('magnalia patron')) return true;
+
   const nonDonationKeywords = ['magnalia', 'single issue', 'bulk order', 'annual subscription', 'journal'];
   for (const keyword of nonDonationKeywords) {
     if (desc.includes(keyword)) return false;
