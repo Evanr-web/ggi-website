@@ -4,6 +4,11 @@
  * Province → City cascade and interest → host count toggle
  * are handled by the parent page's script.
  */
+interface Props {
+  studyTitle?: string;
+  studyTag?: string;
+}
+const { studyTitle, studyTag } = Astro.props;
 ---
 
 <form class="bs-form" data-ac-endpoint="/api/book-study" data-ac-success="You're registered! Check your inbox for Book Study details." method="POST">
@@ -71,6 +76,8 @@
       <span>I'd also like to receive the Institute's <strong>newsletter</strong> — news, events, and program updates</span>
     </label>
   </div>
+  {studyTitle && <input type="hidden" name="studyTitle" value={studyTitle} />}
+  {studyTag && <input type="hidden" name="studyTag" value={studyTag} />}
   <div class="cf-turnstile" data-sitekey="0x4AAAAAADm6eYaBvIIwZNRm" data-size="compact"></div>
   <button type="submit" class="bs-form__submit">Get Connected</button>
   <p class="bs-form__note">We'll be in touch within a few days. Your information is never shared publicly.</p>

@@ -1,5 +1,5 @@
 // POST /api/event-interest — Event "Get Notified" / interest signups
-import { addContact, jsonResponse, corsHeaders, isValidEmail, sanitize, checkHoneypot, logError, verifyTurnstile } from './_shared.js';
+import { addContact, resolveTagByName, jsonResponse, corsHeaders, isValidEmail, sanitize, checkHoneypot, logError, verifyTurnstile } from './_shared.js';
 
 export async function onRequestOptions(context) {
   return new Response(null, { headers: corsHeaders(context.request.headers.get('Origin')) });
@@ -50,6 +50,14 @@ export async function onRequestPost(context) {
       }
     }
 
+    // Per-event notify tag (e.g. "interest:book-study-beauty") — applied as a
+    // free-form AC tag so the team can segment by specific event interest
+    const notifyTag = sanitize(body.notifyTag, 100);
+    // Also detect book-study notify tags and add the general book-study interest tag
+    if (notifyTag && notifyTag.startsWith('interest:book-study')) {
+      tags.push('54');  // interest:book-study
+    }
+
     const contactId = await addContact(context.env, {
       email,
       firstName,
@@ -69,6 +77,25 @@ export async function onRequestPost(context) {
         signup_page: body.signup_page,
       },
     });
+
+    // Apply per-event notifyTag (e.g. "interest:book-study-beauty") as a named AC tag
+    if (notifyTag && contactId) {
+      try {
+        const tagId = await resolveTagByName(context.env, notifyTag);
+        if (tagId) {
+          const AC_URL = context.env.AC_API_URL;
+          const AC_KEY = context.env.AC_API_KEY;
+          await fetch(`${AC_URL}/api/3/contactTags`, {
+            method: 'POST',
+            headers: { 'Api-Token': AC_KEY, 'Content-Type': 'application/json' },
+            body: JSON.stringify({ contactTag: { contact: contactId, tag: tagId } }),
+          });
+        }
+      } catch (tagErr) {
+        logError('event-interest:notifyTag', tagErr);
+        // Non-fatal — contact is already created
+      }
+    }
 
     return jsonResponse({ success: true, contactId }, 200, origin);
   } catch (err) {

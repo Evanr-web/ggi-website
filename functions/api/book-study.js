@@ -1,5 +1,5 @@
 // POST /api/book-study — Inklings Club / Book Study signup
-import { addContact, jsonResponse, corsHeaders, isValidEmail, sanitize, checkHoneypot, logError, verifyTurnstile } from './_shared.js';
+import { addContact, resolveTagByName, jsonResponse, corsHeaders, isValidEmail, sanitize, checkHoneypot, logError, verifyTurnstile } from './_shared.js';
 
 export async function onRequestOptions(context) {
   return new Response(null, { headers: corsHeaders(context.request.headers.get('Origin')) });
@@ -53,7 +53,9 @@ export async function onRequestPost(context) {
       tags.push('62');  // role:book-study-leader
     }
 
-    // Subscribe to Institute Events list (book studies are events)
+    const studyTag = sanitize(body.studyTag, 100);
+
+    // Subscribe to Book Studies list
     const contactId = await addContact(context.env, {
       email,
       firstName,
@@ -73,6 +75,25 @@ export async function onRequestPost(context) {
         signup_page: body.signup_page,
       },
     });
+
+    // Apply per-study tag (e.g. "interest:book-study-beauty") so team can
+    // segment by specific book study
+    if (studyTag && contactId) {
+      try {
+        const tagId = await resolveTagByName(context.env, studyTag);
+        if (tagId) {
+          const AC_URL = context.env.AC_API_URL;
+          const AC_KEY = context.env.AC_API_KEY;
+          await fetch(`${AC_URL}/api/3/contactTags`, {
+            method: 'POST',
+            headers: { 'Api-Token': AC_KEY, 'Content-Type': 'application/json' },
+            body: JSON.stringify({ contactTag: { contact: contactId, tag: tagId } }),
+          });
+        }
+      } catch (tagErr) {
+        logError('book-study:studyTag', tagErr);
+      }
+    }
 
     // Also subscribe to Newsletter if they opted in
     if (wantsMagnalia && contactId) {

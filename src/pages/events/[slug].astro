@@ -124,7 +124,7 @@ if (isPast) {
     <p>Details coming soon.</p>
   )}
 
-  {event.registrationStatus && event.registrationStatus !== 'closed' && (
+  {!isBookStudy && event.registrationStatus && event.registrationStatus !== 'closed' && (
     <EventRegistration
       status={event.registrationStatus}
       zeffyFormUrl={normalizeZeffyUrl(event.zeffyFormUrl)}
@@ -158,7 +158,7 @@ if (isPast) {
             Tell us a bit about yourself and we'll connect you with a group — or help you start one.
           </p>
         </div>
-        <BookStudyForm />
+        <BookStudyForm studyTitle={event.title} studyTag={event.notifyTag} />
       </div>
     </>
   )}

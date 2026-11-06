@@ -123,6 +123,39 @@ export async function addContact(env, { email, firstName, lastName, listId, tags
   return contactId;
 }
 
+/**
+ * Resolve a tag name to its AC tag ID, creating the tag if it doesn't exist.
+ * @param {object} env - Environment with AC_API_URL and AC_API_KEY
+ * @param {string} tagName - e.g. "interest:book-study-beauty"
+ * @returns {Promise<string|null>} tag ID or null on failure
+ */
+export async function resolveTagByName(env, tagName) {
+  const AC_URL = env.AC_API_URL;
+  const AC_KEY = env.AC_API_KEY;
+  if (!AC_URL || !AC_KEY || !tagName) return null;
+
+  try {
+    // Search for existing tag
+    const searchRes = await fetch(`${AC_URL}/api/3/tags?search=${encodeURIComponent(tagName)}`, {
+      headers: { 'Api-Token': AC_KEY },
+    });
+    const searchData = await searchRes.json();
+    const match = (searchData.tags || []).find(t => t.tag === tagName);
+    if (match) return match.id;
+
+    // Create new tag
+    const createRes = await fetch(`${AC_URL}/api/3/tags`, {
+      method: 'POST',
+      headers: { 'Api-Token': AC_KEY, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ tag: { tag: tagName, tagType: 'contact', description: 'Auto-created by event interest form' } }),
+    });
+    const createData = await createRes.json();
+    return createData?.tag?.id || null;
+  } catch {
+    return null;
+  }
+}
+
 const ALLOWED_ORIGINS = [
   'https://gregorythegreat.ca',
   'https://www.gregorythegreat.ca',

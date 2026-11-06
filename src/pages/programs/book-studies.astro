@@ -21,23 +21,36 @@ const testimonials = program?.testimonials || [];
 const introLabel = program?.introLabel || 'What Are Inklings Clubs?';
 const introHeading = program?.introHeading || 'Read Great Books. Build Community.';
 const introDetails = program?.introDetails || [
-  { title: 'Three studies per year', subtitle: 'February · May · September' },
+  { title: 'Four studies per year', subtitle: 'January · March · May · September' },
   { title: 'Always free', subtitle: 'No cost to join, ever' },
   { title: 'Local groups + online', subtitle: 'Join in your city or from home' },
   { title: 'Study guides provided', subtitle: 'Written by GGI Fellows' },
 ];
-const readingListLabel = program?.readingListLabel || '2026 Reading List';
+const readingListLabel = program?.readingListLabel || '2027 Reading List';
 const readingListHeading = program?.readingListHeading || "This Year's Books";
+const readingListTheme = program?.readingListTheme || 'Reclaiming Beauty';
 
 // Fetch book studies from Sanity (current year)
+// Show the most relevant year's studies:
+// 1. Current year if it has upcoming or current studies
+// 2. Next year if current year is all completed or empty
+// 3. Current year as fallback (even if completed)
 const currentYear = new Date().getFullYear();
-const sanityStudies = await getBookStudies(currentYear);
+let sanityStudies = await getBookStudies(currentYear);
+const hasActiveStudies = sanityStudies?.some((s: any) => s.status === 'upcoming' || s.status === 'current');
+if (!hasActiveStudies) {
+  const nextYearStudies = await getBookStudies(currentYear + 1);
+  if (nextYearStudies?.length) {
+    sanityStudies = nextYearStudies;
+  }
+}
 
 // Fallback to hardcoded data if Sanity is empty
 const fallbackStudies = [
-  { title: 'Searching for and Maintaining Peace', author: 'Fr. Jacques Philippe', description: 'A beloved guide to interior peace - short, profound, and one of the most widely read spiritual books of the past generation. How to find and keep peace of heart in the midst of life\'s trials.', month: 'February', year: 2026, status: 'completed', eventPage: '/events/book-study-feb-2026/' },
-  { title: 'Animal Farm', author: 'George Orwell', description: 'Orwell\'s classic political fable, read through the lens of Catholic social teaching. What does the barnyard revolution reveal about power, ideology, and the dignity of the human person?', month: 'May', year: 2026, status: 'current', eventPage: '/events/book-study-may-2026/' },
-  { title: 'Leisure: The Basis of Culture', author: 'Josef Pieper', description: 'Pieper\'s masterwork on why contemplation - not productivity - is the foundation of civilization. Prepares readers for the October Renewing Culture Conference, which takes up Pieper\'s vision in depth.', month: 'September', year: 2026, status: 'upcoming', eventPage: '/events/book-study-sep-2026/' },
+  { title: 'Beauty: A Very Short Introduction', author: 'Roger Scruton', description: 'What is beauty, and why does it matter? Roger Scruton makes the case that beauty is a real and universal value — as vital to human life as truth and goodness. A concise, compelling invitation to see the world differently.', month: 'January', year: 2027, status: 'upcoming', coverImage: `${base}images/books/beauty-scruton.jpg`, eventPage: '/events/book-study-beauty/' },
+  { title: 'Poustinia', author: 'Catherine Doherty', description: 'A classic of Christian spirituality from the foundress of Madonna House. Catherine Doherty draws on her Russian heritage to call readers into the desert of silence, solitude, and prayer — a poustinia — where God speaks to the listening heart.', month: 'March', year: 2027, status: 'upcoming', coverImage: `${base}images/books/poustinia-doherty.jpg`, eventPage: '/events/book-study-poustinia/' },
+  { title: 'The Great Divorce', author: 'C.S. Lewis', description: 'C.S. Lewis\'s brilliant allegory of a bus ride from Hell to Heaven. Through a series of unforgettable encounters, Lewis illuminates the choices that separate us from God — and the radical nature of the joy that awaits those who surrender.', month: 'May', year: 2027, status: 'upcoming', coverImage: `${base}images/books/great-divorce-lewis.jpg`, eventPage: '/events/book-study-great-divorce/' },
+  { title: 'The Spirit of the Liturgy', author: 'Joseph Cardinal Ratzinger', description: 'Joseph Ratzinger\'s masterwork on the meaning and beauty of Christian worship. Written before his papacy, this book explores how the liturgy orients the human person toward God — essential reading in preparation for our conference on reclaiming beauty.', month: 'September', year: 2027, status: 'upcoming', coverImage: `${base}images/books/spirit-liturgy-ratzinger.jpg`, eventPage: '/events/book-study-spirit-of-the-liturgy/' },
 ];
 const studies = sanityStudies?.length > 0 ? sanityStudies : fallbackStudies;
 
@@ -81,7 +94,7 @@ const sanityGroups = await getReadingGroups();
           <>
             <p>
               Named after the famous Oxford circle of C.S. Lewis, J.R.R. Tolkien, and Charles Williams,
-              Inklings Clubs are free small-group reading communities that meet across Canada. Three times
+              Inklings Clubs are free small-group reading communities that meet across Canada. Four times
               a year, the Institute selects a book that deepens Catholic intellectual life - and invites
               everyone to read together.
             </p>
@@ -113,6 +126,7 @@ const sanityGroups = await getReadingGroups();
       <div class="section-header">
         <p class="label text-gold">{readingListLabel}</p>
         <h2>{readingListHeading}</h2>
+        {readingListTheme && <p class="subtitle text-gold-muted"><em>{readingListTheme}</em></p>}
       </div>
 
       <div class="bs-books">
@@ -126,14 +140,25 @@ const sanityGroups = await getReadingGroups();
           const isNextUpcoming = !hasCurrentStudy && study.status === 'upcoming' && studies.filter((s: any) => s.status === 'upcoming').indexOf(study) === 0;
           const btnText = isCurrent ? 'Join This Study' : isCompleted ? 'View Study' : isNextUpcoming ? 'Find Next Book Study' : 'Preview Study';
           const eventUrl = study.eventPage?.startsWith('/') ? `${base}${study.eventPage.slice(1)}` : study.eventPage;
+          const coverSrc = study.coverImage;
+          const ctaUrl = eventUrl || '#register';
+          const ctaText = eventUrl ? btnText : (isCurrent ? 'Join This Study' : 'Register Interest');
           return (
             <div class={`bs-book ${isCurrent ? 'bs-book--current' : ''}`}>
-              <div class={`bs-book__status ${statusClass}`}>{statusLabel}</div>
-              <h3>{study.title}</h3>
-              <p class="bs-book__author">{study.author}</p>
-              <p class="bs-book__date">{study.month} {study.year}</p>
-              <p class="bs-book__desc">{study.description}</p>
-              {eventUrl && <Button href={eventUrl} variant={btnVariant} size="small">{btnText}</Button>}
+              {coverSrc && (
+                <div class="bs-book__cover">
+                  <img src={coverSrc} alt={`Cover of ${study.title} by ${study.author}`} loading="lazy" />
+                </div>
+              )}
+              <div class="bs-book__content">
+                <div class={`bs-book__status ${statusClass}`}>{statusLabel}</div>
+                <h3>{study.title}</h3>
+                <p class="bs-book__author">{study.author}</p>
+                <p class="bs-book__desc">{study.description}</p>
+                <div class="bs-book__cta">
+                  <Button href={ctaUrl} variant={btnVariant} size="small">{ctaText}</Button>
+                </div>
+              </div>
             </div>
           );
         })}
@@ -498,17 +523,56 @@ const sanityGroups = await getReadingGroups();
   /* Books */
   .bs-books {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 28px;
   }
 
   .bs-book {
     background: white;
     border: 1px solid rgba(90, 90, 110, 0.1);
     border-radius: 3px;
-    padding: 28px 24px;
+    padding: 0;
     position: relative;
+    display: flex;
+    flex-direction: row;
+    overflow: hidden;
     transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+  }
+
+  .bs-book__cover {
+    flex: 0 0 180px;
+    background: var(--color-navy);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px 16px;
+  }
+
+  .bs-book__cover img {
+    max-height: 220px;
+    max-width: 140px;
+    width: auto;
+    border-radius: 2px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+  }
+
+  .bs-book__content {
+    flex: 1;
+    padding: 28px 28px 24px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .bs-book__cta {
+    margin-top: auto;
+    padding-top: 12px;
+  }
+
+  .text-gold-muted {
+    color: var(--color-gold);
+    opacity: 0.85;
+    font-size: 1.1rem;
+    margin-top: 4px;
   }
 
   .bs-book:hover {
@@ -632,6 +696,9 @@ const sanityGroups = await getReadingGroups();
   @media (max-width: 768px) {
     .bs-intro { grid-template-columns: 1fr; gap: 32px; }
     .bs-books { grid-template-columns: 1fr; }
+    .bs-book { flex-direction: column; }
+    .bs-book__cover { flex: none; padding: 20px; }
+    .bs-book__cover img { max-height: 200px; }
     .bs-steps { grid-template-columns: 1fr 1fr; gap: 28px; }
   }
 
