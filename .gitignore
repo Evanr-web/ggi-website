@@ -36,3 +36,7 @@ output/
 # Glass Break credentials — NEVER commit
 docs/GLASS-BREAK-CREDENTIALS.md
 GLASS-BREAK-CREDENTIALS.*
+
+# OpenClaw workspace files (should not be in site repo)
+DREAMS.md
+memory/
