@@ -94,6 +94,13 @@ export default defineType({
 
     // === Landing Page Sections ===
     defineField({
+      name: 'heroSubtitle',
+      title: 'Hero Subtitle',
+      type: 'string',
+      description: 'Text shown below the hero title, e.g. "Year-Round · Across Canada". Leave blank to hide.',
+      group: 'landing',
+    }),
+    defineField({
       name: 'introLabel',
       title: 'Intro Section Label',
       type: 'string',

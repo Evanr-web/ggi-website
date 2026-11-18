@@ -20,9 +20,9 @@ const testimonials = program?.testimonials || [];
 // Landing page CMS fields with fallbacks
 const introLabel = program?.introLabel || 'What Are Inklings Clubs?';
 const introHeading = program?.introHeading || 'Read Great Books. Build Community.';
+const heroSubtitle = program?.heroSubtitle || 'Year-Round · Across Canada';
 const introDetails = program?.introDetails || [
   { title: 'Four studies per year', subtitle: 'January · March · May · September' },
-  { title: 'Always free', subtitle: 'No cost to join, ever' },
   { title: 'Local groups + online', subtitle: 'Join in your city or from home' },
   { title: 'Study guides provided', subtitle: 'Written by GGI Fellows' },
 ];
@@ -78,7 +78,7 @@ const sanityGroups = await getReadingGroups();
       <h1 data-pagefind-weight="10" class="inklings-hero__title">Book Studies</h1>
       <p class="inklings-brand__tagline">Read Well · Think Deeply · Build Community</p>
       <div class="inklings-hero__rule"></div>
-      <p class="inklings-hero__subtitle">Free · Year-Round · Across Canada</p>
+      <p class="inklings-hero__subtitle">{heroSubtitle}</p>
     </div>
   </section>
 

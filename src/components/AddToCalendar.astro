@@ -11,7 +11,9 @@ const { title, date, endDate, location, description } = Astro.props;
 
 // Extract date-only string (YYYY-MM-DD) in Mountain Time from ISO datetime or date-only input
 const toMTDate = (d: string) => {
+  if (!d) return '19700101';
   const dt = d.includes('T') ? new Date(d) : new Date(d + 'T12:00:00');
+  if (isNaN(dt.getTime())) return '19700101';
   return dt.toLocaleDateString('en-CA', { year: 'numeric', month: '2-digit', day: '2-digit', timeZone: 'America/Edmonton' });
 };
 

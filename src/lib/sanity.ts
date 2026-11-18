@@ -335,6 +335,7 @@ export async function getProgram(slug: string) {
     highlights,
     schedule,
     whoItsFor,
+    heroSubtitle,
     introLabel,
     introHeading,
     introText,
