@@ -76,9 +76,13 @@ const formatDate = (d: string) => {
         { label: title },
       ]} />
       <div class="event-detail__header">
-        {!inklingsHero && <span class="label text-gold">{tag}</span>}
+        <span class="label text-gold">{inklingsHero ? 'Book Study' : tag}</span>
         {past && <span class="event-detail__past-badge">Past Event</span>}
-        {!inklingsHero && <h1 data-pagefind-weight="10" data-pagefind-meta="title">{title}</h1>}
+        {inklingsHero ? (
+          <h2 class="event-detail__title">{title}</h2>
+        ) : (
+          <h1 data-pagefind-weight="10" data-pagefind-meta="title">{title}</h1>
+        )}
       </div>
 
       <div class="event-detail__meta">
@@ -280,7 +284,8 @@ const formatDate = (d: string) => {
     margin-bottom: 28px;
   }
 
-  .event-detail__header h1 {
+  .event-detail__header h1,
+  .event-detail__header h2.event-detail__title {
     font-family: var(--font-display);
     font-size: 2.2rem;
     color: var(--color-navy);
