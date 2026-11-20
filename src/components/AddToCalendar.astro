@@ -11,9 +11,9 @@ const { title, date, endDate, location, description } = Astro.props;
 
 // Extract date-only string (YYYY-MM-DD) in Mountain Time from ISO datetime or date-only input
 const toMTDate = (d: string) => {
-  if (!d) return '19700101';
+  if (!d) return '1970-01-01';
   const dt = d.includes('T') ? new Date(d) : new Date(d + 'T12:00:00');
-  if (isNaN(dt.getTime())) return '19700101';
+  if (isNaN(dt.getTime())) return '1970-01-01';
   return dt.toLocaleDateString('en-CA', { year: 'numeric', month: '2-digit', day: '2-digit', timeZone: 'America/Edmonton' });
 };
 
@@ -24,8 +24,10 @@ const finishDate = endDate ? fmtIcs(endDate) : startDate;
 
 // For all-day events, end date in .ics needs to be the day AFTER
 const endPlusOne = (d: string) => {
+  if (!d) return '19700102';
   const mtDate = toMTDate(d);
   const dt = new Date(mtDate + 'T12:00:00');
+  if (isNaN(dt.getTime())) return '19700102';
   dt.setDate(dt.getDate() + 1);
   return dt.toISOString().slice(0, 10).replace(/-/g, '');
 };

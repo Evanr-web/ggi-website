@@ -35,11 +35,12 @@ const { title, date, endDate, location, locationAddress, mapLat, mapLng, showMap
 const base = import.meta.env.BASE_URL;
 
 const formatDate = (d: string) => {
-  if (!d) return '';
+  if (!d) return 'Date TBA';
   // For full ISO datetimes ("2026-08-01T14:00:00.000Z"), parse directly so
   // timezone conversion gives the correct local date.
   // For date-only strings ("2026-10-02"), anchor at noon to avoid date drift.
   const dt = d.includes('T') ? new Date(d) : new Date(d + 'T12:00:00');
+  if (isNaN(dt.getTime())) return 'Date TBA';
   if (isNaN(dt.getTime())) return d; // fallback to raw string
   // Pin to Mountain Time so dates display correctly regardless of where
   // the build runs (Cloudflare servers are UTC, local Mac is MDT).
@@ -96,7 +97,7 @@ const formatDate = (d: string) => {
           )}
         </div>
         <div class="event-detail__meta-toolbar">
-          <AddToCalendar title={title} date={date} endDate={endDate} location={location} />
+          {date && <AddToCalendar title={title} date={date} endDate={endDate} location={location} />}
           <ShareBar title={title} compact />
         </div>
       </div>
