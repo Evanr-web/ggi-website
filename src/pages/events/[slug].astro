@@ -108,10 +108,10 @@ if (isPast) {
   locationAddress={event.locationAddress}
   showMap={!!event.locationAddress}
   cost={event.cost}
-  image={imageUrl(event.headerImage, dims[0], dims[1])}
-  imageAlt={event.title}
-  heroSize={heroSize}
-  artFilter={!!event.artFilter}
+  image={isBookStudy ? '/images/art/rembrandt-scholar-study.jpg' : imageUrl(event.headerImage, dims[0], dims[1])}
+  imageAlt={isBookStudy ? 'Inklings Book Studies' : event.title}
+  heroSize={isBookStudy ? 'standard' : heroSize}
+  artFilter={isBookStudy ? true : !!event.artFilter}
   tag={tag}
   past={isPast}
   ctaText={ctaText || undefined}
