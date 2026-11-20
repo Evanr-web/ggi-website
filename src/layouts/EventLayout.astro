@@ -29,9 +29,10 @@ interface Props {
   imagePosition?: string;
   description?: string;
   ogImage?: string;
+  inklingsHero?: boolean;
 }
 
-const { title, date, endDate, location, locationAddress, mapLat, mapLng, showMap = false, cost, image, imageAlt = '', tag, past = false, ctaText, ctaHref, ctaStatus = 'active', artFilter = false, heroSize = 'standard', imagePosition, description, ogImage } = Astro.props;
+const { title, date, endDate, location, locationAddress, mapLat, mapLng, showMap = false, cost, image, imageAlt = '', tag, past = false, ctaText, ctaHref, ctaStatus = 'active', artFilter = false, heroSize = 'standard', imagePosition, description, ogImage, inklingsHero = false } = Astro.props;
 const base = import.meta.env.BASE_URL;
 
 const formatDate = (d: string) => {
@@ -49,7 +50,19 @@ const formatDate = (d: string) => {
 ---
 
 <BaseLayout title={`${title} — Gregory the Great Institute`} description={description} ogImage={ogImage}>
-  {image && (
+  {inklingsHero && image ? (
+    <section class="inklings-hero section--dark">
+      <div class="inklings-hero__bg" style={`background-image: url(${image.startsWith('/') ? `${base}${image.slice(1)}` : image})`}></div>
+      <div class="inklings-hero__overlay"></div>
+      <div class="inklings-hero__content container">
+        <p class="inklings-brand__mark">☙ Inklings ❧</p>
+        <h1 class="inklings-hero__title" data-pagefind-weight="10" data-pagefind-meta="title">{title}</h1>
+        <p class="inklings-brand__tagline">Read Well · Think Deeply · Build Community</p>
+        <div class="inklings-hero__rule"></div>
+        <p class="inklings-hero__subtitle">Book Study</p>
+      </div>
+    </section>
+  ) : image && (
     <div class={`event-hero event-hero--${heroSize}`}>
       <img src={image.startsWith('/') ? `${base}${image.slice(1)}` : image} alt={imageAlt} class={`event-hero__img${artFilter ? ' art-filter' : ''}`} />
     </div>
@@ -63,9 +76,9 @@ const formatDate = (d: string) => {
         { label: title },
       ]} />
       <div class="event-detail__header">
-        <span class="label text-gold">{tag}</span>
+        {!inklingsHero && <span class="label text-gold">{tag}</span>}
         {past && <span class="event-detail__past-badge">Past Event</span>}
-        <h1 data-pagefind-weight="10" data-pagefind-meta="title">{title}</h1>
+        {!inklingsHero && <h1 data-pagefind-weight="10" data-pagefind-meta="title">{title}</h1>}
       </div>
 
       <div class="event-detail__meta">
@@ -153,6 +166,83 @@ const formatDate = (d: string) => {
 
 <style>
   /* Hero banner — standard (default) */
+  /* Inklings-style hero for book study events */
+  .inklings-hero {
+    position: relative;
+    overflow: hidden;
+    min-height: 360px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .inklings-hero__bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center 30%;
+  }
+
+  .inklings-hero__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      rgba(15, 12, 8, 0.75) 0%,
+      rgba(15, 12, 8, 0.65) 50%,
+      rgba(15, 12, 8, 0.8) 100%
+    );
+  }
+
+  .inklings-hero__content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    max-width: 600px;
+    margin-inline: auto;
+    padding-block: 72px 64px;
+  }
+
+  .inklings-brand__mark {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    color: var(--color-gold);
+    letter-spacing: 0.15em;
+    margin-bottom: 12px;
+  }
+
+  .inklings-hero__title {
+    font-family: var(--font-display);
+    font-size: 2.8rem;
+    color: #f5efe5;
+    letter-spacing: 0.02em;
+    margin-bottom: 8px;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
+  }
+
+  .inklings-brand__tagline {
+    font-family: var(--font-ui);
+    font-size: 0.8rem;
+    color: rgba(245, 239, 229, 0.6);
+    letter-spacing: 0.08em;
+  }
+
+  .inklings-hero__rule {
+    width: 60px;
+    height: 1px;
+    background: var(--color-gold);
+    margin: 16px auto;
+    opacity: 0.6;
+  }
+
+  .inklings-hero__subtitle {
+    font-family: var(--font-ui);
+    font-size: 0.85rem;
+    color: rgba(245, 239, 229, 0.5);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
   .event-hero {
     width: 100%;
     height: 320px;
